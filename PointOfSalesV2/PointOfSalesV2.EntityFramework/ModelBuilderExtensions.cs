@@ -23,7 +23,9 @@ namespace PointOfSalesV2.EntityFramework
                     Active = true,
                     CreatedBy = new Guid("8A2FDD4A-E702-482C-F181-08D7015E3521"),
                     CreatedDate = DateTime.Now,
-                    CreatedByName = "admin"
+                    CreatedByName = "admin",
+                    TranslationData = $"[{(char)123}{(char)34}ES{(char)34}:[{(char)123}{(char)34}PropertyName{(char)34}:{(char)34}Name{(char)34},{(char)34}Value{(char)34}:{(char)34}{operation.ToString()}{(char)34}{(char)125}]{(char)125}," +
+                    $"{(char)123}{(char)34}EN{(char)34}:[{(char)123}{(char)34}PropertyName{(char)34}:{(char)34}Name{(char)34},{(char)34}Value{(char)34}:{(char)34}{operation.ToString()}{(char)34}{(char)125}]{(char)125}]"
                 });
             }
             var paymentTypes = new List<PaymentType>();
@@ -38,7 +40,9 @@ namespace PointOfSalesV2.EntityFramework
                     Code = (short)paymentType,
                     CreatedBy = new Guid("8A2FDD4A-E702-482C-F181-08D7015E3521"),
                     CreatedDate = DateTime.Now,
-                    CreatedByName = "admin"
+                    CreatedByName = "admin",
+                    TranslationData = $"[{(char)123}{(char)34}ES{(char)34}:[{(char)123}{(char)34}PropertyName{(char)34}:{(char)34}Name{(char)34},{(char)34}Value{(char)34}:{(char)34}{paymentType.ToString()}{(char)34}{(char)125}]{(char)125}," +
+                    $"{(char)123}{(char)34}EN{(char)34}:[{(char)123}{(char)34}PropertyName{(char)34}:{(char)34}Name{(char)34},{(char)34}Value{(char)34}:{(char)34}{paymentType.ToString()}{(char)34}{(char)125}]{(char)125}]"
                 });
             }
 
@@ -54,7 +58,9 @@ namespace PointOfSalesV2.EntityFramework
                     Code = (short)sequence,
                     CreatedBy = new Guid("8A2FDD4A-E702-482C-F181-08D7015E3521"),
                     CreatedDate = DateTime.Now,
-                    CreatedByName = "admin"
+                    CreatedByName = "admin",
+                    TranslationData = $"[{(char)123}{(char)34}ES{(char)34}:[{(char)123}{(char)34}PropertyName{(char)34}:{(char)34}Name{(char)34},{(char)34}Value{(char)34}:{(char)34}{sequence.ToString()}{(char)34}{(char)125}]{(char)125}," +
+                    $"{(char)123}{(char)34}EN{(char)34}:[{(char)123}{(char)34}PropertyName{(char)34}:{(char)34}Name{(char)34},{(char)34}Value{(char)34}:{(char)34}{sequence.ToString()}{(char)34}{(char)125}]{(char)125}]"
                 });
             }
             var movementTypes = new List<MovementType>();
@@ -68,7 +74,9 @@ namespace PointOfSalesV2.EntityFramework
                     Code = (short)movement,
                     CreatedBy = new Guid("8A2FDD4A-E702-482C-F181-08D7015E3521"),
                     CreatedDate = DateTime.Now,
-                    CreatedByName = "admin"
+                    CreatedByName = "admin",
+                    TranslationData = $"[{(char)123}{(char)34}ES{(char)34}:[{(char)123}{(char)34}PropertyName{(char)34}:{(char)34}Name{(char)34},{(char)34}Value{(char)34}:{(char)34}{movement.ToString()}{(char)34}{(char)125}]{(char)125}," +
+                    $"{(char)123}{(char)34}EN{(char)34}:[{(char)123}{(char)34}PropertyName{(char)34}:{(char)34}Name{(char)34},{(char)34}Value{(char)34}:{(char)34}{movement.ToString()}{(char)34}{(char)125}]{(char)125}]"
                 });
             }
             int count = 0;
@@ -85,7 +93,9 @@ namespace PointOfSalesV2.EntityFramework
                     Controllers=Enums.SectionsControllers[section],
                     CreatedBy = new Guid("8A2FDD4A-E702-482C-F181-08D7015E3521"),
                     CreatedDate = DateTime.Now,
-                    CreatedByName = "admin"
+                    CreatedByName = "admin",
+                    TranslationData = $"[{(char)123}{(char)34}ES{(char)34}:[{(char)123}{(char)34}PropertyName{(char)34}:{(char)34}Name{(char)34},{(char)34}Value{(char)34}:{(char)34}{section.ToString()}{(char)34}{(char)125}]{(char)125}," +
+                    $"{(char)123}{(char)34}EN{(char)34}:[{(char)123}{(char)34}PropertyName{(char)34}:{(char)34}Name{(char)34},{(char)34}Value{(char)34}:{(char)34}{section.ToString()}{(char)34}{(char)125}]{(char)125}]"
                 });
 
                 foreach (var operation in operations)
@@ -121,6 +131,8 @@ namespace PointOfSalesV2.EntityFramework
                 LastName = "admin",
                 Phone = "8095555555",
                 Name = "admin",
+                LanguageCode="EN",
+            
                 Mobile = "8095555555",
 
 
@@ -134,7 +146,9 @@ namespace PointOfSalesV2.EntityFramework
                 CreatedBy = new Guid(),
                 CreatedByName = "admin",
                 CreatedDate = DateTime.Now,
-                Name = "English"
+                Name = "English",
+                    TranslationData = $"[{(char)123}{(char)34}ES{(char)34}:[{(char)123}{(char)34}PropertyName{(char)34}:{(char)34}Name{(char)34},{(char)34}Value{(char)34}:{(char)34}ENGLISH{(char)34}{(char)125}]{(char)125}," +
+                    $"{(char)123}{(char)34}EN{(char)34}:[{(char)123}{(char)34}PropertyName{(char)34}:{(char)34}Name{(char)34},{(char)34}Value{(char)34}:{(char)34}ENGLISH{(char)34}{(char)125}]{(char)125}]"
             } ,
              new Language()
             {
@@ -144,7 +158,9 @@ namespace PointOfSalesV2.EntityFramework
                 CreatedBy = new Guid(),
                 CreatedByName = "admin",
                 CreatedDate = DateTime.Now,
-                Name = "Spanish"
+                Name = "Spanish",
+                    TranslationData = $"[{(char)123}{(char)34}ES{(char)34}:[{(char)123}{(char)34}PropertyName{(char)34}:{(char)34}Name{(char)34},{(char)34}Value{(char)34}:{(char)34}SPANISH{(char)34}{(char)125}]{(char)125}," +
+                    $"{(char)123}{(char)34}EN{(char)34}:[{(char)123}{(char)34}PropertyName{(char)34}:{(char)34}Name{(char)34},{(char)34}Value{(char)34}:{(char)34}SPANISH{(char)34}{(char)125}]{(char)125}]"
             }
 
             };

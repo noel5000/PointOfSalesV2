@@ -16,6 +16,7 @@ namespace PointOfSalesV2.Entities
         [MaxLength(3)]
         public string Code { get; set; }
         [MaxLength(100)]
+        [Translate]
         public string Name { get; set; }
 
         [ForeignKey("LocationId")]

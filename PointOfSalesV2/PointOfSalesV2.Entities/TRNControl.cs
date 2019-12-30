@@ -17,6 +17,7 @@ namespace PointOfSalesV2.Entities
         public long NumericControl { get; set; }
         public long Quantity { get; set; }
         [MaxLength(100)]
+        [Translate]
         public string Name { get; set; }
 
     }

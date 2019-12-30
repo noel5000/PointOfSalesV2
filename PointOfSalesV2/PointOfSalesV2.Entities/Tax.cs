@@ -12,6 +12,7 @@ namespace PointOfSalesV2.Entities
     {
         public decimal Rate { get; set; }
         [MaxLength(100)]
+        [Translate]
         public string Name { get; set; }
 
 

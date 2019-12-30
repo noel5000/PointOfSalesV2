@@ -12,6 +12,7 @@ namespace PointOfSalesV2.Entities
     {
 
         [MaxLength(200)]
+        [Translate]
         public string Description { get; set; }
         public decimal Price { get; set; }
         public decimal Price2 { get; set; }
@@ -29,6 +30,7 @@ namespace PointOfSalesV2.Entities
         public long CurrencyId { get; set; }
         public decimal Existence { get; set; }
         [MaxLength(100)]
+        [Translate]
         public string Name { get; set; }
 
       

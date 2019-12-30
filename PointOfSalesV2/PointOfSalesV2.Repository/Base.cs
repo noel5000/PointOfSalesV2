@@ -26,6 +26,12 @@ namespace PointOfSalesV2.Repository
         {
             try
             {
+                var translation = entity as IEntityTranslate;
+                if (translation != null) 
+                {
+                  entity.TranslationData=  TranslateUtility.SaveTranslation(entity, translation.TranslationData);
+                   
+                }
                 _Context.Set<T>().Add(entity);
 
                 _Context.SaveChanges();
@@ -92,6 +98,14 @@ namespace PointOfSalesV2.Repository
         {
             try
             {
+                var dbEntity = _DbSet.Find(entity.Id);
+                _Context.Entry<T>(dbEntity).State = EntityState.Detached;
+                var translation = dbEntity as IEntityTranslate;
+                if (translation != null)
+                {
+                    entity.TranslationData = TranslateUtility.SaveTranslation(entity, translation.TranslationData);
+                   
+                }
                 _DbSet.Attach(entity);
                 _Context.Entry<T>(entity).State = EntityState.Modified;
 
@@ -178,7 +192,9 @@ namespace PointOfSalesV2.Repository
         {
             try
             {
-                return new Result<T>(0,0,"OK",new List<T>() { _DbSet.Find(id) });
+                var entity = _DbSet.Find(id);
+                //TranslateUtility.Translate(entity, entity.TranslationData);
+                return new Result<T>(0,0,"OK",new List<T>() { entity });
             }
 
             catch (Exception ex)

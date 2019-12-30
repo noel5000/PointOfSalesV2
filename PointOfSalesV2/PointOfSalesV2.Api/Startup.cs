@@ -24,6 +24,7 @@ using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using PointOfSalesV2.Common;
 //using Microsoft.AspNetCore.Mvc.Cors.Internal;
 
 namespace PointOfSalesV2.Api
@@ -144,7 +145,7 @@ namespace PointOfSalesV2.Api
 
             app.UseCors("AllowAllOrigins");
             app.UseAuthentication();
-
+            app.UseDependency();
             app.UseMvc(routes =>
             {
 

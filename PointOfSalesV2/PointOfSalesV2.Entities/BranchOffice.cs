@@ -11,6 +11,7 @@ namespace PointOfSalesV2.Entities
     public class BranchOffice : CommonData
     {
         [MaxLength(100)]
+        [Translate]
         public string Name { get; set; }
 
         public virtual IEnumerable<Warehouse> Warehouses { get; set; }

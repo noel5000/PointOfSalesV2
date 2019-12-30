@@ -24,7 +24,7 @@ namespace PointOfSalesV2.Entities
 
         public virtual DateTime? ModifiedDate { get; set; }
         [MaxLength(2)]
-        public virtual string LanguageCode { get; set; }
+        public virtual string LanguageCode { get; set; } = "EN";
 
         public virtual bool Active { get; set; }
 
@@ -110,5 +110,9 @@ namespace PointOfSalesV2.Entities
         public virtual List<UserOperation> Permissions { get; set; }
        [NotMapped]
         public long Id { get ; set ; }
-    }
+        [NotMapped]
+        public string TranslationData { get; set; }
+
+
+        }
 }

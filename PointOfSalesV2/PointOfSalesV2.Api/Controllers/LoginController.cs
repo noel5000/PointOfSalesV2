@@ -75,7 +75,8 @@ namespace PointOfSalesV2.Api.Controllers
                     status = 1,
                     token = tokenString,
                     expiration = expiration,
-                    user = user
+                    user = user,
+                    languageId=user.LanguageCode
                 });
             }
             catch (Exception ex)

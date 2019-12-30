@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PointOfSalesV2.Entities
 {
-    public interface ICommonData:IDeletedEntity,IAuditableEntity
+    public interface ICommonData:IDeletedEntity,IAuditableEntity, IEntityTranslate
     {
 
        

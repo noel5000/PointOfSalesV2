@@ -10,6 +10,10 @@ namespace PointOfSalesV2.Entities
 {
     public class CommonData : ICommonData
     {
+       
+
+        private string _jsonData;
+
         public virtual Guid CreatedBy { get; set; }
         public virtual string CreatedByName { get; set; }
 
@@ -23,12 +27,32 @@ namespace PointOfSalesV2.Entities
         public virtual long Id { get; set; }
 
         public virtual bool Active { get; set; }
-        public virtual string TranslationData { get; set; } = "[]";
+        public virtual string TranslationData 
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(_jsonData)) 
+                {
+                    TranslateUtility.Translate(this, _jsonData);
+                }
+                return this._jsonData;
+            }
+            set 
+            {
+                this._jsonData = value ;
+                if (!string.IsNullOrEmpty(this._jsonData)) 
+                {
+                    TranslateUtility.Translate(this, _jsonData);
+                }
+            }
+        }
 
         //[ForeignKey("CreatedBy")]
         //public virtual User CreatedByUser { get; set; }
         //[ForeignKey("ModifiedBy")]
         //public virtual User ModifiedByUser { get; set; }
+
+     
 
     }
 }

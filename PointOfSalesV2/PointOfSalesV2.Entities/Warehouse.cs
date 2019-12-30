@@ -14,6 +14,7 @@ namespace PointOfSalesV2.Entities
         [MaxLength(50)]
         public string Code { get; set; }
         [MaxLength(100)]
+        [Translate]
         public string Name { get; set; }
 
         public List<Inventory> Inventory { get; set; }
