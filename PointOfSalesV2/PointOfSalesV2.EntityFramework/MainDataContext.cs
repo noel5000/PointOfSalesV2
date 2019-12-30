@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
+using PointOfSalesV2.Common;
 using PointOfSalesV2.Entities;
 using PointOfSalesV2.EntityFramework;
 using System;
@@ -8,6 +10,7 @@ using System.Linq;
 public class MainDataContext : DbContext
 {
     private readonly IHttpContextAccessor _HttpContextAccessor;
+    readonly IMemoryCache _cache;
 
     //private bool CanUseSessionContext { get; set; }
     //public ComplaintDataContext()
@@ -15,11 +18,11 @@ public class MainDataContext : DbContext
     //    CanUseSessionContext = true;
     //}
 
-    public MainDataContext(DbContextOptions<MainDataContext> options, IHttpContextAccessor httpContextAccessor)
+    public MainDataContext(DbContextOptions<MainDataContext> options, IHttpContextAccessor httpContextAccessor, IMemoryCache cache)
         : base(options)
     {
         _HttpContextAccessor = httpContextAccessor;
-
+        this._cache = cache;
         //CanUseSessionContext = true;
     }
     #region Tables
@@ -143,6 +146,7 @@ public class MainDataContext : DbContext
     #region Save Changes
     public override int SaveChanges()
     {
+     
         // Get the entries that are auditable
         var auditableEntitySet = ChangeTracker.Entries<ICommonData>();
 
@@ -160,6 +164,22 @@ public class MainDataContext : DbContext
                 }
 
                 auditableEntity.Entity.ModifiedDate = currentDate;
+                if (_HttpContextAccessor != null && _HttpContextAccessor.HttpContext != null && _HttpContextAccessor.HttpContext.Request != null && _HttpContextAccessor.HttpContext.Request.Headers != null) 
+                {
+                    var currentToken = _HttpContextAccessor.HttpContext.Request.Headers.FirstOrDefault(x => x.Key == "Authorization").Value.ToString();
+                    if (!string.IsNullOrEmpty(currentToken) && currentToken.Contains("Bearer")) 
+                    {
+                        var currentUser = _cache.Get(currentToken.Split(" ").LastOrDefault()) as User;
+                        if (currentUser != null) 
+                        {
+                            if (auditableEntity.State == EntityState.Added)
+                            {
+                                auditableEntity.Entity.CreatedBy = currentUser.UserId;
+                            }
+                            auditableEntity.Entity.ModifiedBy = currentUser.UserId;
+                        }
+                    }
+                }
             }
         }
 

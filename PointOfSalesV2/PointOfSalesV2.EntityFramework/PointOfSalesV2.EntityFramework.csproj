@@ -9,6 +9,8 @@
     <Compile Remove="Migrations\20191227234115_LanguagesAndTranslations.Designer.cs" />
     <Compile Remove="Migrations\20191230014603_newSections.cs" />
     <Compile Remove="Migrations\20191230014603_newSections.Designer.cs" />
+    <Compile Remove="Migrations\20191230213459_SeedsTranslationsFix2.cs" />
+    <Compile Remove="Migrations\20191230213459_SeedsTranslationsFix2.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
