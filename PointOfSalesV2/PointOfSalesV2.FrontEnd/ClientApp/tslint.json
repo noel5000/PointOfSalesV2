@@ -6,7 +6,12 @@
     "trailing-comma": [
       true,
       {
-        "multiline": "always",
+        "multiline": {
+          "objects": "ignore", // <==================
+          "arrays": "ignore",
+          "functions": "never",
+          "typeLiterals": "ignore"
+        },
         "singleline": "never"
       }
     ],
