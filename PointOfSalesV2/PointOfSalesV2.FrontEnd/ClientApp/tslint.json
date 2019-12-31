@@ -9,7 +9,7 @@
         "multiline": {
           "objects": "ignore", // <==================
           "arrays": "ignore",
-          "functions": "never",
+          "functions": "ignore",
           "typeLiterals": "ignore"
         },
         "singleline": "never"
