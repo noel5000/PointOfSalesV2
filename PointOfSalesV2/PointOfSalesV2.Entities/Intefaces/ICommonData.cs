@@ -26,7 +26,8 @@ namespace PointOfSalesV2.Entities
         Guid CreatedBy { get; set; }
         Guid? ModifiedBy { get; set; }
         DateTime CreatedDate { get; set; }
-
+        string CreatedByName { get; set; }
+        string ModifiedByName { get; set; }
         DateTime? ModifiedDate { get; set; }
     }
 }

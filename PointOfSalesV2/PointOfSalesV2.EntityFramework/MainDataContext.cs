@@ -175,8 +175,11 @@ public class MainDataContext : DbContext
                             if (auditableEntity.State == EntityState.Added)
                             {
                                 auditableEntity.Entity.CreatedBy = currentUser.UserId;
+                                auditableEntity.Entity.CreatedByName = currentUser.FullName;
                             }
                             auditableEntity.Entity.ModifiedBy = currentUser.UserId;
+                            auditableEntity.Entity.ModifiedByName = currentUser.ModifiedByName;
+                            
                         }
                     }
                 }
