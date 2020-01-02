@@ -25,7 +25,7 @@ export class User {
   cashRegisterId: number = 0;
   warehouseId: number = 0;
   cashRegisterOpenningTimeHours: number = 0;
-  fullName = (): string => { return `${this.name} ${this.lastName}`; };
+  fullName = (): string => `${this.name} ${this.lastName}`;
   gender: string = '';
   branchOffice: any = null;
   cashRegister: any = null;

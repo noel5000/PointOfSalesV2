@@ -40,8 +40,8 @@ export class BaseComponent {
     }
 
     returnToLogin() {
-        localStorage.setItem("currentUser", null);
+        localStorage.setItem('currentUser', null);
         this.authModel = null;
-        this.router.navigateByUrl("auth/login")
+        this.router.navigateByUrl('auth/login');
     }
 }
