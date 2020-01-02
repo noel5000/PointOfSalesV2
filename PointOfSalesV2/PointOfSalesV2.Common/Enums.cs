@@ -76,6 +76,7 @@ namespace PointOfSalesV2.Common
             Zones=34,
             UserRoles=35,
             WarehouseMovements=36,
+            DashBoard=37
 
         }
         public enum MovementTypes
@@ -129,6 +130,7 @@ namespace PointOfSalesV2.Common
             {AppSections.Zones,"" },
             {AppSections.UserRoles,"Users,Role,UserRole" },
             {AppSections.WarehouseMovements,"" },
+            {AppSections.DashBoard,"" },
         };
         public enum Gender
         {

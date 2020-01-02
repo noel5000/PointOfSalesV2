@@ -1,10 +1,50 @@
 import { Observable } from 'rxjs';
+import { AppSections, Operations } from '../common/enums';
 
-export interface User {
-  name: string;
-  picture: string;
+export class User {
+  name: string = '';
+  picture: string = '';
+  userId: string = '';
+  languageCode: string = '';
+  active: boolean = false;
+  language: any = null;
+  tokenKey: string = '';
+  lastName: string = '';
+  birthDay: Date;
+  phone: string = '';
+  mobile: string = '';
+  address: string = '';
+  userName: string = '';
+  password: string = '';
+  email: string = '';
+  contentType: string = '';
+  width: number = 0;
+  height: number = 0;
+  size: number = 0;
+  branchOfficeId: number = 0;
+  cashRegisterId: number = 0;
+  warehouseId: number = 0;
+  cashRegisterOpenningTimeHours: number = 0;
+  fullName = (): string => { return `${this.name} ${this.lastName}`; };
+  gender: string = '';
+  branchOffice: any = null;
+  cashRegister: any = null;
+  warehouse: any = null;
+  claims: any[] = [];
+  permissions: UserOperation[] = [];
 }
 
+export class UserOperation {
+  operationId: number;
+  sectionId: number;
+  sectionName = (): string => {
+    return AppSections[this.sectionId];
+  };
+  operationName = (): string => {
+    return Operations[this.operationId];
+  }
+
+}
 export interface Contacts {
   user: User;
   type: string;

@@ -43,7 +43,7 @@ namespace PointOfSalesV2.Api.Controllers
 
             catch (Exception ex)
             {
-                return null;
+                return Ok(new { status = -1, message = ex.Message });
             }
         }
 
@@ -55,7 +55,7 @@ namespace PointOfSalesV2.Api.Controllers
             try
             {
                 var data = _baseRepo.Get(id);
-                return Ok(new { status = 0, message = "OK", data = data });
+                return Ok(data);
             }
 
             catch (Exception ex)
@@ -72,7 +72,7 @@ namespace PointOfSalesV2.Api.Controllers
             try
             {
                 var data = _baseRepo.GetPaged(number, size);
-                return Ok(data);
+                return Ok(new {status=0, message="ok_msg", data=data });
             }
 
             catch (Exception ex)
@@ -99,7 +99,7 @@ namespace PointOfSalesV2.Api.Controllers
                 }
                 var result = _baseRepo.Add(model);
 
-                return Ok(new { status = 0, message = "OK", data = result });
+                return Ok(result);
             }
 
             catch (Exception ex)
@@ -116,7 +116,7 @@ namespace PointOfSalesV2.Api.Controllers
             try
             {
                 var result = _baseRepo.Update(model);
-                return Ok(new { status = 0, message = "OK", data = result });
+                return Ok(result);
             }
 
             catch (Exception ex)
@@ -136,15 +136,20 @@ namespace PointOfSalesV2.Api.Controllers
                 if (model != null)
                 {
                     model.Active = false;
-                    _baseRepo.Update(model as T);
+                    var result = _baseRepo.Update(model as T);
+                    return Ok(result);
                 }
-
-                return Ok(new { status = 0, message = "OK" });
+                else 
+                {
+                    return Ok(new { status = -1, message = "error_msg" });
+                }
+                
             }
 
             catch (Exception ex)
             {
-                return Ok(new { status = -1, message = ex.Message });
+                return Ok(new { status = -1, message =ex.Message});
+
             }
 
         }

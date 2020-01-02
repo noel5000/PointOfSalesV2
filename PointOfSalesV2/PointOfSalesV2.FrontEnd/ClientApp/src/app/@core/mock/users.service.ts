@@ -1,13 +1,13 @@
-import { of as observableOf,  Observable } from 'rxjs';
+import { of as observableOf, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { Contacts, RecentUsers, UserData } from '../data/users';
+import { Contacts, RecentUsers, UserData, User } from '../data/users';
 
 @Injectable()
 export class UserService extends UserData {
 
   private time: Date = new Date;
 
-  private users = {
+  private users: any = {
     nick: { name: 'Nick Jones', picture: 'assets/images/nick.png' },
     eva: { name: 'Eva Moor', picture: 'assets/images/eva.png' },
     jack: { name: 'Jack Williams', picture: 'assets/images/jack.png' },
@@ -28,15 +28,15 @@ export class UserService extends UserData {
     { user: this.users.alan, type: this.types.home },
     { user: this.users.kate, type: this.types.work },
   ];
-  private recentUsers: RecentUsers[]  = [
-    { user: this.users.alan, type: this.types.home, time: this.time.setHours(21, 12)},
-    { user: this.users.eva, type: this.types.home, time: this.time.setHours(17, 45)},
-    { user: this.users.nick, type: this.types.mobile, time: this.time.setHours(5, 29)},
-    { user: this.users.lee, type: this.types.mobile, time: this.time.setHours(11, 24)},
-    { user: this.users.jack, type: this.types.mobile, time: this.time.setHours(10, 45)},
-    { user: this.users.kate, type: this.types.work, time: this.time.setHours(9, 42)},
-    { user: this.users.kate, type: this.types.work, time: this.time.setHours(9, 31)},
-    { user: this.users.jack, type: this.types.mobile, time: this.time.setHours(8, 0)},
+  private recentUsers: RecentUsers[] = [
+    { user: this.users.alan, type: this.types.home, time: this.time.setHours(21, 12) },
+    { user: this.users.eva, type: this.types.home, time: this.time.setHours(17, 45) },
+    { user: this.users.nick, type: this.types.mobile, time: this.time.setHours(5, 29) },
+    { user: this.users.lee, type: this.types.mobile, time: this.time.setHours(11, 24) },
+    { user: this.users.jack, type: this.types.mobile, time: this.time.setHours(10, 45) },
+    { user: this.users.kate, type: this.types.work, time: this.time.setHours(9, 42) },
+    { user: this.users.kate, type: this.types.work, time: this.time.setHours(9, 31) },
+    { user: this.users.jack, type: this.types.mobile, time: this.time.setHours(8, 0) },
   ];
 
   getUsers(): Observable<any> {
