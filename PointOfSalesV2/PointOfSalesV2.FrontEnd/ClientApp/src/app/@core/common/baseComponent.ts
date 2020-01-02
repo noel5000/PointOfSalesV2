@@ -10,7 +10,7 @@ export class BaseComponent {
         if (this.authModel && this.authModel.expiration < new Date()) {
             this.getUserAuthorizations();
         }
-        else if (!this.authModel && this.authModel.expiration >= new Date()) {
+        if (!this.authModel && this.authModel.expiration >= new Date()) {
             this.returnToLogin();
         }
 
