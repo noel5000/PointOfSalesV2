@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { BaseComponent } from './../../@core/common/baseComponent';
-import { basename } from 'path';
 import { Router } from '@angular/router';
 import { AppSections } from '../../@core/common/enums';
 
