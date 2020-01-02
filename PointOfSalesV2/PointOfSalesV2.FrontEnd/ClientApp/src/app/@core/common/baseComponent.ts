@@ -1,4 +1,3 @@
-
 import { AppSections, Operations } from './enums';
 import { Router } from '@angular/router';
 import { AuthModel } from '../data/authModel';

@@ -39,7 +39,7 @@ export class UserOperation {
   sectionId: number;
   sectionName = (): string => {
     return AppSections[this.sectionId];
-  };
+  }
   operationName = (): string => {
     return Operations[this.operationId];
   }
