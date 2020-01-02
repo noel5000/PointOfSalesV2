@@ -1,4 +1,4 @@
-//import { User } from '../data/users';
+
 import { AppSections, Operations } from './enums';
 import { Router } from '@angular/router';
 import { AuthModel } from '../data/authModel';
@@ -22,12 +22,14 @@ export class BaseComponent {
     router: Router;
 
     getUserAuthorizations() {
-        let sectionOperations = this.authModel.user.permissions.filter(x => x.sectionId === this.section);
-        this.permits.read = sectionOperations.findIndex(x => x.operationId === Operations.READ || x.operationId === Operations.READALL || x.operationId === Operations.READPAGED) >= 0;
+        const sectionOperations = this.authModel.user.permissions.filter(x => x.sectionId === this.section);
+        this.permits.read = sectionOperations.findIndex(x => x.operationId === Operations.READ ||
+            x.operationId === Operations.READALL || x.operationId === Operations.READPAGED) >= 0;
         this.permits.add = sectionOperations.findIndex(x => x.operationId === Operations.ADD) >= 0;
         this.permits.update = sectionOperations.findIndex(x => x.operationId === Operations.UPDATE) >= 0;
         this.permits.delete = sectionOperations.findIndex(x => x.operationId === Operations.DELETE) >= 0;
-        this.permits.readPaged = sectionOperations.findIndex(x => x.operationId === Operations.READPAGED || x.operationId === Operations.READALL) >= 0;
+        this.permits.readPaged = sectionOperations.findIndex(x => x.operationId === Operations.READPAGED
+            || x.operationId === Operations.READALL) >= 0;
 
         if (sectionOperations.findIndex(x => x.operationId === Operations.ALL) >= 0) {
             this.permits = { read: true, update: true, delete: true, add: true, readPaged: true };
