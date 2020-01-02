@@ -1,4 +1,3 @@
-
 export class BaseResultModel<T>{
 
     id: number = 0;
