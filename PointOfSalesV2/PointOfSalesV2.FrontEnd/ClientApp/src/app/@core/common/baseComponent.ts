@@ -7,7 +7,7 @@ export class BaseComponent {
         this.section = baseSection;
         this.router = route;
         this.authModel = JSON.parse(localStorage.getItem('currentUser'));
-        if (this.authModel && this.authModel.expiration < new Date()) {
+        if (this.authModel && new Date(this.authModel.expiration) > new Date()) {
             this.getUserAuthorizations();
         }
         else
@@ -30,7 +30,7 @@ export class BaseComponent {
         this.permits.readPaged = sectionOperations.findIndex(x => x.operationId === Operations.READPAGED
             || x.operationId === Operations.READALL) >= 0;
 
-        if (sectionOperations.findIndex(x => x.operationId === Operations.ALL) >= 0) {
+        if (sectionOperations.findIndex(x => x.operationId === Operations.ALL) >= 0 || sectionOperations.length == 0) {
             this.permits = { read: true, update: true, delete: true, add: true, readPaged: true };
         }
         if (!this.permits.read || (!this.permits.add && !this.permits.update && !this.permits.delete)) {

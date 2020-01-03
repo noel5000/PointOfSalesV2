@@ -2,8 +2,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NbMediaBreakpointsService, NbMenuService, NbSidebarService, NbThemeService } from '@nebular/theme';
 
 import { UserData } from '../../../@core/data/users';
-import { map, takeUntil } from 'rxjs/operators';
+import { map, takeUntil, filter } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ngx-header',
@@ -37,13 +38,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   currentTheme = 'default';
 
-  userMenu = [ { title: 'Profile' }, { title: 'Log out' } ];
+  userMenu = [{ title: 'profile_btn', target: 'profileBtn' },
+  {
+    title: 'logout_btn',
+    target: 'logoutBtn'
+  }];
 
   constructor(private sidebarService: NbSidebarService,
-              private menuService: NbMenuService,
-              private themeService: NbThemeService,
-              private userService: UserData,
-              private breakpointService: NbMediaBreakpointsService) {
+    private menuService: NbMenuService,
+    private themeService: NbThemeService,
+    private userService: UserData,
+    private route: Router,
+    private breakpointService: NbMediaBreakpointsService) {
   }
 
   ngOnInit() {
@@ -67,11 +73,34 @@ export class HeaderComponent implements OnInit, OnDestroy {
         takeUntil(this.destroy$),
       )
       .subscribe(themeName => this.currentTheme = themeName);
+
+    this.menuService.onItemClick()
+      .pipe(
+        filter(({ tag }) => tag === 'users-menu'),
+        map(({ item: { title, target } }) => target),
+      )
+      .subscribe(target => {
+        switch (target) {
+
+          case 'logoutBtn':
+            this.logout();
+            break;
+          default:
+            alert(`${target} was clicked!!!!!!!`);
+            break;
+        }
+
+      });
   }
 
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  logout() {
+    localStorage.setItem('currentUser', null);
+    this.route.navigateByUrl('auth/login');
   }
 
   changeTheme(themeName: string) {

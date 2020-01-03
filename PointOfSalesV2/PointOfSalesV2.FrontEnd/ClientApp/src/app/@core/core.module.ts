@@ -9,7 +9,7 @@ import { AnalyticsService } from './utils';
 import { UserData } from './data/users';
 import { UserService } from './mock/users.service';
 import { MockDataModule } from './mock/mock-data.module';
-
+import { AuthModule } from '../pages/auth/auth.module';
 const socialLinks = [
   {
     url: 'https://github.com/akveo/nebular',
@@ -59,7 +59,6 @@ export const NB_CORE_PROVIDERS = [
       },
     },
   }).providers,
-
   NbSecurityModule.forRoot({
     accessControl: {
       guest: {
@@ -82,9 +81,12 @@ export const NB_CORE_PROVIDERS = [
 
 @NgModule({
   imports: [
+
     CommonModule,
   ],
   exports: [
+
+    AuthModule,
     NbAuthModule,
   ],
   declarations: [],
