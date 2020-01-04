@@ -138,6 +138,12 @@ namespace PointOfSalesV2.Common
             Female = 'F'
         }
 
+        public enum ServerDirectoryType 
+        {
+        Folder=0,
+        FTP=1
+        }
+
         public enum Operations
         {
             READ = 1,

@@ -2,7 +2,7 @@ import { NbMenuItem } from '@nebular/theme';
 
 export const MENU_ITEMS: NbMenuItem[] = [
   {
-    title: 'Dashboard',
+    title: 'dashboard_menu',
     icon: 'home-outline',
     link: '/pages/dashboard',
     home: true,
@@ -12,23 +12,23 @@ export const MENU_ITEMS: NbMenuItem[] = [
     group: true,
   },
   {
-    title: 'Auth',
+    title: 'auth_menu',
     icon: 'lock-outline',
     children: [
       {
-        title: 'Login',
+        title: 'login__menu',
         link: '/auth/login',
       },
       {
-        title: 'Register',
+        title: 'register_menu',
         link: '/auth/register',
       },
       {
-        title: 'Request Password',
+        title: 'requestPass_menu',
         link: '/auth/request-password',
       },
       {
-        title: 'Reset Password',
+        title: 'resetPass_menu',
         link: '/auth/reset-password',
       },
     ],

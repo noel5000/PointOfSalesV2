@@ -45,6 +45,8 @@
     "@nebular/security": "4.1.2",
     "@nebular/theme": "4.1.2",
     "@nguniversal/module-map-ngfactory-loader": "^8.2.6",
+    "@ngx-translate/core": "^11.0.1",
+    "@ngx-translate/http-loader": "^4.0.0",
     "bootstrap": "4.3.1",
     "classlist.js": "1.1.20150312",
     "core-js": "2.5.1",

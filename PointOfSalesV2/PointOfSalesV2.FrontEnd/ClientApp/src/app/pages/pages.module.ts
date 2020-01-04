@@ -5,9 +5,11 @@ import { ThemeModule } from '../@theme/theme.module';
 import { PagesComponent } from './pages.component';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { PagesRoutingModule } from './pages-routing.module';
+import { LanguageService } from './../@core/services/translateService';
 
 @NgModule({
   imports: [
+
     PagesRoutingModule,
     ThemeModule,
     NbMenuModule,
@@ -16,6 +18,7 @@ import { PagesRoutingModule } from './pages-routing.module';
   declarations: [
     PagesComponent,
   ],
+  providers: [LanguageService]
 })
 export class PagesModule {
 }

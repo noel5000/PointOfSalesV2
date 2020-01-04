@@ -4,7 +4,7 @@ import { BaseService } from '../../../../@core/services/baseService';
 import { AuthModel } from '../../../../@core/data/authModel';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { endpointUrl, enpointControllers } from '../../../../@core/common/constants';
+import { endpointUrl, endpointControllers } from '../../../../@core/common/constants';
 
 
 
@@ -85,7 +85,7 @@ export class LoginComponent extends NbLoginComponent {
         httpClient: HttpClient
     ) {
         super(baseService, defaultAuthOptions, changeDet, router);
-        this.baseService = new BaseService(httpClient, `${endpointUrl}${enpointControllers.login}`);
+        this.baseService = new BaseService(httpClient, `${endpointUrl}${endpointControllers.login}`);
     }
 
 

@@ -39,6 +39,8 @@ import { DEFAULT_THEME } from './styles/theme.default';
 import { COSMIC_THEME } from './styles/theme.cosmic';
 import { CORPORATE_THEME } from './styles/theme.corporate';
 import { DARK_THEME } from './styles/theme.dark';
+import { TranslateService } from '@ngx-translate/core';
+import { LanguageService } from '../@core/services/translateService';
 
 const NB_MODULES = [
   NbLayoutModule,
@@ -76,6 +78,7 @@ const PIPES = [
   imports: [CommonModule, ...NB_MODULES],
   exports: [CommonModule, ...PIPES, ...COMPONENTS],
   declarations: [...COMPONENTS, ...PIPES],
+  providers: [LanguageService]
 })
 export class ThemeModule {
   static forRoot(): ModuleWithProviders {

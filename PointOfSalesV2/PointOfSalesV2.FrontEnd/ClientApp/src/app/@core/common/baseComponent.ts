@@ -1,10 +1,12 @@
 import { AppSections, Operations } from './enums';
 import { Router } from '@angular/router';
 import { AuthModel } from '../data/authModel';
+import { LanguageService } from './../services/translateService';
 
 export class BaseComponent {
-    constructor(route: Router, baseSection: AppSections) {
+    constructor(route: Router, langService: LanguageService, baseSection: AppSections) {
         this.section = baseSection;
+        this.lang = langService;
         this.router = route;
         this.authModel = JSON.parse(localStorage.getItem('currentUser'));
         if (this.authModel && new Date(this.authModel.expiration) > new Date()) {
@@ -19,7 +21,7 @@ export class BaseComponent {
     authModel: AuthModel = null;
     permits: any = {};
     router: Router;
-
+    lang: LanguageService;
     getUserAuthorizations() {
         const sectionOperations = this.authModel.user.permissions.filter(x => x.sectionId === this.section);
         this.permits.read = sectionOperations.findIndex(x => x.operationId === Operations.READ ||

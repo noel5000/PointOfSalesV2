@@ -59,6 +59,7 @@ namespace PointOfSalesV2.Api
 
             //services.AddScoped<IParqueoRepository, ParqueoRepository>(); 
             services.AddScoped<IBranchOfficeRepository, BranchOfficeRepository>();
+            services.AddScoped<ILanguageKeyRepository, LanguageKeyRepository>();
             services.AddScoped<IBusinessStateRepository, BusinessStateRepository>();
             services.AddScoped<ICompositeProductRepository, CompositeProductRepository>();
             services.AddScoped<ICreditNoteRepository, CreditNoteRepository>();

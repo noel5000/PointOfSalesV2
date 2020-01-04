@@ -5,6 +5,8 @@ import { UserData } from '../../../@core/data/users';
 import { map, takeUntil, filter } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+import { LanguageService } from '../../../@core/services/translateService';
 
 @Component({
   selector: 'ngx-header',
@@ -38,17 +40,22 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   currentTheme = 'default';
 
-  userMenu = [{ title: 'profile_btn', target: 'profileBtn' },
-  {
-    title: 'logout_btn',
-    target: 'logoutBtn'
-  }];
+  userMenu = [
+    {
+      title: this.lang.getValueByKey('profile_btn'),
+      target: 'profileBtn'
+    },
+    {
+      title: this.lang.getValueByKey('logout_btn'),
+      target: 'logoutBtn'
+    }];
 
   constructor(private sidebarService: NbSidebarService,
     private menuService: NbMenuService,
     private themeService: NbThemeService,
     private userService: UserData,
     private route: Router,
+    private lang: LanguageService,
     private breakpointService: NbMediaBreakpointsService) {
   }
 
