@@ -454,13 +454,634 @@ new LanguageKey()
                     LanguageId=language.Id,
                     LanguageCode=language.Code,
                     Value="Sequence Error."
-                    }
+                    },
+//menu keys
+new LanguageKey()
 
+                    {
+                    Active=true,
+                    CreatedBy=new Guid(),
+                    CreatedByName="admin",
+                    CreatedDate=DateTime.Now,
+                    Key="start_menu",
+                    LanguageId=language.Id,
+                    LanguageCode=language.Code,
+                    Value="Start"
+                    },
+new LanguageKey()
+                    {
+                    Active=true,
+                    CreatedBy=new Guid(),
+                    CreatedByName="admin",
+                    CreatedDate=DateTime.Now,
+                    Key="user_menu",
+                    LanguageId=language.Id,
+                    LanguageCode=language.Code,
+                    Value="User"
+                    },
+new LanguageKey()
+                    {
+                    Active=true,
+                    CreatedBy=new Guid(),
+                    CreatedByName="admin",
+                    CreatedDate=DateTime.Now,
+                    Key="changePass_menu",
+                    LanguageId=language.Id,
+                    LanguageCode=language.Code,
+                    Value="Change Password"
+                    },
+new LanguageKey()
+                    {
+                    Active=true,
+                    CreatedBy=new Guid(),
+                    CreatedByName="admin",
+                    CreatedDate=DateTime.Now,
+                    Key="login_menu",
+                    LanguageId=language.Id,
+                    LanguageCode=language.Code,
+                    Value="Login"
+                    },
+new LanguageKey()
+                    {
+                    Active=true,
+                    CreatedBy=new Guid(),
+                    CreatedByName="admin",
+                    CreatedDate=DateTime.Now,
+                    Key="logOut_menu",
+                    LanguageId=language.Id,
+                    LanguageCode=language.Code,
+                    Value="Log out"
+                    },
+new LanguageKey()
+                    {
+                    Active=true,
+                    CreatedBy=new Guid(),
+                    CreatedByName="admin",
+                    CreatedDate=DateTime.Now,
+                    Key="resetPass_menu",
+                    LanguageId=language.Id,
+                    LanguageCode=language.Code,
+                    Value="Reset Password"
+                    },
+new LanguageKey()
+                    {
+                    Active=true,
+                    CreatedBy=new Guid(),
+                    CreatedByName="admin",
+                    CreatedDate=DateTime.Now,
+                    Key="core_menu",
+                    LanguageId=language.Id,
+                    LanguageCode=language.Code,
+                    Value="Configurations"
+                    },
+new LanguageKey()
+                    {
+                    Active=true,
+                    CreatedBy=new Guid(),
+                    CreatedByName="admin",
+                    CreatedDate=DateTime.Now,
+                    Key="branchOffice_menu",
+                    LanguageId=language.Id,
+                    LanguageCode=language.Code,
+                    Value="Branch Offices"
+                    },
+new LanguageKey()
+                    {
+                    Active=true,
+                    CreatedBy=new Guid(),
+                    CreatedByName="admin",
+                    CreatedDate=DateTime.Now,
+                    Key="warehouse_menu",
+                    LanguageId=language.Id,
+                    LanguageCode=language.Code,
+                    Value="Warehouses"
+                    },
+new LanguageKey()
+                    {
+                    Active=true,
+                    CreatedBy=new Guid(),
+                    CreatedByName="admin",
+                    CreatedDate=DateTime.Now,
+                    Key="currencies_menu",
+                    LanguageId=language.Id,
+                    LanguageCode=language.Code,
+                    Value="Currencies"
+                    },
+new LanguageKey()
+                    {
+                    Active=true,
+                    CreatedBy=new Guid(),
+                    CreatedByName="admin",
+                    CreatedDate=DateTime.Now,
+                    Key="suppliers_menu",
+                    LanguageId=language.Id,
+                    LanguageCode=language.Code,
+                    Value="Suppliers"
+                    },
+new LanguageKey()
+                    {
+                    Active=true,
+                    CreatedBy=new Guid(),
+                    CreatedByName="admin",
+                    CreatedDate=DateTime.Now,
+                    Key="taxes_menu",
+                    LanguageId=language.Id,
+                    LanguageCode=language.Code,
+                    Value="Taxes"
+                    },
+new LanguageKey()
+                    {
+                    Active=true,
+                    CreatedBy=new Guid(),
+                    CreatedByName="admin",
+                    CreatedDate=DateTime.Now,
+                    Key="units_menu",
+                    LanguageId=language.Id,
+                    LanguageCode=language.Code,
+                    Value="Units"
+                    },
+new LanguageKey()
+                    {
+                    Active=true,
+                    CreatedBy=new Guid(),
+                    CreatedByName="admin",
+                    CreatedDate=DateTime.Now,
+                    Key="TRNControl_menu",
+                    LanguageId=language.Id,
+                    LanguageCode=language.Code,
+                    Value="TRN Control"
+                    },
+new LanguageKey()
+                    {
+                    Active=true,
+                    CreatedBy=new Guid(),
+                    CreatedByName="admin",
+                    CreatedDate=DateTime.Now,
+                    Key="zones_menu",
+                    LanguageId=language.Id,
+                    LanguageCode=language.Code,
+                    Value="Zones"
+                    },
+new LanguageKey()
+                    {
+                    Active=true,
+                    CreatedBy=new Guid(),
+                    CreatedByName="admin",
+                    CreatedDate=DateTime.Now,
+                    Key="sellers_menu",
+                    LanguageId=language.Id,
+                    LanguageCode=language.Code,
+                    Value="Sellers"
+                    },
+new LanguageKey()
+                    {
+                    Active=true,
+                    CreatedBy=new Guid(),
+                    CreatedByName="admin",
+                    CreatedDate=DateTime.Now,
+                    Key="customers_menu",
+                    LanguageId=language.Id,
+                    LanguageCode=language.Code,
+                    Value="Customers"
+                    },
+new LanguageKey()
+                    {
+                    Active=true,
+                    CreatedBy=new Guid(),
+                    CreatedByName="admin",
+                    CreatedDate=DateTime.Now,
+                    Key="products_menu",
+                    LanguageId=language.Id,
+                    LanguageCode=language.Code,
+                    Value="Products"
+                    },
+new LanguageKey()
+                    {
+                    Active=true,
+                    CreatedBy=new Guid(),
+                    CreatedByName="admin",
+                    CreatedDate=DateTime.Now,
+                    Key="cashRegister_menu",
+                    LanguageId=language.Id,
+                    LanguageCode=language.Code,
+                    Value="Cash Registers"
+                    },
+new LanguageKey()
+                    {
+                    Active=true,
+                    CreatedBy=new Guid(),
+                    CreatedByName="admin",
+                    CreatedDate=DateTime.Now,
+                    Key="cashRegisterManteinance_menu",
+                    LanguageId=language.Id,
+                    LanguageCode=language.Code,
+                    Value="Manteinance"
+                    },
+new LanguageKey()
+                    {
+                    Active=true,
+                    CreatedBy=new Guid(),
+                    CreatedByName="admin",
+                    CreatedDate=DateTime.Now,
+                    Key="cashROpenClose_menu",
+                    LanguageId=language.Id,
+                    LanguageCode=language.Code,
+                    Value="Opening/Closing"
+                    },
+new LanguageKey()
+                    {
+                    Active=true,
+                    CreatedBy=new Guid(),
+                    CreatedByName="admin",
+                    CreatedDate=DateTime.Now,
+                    Key="billing_menu",
+                    LanguageId=language.Id,
+                    LanguageCode=language.Code,
+                    Value="Billing"
+                    },
+new LanguageKey()
+                    {
+                    Active=true,
+                    CreatedBy=new Guid(),
+                    CreatedByName="admin",
+                    CreatedDate=DateTime.Now,
+                    Key="quotes_menu",
+                    LanguageId=language.Id,
+                    LanguageCode=language.Code,
+                    Value="Quotes"
+                    },
+new LanguageKey()
+                    {
+                    Active=true,
+                    CreatedBy=new Guid(),
+                    CreatedByName="admin",
+                    CreatedDate=DateTime.Now,
+                    Key="invoices_menu",
+                    LanguageId=language.Id,
+                    LanguageCode=language.Code,
+                    Value="Invoices"
+                    },
+new LanguageKey()
+                    {
+                    Active=true,
+                    CreatedBy=new Guid(),
+                    CreatedByName="admin",
+                    CreatedDate=DateTime.Now,
+                    Key="customerPayment_menu",
+                    LanguageId=language.Id,
+                    LanguageCode=language.Code,
+                    Value="Payments"
+                    },
+new LanguageKey()
+                    {
+                    Active=true,
+                    CreatedBy=new Guid(),
+                    CreatedByName="admin",
+                    CreatedDate=DateTime.Now,
+                    Key="expenses_menu",
+                    LanguageId=language.Id,
+                    LanguageCode=language.Code,
+                    Value="Expenses"
+                    },
+new LanguageKey()
+                    {
+                    Active=true,
+                    CreatedBy=new Guid(),
+                    CreatedByName="admin",
+                    CreatedDate=DateTime.Now,
+                    Key="expensesRegister_menu",
+                    LanguageId=language.Id,
+                    LanguageCode=language.Code,
+                    Value="Register expenses"
+                    },
+new LanguageKey()
+                    {
+                    Active=true,
+                    CreatedBy=new Guid(),
+                    CreatedByName="admin",
+                    CreatedDate=DateTime.Now,
+                    Key="expensesPayment_menu",
+                    LanguageId=language.Id,
+                    LanguageCode=language.Code,
+                    Value="Payments"
+                    },
+new LanguageKey()
+                    {
+                    Active=true,
+                    CreatedBy=new Guid(),
+                    CreatedByName="admin",
+                    CreatedDate=DateTime.Now,
+                    Key="reports_menu",
+                    LanguageId=language.Id,
+                    LanguageCode=language.Code,
+                    Value="Reports"
+                    },
+new LanguageKey()
+                    {
+                    Active=true,
+                    CreatedBy=new Guid(),
+                    CreatedByName="admin",
+                    CreatedDate=DateTime.Now,
+                    Key="sales_menu",
+                    LanguageId=language.Id,
+                    LanguageCode=language.Code,
+                    Value="Sales"
+                    },
+new LanguageKey()
+                    {
+                    Active=true,
+                    CreatedBy=new Guid(),
+                    CreatedByName="admin",
+                    CreatedDate=DateTime.Now,
+                    Key="accountsReceivable_menu",
+                    LanguageId=language.Id,
+                    LanguageCode=language.Code,
+                    Value="Accounts Receivable"
+                    },
+new LanguageKey()
+                    {
+                    Active=true,
+                    CreatedBy=new Guid(),
+                    CreatedByName="admin",
+                    CreatedDate=DateTime.Now,
+                    Key="incomeReceipts_menu",
+                    LanguageId=language.Id,
+                    LanguageCode=language.Code,
+                    Value="Income Receipts"
+                    },
+new LanguageKey()
+                    {
+                    Active=true,
+                    CreatedBy=new Guid(),
+                    CreatedByName="admin",
+                    CreatedDate=DateTime.Now,
+                    Key="commissions_menu",
+                    LanguageId=language.Id,
+                    LanguageCode=language.Code,
+                    Value="Commissions"
+                    },
+new LanguageKey()
+                    {
+                    Active=true,
+                    CreatedBy=new Guid(),
+                    CreatedByName="admin",
+                    CreatedDate=DateTime.Now,
+                    Key="inventory_menu",
+                    LanguageId=language.Id,
+                    LanguageCode=language.Code,
+                    Value="Inventory"
+                    },
+new LanguageKey()
+                    {
+                    Active=true,
+                    CreatedBy=new Guid(),
+                    CreatedByName="admin",
+                    CreatedDate=DateTime.Now,
+                    Key="productsMovements_menu",
+                    LanguageId=language.Id,
+                    LanguageCode=language.Code,
+                    Value="Products Movements"
+                    },
+new LanguageKey()
+                    {
+                    Active=true,
+                    CreatedBy=new Guid(),
+                    CreatedByName="admin",
+                    CreatedDate=DateTime.Now,
+                    Key="debtsToPay_menu",
+                    LanguageId=language.Id,
+                    LanguageCode=language.Code,
+                    Value="Debts To Pay"
+                    },
+new LanguageKey()
+                    {
+                    Active=true,
+                    CreatedBy=new Guid(),
+                    CreatedByName="admin",
+                    CreatedDate=DateTime.Now,
+                    Key="pricesList_menu",
+                    LanguageId=language.Id,
+                    LanguageCode=language.Code,
+                    Value="Prices List"
+                    },
+new LanguageKey()
+                    {
+                    Active=true,
+                    CreatedBy=new Guid(),
+                    CreatedByName="admin",
+                    CreatedDate=DateTime.Now,
+                    Key="customersList_menu",
+                    LanguageId=language.Id,
+                    LanguageCode=language.Code,
+                    Value="Customers List"
+                    },
+new LanguageKey()
+                    {
+                    Active=true,
+                    CreatedBy=new Guid(),
+                    CreatedByName="admin",
+                    CreatedDate=DateTime.Now,
+                    Key="accountState_menu",
+                    LanguageId=language.Id,
+                    LanguageCode=language.Code,
+                    Value="Account State"
+                    },
+new LanguageKey()
+                    {
+                    Active=true,
+                    CreatedBy=new Guid(),
+                    CreatedByName="admin",
+                    CreatedDate=DateTime.Now,
+                    Key="movements_menu",
+                    LanguageId=language.Id,
+                    LanguageCode=language.Code,
+                    Value="Movements"
+                    },
+new LanguageKey()
+                    {
+                    Active=true,
+                    CreatedBy=new Guid(),
+                    CreatedByName="admin",
+                    CreatedDate=DateTime.Now,
+                    Key="resultState_menu",
+                    LanguageId=language.Id,
+                    LanguageCode=language.Code,
+                    Value="Result State"
+                    },
+new LanguageKey()
+                    {
+                    Active=true,
+                    CreatedBy=new Guid(),
+                    CreatedByName="admin",
+                    CreatedDate=DateTime.Now,
+                    Key="taxesReport_menu",
+                    LanguageId=language.Id,
+                    LanguageCode=language.Code,
+                    Value="Taxes Report"
+                    },
+new LanguageKey()
+                    {
+                    Active=true,
+                    CreatedBy=new Guid(),
+                    CreatedByName="admin",
+                    CreatedDate=DateTime.Now,
+                    Key="inventoryIn_menu",
+                    LanguageId=language.Id,
+                    LanguageCode=language.Code,
+                    Value="Inventory Incomes"
+                    },
+new LanguageKey()
+                    {
+                    Active=true,
+                    CreatedBy=new Guid(),
+                    CreatedByName="admin",
+                    CreatedDate=DateTime.Now,
+                    Key="warehouseTransfers_menu",
+                    LanguageId=language.Id,
+                    LanguageCode=language.Code,
+                    Value="Warehouses Transfers"
+                    },
+new LanguageKey()
+                    {
+                    Active=true,
+                    CreatedBy=new Guid(),
+                    CreatedByName="admin",
+                    CreatedDate=DateTime.Now,
+                    Key="suppliersReturns_menu",
+                    LanguageId=language.Id,
+                    LanguageCode=language.Code,
+                    Value="Suppliers Returns"
+                    },
+new LanguageKey()
+                    {
+                    Active=true,
+                    CreatedBy=new Guid(),
+                    CreatedByName="admin",
+                    CreatedDate=DateTime.Now,
+                    Key="auth_menu",
+                    LanguageId=language.Id,
+                    LanguageCode=language.Code,
+                    Value="Auth"
+                    },
+new LanguageKey()
+                    {
+                    Active=true,
+                    CreatedBy=new Guid(),
+                    CreatedByName="admin",
+                    CreatedDate=DateTime.Now,
+                    Key="users_menu",
+                    LanguageId=language.Id,
+                    LanguageCode=language.Code,
+                    Value="Users"
+                    },
+new LanguageKey()
+                    {
+                    Active=true,
+                    CreatedBy=new Guid(),
+                    CreatedByName="admin",
+                    CreatedDate=DateTime.Now,
+                    Key="roles_menu",
+                    LanguageId=language.Id,
+                    LanguageCode=language.Code,
+                    Value="Roles"
+                    },
+new LanguageKey()
+                    {
+                    Active=true,
+                    CreatedBy=new Guid(),
+                    CreatedByName="admin",
+                    CreatedDate=DateTime.Now,
+                    Key="profile_btn",
+                    LanguageId=language.Id,
+                    LanguageCode=language.Code,
+                    Value="Profile"
+                    },
+new LanguageKey()
+                    {
+                    Active=true,
+                    CreatedBy=new Guid(),
+                    CreatedByName="admin",
+                    CreatedDate=DateTime.Now,
+                    Key="logOut_btn",
+                    LanguageId=language.Id,
+                    LanguageCode=language.Code,
+                    Value="Log Out"
+                    },
+new LanguageKey()
+                    {
+                    Active=true,
+                    CreatedBy=new Guid(),
+                    CreatedByName="admin",
+                    CreatedDate=DateTime.Now,
+                    Key="dashboard_menu",
+                    LanguageId=language.Id,
+                    LanguageCode=language.Code,
+                    Value="Dashboard"
+                    },
+new LanguageKey()
+                    {
+                    Active=true,
+                    CreatedBy=new Guid(),
+                    CreatedByName="admin",
+                    CreatedDate=DateTime.Now,
+                    Key="remember_msg",
+                    LanguageId=language.Id,
+                    LanguageCode=language.Code,
+                    Value="Remember me?"
+                    },
+new LanguageKey()
+                    {
+                    Active=true,
+                    CreatedBy=new Guid(),
+                    CreatedByName="admin",
+                    CreatedDate=DateTime.Now,
+                    Key="forgotPass_msg",
+                    LanguageId=language.Id,
+                    LanguageCode=language.Code,
+                    Value="Forgot Password?"
+                    },
+new LanguageKey()
+                    {
+                    Active=true,
+                    CreatedBy=new Guid(),
+                    CreatedByName="admin",
+                    CreatedDate=DateTime.Now,
+                    Key="password_input",
+                    LanguageId=language.Id,
+                    LanguageCode=language.Code,
+                    Value="Password"
+                    },
+new LanguageKey()
+                    {
+                    Active=true,
+                    CreatedBy=new Guid(),
+                    CreatedByName="admin",
+                    CreatedDate=DateTime.Now,
+                    Key="email_input",
+                    LanguageId=language.Id,
+                    LanguageCode=language.Code,
+                    Value="Email"
+                    },
+new LanguageKey()
+                    {
+                    Active=true,
+                    CreatedBy=new Guid(),
+                    CreatedByName="admin",
+                    CreatedDate=DateTime.Now,
+                    Key="customersReturns_menu",
+                    LanguageId=language.Id,
+                    LanguageCode=language.Code,
+                    Value="Customers Returns"
+                    }
 // new system keys goes here
 
 
                 });
             }
+
+         //   var repeatedKeys = basicLanguageKeys.GroupBy(x => x.Key).ToList().Where(x=>x.Count()>2).Select(x=>x.Key).ToList();
+
+            
             modelBuilder.Entity<Operation>().HasData(operations);
             modelBuilder.Entity<PaymentType>().HasData(paymentTypes);
             modelBuilder.Entity<SequenceControl>().HasData(sequenceControls);

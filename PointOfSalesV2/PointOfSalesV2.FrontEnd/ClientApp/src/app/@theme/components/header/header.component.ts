@@ -46,7 +46,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       target: 'profileBtn'
     },
     {
-      title: this.lang.getValueByKey('logout_btn'),
+      title: this.lang.getValueByKey('logOut_btn'),
       target: 'logoutBtn'
     }];
 
