@@ -7,11 +7,14 @@ import { LoginComponent } from './components/login/login.component';
 import { BaseService } from '../../@core/services/baseService';
 import { NbAlertModule, NbCheckboxModule, NbIconModule, NbInputModule } from '@nebular/theme';
 import { NbAuthService } from '@nebular/auth';
+import { TranslateModule } from '@ngx-translate/core';
+import { LanguageService } from '../../@core/services/translateService';
 
 
 @NgModule({
     imports: [
 
+        TranslateModule,
         CommonModule,
         RouterModule.forChild(AuthRoutes),
         FormsModule,
@@ -27,6 +30,7 @@ import { NbAuthService } from '@nebular/auth';
     providers: [
         BaseService,
         NbAuthService,
+        LanguageService
 
     ],
 })

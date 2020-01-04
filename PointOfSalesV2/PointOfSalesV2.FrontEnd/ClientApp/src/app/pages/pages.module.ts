@@ -6,6 +6,7 @@ import { PagesComponent } from './pages.component';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { PagesRoutingModule } from './pages-routing.module';
 import { LanguageService } from './../@core/services/translateService';
+import { SecurityService } from '../@core/services/securityService';
 
 @NgModule({
   imports: [
@@ -18,7 +19,10 @@ import { LanguageService } from './../@core/services/translateService';
   declarations: [
     PagesComponent,
   ],
-  providers: [LanguageService]
+  providers: [
+    LanguageService,
+    SecurityService
+  ]
 })
 export class PagesModule {
 }

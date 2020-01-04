@@ -47,12 +47,23 @@ export enum AppSections {
     Roles = 29,
     Sections = 30,
     Operations = 31,
-    Menu = 32,
-    Sellers = 33,
-    Zones = 34,
-    UserRoles = 35,
-    WarehouseMovements = 36,
-    DashBoard = 37
+    Sellers = 32,
+    Zones = 33,
+    UserRoles = 34,
+    DashBoard = 35,
+    SalesReport = 36,
+    AccountsReceivable = 37,
+    IncomeReceipts = 38,
+    Commisions = 39,
+    ProductMovements = 40,
+    DebstToPay = 41,
+    PriceList = 42,
+    CustomersList = 43,
+    AccountState = 44,
+    ResultState = 45,
+    TaxesReport = 46,
+    InventoryIncomes = 47
+
 }
 export enum MovementTypes {
     IN = 1,
