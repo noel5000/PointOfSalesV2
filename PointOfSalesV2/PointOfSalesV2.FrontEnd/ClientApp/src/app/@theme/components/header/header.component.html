@@ -6,6 +6,7 @@
     <a class="logo" href="#" (click)="navigateHome()">BillTech</a>
   </div>
   <nb-select
+    *ngIf="false"
     [(selected)]="currentLanguage"
     (selectedChange)="changeLanguage($event)"
     status="primary"
