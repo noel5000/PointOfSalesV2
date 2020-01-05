@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace PointOfSalesV2.EntityFramework.Migrations
 {
     [DbContext(typeof(MainDataContext))]
-    [Migration("20191231011705_auditableNames")]
-    partial class auditableNames
+    [Migration("20200105012212_translationsFix")]
+    partial class translationsFix
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -1425,9 +1425,9 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 485, DateTimeKind.Local).AddTicks(1112),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 551, DateTimeKind.Local).AddTicks(8976),
                             Id = 1L,
-                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"ENGLISH\"}]},{\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"ENGLISH\"}]}"
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"ENGLISH\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"ENGLISH\"}]}"
                         },
                         new
                         {
@@ -1435,9 +1435,9 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 485, DateTimeKind.Local).AddTicks(1714),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 551, DateTimeKind.Local).AddTicks(9599),
                             Id = 2L,
-                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"SPANISH\"}]},{\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"SPANISH\"}]}"
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"SPANISH\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"SPANISH\"}]}"
                         });
                 });
 
@@ -1492,7 +1492,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 485, DateTimeKind.Local).AddTicks(2792),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(602),
                             LanguageId = 1L,
                             Value = "Unit does not exist."
                         },
@@ -1503,7 +1503,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 485, DateTimeKind.Local).AddTicks(5093),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(2981),
                             LanguageId = 1L,
                             Value = "Parent unit does not exist."
                         },
@@ -1514,7 +1514,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 485, DateTimeKind.Local).AddTicks(5150),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3042),
                             LanguageId = 1L,
                             Value = "Operation completed successfully."
                         },
@@ -1525,7 +1525,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 485, DateTimeKind.Local).AddTicks(5153),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3045),
                             LanguageId = 1L,
                             Value = "Error: Could not completed the current operation. "
                         },
@@ -1536,7 +1536,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 485, DateTimeKind.Local).AddTicks(5155),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3048),
                             LanguageId = 1L,
                             Value = "Cannot update payment. "
                         },
@@ -1547,7 +1547,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 485, DateTimeKind.Local).AddTicks(5163),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3054),
                             LanguageId = 1L,
                             Value = "Invalid invoice."
                         },
@@ -1558,7 +1558,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 485, DateTimeKind.Local).AddTicks(5165),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3057),
                             LanguageId = 1L,
                             Value = "Owed amount is outdated. please try update and try again."
                         },
@@ -1569,7 +1569,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 485, DateTimeKind.Local).AddTicks(5169),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3059),
                             LanguageId = 1L,
                             Value = "Invoice is already paid."
                         },
@@ -1580,7 +1580,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 485, DateTimeKind.Local).AddTicks(5171),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3062),
                             LanguageId = 1L,
                             Value = "Payment is not valid."
                         },
@@ -1591,7 +1591,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 485, DateTimeKind.Local).AddTicks(5175),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3066),
                             LanguageId = 1L,
                             Value = "Invoice doesn't have any details. Cannot be empty."
                         },
@@ -1602,7 +1602,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 485, DateTimeKind.Local).AddTicks(5177),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3069),
                             LanguageId = 1L,
                             Value = "Credit limit reached. Cannot continue."
                         },
@@ -1613,7 +1613,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 485, DateTimeKind.Local).AddTicks(5180),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3071),
                             LanguageId = 1L,
                             Value = "TRN is not available."
                         },
@@ -1624,7 +1624,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 485, DateTimeKind.Local).AddTicks(5182),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3074),
                             LanguageId = 1L,
                             Value = "Product is out of stock."
                         },
@@ -1635,7 +1635,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 485, DateTimeKind.Local).AddTicks(5184),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3077),
                             LanguageId = 1L,
                             Value = "Defective warehouse does not exist. Please create one with 'DEF' as code first. "
                         },
@@ -1646,7 +1646,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 485, DateTimeKind.Local).AddTicks(5187),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3079),
                             LanguageId = 1L,
                             Value = "Cannot process this product/Service. Class does not exist."
                         },
@@ -1657,7 +1657,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 485, DateTimeKind.Local).AddTicks(5189),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3081),
                             LanguageId = 1L,
                             Value = "Warehouse does not exist."
                         },
@@ -1668,7 +1668,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 485, DateTimeKind.Local).AddTicks(5191),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3084),
                             LanguageId = 1L,
                             Value = "Credit note does not exist. "
                         },
@@ -1679,7 +1679,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 485, DateTimeKind.Local).AddTicks(5195),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3087),
                             LanguageId = 1L,
                             Value = "Credit note is already applied."
                         },
@@ -1690,7 +1690,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 485, DateTimeKind.Local).AddTicks(5197),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3090),
                             LanguageId = 1L,
                             Value = "Currencies are different. You can only apply the same currency. "
                         },
@@ -1701,7 +1701,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 485, DateTimeKind.Local).AddTicks(5199),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3092),
                             LanguageId = 1L,
                             Value = "Credit note amount is greater than invoice amount."
                         },
@@ -1712,7 +1712,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 485, DateTimeKind.Local).AddTicks(5202),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3095),
                             LanguageId = 1L,
                             Value = "Product needs at least one unit."
                         },
@@ -1723,7 +1723,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 485, DateTimeKind.Local).AddTicks(5204),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3097),
                             LanguageId = 1L,
                             Value = "Product needs one primary unit."
                         },
@@ -1734,7 +1734,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 485, DateTimeKind.Local).AddTicks(5206),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3099),
                             LanguageId = 1L,
                             Value = "Cannot erase product unit."
                         },
@@ -1745,7 +1745,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 485, DateTimeKind.Local).AddTicks(5209),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3109),
                             LanguageId = 1L,
                             Value = "Cannot delete product tax. "
                         },
@@ -1756,7 +1756,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 485, DateTimeKind.Local).AddTicks(5211),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3111),
                             LanguageId = 1L,
                             Value = "Cannot remove base product."
                         },
@@ -1767,9 +1767,625 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 485, DateTimeKind.Local).AddTicks(5213),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3114),
                             LanguageId = 1L,
                             Value = "Sequence Error."
+                        },
+                        new
+                        {
+                            LanguageCode = "EN",
+                            Key = "start_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3116),
+                            LanguageId = 1L,
+                            Value = "Start"
+                        },
+                        new
+                        {
+                            LanguageCode = "EN",
+                            Key = "user_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3118),
+                            LanguageId = 1L,
+                            Value = "User"
+                        },
+                        new
+                        {
+                            LanguageCode = "EN",
+                            Key = "changePass_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3121),
+                            LanguageId = 1L,
+                            Value = "Change Password"
+                        },
+                        new
+                        {
+                            LanguageCode = "EN",
+                            Key = "login_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3123),
+                            LanguageId = 1L,
+                            Value = "Login"
+                        },
+                        new
+                        {
+                            LanguageCode = "EN",
+                            Key = "logOut_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3125),
+                            LanguageId = 1L,
+                            Value = "Log out"
+                        },
+                        new
+                        {
+                            LanguageCode = "EN",
+                            Key = "resetPass_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3128),
+                            LanguageId = 1L,
+                            Value = "Reset Password"
+                        },
+                        new
+                        {
+                            LanguageCode = "EN",
+                            Key = "core_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3130),
+                            LanguageId = 1L,
+                            Value = "Configurations"
+                        },
+                        new
+                        {
+                            LanguageCode = "EN",
+                            Key = "branchOffice_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3134),
+                            LanguageId = 1L,
+                            Value = "Branch Offices"
+                        },
+                        new
+                        {
+                            LanguageCode = "EN",
+                            Key = "warehouse_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3136),
+                            LanguageId = 1L,
+                            Value = "Warehouses"
+                        },
+                        new
+                        {
+                            LanguageCode = "EN",
+                            Key = "currencies_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3139),
+                            LanguageId = 1L,
+                            Value = "Currencies"
+                        },
+                        new
+                        {
+                            LanguageCode = "EN",
+                            Key = "suppliers_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3141),
+                            LanguageId = 1L,
+                            Value = "Suppliers"
+                        },
+                        new
+                        {
+                            LanguageCode = "EN",
+                            Key = "taxes_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3143),
+                            LanguageId = 1L,
+                            Value = "Taxes"
+                        },
+                        new
+                        {
+                            LanguageCode = "EN",
+                            Key = "units_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3146),
+                            LanguageId = 1L,
+                            Value = "Units"
+                        },
+                        new
+                        {
+                            LanguageCode = "EN",
+                            Key = "TRNControl_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3148),
+                            LanguageId = 1L,
+                            Value = "TRN Control"
+                        },
+                        new
+                        {
+                            LanguageCode = "EN",
+                            Key = "zones_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3151),
+                            LanguageId = 1L,
+                            Value = "Zones"
+                        },
+                        new
+                        {
+                            LanguageCode = "EN",
+                            Key = "sellers_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3153),
+                            LanguageId = 1L,
+                            Value = "Sellers"
+                        },
+                        new
+                        {
+                            LanguageCode = "EN",
+                            Key = "customers_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3156),
+                            LanguageId = 1L,
+                            Value = "Customers"
+                        },
+                        new
+                        {
+                            LanguageCode = "EN",
+                            Key = "products_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3159),
+                            LanguageId = 1L,
+                            Value = "Products"
+                        },
+                        new
+                        {
+                            LanguageCode = "EN",
+                            Key = "cashRegister_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3161),
+                            LanguageId = 1L,
+                            Value = "Cash Registers"
+                        },
+                        new
+                        {
+                            LanguageCode = "EN",
+                            Key = "cashRegisterManteinance_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3163),
+                            LanguageId = 1L,
+                            Value = "Manteinance"
+                        },
+                        new
+                        {
+                            LanguageCode = "EN",
+                            Key = "cashROpenClose_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3166),
+                            LanguageId = 1L,
+                            Value = "Opening/Closing"
+                        },
+                        new
+                        {
+                            LanguageCode = "EN",
+                            Key = "billing_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3169),
+                            LanguageId = 1L,
+                            Value = "Billing"
+                        },
+                        new
+                        {
+                            LanguageCode = "EN",
+                            Key = "quotes_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3171),
+                            LanguageId = 1L,
+                            Value = "Quotes"
+                        },
+                        new
+                        {
+                            LanguageCode = "EN",
+                            Key = "invoices_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3173),
+                            LanguageId = 1L,
+                            Value = "Invoices"
+                        },
+                        new
+                        {
+                            LanguageCode = "EN",
+                            Key = "customerPayment_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3176),
+                            LanguageId = 1L,
+                            Value = "Payments"
+                        },
+                        new
+                        {
+                            LanguageCode = "EN",
+                            Key = "expenses_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3178),
+                            LanguageId = 1L,
+                            Value = "Expenses"
+                        },
+                        new
+                        {
+                            LanguageCode = "EN",
+                            Key = "expensesRegister_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3181),
+                            LanguageId = 1L,
+                            Value = "Register expenses"
+                        },
+                        new
+                        {
+                            LanguageCode = "EN",
+                            Key = "expensesPayment_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3183),
+                            LanguageId = 1L,
+                            Value = "Payments"
+                        },
+                        new
+                        {
+                            LanguageCode = "EN",
+                            Key = "reports_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3185),
+                            LanguageId = 1L,
+                            Value = "Reports"
+                        },
+                        new
+                        {
+                            LanguageCode = "EN",
+                            Key = "sales_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3188),
+                            LanguageId = 1L,
+                            Value = "Sales"
+                        },
+                        new
+                        {
+                            LanguageCode = "EN",
+                            Key = "accountsReceivable_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3190),
+                            LanguageId = 1L,
+                            Value = "Accounts Receivable"
+                        },
+                        new
+                        {
+                            LanguageCode = "EN",
+                            Key = "incomeReceipts_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3192),
+                            LanguageId = 1L,
+                            Value = "Income Receipts"
+                        },
+                        new
+                        {
+                            LanguageCode = "EN",
+                            Key = "commissions_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3195),
+                            LanguageId = 1L,
+                            Value = "Commissions"
+                        },
+                        new
+                        {
+                            LanguageCode = "EN",
+                            Key = "inventory_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3197),
+                            LanguageId = 1L,
+                            Value = "Inventory"
+                        },
+                        new
+                        {
+                            LanguageCode = "EN",
+                            Key = "productsMovements_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3199),
+                            LanguageId = 1L,
+                            Value = "Products Movements"
+                        },
+                        new
+                        {
+                            LanguageCode = "EN",
+                            Key = "debtsToPay_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3202),
+                            LanguageId = 1L,
+                            Value = "Debts To Pay"
+                        },
+                        new
+                        {
+                            LanguageCode = "EN",
+                            Key = "pricesList_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3204),
+                            LanguageId = 1L,
+                            Value = "Prices List"
+                        },
+                        new
+                        {
+                            LanguageCode = "EN",
+                            Key = "customersList_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3207),
+                            LanguageId = 1L,
+                            Value = "Customers List"
+                        },
+                        new
+                        {
+                            LanguageCode = "EN",
+                            Key = "accountState_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3210),
+                            LanguageId = 1L,
+                            Value = "Account State"
+                        },
+                        new
+                        {
+                            LanguageCode = "EN",
+                            Key = "movements_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3218),
+                            LanguageId = 1L,
+                            Value = "Movements"
+                        },
+                        new
+                        {
+                            LanguageCode = "EN",
+                            Key = "resultState_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3220),
+                            LanguageId = 1L,
+                            Value = "Result State"
+                        },
+                        new
+                        {
+                            LanguageCode = "EN",
+                            Key = "taxesReport_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3223),
+                            LanguageId = 1L,
+                            Value = "Taxes Report"
+                        },
+                        new
+                        {
+                            LanguageCode = "EN",
+                            Key = "inventoryIn_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3225),
+                            LanguageId = 1L,
+                            Value = "Inventory Incomes"
+                        },
+                        new
+                        {
+                            LanguageCode = "EN",
+                            Key = "warehouseTransfers_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3227),
+                            LanguageId = 1L,
+                            Value = "Warehouses Transfers"
+                        },
+                        new
+                        {
+                            LanguageCode = "EN",
+                            Key = "suppliersReturns_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3230),
+                            LanguageId = 1L,
+                            Value = "Suppliers Returns"
+                        },
+                        new
+                        {
+                            LanguageCode = "EN",
+                            Key = "auth_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3232),
+                            LanguageId = 1L,
+                            Value = "Auth"
+                        },
+                        new
+                        {
+                            LanguageCode = "EN",
+                            Key = "users_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3234),
+                            LanguageId = 1L,
+                            Value = "Users"
+                        },
+                        new
+                        {
+                            LanguageCode = "EN",
+                            Key = "roles_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3237),
+                            LanguageId = 1L,
+                            Value = "Roles"
+                        },
+                        new
+                        {
+                            LanguageCode = "EN",
+                            Key = "profile_btn",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3239),
+                            LanguageId = 1L,
+                            Value = "Profile"
+                        },
+                        new
+                        {
+                            LanguageCode = "EN",
+                            Key = "logOut_btn",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3242),
+                            LanguageId = 1L,
+                            Value = "Log Out"
+                        },
+                        new
+                        {
+                            LanguageCode = "EN",
+                            Key = "dashboard_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3244),
+                            LanguageId = 1L,
+                            Value = "Dashboard"
+                        },
+                        new
+                        {
+                            LanguageCode = "EN",
+                            Key = "remember_msg",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3247),
+                            LanguageId = 1L,
+                            Value = "Remember me?"
+                        },
+                        new
+                        {
+                            LanguageCode = "EN",
+                            Key = "forgotPass_msg",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3249),
+                            LanguageId = 1L,
+                            Value = "Forgot Password?"
+                        },
+                        new
+                        {
+                            LanguageCode = "EN",
+                            Key = "password_input",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3252),
+                            LanguageId = 1L,
+                            Value = "Password"
+                        },
+                        new
+                        {
+                            LanguageCode = "EN",
+                            Key = "email_input",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3254),
+                            LanguageId = 1L,
+                            Value = "Email"
+                        },
+                        new
+                        {
+                            LanguageCode = "EN",
+                            Key = "customersReturns_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3256),
+                            LanguageId = 1L,
+                            Value = "Customers Returns"
                         },
                         new
                         {
@@ -1778,7 +2394,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 485, DateTimeKind.Local).AddTicks(5397),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3433),
                             LanguageId = 2L,
                             Value = "Unit does not exist."
                         },
@@ -1789,7 +2405,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 485, DateTimeKind.Local).AddTicks(5400),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3438),
                             LanguageId = 2L,
                             Value = "Parent unit does not exist."
                         },
@@ -1800,7 +2416,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 485, DateTimeKind.Local).AddTicks(5402),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3440),
                             LanguageId = 2L,
                             Value = "Operation completed successfully."
                         },
@@ -1811,7 +2427,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 485, DateTimeKind.Local).AddTicks(5403),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3442),
                             LanguageId = 2L,
                             Value = "Error: Could not completed the current operation. "
                         },
@@ -1822,7 +2438,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 485, DateTimeKind.Local).AddTicks(5405),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3443),
                             LanguageId = 2L,
                             Value = "Cannot update payment. "
                         },
@@ -1833,7 +2449,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 485, DateTimeKind.Local).AddTicks(5408),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3446),
                             LanguageId = 2L,
                             Value = "Invalid invoice."
                         },
@@ -1844,7 +2460,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 485, DateTimeKind.Local).AddTicks(5409),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3447),
                             LanguageId = 2L,
                             Value = "Owed amount is outdated. please try update and try again."
                         },
@@ -1855,7 +2471,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 485, DateTimeKind.Local).AddTicks(5411),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3449),
                             LanguageId = 2L,
                             Value = "Invoice is already paid."
                         },
@@ -1866,7 +2482,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 485, DateTimeKind.Local).AddTicks(5412),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3451),
                             LanguageId = 2L,
                             Value = "Payment is not valid."
                         },
@@ -1877,7 +2493,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 485, DateTimeKind.Local).AddTicks(5415),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3454),
                             LanguageId = 2L,
                             Value = "Invoice doesn't have any details. Cannot be empty."
                         },
@@ -1888,7 +2504,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 485, DateTimeKind.Local).AddTicks(5417),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3456),
                             LanguageId = 2L,
                             Value = "Credit limit reached. Cannot continue."
                         },
@@ -1899,7 +2515,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 485, DateTimeKind.Local).AddTicks(5418),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3458),
                             LanguageId = 2L,
                             Value = "TRN is not available."
                         },
@@ -1910,7 +2526,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 485, DateTimeKind.Local).AddTicks(5420),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3460),
                             LanguageId = 2L,
                             Value = "Product is out of stock."
                         },
@@ -1921,7 +2537,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 485, DateTimeKind.Local).AddTicks(5468),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3462),
                             LanguageId = 2L,
                             Value = "Defective warehouse does not exist. Please create one with 'DEF' as code first. "
                         },
@@ -1932,7 +2548,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 485, DateTimeKind.Local).AddTicks(5470),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3463),
                             LanguageId = 2L,
                             Value = "Cannot process this product/Service. Class does not exist."
                         },
@@ -1943,7 +2559,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 485, DateTimeKind.Local).AddTicks(5471),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3465),
                             LanguageId = 2L,
                             Value = "Warehouse does not exist."
                         },
@@ -1954,7 +2570,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 485, DateTimeKind.Local).AddTicks(5473),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3467),
                             LanguageId = 2L,
                             Value = "Credit note does not exist. "
                         },
@@ -1965,7 +2581,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 485, DateTimeKind.Local).AddTicks(5476),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3470),
                             LanguageId = 2L,
                             Value = "Credit note is already applied."
                         },
@@ -1976,7 +2592,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 485, DateTimeKind.Local).AddTicks(5477),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3472),
                             LanguageId = 2L,
                             Value = "Currencies are different. You can only apply the same currency. "
                         },
@@ -1987,7 +2603,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 485, DateTimeKind.Local).AddTicks(5479),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3474),
                             LanguageId = 2L,
                             Value = "Credit note amount is greater than invoice amount."
                         },
@@ -1998,7 +2614,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 485, DateTimeKind.Local).AddTicks(5480),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3475),
                             LanguageId = 2L,
                             Value = "Product needs at least one unit."
                         },
@@ -2009,7 +2625,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 485, DateTimeKind.Local).AddTicks(5482),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3477),
                             LanguageId = 2L,
                             Value = "Product needs one primary unit."
                         },
@@ -2020,7 +2636,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 485, DateTimeKind.Local).AddTicks(5484),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3478),
                             LanguageId = 2L,
                             Value = "Cannot erase product unit."
                         },
@@ -2031,7 +2647,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 485, DateTimeKind.Local).AddTicks(5486),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3480),
                             LanguageId = 2L,
                             Value = "Cannot delete product tax. "
                         },
@@ -2042,7 +2658,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 485, DateTimeKind.Local).AddTicks(5487),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3482),
                             LanguageId = 2L,
                             Value = "Cannot remove base product."
                         },
@@ -2053,9 +2669,625 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 485, DateTimeKind.Local).AddTicks(5489),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3489),
                             LanguageId = 2L,
                             Value = "Sequence Error."
+                        },
+                        new
+                        {
+                            LanguageCode = "ES",
+                            Key = "start_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3490),
+                            LanguageId = 2L,
+                            Value = "Start"
+                        },
+                        new
+                        {
+                            LanguageCode = "ES",
+                            Key = "user_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3492),
+                            LanguageId = 2L,
+                            Value = "User"
+                        },
+                        new
+                        {
+                            LanguageCode = "ES",
+                            Key = "changePass_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3494),
+                            LanguageId = 2L,
+                            Value = "Change Password"
+                        },
+                        new
+                        {
+                            LanguageCode = "ES",
+                            Key = "login_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3496),
+                            LanguageId = 2L,
+                            Value = "Login"
+                        },
+                        new
+                        {
+                            LanguageCode = "ES",
+                            Key = "logOut_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3498),
+                            LanguageId = 2L,
+                            Value = "Log out"
+                        },
+                        new
+                        {
+                            LanguageCode = "ES",
+                            Key = "resetPass_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3499),
+                            LanguageId = 2L,
+                            Value = "Reset Password"
+                        },
+                        new
+                        {
+                            LanguageCode = "ES",
+                            Key = "core_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3501),
+                            LanguageId = 2L,
+                            Value = "Configurations"
+                        },
+                        new
+                        {
+                            LanguageCode = "ES",
+                            Key = "branchOffice_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3504),
+                            LanguageId = 2L,
+                            Value = "Branch Offices"
+                        },
+                        new
+                        {
+                            LanguageCode = "ES",
+                            Key = "warehouse_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3505),
+                            LanguageId = 2L,
+                            Value = "Warehouses"
+                        },
+                        new
+                        {
+                            LanguageCode = "ES",
+                            Key = "currencies_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3507),
+                            LanguageId = 2L,
+                            Value = "Currencies"
+                        },
+                        new
+                        {
+                            LanguageCode = "ES",
+                            Key = "suppliers_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3509),
+                            LanguageId = 2L,
+                            Value = "Suppliers"
+                        },
+                        new
+                        {
+                            LanguageCode = "ES",
+                            Key = "taxes_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3511),
+                            LanguageId = 2L,
+                            Value = "Taxes"
+                        },
+                        new
+                        {
+                            LanguageCode = "ES",
+                            Key = "units_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3513),
+                            LanguageId = 2L,
+                            Value = "Units"
+                        },
+                        new
+                        {
+                            LanguageCode = "ES",
+                            Key = "TRNControl_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3516),
+                            LanguageId = 2L,
+                            Value = "TRN Control"
+                        },
+                        new
+                        {
+                            LanguageCode = "ES",
+                            Key = "zones_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3518),
+                            LanguageId = 2L,
+                            Value = "Zones"
+                        },
+                        new
+                        {
+                            LanguageCode = "ES",
+                            Key = "sellers_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3520),
+                            LanguageId = 2L,
+                            Value = "Sellers"
+                        },
+                        new
+                        {
+                            LanguageCode = "ES",
+                            Key = "customers_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3523),
+                            LanguageId = 2L,
+                            Value = "Customers"
+                        },
+                        new
+                        {
+                            LanguageCode = "ES",
+                            Key = "products_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3525),
+                            LanguageId = 2L,
+                            Value = "Products"
+                        },
+                        new
+                        {
+                            LanguageCode = "ES",
+                            Key = "cashRegister_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3527),
+                            LanguageId = 2L,
+                            Value = "Cash Registers"
+                        },
+                        new
+                        {
+                            LanguageCode = "ES",
+                            Key = "cashRegisterManteinance_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3529),
+                            LanguageId = 2L,
+                            Value = "Manteinance"
+                        },
+                        new
+                        {
+                            LanguageCode = "ES",
+                            Key = "cashROpenClose_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3531),
+                            LanguageId = 2L,
+                            Value = "Opening/Closing"
+                        },
+                        new
+                        {
+                            LanguageCode = "ES",
+                            Key = "billing_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3534),
+                            LanguageId = 2L,
+                            Value = "Billing"
+                        },
+                        new
+                        {
+                            LanguageCode = "ES",
+                            Key = "quotes_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3536),
+                            LanguageId = 2L,
+                            Value = "Quotes"
+                        },
+                        new
+                        {
+                            LanguageCode = "ES",
+                            Key = "invoices_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3538),
+                            LanguageId = 2L,
+                            Value = "Invoices"
+                        },
+                        new
+                        {
+                            LanguageCode = "ES",
+                            Key = "customerPayment_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3540),
+                            LanguageId = 2L,
+                            Value = "Payments"
+                        },
+                        new
+                        {
+                            LanguageCode = "ES",
+                            Key = "expenses_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3543),
+                            LanguageId = 2L,
+                            Value = "Expenses"
+                        },
+                        new
+                        {
+                            LanguageCode = "ES",
+                            Key = "expensesRegister_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3545),
+                            LanguageId = 2L,
+                            Value = "Register expenses"
+                        },
+                        new
+                        {
+                            LanguageCode = "ES",
+                            Key = "expensesPayment_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3547),
+                            LanguageId = 2L,
+                            Value = "Payments"
+                        },
+                        new
+                        {
+                            LanguageCode = "ES",
+                            Key = "reports_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3549),
+                            LanguageId = 2L,
+                            Value = "Reports"
+                        },
+                        new
+                        {
+                            LanguageCode = "ES",
+                            Key = "sales_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3551),
+                            LanguageId = 2L,
+                            Value = "Sales"
+                        },
+                        new
+                        {
+                            LanguageCode = "ES",
+                            Key = "accountsReceivable_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3553),
+                            LanguageId = 2L,
+                            Value = "Accounts Receivable"
+                        },
+                        new
+                        {
+                            LanguageCode = "ES",
+                            Key = "incomeReceipts_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3555),
+                            LanguageId = 2L,
+                            Value = "Income Receipts"
+                        },
+                        new
+                        {
+                            LanguageCode = "ES",
+                            Key = "commissions_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3557),
+                            LanguageId = 2L,
+                            Value = "Commissions"
+                        },
+                        new
+                        {
+                            LanguageCode = "ES",
+                            Key = "inventory_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3559),
+                            LanguageId = 2L,
+                            Value = "Inventory"
+                        },
+                        new
+                        {
+                            LanguageCode = "ES",
+                            Key = "productsMovements_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3561),
+                            LanguageId = 2L,
+                            Value = "Products Movements"
+                        },
+                        new
+                        {
+                            LanguageCode = "ES",
+                            Key = "debtsToPay_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3563),
+                            LanguageId = 2L,
+                            Value = "Debts To Pay"
+                        },
+                        new
+                        {
+                            LanguageCode = "ES",
+                            Key = "pricesList_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3566),
+                            LanguageId = 2L,
+                            Value = "Prices List"
+                        },
+                        new
+                        {
+                            LanguageCode = "ES",
+                            Key = "customersList_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3567),
+                            LanguageId = 2L,
+                            Value = "Customers List"
+                        },
+                        new
+                        {
+                            LanguageCode = "ES",
+                            Key = "accountState_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3570),
+                            LanguageId = 2L,
+                            Value = "Account State"
+                        },
+                        new
+                        {
+                            LanguageCode = "ES",
+                            Key = "movements_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3574),
+                            LanguageId = 2L,
+                            Value = "Movements"
+                        },
+                        new
+                        {
+                            LanguageCode = "ES",
+                            Key = "resultState_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3582),
+                            LanguageId = 2L,
+                            Value = "Result State"
+                        },
+                        new
+                        {
+                            LanguageCode = "ES",
+                            Key = "taxesReport_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3585),
+                            LanguageId = 2L,
+                            Value = "Taxes Report"
+                        },
+                        new
+                        {
+                            LanguageCode = "ES",
+                            Key = "inventoryIn_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3587),
+                            LanguageId = 2L,
+                            Value = "Inventory Incomes"
+                        },
+                        new
+                        {
+                            LanguageCode = "ES",
+                            Key = "warehouseTransfers_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3589),
+                            LanguageId = 2L,
+                            Value = "Warehouses Transfers"
+                        },
+                        new
+                        {
+                            LanguageCode = "ES",
+                            Key = "suppliersReturns_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3591),
+                            LanguageId = 2L,
+                            Value = "Suppliers Returns"
+                        },
+                        new
+                        {
+                            LanguageCode = "ES",
+                            Key = "auth_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3594),
+                            LanguageId = 2L,
+                            Value = "Auth"
+                        },
+                        new
+                        {
+                            LanguageCode = "ES",
+                            Key = "users_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3596),
+                            LanguageId = 2L,
+                            Value = "Users"
+                        },
+                        new
+                        {
+                            LanguageCode = "ES",
+                            Key = "roles_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3598),
+                            LanguageId = 2L,
+                            Value = "Roles"
+                        },
+                        new
+                        {
+                            LanguageCode = "ES",
+                            Key = "profile_btn",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3600),
+                            LanguageId = 2L,
+                            Value = "Profile"
+                        },
+                        new
+                        {
+                            LanguageCode = "ES",
+                            Key = "logOut_btn",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3602),
+                            LanguageId = 2L,
+                            Value = "Log Out"
+                        },
+                        new
+                        {
+                            LanguageCode = "ES",
+                            Key = "dashboard_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3603),
+                            LanguageId = 2L,
+                            Value = "Dashboard"
+                        },
+                        new
+                        {
+                            LanguageCode = "ES",
+                            Key = "remember_msg",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3606),
+                            LanguageId = 2L,
+                            Value = "Remember me?"
+                        },
+                        new
+                        {
+                            LanguageCode = "ES",
+                            Key = "forgotPass_msg",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3608),
+                            LanguageId = 2L,
+                            Value = "Forgot Password?"
+                        },
+                        new
+                        {
+                            LanguageCode = "ES",
+                            Key = "password_input",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3610),
+                            LanguageId = 2L,
+                            Value = "Password"
+                        },
+                        new
+                        {
+                            LanguageCode = "ES",
+                            Key = "email_input",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3612),
+                            LanguageId = 2L,
+                            Value = "Email"
+                        },
+                        new
+                        {
+                            LanguageCode = "ES",
+                            Key = "customersReturns_menu",
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 552, DateTimeKind.Local).AddTicks(3615),
+                            LanguageId = 2L,
+                            Value = "Customers Returns"
                         });
                 });
 
@@ -2107,8 +3339,8 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Code = (short)1,
                             CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 458, DateTimeKind.Local).AddTicks(9458),
-                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"IN\"}]},{\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"IN\"}]}"
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 532, DateTimeKind.Local).AddTicks(8386),
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"IN\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"IN\"}]}"
                         },
                         new
                         {
@@ -2117,8 +3349,8 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Code = (short)2,
                             CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 458, DateTimeKind.Local).AddTicks(9625),
-                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"OUT\"}]},{\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"OUT\"}]}"
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 532, DateTimeKind.Local).AddTicks(9893),
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"OUT\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"OUT\"}]}"
                         });
                 });
 
@@ -2207,8 +3439,8 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 382, DateTimeKind.Local).AddTicks(7163),
-                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"READ\"}]},{\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"READ\"}]}"
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 519, DateTimeKind.Local).AddTicks(6720),
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"READ\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"READ\"}]}"
                         },
                         new
                         {
@@ -2216,8 +3448,8 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 454, DateTimeKind.Local).AddTicks(1837),
-                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"ADD\"}]},{\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"ADD\"}]}"
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 526, DateTimeKind.Local).AddTicks(1902),
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"ADD\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"ADD\"}]}"
                         },
                         new
                         {
@@ -2225,8 +3457,8 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 454, DateTimeKind.Local).AddTicks(1981),
-                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"UPDATE\"}]},{\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"UPDATE\"}]}"
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 526, DateTimeKind.Local).AddTicks(2085),
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"UPDATE\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"UPDATE\"}]}"
                         },
                         new
                         {
@@ -2234,8 +3466,8 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 454, DateTimeKind.Local).AddTicks(2004),
-                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"DELETE\"}]},{\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"DELETE\"}]}"
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 526, DateTimeKind.Local).AddTicks(2123),
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"DELETE\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"DELETE\"}]}"
                         },
                         new
                         {
@@ -2243,8 +3475,8 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 454, DateTimeKind.Local).AddTicks(2038),
-                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"READALL\"}]},{\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"READALL\"}]}"
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 526, DateTimeKind.Local).AddTicks(2155),
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"READALL\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"READALL\"}]}"
                         },
                         new
                         {
@@ -2252,8 +3484,8 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 454, DateTimeKind.Local).AddTicks(2060),
-                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"READPAGED\"}]},{\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"READPAGED\"}]}"
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 526, DateTimeKind.Local).AddTicks(2288),
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"READPAGED\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"READPAGED\"}]}"
                         },
                         new
                         {
@@ -2261,8 +3493,8 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 454, DateTimeKind.Local).AddTicks(2078),
-                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"ALL\"}]},{\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"ALL\"}]}"
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 526, DateTimeKind.Local).AddTicks(2322),
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"ALL\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"ALL\"}]}"
                         });
                 });
 
@@ -2373,9 +3605,9 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Code = (short)1,
                             CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 455, DateTimeKind.Local).AddTicks(7693),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 528, DateTimeKind.Local).AddTicks(3913),
                             Name = "CASH",
-                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"CASH\"}]},{\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"CASH\"}]}"
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"CASH\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"CASH\"}]}"
                         },
                         new
                         {
@@ -2384,9 +3616,9 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Code = (short)2,
                             CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 455, DateTimeKind.Local).AddTicks(7806),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 528, DateTimeKind.Local).AddTicks(4093),
                             Name = "CHECK",
-                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"CHECK\"}]},{\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"CHECK\"}]}"
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"CHECK\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"CHECK\"}]}"
                         },
                         new
                         {
@@ -2395,9 +3627,9 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Code = (short)3,
                             CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 455, DateTimeKind.Local).AddTicks(7827),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 528, DateTimeKind.Local).AddTicks(4128),
                             Name = "CREDITCARD",
-                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"CREDITCARD\"}]},{\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"CREDITCARD\"}]}"
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"CREDITCARD\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"CREDITCARD\"}]}"
                         },
                         new
                         {
@@ -2406,9 +3638,9 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Code = (short)4,
                             CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 455, DateTimeKind.Local).AddTicks(7854),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 528, DateTimeKind.Local).AddTicks(4161),
                             Name = "BANKTRANSFER",
-                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"BANKTRANSFER\"}]},{\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"BANKTRANSFER\"}]}"
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"BANKTRANSFER\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"BANKTRANSFER\"}]}"
                         });
                 });
 
@@ -2666,8 +3898,8 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Controllers = "User,UserClaims,Role,RoleSection,Section,SectionOperation",
                             CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 463, DateTimeKind.Local).AddTicks(9508),
-                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"Permissions\"}]},{\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"Permissions\"}]}"
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 540, DateTimeKind.Local).AddTicks(8383),
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"Permissions\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"Permissions\"}]}"
                         },
                         new
                         {
@@ -2676,8 +3908,8 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Controllers = "Customer,CustomerRate",
                             CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2096),
-                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"CustomerRates\"}]},{\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"CustomerRates\"}]}"
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(1751),
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"CustomerRates\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"CustomerRates\"}]}"
                         },
                         new
                         {
@@ -2686,8 +3918,8 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Controllers = "Product,ProductTax",
                             CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2149),
-                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"Products\"}]},{\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"Products\"}]}"
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(1846),
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"Products\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"Products\"}]}"
                         },
                         new
                         {
@@ -2696,8 +3928,8 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Controllers = "Customer,CustomerPayment",
                             CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2183),
-                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"CustomerPayments\"}]},{\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"CustomerPayments\"}]}"
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(1904),
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"CustomerPayments\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"CustomerPayments\"}]}"
                         },
                         new
                         {
@@ -2706,8 +3938,8 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Controllers = "Currency",
                             CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2218),
-                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"Currencies\"}]},{\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"Currencies\"}]}"
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(1963),
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"Currencies\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"Currencies\"}]}"
                         },
                         new
                         {
@@ -2716,8 +3948,8 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Controllers = "Taxe",
                             CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2252),
-                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"Taxes\"}]},{\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"Taxes\"}]}"
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2021),
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"Taxes\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"Taxes\"}]}"
                         },
                         new
                         {
@@ -2726,8 +3958,8 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Controllers = "Invoice,InvoiceDetail,TRNControl,Unit,UnitProductEquivalence,Seller,BranchOffice,Warehouse,CreditNote,Currency,Customer,Inventory,PaymentType",
                             CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2289),
-                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"Invoices\"}]},{\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"Invoices\"}]}"
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2081),
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"Invoices\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"Invoices\"}]}"
                         },
                         new
                         {
@@ -2736,8 +3968,8 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Controllers = "Invoice,InvoiceDetail,Unit,UnitProductEquivalence,Seller,Currency,Customer",
                             CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2319),
-                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"Quotes\"}]},{\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"Quotes\"}]}"
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2134),
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"Quotes\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"Quotes\"}]}"
                         },
                         new
                         {
@@ -2746,8 +3978,8 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Controllers = "Customer,BranchOffice,Warehouse,TRNControl,Zone",
                             CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2354),
-                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"Customers\"}]},{\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"Customers\"}]}"
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2187),
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"Customers\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"Customers\"}]}"
                         },
                         new
                         {
@@ -2756,8 +3988,8 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Controllers = "BranchOffice,Warehouse",
                             CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2384),
-                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"Warehouses\"}]},{\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"Warehouses\"}]}"
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2250),
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"Warehouses\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"Warehouses\"}]}"
                         },
                         new
                         {
@@ -2766,8 +3998,8 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Controllers = "*",
                             CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2419),
-                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"All\"}]},{\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"All\"}]}"
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2306),
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"All\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"All\"}]}"
                         },
                         new
                         {
@@ -2776,8 +4008,8 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Controllers = "Inventory,Product,BranchOffice,Warehouse,Supplier",
                             CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2449),
-                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"Inventories\"}]},{\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"Inventories\"}]}"
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2365),
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"Inventories\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"Inventories\"}]}"
                         },
                         new
                         {
@@ -2786,8 +4018,8 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Controllers = "TRNControl",
                             CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2483),
-                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"TRNControl\"}]},{\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"TRNControl\"}]}"
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2418),
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"TRNControl\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"TRNControl\"}]}"
                         },
                         new
                         {
@@ -2796,8 +4028,8 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Controllers = "Supplier,Expense,Tax,ExpenseTax,Currency",
                             CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2512),
-                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"Expenses\"}]},{\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"Expenses\"}]}"
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2550),
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"Expenses\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"Expenses\"}]}"
                         },
                         new
                         {
@@ -2806,8 +4038,8 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Controllers = "BranchOffice,Warehouse",
                             CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2542),
-                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"BranchOffices\"}]},{\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"BranchOffices\"}]}"
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2604),
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"BranchOffices\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"BranchOffices\"}]}"
                         },
                         new
                         {
@@ -2816,8 +4048,8 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Controllers = "Supplier,BranchOffice,User,Currency,Tax",
                             CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2575),
-                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"ExpensesPayments\"}]},{\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"ExpensesPayments\"}]}"
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2659),
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"ExpensesPayments\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"ExpensesPayments\"}]}"
                         },
                         new
                         {
@@ -2826,8 +4058,8 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Controllers = "Supplier",
                             CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2604),
-                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"Suppliers\"}]},{\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"Suppliers\"}]}"
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2717),
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"Suppliers\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"Suppliers\"}]}"
                         },
                         new
                         {
@@ -2836,8 +4068,8 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Controllers = "Unit",
                             CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2640),
-                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"Units\"}]},{\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"Units\"}]}"
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2773),
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"Units\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"Units\"}]}"
                         },
                         new
                         {
@@ -2846,8 +4078,8 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Controllers = "User,BranchOffice,Warehouse,CashRegister",
                             CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2669),
-                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"Users\"}]},{\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"Users\"}]}"
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2831),
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"Users\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"Users\"}]}"
                         },
                         new
                         {
@@ -2856,8 +4088,8 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Controllers = "PaymentType",
                             CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2705),
-                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"PaymentTypes\"}]},{\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"PaymentTypes\"}]}"
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2887),
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"PaymentTypes\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"PaymentTypes\"}]}"
                         },
                         new
                         {
@@ -2866,8 +4098,8 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Controllers = "CashRegister,BranchOffice",
                             CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2733),
-                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"CashRegisters\"}]},{\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"CashRegisters\"}]}"
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2947),
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"CashRegisters\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"CashRegisters\"}]}"
                         },
                         new
                         {
@@ -2876,8 +4108,8 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Controllers = "CashRegister,User,CashRegisterOpening",
                             CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2768),
-                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"CashRegisterOpenings\"}]},{\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"CashRegisterOpenings\"}]}"
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2998),
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"CashRegisterOpenings\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"CashRegisterOpenings\"}]}"
                         },
                         new
                         {
@@ -2886,8 +4118,8 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Controllers = "CashRegister,User,CashRegisterOpening",
                             CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2797),
-                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"CashRegisterOpeningsAmounts\"}]},{\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"CashRegisterOpeningsAmounts\"}]}"
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3057),
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"CashRegisterOpeningsAmounts\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"CashRegisterOpeningsAmounts\"}]}"
                         },
                         new
                         {
@@ -2896,8 +4128,8 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Controllers = "Supplier,Product,Tax,User",
                             CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2831),
-                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"IncomeMovements\"}]},{\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"IncomeMovements\"}]}"
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3107),
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"IncomeMovements\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"IncomeMovements\"}]}"
                         },
                         new
                         {
@@ -2906,8 +4138,8 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Controllers = "Invoice,Product,InvoiceDetail,Customer",
                             CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2860),
-                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"CustomersReturns\"}]},{\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"CustomersReturns\"}]}"
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3166),
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"CustomersReturns\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"CustomersReturns\"}]}"
                         },
                         new
                         {
@@ -2916,8 +4148,8 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Controllers = "Supplier,Expense,Tax,Currency",
                             CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2947),
-                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"SuppliersReturns\"}]},{\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"SuppliersReturns\"}]}"
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3218),
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"SuppliersReturns\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"SuppliersReturns\"}]}"
                         },
                         new
                         {
@@ -2926,8 +4158,8 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Controllers = "BranchOffice,Warehouse,User,Product,Unit",
                             CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2977),
-                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"WarehouseTransfers\"}]},{\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"WarehouseTransfers\"}]}"
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3271),
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"WarehouseTransfers\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"WarehouseTransfers\"}]}"
                         },
                         new
                         {
@@ -2936,8 +4168,8 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Controllers = "Product,Unit,",
                             CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3007),
-                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"ProductUnits\"}]},{\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"ProductUnits\"}]}"
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3330),
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"ProductUnits\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"ProductUnits\"}]}"
                         },
                         new
                         {
@@ -2946,8 +4178,8 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Controllers = "Role",
                             CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3041),
-                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"Roles\"}]},{\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"Roles\"}]}"
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3383),
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"Roles\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"Roles\"}]}"
                         },
                         new
                         {
@@ -2956,8 +4188,8 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Controllers = "Section",
                             CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3069),
-                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"Sections\"}]},{\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"Sections\"}]}"
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3441),
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"Sections\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"Sections\"}]}"
                         },
                         new
                         {
@@ -2966,48 +4198,48 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Controllers = "Operation",
                             CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3103),
-                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"Operations\"}]},{\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"Operations\"}]}"
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3494),
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"Operations\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"Operations\"}]}"
                         },
                         new
                         {
                             Id = 32L,
                             Active = true,
-                            Controllers = "",
+                            Controllers = "Seller,Zone,BranchOffice",
                             CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3131),
-                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"Menu\"}]},{\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"Menu\"}]}"
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3546),
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"Sellers\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"Sellers\"}]}"
                         },
                         new
                         {
                             Id = 33L,
                             Active = true,
-                            Controllers = "Seller,Zone,BranchOffice",
+                            Controllers = "",
                             CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3166),
-                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"Sellers\"}]},{\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"Sellers\"}]}"
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3608),
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"Zones\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"Zones\"}]}"
                         },
                         new
                         {
                             Id = 34L,
                             Active = true,
-                            Controllers = "",
+                            Controllers = "Users,Role,UserRole",
                             CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3197),
-                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"Zones\"}]},{\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"Zones\"}]}"
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3663),
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"UserRoles\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"UserRoles\"}]}"
                         },
                         new
                         {
                             Id = 35L,
                             Active = true,
-                            Controllers = "Users,Role,UserRole",
+                            Controllers = "",
                             CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3225),
-                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"UserRoles\"}]},{\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"UserRoles\"}]}"
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3723),
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"DashBoard\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"DashBoard\"}]}"
                         },
                         new
                         {
@@ -3016,8 +4248,118 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Controllers = "",
                             CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3259),
-                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"WarehouseMovements\"}]},{\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"WarehouseMovements\"}]}"
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3775),
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"SalesReport\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"SalesReport\"}]}"
+                        },
+                        new
+                        {
+                            Id = 37L,
+                            Active = true,
+                            Controllers = "",
+                            CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3832),
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"AccountsReceivable\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"AccountsReceivable\"}]}"
+                        },
+                        new
+                        {
+                            Id = 38L,
+                            Active = true,
+                            Controllers = "",
+                            CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3893),
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"IncomeReceipts\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"IncomeReceipts\"}]}"
+                        },
+                        new
+                        {
+                            Id = 39L,
+                            Active = true,
+                            Controllers = "",
+                            CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3946),
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"Commisions\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"Commisions\"}]}"
+                        },
+                        new
+                        {
+                            Id = 40L,
+                            Active = true,
+                            Controllers = "",
+                            CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(4001),
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"ProductMovements\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"ProductMovements\"}]}"
+                        },
+                        new
+                        {
+                            Id = 41L,
+                            Active = true,
+                            Controllers = "",
+                            CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(4058),
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"DebstToPay\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"DebstToPay\"}]}"
+                        },
+                        new
+                        {
+                            Id = 42L,
+                            Active = true,
+                            Controllers = "",
+                            CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(4112),
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"PriceList\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"PriceList\"}]}"
+                        },
+                        new
+                        {
+                            Id = 43L,
+                            Active = true,
+                            Controllers = "",
+                            CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(4207),
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"CustomersList\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"CustomersList\"}]}"
+                        },
+                        new
+                        {
+                            Id = 44L,
+                            Active = true,
+                            Controllers = "",
+                            CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(4259),
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"AccountState\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"AccountState\"}]}"
+                        },
+                        new
+                        {
+                            Id = 45L,
+                            Active = true,
+                            Controllers = "",
+                            CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(4311),
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"ResultState\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"ResultState\"}]}"
+                        },
+                        new
+                        {
+                            Id = 46L,
+                            Active = true,
+                            Controllers = "",
+                            CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(4369),
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"TaxesReport\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"TaxesReport\"}]}"
+                        },
+                        new
+                        {
+                            Id = 47L,
+                            Active = true,
+                            Controllers = "",
+                            CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(4421),
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"InventoryIncomes\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"InventoryIncomes\"}]}"
                         });
                 });
 
@@ -3072,7 +4414,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(388),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 540, DateTimeKind.Local).AddTicks(9305),
                             OperationId = 1L,
                             SectionId = 1L
                         },
@@ -3082,7 +4424,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2000),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(1638),
                             OperationId = 2L,
                             SectionId = 1L
                         },
@@ -3092,7 +4434,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2030),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(1672),
                             OperationId = 3L,
                             SectionId = 1L
                         },
@@ -3102,7 +4444,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2032),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(1677),
                             OperationId = 4L,
                             SectionId = 1L
                         },
@@ -3112,7 +4454,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2035),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(1682),
                             OperationId = 5L,
                             SectionId = 1L
                         },
@@ -3122,7 +4464,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2049),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(1690),
                             OperationId = 6L,
                             SectionId = 1L
                         },
@@ -3132,7 +4474,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2051),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(1692),
                             OperationId = 7L,
                             SectionId = 1L
                         },
@@ -3142,7 +4484,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2132),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(1817),
                             OperationId = 1L,
                             SectionId = 2L
                         },
@@ -3152,7 +4494,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2134),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(1820),
                             OperationId = 2L,
                             SectionId = 2L
                         },
@@ -3162,7 +4504,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2137),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(1826),
                             OperationId = 3L,
                             SectionId = 2L
                         },
@@ -3172,7 +4514,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2139),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(1829),
                             OperationId = 4L,
                             SectionId = 2L
                         },
@@ -3182,7 +4524,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2140),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(1832),
                             OperationId = 5L,
                             SectionId = 2L
                         },
@@ -3192,7 +4534,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2142),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(1834),
                             OperationId = 6L,
                             SectionId = 2L
                         },
@@ -3202,7 +4544,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2143),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(1836),
                             OperationId = 7L,
                             SectionId = 2L
                         },
@@ -3212,7 +4554,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2168),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(1881),
                             OperationId = 1L,
                             SectionId = 3L
                         },
@@ -3222,7 +4564,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2170),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(1883),
                             OperationId = 2L,
                             SectionId = 3L
                         },
@@ -3232,7 +4574,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2171),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(1885),
                             OperationId = 3L,
                             SectionId = 3L
                         },
@@ -3242,7 +4584,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2174),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(1890),
                             OperationId = 4L,
                             SectionId = 3L
                         },
@@ -3252,7 +4594,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2176),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(1893),
                             OperationId = 5L,
                             SectionId = 3L
                         },
@@ -3262,7 +4604,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2177),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(1895),
                             OperationId = 6L,
                             SectionId = 3L
                         },
@@ -3272,7 +4614,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2179),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(1897),
                             OperationId = 7L,
                             SectionId = 3L
                         },
@@ -3282,7 +4624,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2205),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(1940),
                             OperationId = 1L,
                             SectionId = 4L
                         },
@@ -3292,7 +4634,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2207),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(1943),
                             OperationId = 2L,
                             SectionId = 4L
                         },
@@ -3302,7 +4644,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2208),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(1945),
                             OperationId = 3L,
                             SectionId = 4L
                         },
@@ -3312,7 +4654,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2209),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(1948),
                             OperationId = 4L,
                             SectionId = 4L
                         },
@@ -3322,7 +4664,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2211),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(1950),
                             OperationId = 5L,
                             SectionId = 4L
                         },
@@ -3332,7 +4674,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2212),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(1953),
                             OperationId = 6L,
                             SectionId = 4L
                         },
@@ -3342,7 +4684,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2214),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(1955),
                             OperationId = 7L,
                             SectionId = 4L
                         },
@@ -3352,7 +4694,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2237),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(1997),
                             OperationId = 1L,
                             SectionId = 5L
                         },
@@ -3362,7 +4704,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2239),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2000),
                             OperationId = 2L,
                             SectionId = 5L
                         },
@@ -3372,7 +4714,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2240),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2002),
                             OperationId = 3L,
                             SectionId = 5L
                         },
@@ -3382,7 +4724,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2242),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2005),
                             OperationId = 4L,
                             SectionId = 5L
                         },
@@ -3392,7 +4734,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2243),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2007),
                             OperationId = 5L,
                             SectionId = 5L
                         },
@@ -3402,7 +4744,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2246),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2011),
                             OperationId = 6L,
                             SectionId = 5L
                         },
@@ -3412,7 +4754,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2247),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2014),
                             OperationId = 7L,
                             SectionId = 5L
                         },
@@ -3422,7 +4764,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2277),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2052),
                             OperationId = 1L,
                             SectionId = 6L
                         },
@@ -3432,7 +4774,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2278),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2054),
                             OperationId = 2L,
                             SectionId = 6L
                         },
@@ -3442,7 +4784,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2280),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2057),
                             OperationId = 3L,
                             SectionId = 6L
                         },
@@ -3452,7 +4794,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2281),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2066),
                             OperationId = 4L,
                             SectionId = 6L
                         },
@@ -3462,7 +4804,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2283),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2069),
                             OperationId = 5L,
                             SectionId = 6L
                         },
@@ -3472,7 +4814,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2284),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2071),
                             OperationId = 6L,
                             SectionId = 6L
                         },
@@ -3482,7 +4824,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2286),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2073),
                             OperationId = 7L,
                             SectionId = 6L
                         },
@@ -3492,7 +4834,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2306),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2111),
                             OperationId = 1L,
                             SectionId = 7L
                         },
@@ -3502,7 +4844,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2308),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2114),
                             OperationId = 2L,
                             SectionId = 7L
                         },
@@ -3512,7 +4854,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2309),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2117),
                             OperationId = 3L,
                             SectionId = 7L
                         },
@@ -3522,7 +4864,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2311),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2120),
                             OperationId = 4L,
                             SectionId = 7L
                         },
@@ -3532,7 +4874,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2312),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2122),
                             OperationId = 5L,
                             SectionId = 7L
                         },
@@ -3542,7 +4884,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2314),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2124),
                             OperationId = 6L,
                             SectionId = 7L
                         },
@@ -3552,7 +4894,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2315),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2127),
                             OperationId = 7L,
                             SectionId = 7L
                         },
@@ -3562,7 +4904,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2342),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2164),
                             OperationId = 1L,
                             SectionId = 8L
                         },
@@ -3572,7 +4914,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2343),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2167),
                             OperationId = 2L,
                             SectionId = 8L
                         },
@@ -3582,7 +4924,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2345),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2170),
                             OperationId = 3L,
                             SectionId = 8L
                         },
@@ -3592,7 +4934,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2346),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2172),
                             OperationId = 4L,
                             SectionId = 8L
                         },
@@ -3602,7 +4944,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2348),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2175),
                             OperationId = 5L,
                             SectionId = 8L
                         },
@@ -3612,7 +4954,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2349),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2178),
                             OperationId = 6L,
                             SectionId = 8L
                         },
@@ -3622,7 +4964,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2350),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2180),
                             OperationId = 7L,
                             SectionId = 8L
                         },
@@ -3632,7 +4974,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2372),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2226),
                             OperationId = 1L,
                             SectionId = 9L
                         },
@@ -3642,7 +4984,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2373),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2229),
                             OperationId = 2L,
                             SectionId = 9L
                         },
@@ -3652,7 +4994,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2374),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2232),
                             OperationId = 3L,
                             SectionId = 9L
                         },
@@ -3662,7 +5004,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2376),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2234),
                             OperationId = 4L,
                             SectionId = 9L
                         },
@@ -3672,7 +5014,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2377),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2237),
                             OperationId = 5L,
                             SectionId = 9L
                         },
@@ -3682,7 +5024,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2379),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2240),
                             OperationId = 6L,
                             SectionId = 9L
                         },
@@ -3692,7 +5034,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2380),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2243),
                             OperationId = 7L,
                             SectionId = 9L
                         },
@@ -3702,7 +5044,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2400),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2280),
                             OperationId = 1L,
                             SectionId = 10L
                         },
@@ -3712,7 +5054,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2402),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2283),
                             OperationId = 2L,
                             SectionId = 10L
                         },
@@ -3722,7 +5064,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2409),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2288),
                             OperationId = 3L,
                             SectionId = 10L
                         },
@@ -3732,7 +5074,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2410),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2291),
                             OperationId = 4L,
                             SectionId = 10L
                         },
@@ -3742,7 +5084,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2412),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2293),
                             OperationId = 5L,
                             SectionId = 10L
                         },
@@ -3752,7 +5094,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2413),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2296),
                             OperationId = 6L,
                             SectionId = 10L
                         },
@@ -3762,7 +5104,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2414),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2298),
                             OperationId = 7L,
                             SectionId = 10L
                         },
@@ -3772,7 +5114,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2436),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2342),
                             OperationId = 1L,
                             SectionId = 11L
                         },
@@ -3782,7 +5124,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2437),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2345),
                             OperationId = 2L,
                             SectionId = 11L
                         },
@@ -3792,7 +5134,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2439),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2347),
                             OperationId = 3L,
                             SectionId = 11L
                         },
@@ -3802,7 +5144,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2440),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2350),
                             OperationId = 4L,
                             SectionId = 11L
                         },
@@ -3812,7 +5154,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2442),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2352),
                             OperationId = 5L,
                             SectionId = 11L
                         },
@@ -3822,7 +5164,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2443),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2355),
                             OperationId = 6L,
                             SectionId = 11L
                         },
@@ -3832,7 +5174,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2444),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2358),
                             OperationId = 7L,
                             SectionId = 11L
                         },
@@ -3842,7 +5184,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2465),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2395),
                             OperationId = 1L,
                             SectionId = 12L
                         },
@@ -3852,7 +5194,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2466),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2398),
                             OperationId = 2L,
                             SectionId = 12L
                         },
@@ -3862,7 +5204,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2468),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2400),
                             OperationId = 3L,
                             SectionId = 12L
                         },
@@ -3872,7 +5214,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2469),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2403),
                             OperationId = 4L,
                             SectionId = 12L
                         },
@@ -3882,7 +5224,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2476),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2405),
                             OperationId = 5L,
                             SectionId = 12L
                         },
@@ -3892,7 +5234,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2478),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2408),
                             OperationId = 6L,
                             SectionId = 12L
                         },
@@ -3902,7 +5244,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2479),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2411),
                             OperationId = 7L,
                             SectionId = 12L
                         },
@@ -3912,7 +5254,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2500),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2448),
                             OperationId = 1L,
                             SectionId = 13L
                         },
@@ -3922,7 +5264,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2501),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2528),
                             OperationId = 2L,
                             SectionId = 13L
                         },
@@ -3932,7 +5274,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2503),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2532),
                             OperationId = 3L,
                             SectionId = 13L
                         },
@@ -3942,7 +5284,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2504),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2534),
                             OperationId = 4L,
                             SectionId = 13L
                         },
@@ -3952,7 +5294,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2506),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2537),
                             OperationId = 5L,
                             SectionId = 13L
                         },
@@ -3962,7 +5304,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2507),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2539),
                             OperationId = 6L,
                             SectionId = 13L
                         },
@@ -3972,7 +5314,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2508),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2542),
                             OperationId = 7L,
                             SectionId = 13L
                         },
@@ -3982,7 +5324,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2529),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2581),
                             OperationId = 1L,
                             SectionId = 14L
                         },
@@ -3992,7 +5334,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2531),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2584),
                             OperationId = 2L,
                             SectionId = 14L
                         },
@@ -4002,7 +5344,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2532),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2586),
                             OperationId = 3L,
                             SectionId = 14L
                         },
@@ -4012,7 +5354,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2534),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2589),
                             OperationId = 4L,
                             SectionId = 14L
                         },
@@ -4022,7 +5364,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2535),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2592),
                             OperationId = 5L,
                             SectionId = 14L
                         },
@@ -4032,7 +5374,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2537),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2594),
                             OperationId = 6L,
                             SectionId = 14L
                         },
@@ -4042,7 +5384,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2538),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2597),
                             OperationId = 7L,
                             SectionId = 14L
                         },
@@ -4052,7 +5394,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2562),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2636),
                             OperationId = 1L,
                             SectionId = 15L
                         },
@@ -4062,7 +5404,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2564),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2639),
                             OperationId = 2L,
                             SectionId = 15L
                         },
@@ -4072,7 +5414,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2565),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2641),
                             OperationId = 3L,
                             SectionId = 15L
                         },
@@ -4082,7 +5424,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2567),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2644),
                             OperationId = 4L,
                             SectionId = 15L
                         },
@@ -4092,7 +5434,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2568),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2646),
                             OperationId = 5L,
                             SectionId = 15L
                         },
@@ -4102,7 +5444,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2570),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2649),
                             OperationId = 6L,
                             SectionId = 15L
                         },
@@ -4112,7 +5454,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2571),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2651),
                             OperationId = 7L,
                             SectionId = 15L
                         },
@@ -4122,7 +5464,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2592),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2695),
                             OperationId = 1L,
                             SectionId = 16L
                         },
@@ -4132,7 +5474,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2593),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2698),
                             OperationId = 2L,
                             SectionId = 16L
                         },
@@ -4142,7 +5484,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2595),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2700),
                             OperationId = 3L,
                             SectionId = 16L
                         },
@@ -4152,7 +5494,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2596),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2703),
                             OperationId = 4L,
                             SectionId = 16L
                         },
@@ -4162,7 +5504,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2597),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2705),
                             OperationId = 5L,
                             SectionId = 16L
                         },
@@ -4172,7 +5514,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2599),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2708),
                             OperationId = 6L,
                             SectionId = 16L
                         },
@@ -4182,7 +5524,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2600),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2710),
                             OperationId = 7L,
                             SectionId = 16L
                         },
@@ -4192,7 +5534,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2627),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2751),
                             OperationId = 1L,
                             SectionId = 17L
                         },
@@ -4202,7 +5544,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2629),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2754),
                             OperationId = 2L,
                             SectionId = 17L
                         },
@@ -4212,7 +5554,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2630),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2756),
                             OperationId = 3L,
                             SectionId = 17L
                         },
@@ -4222,7 +5564,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2632),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2759),
                             OperationId = 4L,
                             SectionId = 17L
                         },
@@ -4232,7 +5574,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2633),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2761),
                             OperationId = 5L,
                             SectionId = 17L
                         },
@@ -4242,7 +5584,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2635),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2764),
                             OperationId = 6L,
                             SectionId = 17L
                         },
@@ -4252,7 +5594,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2636),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2766),
                             OperationId = 7L,
                             SectionId = 17L
                         },
@@ -4262,7 +5604,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2656),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2808),
                             OperationId = 1L,
                             SectionId = 18L
                         },
@@ -4272,7 +5614,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2658),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2811),
                             OperationId = 2L,
                             SectionId = 18L
                         },
@@ -4282,7 +5624,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2659),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2814),
                             OperationId = 3L,
                             SectionId = 18L
                         },
@@ -4292,7 +5634,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2661),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2817),
                             OperationId = 4L,
                             SectionId = 18L
                         },
@@ -4302,7 +5644,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2662),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2819),
                             OperationId = 5L,
                             SectionId = 18L
                         },
@@ -4312,7 +5654,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2664),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2822),
                             OperationId = 6L,
                             SectionId = 18L
                         },
@@ -4322,7 +5664,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2665),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2824),
                             OperationId = 7L,
                             SectionId = 18L
                         },
@@ -4332,7 +5674,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2686),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2862),
                             OperationId = 1L,
                             SectionId = 19L
                         },
@@ -4342,7 +5684,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2692),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2864),
                             OperationId = 2L,
                             SectionId = 19L
                         },
@@ -4352,7 +5694,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2694),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2867),
                             OperationId = 3L,
                             SectionId = 19L
                         },
@@ -4362,7 +5704,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2697),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2872),
                             OperationId = 4L,
                             SectionId = 19L
                         },
@@ -4372,7 +5714,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2698),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2875),
                             OperationId = 5L,
                             SectionId = 19L
                         },
@@ -4382,7 +5724,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2699),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2878),
                             OperationId = 6L,
                             SectionId = 19L
                         },
@@ -4392,7 +5734,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2701),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2880),
                             OperationId = 7L,
                             SectionId = 19L
                         },
@@ -4402,7 +5744,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2720),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2924),
                             OperationId = 1L,
                             SectionId = 20L
                         },
@@ -4412,7 +5754,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2722),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2927),
                             OperationId = 2L,
                             SectionId = 20L
                         },
@@ -4422,7 +5764,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2723),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2930),
                             OperationId = 3L,
                             SectionId = 20L
                         },
@@ -4432,7 +5774,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2725),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2933),
                             OperationId = 4L,
                             SectionId = 20L
                         },
@@ -4442,7 +5784,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2726),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2935),
                             OperationId = 5L,
                             SectionId = 20L
                         },
@@ -4452,7 +5794,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2728),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2938),
                             OperationId = 6L,
                             SectionId = 20L
                         },
@@ -4462,7 +5804,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2729),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2940),
                             OperationId = 7L,
                             SectionId = 20L
                         },
@@ -4472,7 +5814,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2756),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2976),
                             OperationId = 1L,
                             SectionId = 21L
                         },
@@ -4482,7 +5824,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2757),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2978),
                             OperationId = 2L,
                             SectionId = 21L
                         },
@@ -4492,7 +5834,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2758),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2981),
                             OperationId = 3L,
                             SectionId = 21L
                         },
@@ -4502,7 +5844,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2760),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2984),
                             OperationId = 4L,
                             SectionId = 21L
                         },
@@ -4512,7 +5854,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2761),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2986),
                             OperationId = 5L,
                             SectionId = 21L
                         },
@@ -4522,7 +5864,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2763),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2989),
                             OperationId = 6L,
                             SectionId = 21L
                         },
@@ -4532,7 +5874,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2764),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(2991),
                             OperationId = 7L,
                             SectionId = 21L
                         },
@@ -4542,7 +5884,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2785),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3034),
                             OperationId = 1L,
                             SectionId = 22L
                         },
@@ -4552,7 +5894,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2786),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3037),
                             OperationId = 2L,
                             SectionId = 22L
                         },
@@ -4562,7 +5904,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2788),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3039),
                             OperationId = 3L,
                             SectionId = 22L
                         },
@@ -4572,7 +5914,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2789),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3042),
                             OperationId = 4L,
                             SectionId = 22L
                         },
@@ -4582,7 +5924,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2791),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3044),
                             OperationId = 5L,
                             SectionId = 22L
                         },
@@ -4592,7 +5934,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2792),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3047),
                             OperationId = 6L,
                             SectionId = 22L
                         },
@@ -4602,7 +5944,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2794),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3050),
                             OperationId = 7L,
                             SectionId = 22L
                         },
@@ -4612,7 +5954,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2814),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3087),
                             OperationId = 1L,
                             SectionId = 23L
                         },
@@ -4622,7 +5964,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2820),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3089),
                             OperationId = 2L,
                             SectionId = 23L
                         },
@@ -4632,7 +5974,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2821),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3091),
                             OperationId = 3L,
                             SectionId = 23L
                         },
@@ -4642,7 +5984,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2823),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3093),
                             OperationId = 4L,
                             SectionId = 23L
                         },
@@ -4652,7 +5994,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2824),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3096),
                             OperationId = 5L,
                             SectionId = 23L
                         },
@@ -4662,7 +6004,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2826),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3098),
                             OperationId = 6L,
                             SectionId = 23L
                         },
@@ -4672,7 +6014,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2827),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3101),
                             OperationId = 7L,
                             SectionId = 23L
                         },
@@ -4682,7 +6024,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2848),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3138),
                             OperationId = 1L,
                             SectionId = 24L
                         },
@@ -4692,7 +6034,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2849),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3141),
                             OperationId = 2L,
                             SectionId = 24L
                         },
@@ -4702,7 +6044,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2851),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3144),
                             OperationId = 3L,
                             SectionId = 24L
                         },
@@ -4712,7 +6054,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2852),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3146),
                             OperationId = 4L,
                             SectionId = 24L
                         },
@@ -4722,7 +6064,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2854),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3149),
                             OperationId = 5L,
                             SectionId = 24L
                         },
@@ -4732,7 +6074,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2855),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3156),
                             OperationId = 6L,
                             SectionId = 24L
                         },
@@ -4742,7 +6084,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2857),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3159),
                             OperationId = 7L,
                             SectionId = 24L
                         },
@@ -4752,7 +6094,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2877),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3196),
                             OperationId = 1L,
                             SectionId = 25L
                         },
@@ -4762,7 +6104,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2878),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3199),
                             OperationId = 2L,
                             SectionId = 25L
                         },
@@ -4772,7 +6114,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2880),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3202),
                             OperationId = 3L,
                             SectionId = 25L
                         },
@@ -4782,7 +6124,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2882),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3204),
                             OperationId = 4L,
                             SectionId = 25L
                         },
@@ -4792,7 +6134,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2883),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3207),
                             OperationId = 5L,
                             SectionId = 25L
                         },
@@ -4802,7 +6144,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2884),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3209),
                             OperationId = 6L,
                             SectionId = 25L
                         },
@@ -4812,7 +6154,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2886),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3212),
                             OperationId = 7L,
                             SectionId = 25L
                         },
@@ -4822,7 +6164,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2965),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3248),
                             OperationId = 1L,
                             SectionId = 26L
                         },
@@ -4832,7 +6174,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2966),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3251),
                             OperationId = 2L,
                             SectionId = 26L
                         },
@@ -4842,7 +6184,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2968),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3253),
                             OperationId = 3L,
                             SectionId = 26L
                         },
@@ -4852,7 +6194,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2969),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3256),
                             OperationId = 4L,
                             SectionId = 26L
                         },
@@ -4862,7 +6204,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2971),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3259),
                             OperationId = 5L,
                             SectionId = 26L
                         },
@@ -4872,7 +6214,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2972),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3261),
                             OperationId = 6L,
                             SectionId = 26L
                         },
@@ -4882,7 +6224,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2974),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3264),
                             OperationId = 7L,
                             SectionId = 26L
                         },
@@ -4892,7 +6234,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2994),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3307),
                             OperationId = 1L,
                             SectionId = 27L
                         },
@@ -4902,7 +6244,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2996),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3310),
                             OperationId = 2L,
                             SectionId = 27L
                         },
@@ -4912,7 +6254,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2997),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3312),
                             OperationId = 3L,
                             SectionId = 27L
                         },
@@ -4922,7 +6264,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(2999),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3315),
                             OperationId = 4L,
                             SectionId = 27L
                         },
@@ -4932,7 +6274,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3000),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3317),
                             OperationId = 5L,
                             SectionId = 27L
                         },
@@ -4942,7 +6284,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3001),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3320),
                             OperationId = 6L,
                             SectionId = 27L
                         },
@@ -4952,7 +6294,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3003),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3323),
                             OperationId = 7L,
                             SectionId = 27L
                         },
@@ -4962,7 +6304,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3028),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3360),
                             OperationId = 1L,
                             SectionId = 28L
                         },
@@ -4972,7 +6314,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3030),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3363),
                             OperationId = 2L,
                             SectionId = 28L
                         },
@@ -4982,7 +6324,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3032),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3365),
                             OperationId = 3L,
                             SectionId = 28L
                         },
@@ -4992,7 +6334,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3033),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3368),
                             OperationId = 4L,
                             SectionId = 28L
                         },
@@ -5002,7 +6344,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3034),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3371),
                             OperationId = 5L,
                             SectionId = 28L
                         },
@@ -5012,7 +6354,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3036),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3373),
                             OperationId = 6L,
                             SectionId = 28L
                         },
@@ -5022,7 +6364,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3037),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3376),
                             OperationId = 7L,
                             SectionId = 28L
                         },
@@ -5032,7 +6374,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3057),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3417),
                             OperationId = 1L,
                             SectionId = 29L
                         },
@@ -5042,7 +6384,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3059),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3420),
                             OperationId = 2L,
                             SectionId = 29L
                         },
@@ -5052,7 +6394,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3060),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3423),
                             OperationId = 3L,
                             SectionId = 29L
                         },
@@ -5062,7 +6404,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3062),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3426),
                             OperationId = 4L,
                             SectionId = 29L
                         },
@@ -5072,7 +6414,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3063),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3428),
                             OperationId = 5L,
                             SectionId = 29L
                         },
@@ -5082,7 +6424,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3064),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3431),
                             OperationId = 6L,
                             SectionId = 29L
                         },
@@ -5092,7 +6434,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3066),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3433),
                             OperationId = 7L,
                             SectionId = 29L
                         },
@@ -5102,7 +6444,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3090),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3471),
                             OperationId = 1L,
                             SectionId = 30L
                         },
@@ -5112,7 +6454,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3092),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3474),
                             OperationId = 2L,
                             SectionId = 30L
                         },
@@ -5122,7 +6464,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3093),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3477),
                             OperationId = 3L,
                             SectionId = 30L
                         },
@@ -5132,7 +6474,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3095),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3479),
                             OperationId = 4L,
                             SectionId = 30L
                         },
@@ -5142,7 +6484,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3096),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3482),
                             OperationId = 5L,
                             SectionId = 30L
                         },
@@ -5152,7 +6494,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3097),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3485),
                             OperationId = 6L,
                             SectionId = 30L
                         },
@@ -5162,7 +6504,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3099),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3487),
                             OperationId = 7L,
                             SectionId = 30L
                         },
@@ -5172,7 +6514,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3119),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3524),
                             OperationId = 1L,
                             SectionId = 31L
                         },
@@ -5182,7 +6524,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3120),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3527),
                             OperationId = 2L,
                             SectionId = 31L
                         },
@@ -5192,7 +6534,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3122),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3529),
                             OperationId = 3L,
                             SectionId = 31L
                         },
@@ -5202,7 +6544,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3123),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3531),
                             OperationId = 4L,
                             SectionId = 31L
                         },
@@ -5212,7 +6554,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3125),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3534),
                             OperationId = 5L,
                             SectionId = 31L
                         },
@@ -5222,7 +6564,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3126),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3537),
                             OperationId = 6L,
                             SectionId = 31L
                         },
@@ -5232,7 +6574,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3128),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3539),
                             OperationId = 7L,
                             SectionId = 31L
                         },
@@ -5242,7 +6584,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3148),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3585),
                             OperationId = 1L,
                             SectionId = 32L
                         },
@@ -5252,7 +6594,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3150),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3588),
                             OperationId = 2L,
                             SectionId = 32L
                         },
@@ -5262,7 +6604,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3151),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3591),
                             OperationId = 3L,
                             SectionId = 32L
                         },
@@ -5272,7 +6614,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3153),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3593),
                             OperationId = 4L,
                             SectionId = 32L
                         },
@@ -5282,7 +6624,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3154),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3596),
                             OperationId = 5L,
                             SectionId = 32L
                         },
@@ -5292,7 +6634,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3160),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3598),
                             OperationId = 6L,
                             SectionId = 32L
                         },
@@ -5302,7 +6644,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3162),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3601),
                             OperationId = 7L,
                             SectionId = 32L
                         },
@@ -5312,7 +6654,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3184),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3641),
                             OperationId = 1L,
                             SectionId = 33L
                         },
@@ -5322,7 +6664,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3186),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3643),
                             OperationId = 2L,
                             SectionId = 33L
                         },
@@ -5332,7 +6674,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3187),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3646),
                             OperationId = 3L,
                             SectionId = 33L
                         },
@@ -5342,7 +6684,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3189),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3649),
                             OperationId = 4L,
                             SectionId = 33L
                         },
@@ -5352,7 +6694,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3190),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3651),
                             OperationId = 5L,
                             SectionId = 33L
                         },
@@ -5362,7 +6704,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3191),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3654),
                             OperationId = 6L,
                             SectionId = 33L
                         },
@@ -5372,7 +6714,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3193),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3656),
                             OperationId = 7L,
                             SectionId = 33L
                         },
@@ -5382,7 +6724,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3213),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3701),
                             OperationId = 1L,
                             SectionId = 34L
                         },
@@ -5392,7 +6734,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3215),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3703),
                             OperationId = 2L,
                             SectionId = 34L
                         },
@@ -5402,7 +6744,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3216),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3706),
                             OperationId = 3L,
                             SectionId = 34L
                         },
@@ -5412,7 +6754,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3217),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3708),
                             OperationId = 4L,
                             SectionId = 34L
                         },
@@ -5422,7 +6764,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3219),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3711),
                             OperationId = 5L,
                             SectionId = 34L
                         },
@@ -5432,7 +6774,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3220),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3713),
                             OperationId = 6L,
                             SectionId = 34L
                         },
@@ -5442,7 +6784,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3222),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3716),
                             OperationId = 7L,
                             SectionId = 34L
                         },
@@ -5452,7 +6794,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3247),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3752),
                             OperationId = 1L,
                             SectionId = 35L
                         },
@@ -5462,7 +6804,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3248),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3755),
                             OperationId = 2L,
                             SectionId = 35L
                         },
@@ -5472,7 +6814,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3250),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3758),
                             OperationId = 3L,
                             SectionId = 35L
                         },
@@ -5482,7 +6824,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3251),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3760),
                             OperationId = 4L,
                             SectionId = 35L
                         },
@@ -5492,7 +6834,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3253),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3763),
                             OperationId = 5L,
                             SectionId = 35L
                         },
@@ -5502,7 +6844,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3254),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3765),
                             OperationId = 6L,
                             SectionId = 35L
                         },
@@ -5512,7 +6854,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3255),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3768),
                             OperationId = 7L,
                             SectionId = 35L
                         },
@@ -5522,7 +6864,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3276),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3803),
                             OperationId = 1L,
                             SectionId = 36L
                         },
@@ -5532,7 +6874,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3278),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3806),
                             OperationId = 2L,
                             SectionId = 36L
                         },
@@ -5542,7 +6884,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3279),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3814),
                             OperationId = 3L,
                             SectionId = 36L
                         },
@@ -5552,7 +6894,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3281),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3816),
                             OperationId = 4L,
                             SectionId = 36L
                         },
@@ -5562,7 +6904,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3282),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3819),
                             OperationId = 5L,
                             SectionId = 36L
                         },
@@ -5572,7 +6914,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3284),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3822),
                             OperationId = 6L,
                             SectionId = 36L
                         },
@@ -5582,9 +6924,779 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Active = true,
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(3285),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3824),
                             OperationId = 7L,
                             SectionId = 36L
+                        },
+                        new
+                        {
+                            Id = 289L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3862),
+                            OperationId = 1L,
+                            SectionId = 37L
+                        },
+                        new
+                        {
+                            Id = 290L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3865),
+                            OperationId = 2L,
+                            SectionId = 37L
+                        },
+                        new
+                        {
+                            Id = 291L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3868),
+                            OperationId = 3L,
+                            SectionId = 37L
+                        },
+                        new
+                        {
+                            Id = 292L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3870),
+                            OperationId = 4L,
+                            SectionId = 37L
+                        },
+                        new
+                        {
+                            Id = 293L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3873),
+                            OperationId = 5L,
+                            SectionId = 37L
+                        },
+                        new
+                        {
+                            Id = 294L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3884),
+                            OperationId = 6L,
+                            SectionId = 37L
+                        },
+                        new
+                        {
+                            Id = 295L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3886),
+                            OperationId = 7L,
+                            SectionId = 37L
+                        },
+                        new
+                        {
+                            Id = 297L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3924),
+                            OperationId = 1L,
+                            SectionId = 38L
+                        },
+                        new
+                        {
+                            Id = 298L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3926),
+                            OperationId = 2L,
+                            SectionId = 38L
+                        },
+                        new
+                        {
+                            Id = 299L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3929),
+                            OperationId = 3L,
+                            SectionId = 38L
+                        },
+                        new
+                        {
+                            Id = 300L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3932),
+                            OperationId = 4L,
+                            SectionId = 38L
+                        },
+                        new
+                        {
+                            Id = 301L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3934),
+                            OperationId = 5L,
+                            SectionId = 38L
+                        },
+                        new
+                        {
+                            Id = 302L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3937),
+                            OperationId = 6L,
+                            SectionId = 38L
+                        },
+                        new
+                        {
+                            Id = 303L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3939),
+                            OperationId = 7L,
+                            SectionId = 38L
+                        },
+                        new
+                        {
+                            Id = 305L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3977),
+                            OperationId = 1L,
+                            SectionId = 39L
+                        },
+                        new
+                        {
+                            Id = 306L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3980),
+                            OperationId = 2L,
+                            SectionId = 39L
+                        },
+                        new
+                        {
+                            Id = 307L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3983),
+                            OperationId = 3L,
+                            SectionId = 39L
+                        },
+                        new
+                        {
+                            Id = 308L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3985),
+                            OperationId = 4L,
+                            SectionId = 39L
+                        },
+                        new
+                        {
+                            Id = 309L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3988),
+                            OperationId = 5L,
+                            SectionId = 39L
+                        },
+                        new
+                        {
+                            Id = 310L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3991),
+                            OperationId = 6L,
+                            SectionId = 39L
+                        },
+                        new
+                        {
+                            Id = 311L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(3994),
+                            OperationId = 7L,
+                            SectionId = 39L
+                        },
+                        new
+                        {
+                            Id = 313L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(4035),
+                            OperationId = 1L,
+                            SectionId = 40L
+                        },
+                        new
+                        {
+                            Id = 314L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(4038),
+                            OperationId = 2L,
+                            SectionId = 40L
+                        },
+                        new
+                        {
+                            Id = 315L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(4040),
+                            OperationId = 3L,
+                            SectionId = 40L
+                        },
+                        new
+                        {
+                            Id = 316L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(4042),
+                            OperationId = 4L,
+                            SectionId = 40L
+                        },
+                        new
+                        {
+                            Id = 317L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(4045),
+                            OperationId = 5L,
+                            SectionId = 40L
+                        },
+                        new
+                        {
+                            Id = 318L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(4048),
+                            OperationId = 6L,
+                            SectionId = 40L
+                        },
+                        new
+                        {
+                            Id = 319L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(4050),
+                            OperationId = 7L,
+                            SectionId = 40L
+                        },
+                        new
+                        {
+                            Id = 321L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(4089),
+                            OperationId = 1L,
+                            SectionId = 41L
+                        },
+                        new
+                        {
+                            Id = 322L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(4092),
+                            OperationId = 2L,
+                            SectionId = 41L
+                        },
+                        new
+                        {
+                            Id = 323L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(4095),
+                            OperationId = 3L,
+                            SectionId = 41L
+                        },
+                        new
+                        {
+                            Id = 324L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(4097),
+                            OperationId = 4L,
+                            SectionId = 41L
+                        },
+                        new
+                        {
+                            Id = 325L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(4100),
+                            OperationId = 5L,
+                            SectionId = 41L
+                        },
+                        new
+                        {
+                            Id = 326L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(4102),
+                            OperationId = 6L,
+                            SectionId = 41L
+                        },
+                        new
+                        {
+                            Id = 327L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(4105),
+                            OperationId = 7L,
+                            SectionId = 41L
+                        },
+                        new
+                        {
+                            Id = 329L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(4141),
+                            OperationId = 1L,
+                            SectionId = 42L
+                        },
+                        new
+                        {
+                            Id = 330L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(4185),
+                            OperationId = 2L,
+                            SectionId = 42L
+                        },
+                        new
+                        {
+                            Id = 331L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(4188),
+                            OperationId = 3L,
+                            SectionId = 42L
+                        },
+                        new
+                        {
+                            Id = 332L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(4190),
+                            OperationId = 4L,
+                            SectionId = 42L
+                        },
+                        new
+                        {
+                            Id = 333L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(4193),
+                            OperationId = 5L,
+                            SectionId = 42L
+                        },
+                        new
+                        {
+                            Id = 334L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(4195),
+                            OperationId = 6L,
+                            SectionId = 42L
+                        },
+                        new
+                        {
+                            Id = 335L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(4198),
+                            OperationId = 7L,
+                            SectionId = 42L
+                        },
+                        new
+                        {
+                            Id = 337L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(4236),
+                            OperationId = 1L,
+                            SectionId = 43L
+                        },
+                        new
+                        {
+                            Id = 338L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(4239),
+                            OperationId = 2L,
+                            SectionId = 43L
+                        },
+                        new
+                        {
+                            Id = 339L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(4242),
+                            OperationId = 3L,
+                            SectionId = 43L
+                        },
+                        new
+                        {
+                            Id = 340L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(4244),
+                            OperationId = 4L,
+                            SectionId = 43L
+                        },
+                        new
+                        {
+                            Id = 341L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(4247),
+                            OperationId = 5L,
+                            SectionId = 43L
+                        },
+                        new
+                        {
+                            Id = 342L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(4249),
+                            OperationId = 6L,
+                            SectionId = 43L
+                        },
+                        new
+                        {
+                            Id = 343L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(4252),
+                            OperationId = 7L,
+                            SectionId = 43L
+                        },
+                        new
+                        {
+                            Id = 345L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(4289),
+                            OperationId = 1L,
+                            SectionId = 44L
+                        },
+                        new
+                        {
+                            Id = 346L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(4291),
+                            OperationId = 2L,
+                            SectionId = 44L
+                        },
+                        new
+                        {
+                            Id = 347L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(4294),
+                            OperationId = 3L,
+                            SectionId = 44L
+                        },
+                        new
+                        {
+                            Id = 348L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(4296),
+                            OperationId = 4L,
+                            SectionId = 44L
+                        },
+                        new
+                        {
+                            Id = 349L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(4299),
+                            OperationId = 5L,
+                            SectionId = 44L
+                        },
+                        new
+                        {
+                            Id = 350L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(4301),
+                            OperationId = 6L,
+                            SectionId = 44L
+                        },
+                        new
+                        {
+                            Id = 351L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(4304),
+                            OperationId = 7L,
+                            SectionId = 44L
+                        },
+                        new
+                        {
+                            Id = 353L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(4348),
+                            OperationId = 1L,
+                            SectionId = 45L
+                        },
+                        new
+                        {
+                            Id = 354L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(4350),
+                            OperationId = 2L,
+                            SectionId = 45L
+                        },
+                        new
+                        {
+                            Id = 355L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(4352),
+                            OperationId = 3L,
+                            SectionId = 45L
+                        },
+                        new
+                        {
+                            Id = 356L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(4355),
+                            OperationId = 4L,
+                            SectionId = 45L
+                        },
+                        new
+                        {
+                            Id = 357L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(4357),
+                            OperationId = 5L,
+                            SectionId = 45L
+                        },
+                        new
+                        {
+                            Id = 358L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(4359),
+                            OperationId = 6L,
+                            SectionId = 45L
+                        },
+                        new
+                        {
+                            Id = 359L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(4362),
+                            OperationId = 7L,
+                            SectionId = 45L
+                        },
+                        new
+                        {
+                            Id = 361L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(4398),
+                            OperationId = 1L,
+                            SectionId = 46L
+                        },
+                        new
+                        {
+                            Id = 362L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(4401),
+                            OperationId = 2L,
+                            SectionId = 46L
+                        },
+                        new
+                        {
+                            Id = 363L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(4403),
+                            OperationId = 3L,
+                            SectionId = 46L
+                        },
+                        new
+                        {
+                            Id = 364L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(4406),
+                            OperationId = 4L,
+                            SectionId = 46L
+                        },
+                        new
+                        {
+                            Id = 365L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(4408),
+                            OperationId = 5L,
+                            SectionId = 46L
+                        },
+                        new
+                        {
+                            Id = 366L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(4411),
+                            OperationId = 6L,
+                            SectionId = 46L
+                        },
+                        new
+                        {
+                            Id = 367L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(4413),
+                            OperationId = 7L,
+                            SectionId = 46L
+                        },
+                        new
+                        {
+                            Id = 369L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(4458),
+                            OperationId = 1L,
+                            SectionId = 47L
+                        },
+                        new
+                        {
+                            Id = 370L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(4461),
+                            OperationId = 2L,
+                            SectionId = 47L
+                        },
+                        new
+                        {
+                            Id = 371L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(4463),
+                            OperationId = 3L,
+                            SectionId = 47L
+                        },
+                        new
+                        {
+                            Id = 372L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(4466),
+                            OperationId = 4L,
+                            SectionId = 47L
+                        },
+                        new
+                        {
+                            Id = 373L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(4468),
+                            OperationId = 5L,
+                            SectionId = 47L
+                        },
+                        new
+                        {
+                            Id = 374L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(4471),
+                            OperationId = 6L,
+                            SectionId = 47L
+                        },
+                        new
+                        {
+                            Id = 375L,
+                            Active = true,
+                            CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedByName = "admin",
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 541, DateTimeKind.Local).AddTicks(4474),
+                            OperationId = 7L,
+                            SectionId = 47L
                         });
                 });
 
@@ -5715,10 +7827,10 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Code = (short)1,
                             CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 457, DateTimeKind.Local).AddTicks(3076),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 530, DateTimeKind.Local).AddTicks(6107),
                             Name = "Invoices",
                             NumericControl = 0L,
-                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"Invoices\"}]},{\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"Invoices\"}]}"
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"Invoices\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"Invoices\"}]}"
                         },
                         new
                         {
@@ -5727,10 +7839,10 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Code = (short)2,
                             CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 457, DateTimeKind.Local).AddTicks(3187),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 530, DateTimeKind.Local).AddTicks(6265),
                             Name = "Sellers",
                             NumericControl = 0L,
-                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"Sellers\"}]},{\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"Sellers\"}]}"
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"Sellers\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"Sellers\"}]}"
                         },
                         new
                         {
@@ -5739,10 +7851,10 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Code = (short)3,
                             CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 457, DateTimeKind.Local).AddTicks(3219),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 530, DateTimeKind.Local).AddTicks(6303),
                             Name = "Customers",
                             NumericControl = 0L,
-                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"Customers\"}]},{\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"Customers\"}]}"
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"Customers\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"Customers\"}]}"
                         },
                         new
                         {
@@ -5751,10 +7863,10 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Code = (short)4,
                             CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 457, DateTimeKind.Local).AddTicks(3422),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 530, DateTimeKind.Local).AddTicks(6338),
                             Name = "Quotes",
                             NumericControl = 0L,
-                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"Quotes\"}]},{\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"Quotes\"}]}"
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"Quotes\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"Quotes\"}]}"
                         },
                         new
                         {
@@ -5763,10 +7875,10 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Code = (short)5,
                             CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 457, DateTimeKind.Local).AddTicks(3441),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 530, DateTimeKind.Local).AddTicks(6380),
                             Name = "Expenses",
                             NumericControl = 0L,
-                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"Expenses\"}]},{\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"Expenses\"}]}"
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"Expenses\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"Expenses\"}]}"
                         },
                         new
                         {
@@ -5775,10 +7887,10 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Code = (short)6,
                             CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 457, DateTimeKind.Local).AddTicks(3461),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 530, DateTimeKind.Local).AddTicks(6418),
                             Name = "WarehouseTransfers",
                             NumericControl = 0L,
-                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"WarehouseTransfers\"}]},{\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"WarehouseTransfers\"}]}"
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"WarehouseTransfers\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"WarehouseTransfers\"}]}"
                         },
                         new
                         {
@@ -5787,10 +7899,10 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Code = (short)7,
                             CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 457, DateTimeKind.Local).AddTicks(3487),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 530, DateTimeKind.Local).AddTicks(6453),
                             Name = "InventoryIncomes",
                             NumericControl = 0L,
-                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"InventoryIncomes\"}]},{\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"InventoryIncomes\"}]}"
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"InventoryIncomes\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"InventoryIncomes\"}]}"
                         },
                         new
                         {
@@ -5799,10 +7911,10 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Code = (short)8,
                             CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 457, DateTimeKind.Local).AddTicks(3504),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 530, DateTimeKind.Local).AddTicks(6485),
                             Name = "CustomersReturns",
                             NumericControl = 0L,
-                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"CustomersReturns\"}]},{\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"CustomersReturns\"}]}"
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"CustomersReturns\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"CustomersReturns\"}]}"
                         },
                         new
                         {
@@ -5811,10 +7923,10 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Code = (short)9,
                             CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 457, DateTimeKind.Local).AddTicks(3522),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 530, DateTimeKind.Local).AddTicks(6524),
                             Name = "SupplierReturns",
                             NumericControl = 0L,
-                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"SupplierReturns\"}]},{\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"SupplierReturns\"}]}"
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"SupplierReturns\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"SupplierReturns\"}]}"
                         },
                         new
                         {
@@ -5823,10 +7935,10 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Code = (short)10,
                             CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 457, DateTimeKind.Local).AddTicks(3546),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 530, DateTimeKind.Local).AddTicks(6561),
                             Name = "CustomerPayments",
                             NumericControl = 0L,
-                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"CustomerPayments\"}]},{\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"CustomerPayments\"}]}"
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"CustomerPayments\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"CustomerPayments\"}]}"
                         },
                         new
                         {
@@ -5835,10 +7947,10 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             Code = (short)11,
                             CreatedBy = new Guid("8a2fdd4a-e702-482c-f181-08d7015e3521"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 457, DateTimeKind.Local).AddTicks(3752),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 530, DateTimeKind.Local).AddTicks(6594),
                             Name = "ExpensesPayments",
                             NumericControl = 0L,
-                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"ExpensesPayments\"}]},{\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"ExpensesPayments\"}]}"
+                            TranslationData = "{\"ES\":[{\"PropertyName\":\"Name\",\"Value\":\"ExpensesPayments\"}],\"EN\":[{\"PropertyName\":\"Name\",\"Value\":\"ExpensesPayments\"}]}"
                         });
                 });
 
@@ -6331,7 +8443,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                             ContentType = "",
                             CreatedBy = new Guid("00000000-0000-0000-0000-000000000000"),
                             CreatedByName = "admin",
-                            CreatedDate = new DateTime(2019, 12, 30, 21, 17, 4, 464, DateTimeKind.Local).AddTicks(9403),
+                            CreatedDate = new DateTime(2020, 1, 4, 21, 22, 10, 542, DateTimeKind.Local).AddTicks(1202),
                             Email = "admin@admin.com",
                             Gender = "M",
                             LanguageCode = "EN",

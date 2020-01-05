@@ -5,6 +5,7 @@ import { map } from "rxjs/operators";
 import { Injectable } from "@angular/core";
 import { HttpHeaders, HttpClient, HttpParams } from "@angular/common/http";
 import { IPagedList } from '../data/pagedList';
+import { BaseResultModel } from '../data/baseResultModel';
 
 
 
@@ -12,13 +13,13 @@ import { IPagedList } from '../data/pagedList';
 export interface IService<TEntity, TKey> {
     baseUrl: string;
     get();
-    getAll(): Observable<TEntity[]>;
-    getById(id: TKey): Observable<TEntity>;
-    post(entity: TEntity): Observable<Object>;
-    patch(entity: TEntity, id: TKey): Observable<Object>;
-    put(id: TKey, entity: TEntity): Observable<Object>;
-    putList(entity: TEntity[]): Observable<Object>;
-    delete(id: TKey): Observable<Object>;
+    getAll(): Observable<BaseResultModel<TEntity>>;
+    getById(id: TKey): Observable<BaseResultModel<TEntity>>;
+    post(entity: TEntity): Observable<BaseResultModel<TEntity>>;
+    patch(entity: TEntity, id: TKey): Observable<BaseResultModel<TEntity>>;
+    put(id: TKey, entity: TEntity): Observable<BaseResultModel<TEntity>>;
+    putList(entity: TEntity[]): Observable<BaseResultModel<TEntity>>;
+    delete(id: TKey): Observable<BaseResultModel<TEntity>>;
 }
 
 @Injectable({
@@ -61,7 +62,7 @@ export class BaseService<TEntity, TKey> implements IService<TEntity, TKey> {
         };
     }
 
-    get(languageId: string = ""): Observable<TEntity[]> {
+    get(languageId: string = ""): Observable<BaseResultModel<TEntity>> {
         this.setHttpOptions();
         this.setLanguageInHeaders(languageId);
         return this._httpClient.get<any>(
@@ -70,10 +71,19 @@ export class BaseService<TEntity, TKey> implements IService<TEntity, TKey> {
         );
     }
 
-    getAll(languageId: string = ""): Observable<TEntity[]> {
+    getGeneral(languageId: string = ""): Observable<any> {
         this.setHttpOptions();
         this.setLanguageInHeaders(languageId);
-        let data = this._httpClient.get<TEntity[]>(
+        return this._httpClient.get<any>(
+            this.baseUrl,
+            !languageId ? this.httpOptions : this.tempHttpOptions
+        );
+    }
+
+    getAll(languageId: string = ""): Observable<BaseResultModel<TEntity>> {
+        this.setHttpOptions();
+        this.setLanguageInHeaders(languageId);
+        let data = this._httpClient.get<BaseResultModel<TEntity>>(
             this.baseUrl,
             !languageId ? this.httpOptions : this.tempHttpOptions
         );
@@ -108,10 +118,10 @@ export class BaseService<TEntity, TKey> implements IService<TEntity, TKey> {
         return data;
     }
 
-    getById(id: TKey, languageId: string = ""): Observable<TEntity> {
+    getById(id: TKey, languageId: string = ""): Observable<BaseResultModel<TEntity>> {
         this.setHttpOptions();
         this.setLanguageInHeaders(languageId);
-        return this._httpClient.get<TEntity>(
+        return this._httpClient.get<BaseResultModel<TEntity>>(
             this.baseUrl + "/" + id,
             !languageId ? this.httpOptions : this.tempHttpOptions
         );
@@ -128,27 +138,27 @@ export class BaseService<TEntity, TKey> implements IService<TEntity, TKey> {
         }
     }
 
-    post(entity: TEntity, languageId: string = ""): Observable<Object> {
+    post(entity: TEntity, languageId: string = ""): Observable<BaseResultModel<TEntity>> {
         this.setHttpOptions();
         this.setLanguageInHeaders(languageId);
-        return this._httpClient.post(
+        return this._httpClient.post<BaseResultModel<TEntity>>(
             this.baseUrl,
             entity,
             !languageId ? this.httpOptions : this.tempHttpOptions
         );
     }
-    postList(entity: TEntity[], languageId: string = ""): Observable<Object> {
+    postList(entity: TEntity[], languageId: string = ""): Observable<BaseResultModel<TEntity>> {
         this.setHttpOptions();
         this.setLanguageInHeaders(languageId);
-        return this._httpClient.put(
+        return this._httpClient.put<BaseResultModel<TEntity>>(
             this.baseUrl,
             entity,
             !languageId ? this.httpOptions : this.tempHttpOptions
         );
     }
-    putList(entity: TEntity[], languageId: string = ""): Observable<Object> {
+    putList(entity: TEntity[], languageId: string = ""): Observable<BaseResultModel<TEntity>> {
         this.setHttpOptions();
-        return this._httpClient.put(
+        return this._httpClient.put<BaseResultModel<TEntity>>(
             this.baseUrl,
             entity,
             !languageId ? this.httpOptions : this.tempHttpOptions
@@ -158,26 +168,26 @@ export class BaseService<TEntity, TKey> implements IService<TEntity, TKey> {
         entity: TEntity,
         id: TKey,
         languageId: string = ""
-    ): Observable<Object> {
+    ): Observable<BaseResultModel<TEntity>> {
         this.setHttpOptions();
         this.setLanguageInHeaders(languageId);
-        return this._httpClient.patch(this.baseUrl + "/" + id, entity);
+        return this._httpClient.patch<BaseResultModel<TEntity>>(this.baseUrl + "/" + id, entity);
     }
 
-    put(id: TKey, entity: TEntity, languageId: string = ""): Observable<Object> {
+    put(id: TKey, entity: TEntity, languageId: string = ""): Observable<BaseResultModel<TEntity>> {
         this.setHttpOptions();
         this.setLanguageInHeaders(languageId);
-        return this._httpClient.put(
+        return this._httpClient.put<BaseResultModel<TEntity>>(
             this.baseUrl + "/" + id,
             entity,
             !languageId ? this.httpOptions : this.tempHttpOptions
         );
     }
 
-    delete(id: TKey, languageId: string = ""): Observable<Object> {
+    delete(id: TKey, languageId: string = ""): Observable<BaseResultModel<TEntity>> {
         this.setHttpOptions();
         this.setLanguageInHeaders(languageId);
-        return this._httpClient.delete(
+        return this._httpClient.delete<BaseResultModel<TEntity>>(
             this.baseUrl + "/" + id,
             !languageId ? this.httpOptions : this.tempHttpOptions
         );
@@ -186,11 +196,11 @@ export class BaseService<TEntity, TKey> implements IService<TEntity, TKey> {
     getByUrlParameters(
         params: string[],
         languageId: string = ""
-    ): Observable<TEntity[]> {
+    ): Observable<BaseResultModel<TEntity>> {
         let urlParams = params.join("/");
         this.setHttpOptions();
         this.setLanguageInHeaders(languageId);
-        return this._httpClient.get<TEntity[]>(
+        return this._httpClient.get<BaseResultModel<TEntity>>(
             `${this.baseUrl}/${urlParams}`,
             !languageId ? this.httpOptions : this.tempHttpOptions
         );
@@ -199,11 +209,11 @@ export class BaseService<TEntity, TKey> implements IService<TEntity, TKey> {
     getSingleByUrlParameters(
         params: string[],
         languageId: string = ""
-    ): Observable<TEntity> {
+    ): Observable<BaseResultModel<TEntity>> {
         let urlParams = params.join("/");
         this.setHttpOptions();
         this.setLanguageInHeaders(languageId);
-        return this._httpClient.get<TEntity>(
+        return this._httpClient.get<BaseResultModel<TEntity>>(
             `${this.baseUrl}/${urlParams}`,
             !languageId ? this.httpOptions : this.tempHttpOptions
         );

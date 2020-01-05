@@ -38,7 +38,7 @@ namespace PointOfSalesV2.Api.Controllers
             {
                 var data = _baseRepo.GetAll(x => x.Where(y => y.Active == true));
                 //    var result = new PageResult<T>(data, new Uri("https://localhost:44383/api/products?$skip=2&$top=2"), data.Count());
-                return Ok(new { status = 0, message = "OK", data = data }); 
+                return Ok(data); 
             }
 
             catch (Exception ex)

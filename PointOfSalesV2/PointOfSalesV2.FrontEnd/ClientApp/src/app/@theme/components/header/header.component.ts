@@ -7,6 +7,11 @@ import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { LanguageService } from '../../../@core/services/translateService';
+import { BaseService } from '../../../@core/services/baseService';
+import { BaseComponent } from '../../../@core/common/baseComponent';
+import { HttpClient } from '@angular/common/http';
+import { endpointControllers, endpointUrl } from '../../../@core/common/constants';
+import { AuthModel } from '../../../@core/data/authModel';
 
 @Component({
   selector: 'ngx-header',
@@ -14,10 +19,23 @@ import { LanguageService } from '../../../@core/services/translateService';
   templateUrl: './header.component.html',
 })
 export class HeaderComponent implements OnInit, OnDestroy {
-
+  languages: any[] = [];
+  currentLanguage: string = 'EN';
+  languageService: BaseService<any, string>;
   private destroy$: Subject<void> = new Subject<void>();
   userPictureOnly: boolean = false;
   user: any;
+
+  changeLanguage(languageCode: string) {
+
+    //this.currentLanguage = languageCode;
+    let currentUser = JSON.parse(localStorage.getItem('currentUser')) as AuthModel;
+    if (currentUser && new Date(currentUser.expiration) > new Date()) {
+      this.lang.setLanguageInHeaders(this.currentLanguage);
+      this.lang.setCurrentLanguage(this.currentLanguage, true);
+      // window.location.reload();
+    }
+  }
 
   themes = [
     {
@@ -38,7 +56,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     },
   ];
 
-  currentTheme = 'default';
+  currentTheme = '';
 
   userMenu = [
     {
@@ -55,8 +73,25 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private themeService: NbThemeService,
     private userService: UserData,
     private route: Router,
+    http: HttpClient,
     private lang: LanguageService,
     private breakpointService: NbMediaBreakpointsService) {
+    this.languageService = new BaseService(http, `${endpointUrl}${endpointControllers.languages}`);
+
+
+    this.languageService.get().subscribe(r => {
+      if (r.status >= 0) {
+        this.languages = r.data;
+        const currentUser = JSON.parse(localStorage.getItem('currentUser')) as AuthModel;
+        if (!currentUser || !(new Date(currentUser.expiration) > new Date())) {
+          localStorage.setItem('currentUser', null);
+          this.route.navigateByUrl('auth/login');
+        }
+        this.currentLanguage = this.languages.find(x => x.code == currentUser.user.languageCode).code;
+
+      }
+
+    });
   }
 
   ngOnInit() {
@@ -106,7 +141,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   logout() {
+    var auth = JSON.parse(localStorage.getItem(`currentUser`)) as AuthModel;
+    localStorage.setItem(`language-${auth.languageId}`, null);
     localStorage.setItem('currentUser', null);
+    this.lang.setLanguageInHeaders('EN');
+    this.lang.setCurrentLanguage('EN');
     this.route.navigateByUrl('auth/login');
   }
 

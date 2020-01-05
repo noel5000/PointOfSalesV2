@@ -5,6 +5,7 @@ import { AuthModel } from '../../../../@core/data/authModel';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { endpointUrl, endpointControllers } from '../../../../@core/common/constants';
+import { LanguageService } from './../../../../@core/services/translateService';
 
 
 
@@ -82,6 +83,7 @@ export class LoginComponent extends NbLoginComponent {
     constructor(baseService: NbAuthService,
         changeDet: ChangeDetectorRef,
         router: Router,
+        private lang: LanguageService,
         httpClient: HttpClient
     ) {
         super(baseService, defaultAuthOptions, changeDet, router);
@@ -99,7 +101,10 @@ export class LoginComponent extends NbLoginComponent {
 
         postResult.subscribe(r => {
             if (r['status'] && r['status'] > 0) {
+                localStorage.setItem('currentUser', null);
                 localStorage.setItem('currentUser', JSON.stringify(r));
+                this.lang.setLanguageInHeaders(r['languageId']);
+                this.lang.setCurrentLanguage(r['languageId']);
                 this.router.navigateByUrl('');
             }
 

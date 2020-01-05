@@ -7,4 +7,5 @@ export class AuthModel {
     email: string = '';
     password: string = '';
     user: User = null;
+    languageId: string = '';
 }

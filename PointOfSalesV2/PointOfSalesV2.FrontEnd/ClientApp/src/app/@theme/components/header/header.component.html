@@ -3,16 +3,26 @@
     <a (click)="toggleSidebar()" href="#" class="sidebar-toggle">
       <nb-icon icon="menu-2-outline"></nb-icon>
     </a>
-    <a class="logo" href="#" (click)="navigateHome()">ngx-<span>admin</span></a>
+    <a class="logo" href="#" (click)="navigateHome()">BillTech</a>
   </div>
   <nb-select
-    [selected]="currentTheme"
+    [(selected)]="currentLanguage"
+    (selectedChange)="changeLanguage($event)"
+    status="primary"
+  >
+    <nb-option *ngFor="let language of languages" [value]="language.code">
+      {{ language.name }}
+    </nb-option>
+  </nb-select>
+
+  <nb-select
+    [(selected)]="currentTheme"
     (selectedChange)="changeTheme($event)"
     status="primary"
   >
     <nb-option *ngFor="let theme of themes" [value]="theme.value">
-      {{ theme.name }}</nb-option
-    >
+      {{ theme.name }}
+    </nb-option>
   </nb-select>
   <ngx-layout-direction-switcher
     class="direction-switcher"

@@ -1,6 +1,6 @@
 import { AppSections } from './enums';
 
-export const endpointUrl = 'https://localhost:44386/api/';
+export const endpointUrl = 'https://localhost:5001/api/';
 
 
 export const endpointControllers = {
