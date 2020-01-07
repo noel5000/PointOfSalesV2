@@ -6,6 +6,7 @@ using System.Linq.Expressions;
 using System.Text;
 using Microsoft.AspNet.OData;
 using PointOfSalesV2.Entities;
+using static PointOfSalesV2.Common.Enums;
 
 namespace PointOfSalesV2.Repository
 {
@@ -128,13 +129,11 @@ namespace PointOfSalesV2.Repository
 
         public virtual IPagedList<T> GetPaged(int startRowIndex, int pageSize, string sortExpression = null)
         {
-            return new PagedList<T>(_DbSet.AsNoTracking(), startRowIndex, pageSize);
+            return new PagedList<T>(_DbSet.AsNoTracking().Where(x=>x.Active==true), startRowIndex, pageSize);
         }
 
-        public virtual PageResult<T> GetPagedNew(int startRowIndex, int pageSize, string sortExpression = null)
-        {
-            return new PageResult<T>(_DbSet, new Uri("https://localhost:44383/api/products/2/2"), _DbSet.Count());
-        }
+
+       
 
         public virtual Result<T> GetAll(Func<IQueryable<T>, IQueryable<T>> transform, Expression<Func<T, bool>> filter = null, string sortExpression = null)
         {

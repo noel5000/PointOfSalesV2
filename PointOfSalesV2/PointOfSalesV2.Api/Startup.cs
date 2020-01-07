@@ -25,6 +25,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using PointOfSalesV2.Common;
+using PointOfSalesV2.Api.Helpers;
 //using Microsoft.AspNetCore.Mvc.Cors.Internal;
 
 namespace PointOfSalesV2.Api
@@ -111,7 +112,7 @@ namespace PointOfSalesV2.Api
                        .AllowAnyMethod()
                        .AllowAnyHeader();
             }));
-           // services.AddOData();
+            services.AddOData();
             services.AddMvc().AddXmlSerializerFormatters();
             //services.AddMvc().AddJsonOptions(opt =>
             //{
@@ -125,7 +126,7 @@ namespace PointOfSalesV2.Api
             services.Configure<MvcOptions>(options =>
             {
                 options.EnableEndpointRouting = false;
-              //  options.Filters.Add(new CorsAuthorizationFilterFactory("AllowAllOrigins"));
+              // options.Filters.Add(new CorsAuthorizationFilterFactory("AllowAllOrigins"));
             });
         }
 
@@ -150,27 +151,17 @@ namespace PointOfSalesV2.Api
             app.UseMvc(routes =>
             {
 
-                //    routes.Select().Expand().Filter().OrderBy().MaxTop(null).Count();
-                //    routes.MapODataServiceRoute("odata", "odata", GetEdmModel(app));
+                    routes.Select().Expand().Filter().OrderBy().MaxTop(null).Count();
+                    routes.MapODataServiceRoute("odata", "odata", OdataHelper.GetEdmModel(app));
                 routes.MapRoute(
                     name: "default",
                     template: "{controller}/{action=Index}/{id?}");
             });
-            //app.UseMvc(routeBuilder => routeBuilder.EnableDependencyInjection());
+            app.UseMvc(routeBuilder => routeBuilder.EnableDependencyInjection());
 
         
         }
 
-        private static IEdmModel GetEdmModel(IApplicationBuilder app)
-        {
-         ODataConventionModelBuilder builder = new ODataConventionModelBuilder(app.ApplicationServices);
-            builder.EntitySet<Invoice>("Invoices");
-            builder.EntitySet<InvoiceDetail>("InvoiceDetails");
-            builder.EntitySet<Product>("Products").EntityType.HasKey(p => p.Id)
-               .Filter(QueryOptionSetting.Allowed);
-            //builder.EntitySet<Stock>("Stocks");
-            //builder.EntitySet<User>("Users");
-            return builder.GetEdmModel();
-        }
+       
     }
 }

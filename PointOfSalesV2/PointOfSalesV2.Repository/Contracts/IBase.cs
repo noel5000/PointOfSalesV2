@@ -27,7 +27,6 @@ namespace PointOfSalesV2.Repository
         Result<T> GetAll(string sortExpression = null);
 
         IPagedList<T> GetPaged(int startRowIndex, int pageSize, string sortExpression = null);
-        PageResult<T> GetPagedNew(int startRowIndex, int pageSize, string sortExpression = null);
 
         Result<T> GetAll(Func<IQueryable<T>, IQueryable<T>> transform, Expression<Func<T, bool>> filter = null, string sortExpression = null);
 
@@ -48,5 +47,6 @@ namespace PointOfSalesV2.Repository
         bool Exists(long id);
 
         bool Exists(Func<IQueryable<T>, IQueryable<T>> query, Expression<Func<T, bool>> filter = null);
+     
     }
 }

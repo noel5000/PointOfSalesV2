@@ -17,7 +17,7 @@ namespace PointOfSalesV2.Api.Controllers
 {
 
         //   ODataController
-    public abstract class BaseController<T> : ControllerBase where T : class, ICommonData, new()
+    public abstract class BaseController<T> : ODataController where T : class, ICommonData, new()
     {
         protected readonly IDataRepositoryFactory _repositoryFactory;
         protected readonly IOptions<AppSettings> _appSettings;
@@ -31,12 +31,12 @@ namespace PointOfSalesV2.Api.Controllers
 
         [HttpGet]
        [ActionAuthorize(Operations.READALL)]
-        //[EnableQuery(AllowedQueryOptions = AllowedQueryOptions.All)]
+        [EnableQuery(AllowedQueryOptions = AllowedQueryOptions.All)]
         public virtual IActionResult Get()
         {
             try
             {
-                var data = _baseRepo.GetAll(x => x.Where(y => y.Active == true));
+                var data = _baseRepo.GetAll<T>(x => x.Where(y => y.Active == true));
                 //    var result = new PageResult<T>(data, new Uri("https://localhost:44383/api/products?$skip=2&$top=2"), data.Count());
                 return Ok(data); 
             }
@@ -72,7 +72,9 @@ namespace PointOfSalesV2.Api.Controllers
             try
             {
                 var data = _baseRepo.GetPaged(number, size);
-                return Ok(new {status=0, message="ok_msg", data=data });
+                data.Status = 0;
+                data.Message = "ok_msg";
+                return Ok(data);
             }
 
             catch (Exception ex)
@@ -80,6 +82,7 @@ namespace PointOfSalesV2.Api.Controllers
                 return Ok(new { status = -1, message = ex.Message });
             }
         }
+
 
 
 
@@ -132,7 +135,7 @@ namespace PointOfSalesV2.Api.Controllers
         {
             try
             {
-                var model = _baseRepo.Get(id) as ICommonData;
+                var model = _baseRepo.Get(id).Data.FirstOrDefault() as ICommonData;
                 if (model != null)
                 {
                     model.Active = false;

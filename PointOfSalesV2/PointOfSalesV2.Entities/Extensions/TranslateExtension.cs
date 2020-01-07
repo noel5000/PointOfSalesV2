@@ -21,7 +21,7 @@ namespace PointOfSalesV2.Entities
         {
             string requestLanguage = "";
             if (httpContext != null && httpContext.HttpContext != null && httpContext.HttpContext.Request != null && httpContext.HttpContext.Request.Headers != null)
-                requestLanguage = httpContext.HttpContext.Request.Headers.FirstOrDefault(x => x.Key == "LanguageId").Value.ToString();
+                requestLanguage = httpContext.HttpContext.Request.Headers.FirstOrDefault(x => x.Key == "languageid").Value.ToString();
 
             return string.IsNullOrEmpty(requestLanguage) ? "EN" : requestLanguage;
         }
@@ -71,8 +71,8 @@ namespace PointOfSalesV2.Entities
                 string requestLanguage = "";
                 if (httpContextAccessor != null && httpContextAccessor.HttpContext != null && httpContextAccessor.HttpContext.Request != null && httpContextAccessor.HttpContext.Request.Headers != null)
                 {
-                    requestLanguage = httpContextAccessor.HttpContext.Request.Headers.Any(x => x.Key == "LanguageId")
-                        ? httpContextAccessor.HttpContext.Request.Headers.FirstOrDefault(x => x.Key == "LanguageId").Value.ToString().ToUpper()
+                    requestLanguage = httpContextAccessor.HttpContext.Request.Headers.Any(x => x.Key == "languageid")
+                        ? httpContextAccessor.HttpContext.Request.Headers.FirstOrDefault(x => x.Key == "languageid").Value.ToString().ToUpper()
                         : "EN";
 
                     if (!string.IsNullOrEmpty(translationData) && TranslateUtility.IsValidJson(translationData))
@@ -99,8 +99,8 @@ namespace PointOfSalesV2.Entities
             string requestLanguage = "";
             if (httpContextAccessor != null && httpContextAccessor.HttpContext != null && httpContextAccessor.HttpContext.Request != null && httpContextAccessor.HttpContext.Request.Headers != null)
             {
-                requestLanguage = httpContextAccessor.HttpContext.Request.Headers.Any(x => x.Key == "LanguageId")
-                           ? httpContextAccessor.HttpContext.Request.Headers.FirstOrDefault(x => x.Key == "LanguageId").Value.ToString().ToUpper()
+                requestLanguage = httpContextAccessor.HttpContext.Request.Headers.Any(x => x.Key == "languageid")
+                           ? httpContextAccessor.HttpContext.Request.Headers.FirstOrDefault(x => x.Key == "languageid").Value.ToString().ToUpper()
                            : "EN";
 
 

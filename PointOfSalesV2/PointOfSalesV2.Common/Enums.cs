@@ -15,6 +15,12 @@ namespace PointOfSalesV2.Common
             Converted = 'C'
         }
 
+        public enum SortDirections 
+        {
+        DESC=0,
+        ASC=1
+        }
+
         public enum ExcelColumnsDef
         {
             TEXT = 1,
@@ -22,7 +28,15 @@ namespace PointOfSalesV2.Common
             INTEGER = 3,
             DATETIME = 4
         }
-       
+
+        public enum ObjectType 
+        {
+        STRING=0,
+        NUMBER=2,
+        DATE=3,
+        BOOL=4
+        }
+        
 
         public enum SequenceTypes
         {

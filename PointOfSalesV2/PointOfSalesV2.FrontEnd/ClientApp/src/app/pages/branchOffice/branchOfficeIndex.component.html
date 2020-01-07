@@ -7,11 +7,16 @@
     <ng2-smart-table
       [settings]="settings"
       [source]="source"
-      (deleteConfirm)="onDeleteConfirm($event)"
       (create)="addNew($event)"
-      (edit)="addNew($event)"
-      (delete)="addNew($event)"
+      (edit)="edit($event)"
+      (delete)="onDeleteConfirm($event)"
     >
     </ng2-smart-table>
   </nb-card-body>
 </nb-card>
+<ngb-pagination
+  [(page)]="pageNumber"
+  [pageSize]="pageSize"
+  [collectionSize]="maxCount"
+  (pageChange)="getPagedData($event)"
+></ngb-pagination>

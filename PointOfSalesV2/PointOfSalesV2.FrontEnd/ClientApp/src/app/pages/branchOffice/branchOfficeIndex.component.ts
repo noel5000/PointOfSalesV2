@@ -7,6 +7,7 @@ import { BranchOfficeService } from './../../@core/services/branchOfficeService'
 import { LocalDataSource } from 'ng2-smart-table';
 
 import { SmartTableData } from './../../@core/data/smart-table';
+import { BranchOffice } from './../../@core/data/branchOffice';
 
 declare const $: any;
 @Component({
@@ -22,10 +23,35 @@ export class BranchOfficeIndexComponent extends BaseComponent {
         private service: BranchOfficeService
     ) {
         super(route, langService, AppSections.BranchOffices);
-        this.source.setPaging(1, 10, true);
-        this.source.setPage(1, true);
+        this.source.setPaging(this.pageNumber, this.pageSize, true);
+        this.source.setPage(this.pageNumber, true);
+        this.getData();
     }
 
+    getData() {
+        this.service.getPaged(this.pageNumber, this.pageSize).subscribe(r => {
+            if (r.status >= 0) {
+
+                this.source = new LocalDataSource(r.data);
+                this.maxCount = r.totalItemCount;
+
+            }
+            else
+                alert(r.message)
+        },
+            error => {
+                alert(`${this.lang.getValueByKey('error_msg')}: ${error.message}`);
+            }
+        )
+    }
+
+    getPagedData(e) {
+        this.pageNumber = e;
+        this.getData();
+    }
+    pageNumber: number = 1;
+    pageSize: number = 10;
+    maxCount: number = 0;
     settings = {
         mode: 'external',
         add: {
@@ -44,54 +70,62 @@ export class BranchOfficeIndexComponent extends BaseComponent {
             confirmDelete: true,
         },
         columns: {
+
             id: {
-                title: 'ID',
+                title: this.lang.getValueByKey('id_label'),
                 type: 'number',
-            },
-            firstName: {
-                title: 'First Name',
-                type: 'string',
-            },
-            lastName: {
-                title: 'Last Name',
-                type: 'string',
-            },
-            username: {
-                title: 'Username',
-                type: 'string',
-            },
-            email: {
-                title: 'E-mail',
-                type: 'string',
-            },
-            age: {
-                title: 'Age',
-                type: 'number',
-            },
+                compareFunction: function (e) {
+                    alert('sort funct');
+                }
+            }
+            ,
+            name: {
+                title: this.lang.getValueByKey('name_lable'),
+                type: 'text',
+                compareFunction: function (e) {
+                    alert(`sorting function: ${JSON.stringify(e)}`)
+                },
+                filterFunction: function (e) {
+                    alert(`filtering function: ${JSON.stringify(e)}`)
+                },
+
+            }
         },
         pager: {
             display: true,
             perPage: 10,
-            rowClassFunction: function (e: any) {
 
-            }
-        },
-        filterFunction: function (e: any) {
 
         },
-        compareFunction: function (e: any) {
-
+        actions: {
+            columnTitle: this.lang.getValueByKey('actions_label')
         }
     };
     addNew(e: any) {
-        alert('algo');
+        this.router.navigateByUrl(`pages/branchoffice/add`);
+    }
+    edit(e) {
+        this.router.navigateByUrl(`pages/branchoffice/edit/${e.data.id}`);
     }
     source: LocalDataSource = new LocalDataSource();
     onDeleteConfirm(event): void {
-        if (window.confirm('Are you sure you want to delete?')) {
-            event.confirm.resolve();
-        } else {
-            event.confirm.reject();
+        if (window.confirm(this.lang.getValueByKey('deleteConfirm_msg'))) {
+            this.delete(event.data.id);
+
         }
+    }
+
+    delete(id: number) {
+        this.service.delete(id).subscribe(r => {
+            if (r.status >= 0) {
+                alert(this.lang.getValueByKey('success_msg'))
+                this.getData();
+            }
+            else
+                alert(r.message);
+        },
+            error => {
+                alert(this.lang.getValueByKey('error_msg'));
+            })
     }
 }

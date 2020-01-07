@@ -1,10 +1,12 @@
-using Newtonsoft.Json;
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace PointOfSalesV2.Entities
@@ -15,6 +17,7 @@ namespace PointOfSalesV2.Entities
 
         private string _jsonData;
         [JsonIgnore]
+        [IgnoreDataMember]
         public virtual Guid CreatedBy { get; set; }
         [MaxLength(100)]
         [JsonIgnore]
@@ -34,6 +37,7 @@ namespace PointOfSalesV2.Entities
 
         public virtual bool Active { get; set; }
         [JsonIgnore]
+        [IgnoreDataMember]
         public virtual string TranslationData 
         {
             get
@@ -53,13 +57,5 @@ namespace PointOfSalesV2.Entities
                 }
             }
         }
-
-        //[ForeignKey("CreatedBy")]
-        //public virtual User CreatedByUser { get; set; }
-        //[ForeignKey("ModifiedBy")]
-        //public virtual User ModifiedByUser { get; set; }
-
-     
-
     }
 }

@@ -11,6 +11,8 @@ import { BranchOfficeService } from './../../@core/services/branchOfficeService'
 import { NbCardModule, NbTreeGridModule, NbIconModule, NbInputModule } from '@nebular/theme';
 import { ThemeModule } from '../../@theme/theme.module';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
+import { NgbPaginationModule, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 const routes: Routes = [
     {
@@ -40,7 +42,8 @@ const routes: Routes = [
     ],
     imports: [
         NbCardModule,
-        // NbTreeGridModule,
+        NgbPaginationModule,
+        NgbAlertModule,
         NbIconModule,
         NbInputModule,
         ThemeModule,

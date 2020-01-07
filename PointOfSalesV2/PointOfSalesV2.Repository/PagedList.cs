@@ -17,6 +17,9 @@ namespace PointOfSalesV2.Repository
         {
         }
 
+        public int Status { get; set; }
+        public string Message { get; set; }
+
         private PagedList(IQueryable<T> source, int startRowIndex, int pageSize)
         {
             _TotalItemCount = source.Count();

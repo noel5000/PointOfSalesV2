@@ -4,4 +4,8 @@ export class BaseResultModel<T>{
     message: string = '';
     exception: any = null;
     data: T[] = [];
+    totalItemCount: number = 0;
+    count: number = 0;
+    pageCount: number = 0;
+    currentPage: number = 0;
 }

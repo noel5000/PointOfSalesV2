@@ -6,6 +6,7 @@ import { Injectable } from "@angular/core";
 import { HttpHeaders, HttpClient, HttpParams } from "@angular/common/http";
 import { IPagedList } from '../data/pagedList';
 import { BaseResultModel } from '../data/baseResultModel';
+import { AuthModel } from './../data/authModel';
 
 
 
@@ -42,7 +43,7 @@ export class BaseService<TEntity, TKey> implements IService<TEntity, TKey> {
     }
 
     setHttpOptions() {
-        const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+        const currentUser = JSON.parse(localStorage.getItem("currentUser")) as AuthModel;
         this.tempHttpOptions = {
             headers: this._headers,
             params: null
@@ -53,7 +54,7 @@ export class BaseService<TEntity, TKey> implements IService<TEntity, TKey> {
         this._headers = new HttpHeaders({
             "Content-Type": "application/json",
             "UserId": currentUser ? currentUser.user.userId : '',
-            "LanguageId": currentUser ? currentUser.user.languageCode : 'en',
+            "LanguageId": currentUser ? currentUser.languageId : 'en',
             "Authorization": currentUser ? `Bearer ${currentUser.token}` : ''
         });
         this.httpOptions = {
@@ -94,10 +95,10 @@ export class BaseService<TEntity, TKey> implements IService<TEntity, TKey> {
         page: number,
         max: number,
         languageId: string = ""
-    ): Observable<IPagedList<TEntity>> {
+    ): Observable<BaseResultModel<TEntity>> {
         this.setHttpOptions();
         this.setLanguageInHeaders(languageId);
-        let data = this._httpClient.get<IPagedList<TEntity>>(
+        let data = this._httpClient.get<BaseResultModel<TEntity>>(
             `${this.baseUrl}/${page}/${max}`,
             !languageId ? this.httpOptions : this.tempHttpOptions
         );
