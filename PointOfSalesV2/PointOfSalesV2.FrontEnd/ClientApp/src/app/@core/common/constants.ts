@@ -7,7 +7,8 @@ export const endpointControllers = {
     login: 'Login',
     products: 'products',
     logout: 'logout',
-    languages: 'language'
+    languages: 'language',
+    branchOffices: 'branchOffice'
 }
 
 export const menuChildren = {

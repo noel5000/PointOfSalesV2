@@ -20,6 +20,7 @@ export class BaseComponent {
     section: AppSections = null;
     authModel: AuthModel = null;
     permits: any = {};
+
     router: Router;
     lang: LanguageService;
     getUserAuthorizations() {
@@ -38,12 +39,19 @@ export class BaseComponent {
         if (!this.permits.read || (!this.permits.add && !this.permits.update && !this.permits.delete)) {
             this.returnToLogin();
         }
+        const currentUrl = this.router.url.split('/');
+        if ((currentUrl.indexOf('add') >= 0 && !this.permits.add) || (currentUrl.indexOf('edit') >= 0 && !this.permits.update))
+            this.returnToLogin();
 
 
     }
 
     returnToLogin() {
+        var auth = JSON.parse(localStorage.getItem(`currentUser`)) as AuthModel;
+        localStorage.setItem(`language-${auth.languageId}`, null);
         localStorage.setItem('currentUser', null);
+        this.lang.setLanguageInHeaders('EN');
+        this.lang.setCurrentLanguage('EN');
         this.authModel = null;
         this.router.navigateByUrl('auth/login');
     }

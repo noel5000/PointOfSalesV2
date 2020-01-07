@@ -63,7 +63,7 @@ export class PagesComponent {
       children: [
         {
           title: this.lang.getValueByKey('branchOffice_menu'),
-          link: '',
+          link: 'branchoffice',
           hidden: !this.securityService.isUserValidInMenu(AppSections.BranchOffices)
         },
         {

@@ -7,6 +7,8 @@ import { DashboardModule } from './dashboard/dashboard.module';
 import { PagesRoutingModule } from './pages-routing.module';
 import { LanguageService } from './../@core/services/translateService';
 import { SecurityService } from '../@core/services/securityService';
+import { BranchOfficeModule } from './branchOffice/branchOffice.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -15,6 +17,7 @@ import { SecurityService } from '../@core/services/securityService';
     ThemeModule,
     NbMenuModule,
     DashboardModule,
+    BranchOfficeModule
   ],
   declarations: [
     PagesComponent,

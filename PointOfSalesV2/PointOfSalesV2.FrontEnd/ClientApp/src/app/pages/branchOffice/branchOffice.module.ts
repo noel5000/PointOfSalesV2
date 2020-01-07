@@ -1,0 +1,59 @@
+import { NgModule } from '@angular/core';
+import { BranchOfficeIndexComponent } from './branchOfficeIndex.component';
+import { BranchOfficeFormComponent } from './branchOfficeForm.component';
+import { LanguageService } from './../../@core/services/translateService';
+import { SecurityService } from './../../@core/services/securityService';
+import { TranslateModule } from '@ngx-translate/core';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { RouterModule, Routes } from '@angular/router';
+import { BranchOfficeService } from './../../@core/services/branchOfficeService';
+import { NbCardModule, NbTreeGridModule, NbIconModule, NbInputModule } from '@nebular/theme';
+import { ThemeModule } from '../../@theme/theme.module';
+import { Ng2SmartTableModule } from 'ng2-smart-table';
+
+const routes: Routes = [
+    {
+        path: "",
+        component: BranchOfficeIndexComponent,
+        pathMatch: "full"
+    },
+
+    {
+        path: "add",
+        component: BranchOfficeFormComponent
+    },
+    {
+        path: "edit/:id",
+        component: BranchOfficeFormComponent
+    },
+];
+
+@NgModule({
+
+    declarations: [BranchOfficeFormComponent, BranchOfficeIndexComponent],
+    bootstrap: [],
+    providers: [
+        LanguageService,
+        SecurityService,
+        BranchOfficeService
+    ],
+    imports: [
+        NbCardModule,
+        // NbTreeGridModule,
+        NbIconModule,
+        NbInputModule,
+        ThemeModule,
+        Ng2SmartTableModule,
+        CommonModule,
+        RouterModule.forChild(routes),
+        ReactiveFormsModule,
+        FormsModule,
+        TranslateModule,
+    ],
+})
+
+
+export class BranchOfficeModule {
+
+}
