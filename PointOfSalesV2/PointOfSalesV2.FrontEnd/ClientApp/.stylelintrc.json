@@ -12,7 +12,6 @@
     "number-no-trailing-zeros": true,
     "length-zero-no-unit": true,
     "string-no-newline": true,
-    "string-quotes": "ignore",
     "unit-case": "lower",
     "unit-no-unknown": true,
     "unit-whitelist": [
