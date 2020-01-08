@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.OData;
 using Microsoft.AspNet.OData.Query;
+using Microsoft.AspNet.OData.Routing;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -16,8 +17,8 @@ using static PointOfSalesV2.Common.Enums;
 namespace PointOfSalesV2.Api.Controllers
 {
 
-        //   ODataController
-    public abstract class BaseController<T> : ODataController where T : class, ICommonData, new()
+    //   ODataController
+    public abstract class BaseController<T> : ControllerBase where T : class, ICommonData, new()
     {
         protected readonly IDataRepositoryFactory _repositoryFactory;
         protected readonly IOptions<AppSettings> _appSettings;
@@ -30,15 +31,14 @@ namespace PointOfSalesV2.Api.Controllers
         }
 
         [HttpGet]
-       [ActionAuthorize(Operations.READALL)]
-        [EnableQuery(AllowedQueryOptions = AllowedQueryOptions.All)]
+        [ActionAuthorize(Operations.READALL)]
+        [EnableQuery()]
         public virtual IActionResult Get()
         {
             try
             {
                 var data = _baseRepo.GetAll<T>(x => x.Where(y => y.Active == true));
-                //    var result = new PageResult<T>(data, new Uri("https://localhost:44383/api/products?$skip=2&$top=2"), data.Count());
-                return Ok(data); 
+                return Ok(data);
             }
 
             catch (Exception ex)
@@ -48,8 +48,8 @@ namespace PointOfSalesV2.Api.Controllers
         }
 
         [HttpGet("{id:long}")]
-       //[EnableQuery]
-        [ActionAuthorize( Operations.READ)]
+        //[EnableQuery]
+        [ActionAuthorize(Operations.READ)]
         public virtual IActionResult Get(long id)
         {
             try
@@ -65,7 +65,7 @@ namespace PointOfSalesV2.Api.Controllers
         }
 
         [HttpGet("{number:int}/{size:int}")]
-       // [EnableQuery]
+        // [EnableQuery]
         [ActionAuthorize(Operations.READPAGED)]
         public virtual IActionResult Get(int number, int size)
         {
@@ -142,16 +142,16 @@ namespace PointOfSalesV2.Api.Controllers
                     var result = _baseRepo.Update(model as T);
                     return Ok(result);
                 }
-                else 
+                else
                 {
                     return Ok(new { status = -1, message = "error_msg" });
                 }
-                
+
             }
 
             catch (Exception ex)
             {
-                return Ok(new { status = -1, message =ex.Message});
+                return Ok(new { status = -1, message = ex.Message });
 
             }
 

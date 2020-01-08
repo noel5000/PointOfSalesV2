@@ -44,6 +44,7 @@ namespace PointOfSalesV2.Api.Security
             var currentToken = _httpContextAccessor.HttpContext.Request.Headers.FirstOrDefault(x => x.Key == "Authorization").Value.ToString();
             var currentPath = _httpContextAccessor.HttpContext.Request.Path.ToString().Split("/").ToList();
             int index = currentPath.IndexOf("api") + 1;
+            index = index == 0 ? currentPath.IndexOf("odata") + 1 : index;
             string currentController = currentPath[index];
             if (string.IsNullOrEmpty(currentToken) || string.IsNullOrEmpty(currentController) || !currentToken.Contains("Bearer"))
                 isInvalid = true;

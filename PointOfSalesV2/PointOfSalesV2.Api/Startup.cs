@@ -1,32 +1,24 @@
 
-
-using Microsoft.AspNet.OData.Builder;
+using System;
+using System.Linq;
 using Microsoft.AspNet.OData.Extensions;
-using Microsoft.AspNet.OData.Query;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.FileProviders;
-using Microsoft.OData.Edm;
-using Newtonsoft.Json.Serialization;
-using PointOfSalesV2.Entities;
+using Microsoft.Extensions.Hosting;
+using Microsoft.EntityFrameworkCore;
 using PointOfSalesV2.Entities.Model;
 using PointOfSalesV2.Repository;
-using System;
 using System.Data.SqlClient;
 using System.Globalization;
 using System.IO;
 using System.Text;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using PointOfSalesV2.Common;
 using PointOfSalesV2.Api.Helpers;
-//using Microsoft.AspNetCore.Mvc.Cors.Internal;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.FileProviders;
 
 namespace PointOfSalesV2.Api
 {
@@ -42,6 +34,11 @@ namespace PointOfSalesV2.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllers(mvcOptions =>
+            {
+                mvcOptions.EnableEndpointRouting = false;
+            });
+            services.AddOData();
             services.AddMemoryCache();
             var appSettings = Configuration.GetSection("AppSettings").Get<AppSettings>();
             var connections = Configuration.GetSection("ConnectionStrings").Get<ConnectionStrings>();
@@ -57,8 +54,6 @@ namespace PointOfSalesV2.Api
                new PhysicalFileProvider(
                    Path.Combine(Directory.GetCurrentDirectory(), "")));
 
-
-            //services.AddScoped<IParqueoRepository, ParqueoRepository>(); 
             services.AddScoped<IBranchOfficeRepository, BranchOfficeRepository>();
             services.AddScoped<ILanguageKeyRepository, LanguageKeyRepository>();
             services.AddScoped<IBusinessStateRepository, BusinessStateRepository>();
@@ -68,7 +63,7 @@ namespace PointOfSalesV2.Api
             services.AddScoped<ICustomerPaymentRepository, CustomerPaymentRepository>();
             services.AddScoped<IExpenseRepository, ExpenseRepository>();
             services.AddScoped<IInventoryEntryRepository, InventoryEntryRepository>();
-            services.AddScoped<IExpenseTaxRepository, ExpenseTaxRepository>();                                                                 
+            services.AddScoped<IExpenseTaxRepository, ExpenseTaxRepository>();
             services.AddScoped<IInventoryRepository, InventoryRepository>();
             services.AddScoped<IInvoiceDetailRepository, InvoiceDetailRepository>();
             services.AddScoped<IInvoiceRepository, InvoiceRepository>();
@@ -88,9 +83,9 @@ namespace PointOfSalesV2.Api
             //New instance for injection
             services.AddTransient(typeof(IBase<>), typeof(Repository<>));
             // Add Culture
-            var cultureInfo = new CultureInfo("es-DO");
-            CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
-            CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
+            //var cultureInfo = new CultureInfo("es-DO");
+            //CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+            //CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
@@ -106,62 +101,37 @@ namespace PointOfSalesV2.Api
                  Encoding.UTF8.GetBytes(appSettings.TokenKey)),
                  ClockSkew = TimeSpan.Zero
              });
-            services.AddCors(o => o.AddPolicy("AllowAllOrigins", builder =>
-            {
-                builder.AllowAnyOrigin()
-                       .AllowAnyMethod()
-                       .AllowAnyHeader();
-            }));
-            services.AddOData();
-            services.AddMvc().AddXmlSerializerFormatters();
-            //services.AddMvc().AddJsonOptions(opt =>
-            //{
-            //    opt.SerializerSettings.ContractResolver = new DefaultContractResolver();
-            //    opt.SerializerSettings.DateFormatString = "dd/MM/yyyy";
-            //    opt.SerializerSettings.Culture = cultureInfo;
-            //});
+          
+           
+           
+          //  services.AddMvc().AddXmlSerializerFormatters();
 
-            //Esto para no terner que poner el attributo a cada metodo de controlado
-            //para que permita crosorgine [EnableCors("AllowAllOrigins")]
-            services.Configure<MvcOptions>(options =>
-            {
-                options.EnableEndpointRouting = false;
-              // options.Filters.Add(new CorsAuthorizationFilterFactory("AllowAllOrigins"));
-            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
 
             }
-            else
-            {
-                app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-            }
-
-            app.UseCors("AllowAllOrigins");
-            app.UseAuthentication();
-            app.UseDependency();
-            app.UseMvc(routes =>
-            {
-
-                    routes.Select().Expand().Filter().OrderBy().MaxTop(null).Count();
-                    routes.MapODataServiceRoute("odata", "odata", OdataHelper.GetEdmModel(app));
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller}/{action=Index}/{id?}");
-            });
-            app.UseMvc(routeBuilder => routeBuilder.EnableDependencyInjection());
-
         
+
+
+            app.UseMvc(routerBuilder =>
+            {
+                routerBuilder.EnableDependencyInjection();
+                routerBuilder.Select().Filter().Count().MaxTop(null).Expand();
+                routerBuilder.MapODataServiceRoute("odata", "odata", OdataHelper.GetEdmModel(app));
+
+            });
+           
+
+
         }
 
-       
+
     }
 }

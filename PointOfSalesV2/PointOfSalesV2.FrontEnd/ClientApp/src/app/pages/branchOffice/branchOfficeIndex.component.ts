@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { BaseComponent } from './../../@core/common/baseComponent';
-import { AppSections } from '../../@core/common/enums';
+import { AppSections, ObjectTypes, QueryFilter } from '../../@core/common/enums';
 import { LanguageService } from './../../@core/services/translateService';
 import { Router } from '@angular/router';
 import { BranchOfficeService } from './../../@core/services/branchOfficeService';
@@ -17,19 +17,76 @@ declare const $: any;
 })
 export class BranchOfficeIndexComponent extends BaseComponent {
 
+    filters:QueryFilter[]=[];
+    orderBy:string='Id';
+    orderDirection:string='desc'
     constructor(
         route: Router,
         langService: LanguageService,
         private service: BranchOfficeService
     ) {
         super(route, langService, AppSections.BranchOffices);
+        let scope = this;
+        this.settings={
+            mode: 'external',
+            add: {
+    
+                addButtonContent: '<i class="nb-plus" ></i>',
+                createButtonContent: '<i class="nb-checkmark"></i>',
+                cancelButtonContent: '<i class="nb-close"></i>',
+            },
+            edit: {
+                editButtonContent: '<i class="nb-edit"></i>',
+                saveButtonContent: '<i class="nb-checkmark"></i>',
+                cancelButtonContent: '<i class="nb-close"></i>',
+            },
+            delete: {
+                deleteButtonContent: '<i class="nb-trash"></i>',
+                confirmDelete: true,
+            },
+            columns: {
+    
+                id: {
+                    title: this.lang.getValueByKey('id_label'),
+                    type: 'number',
+                    compareFunction: function (e) {
+                        alert(`sorting function: ${JSON.stringify(e)}`)
+                    },
+                    filterFunction: function (oldValue,currentValue) {
+                        scope.filterData(currentValue,'Id', ObjectTypes.Number)
+                    },
+                }
+                ,
+                name: {
+                    title: this.lang.getValueByKey('name_lable'),
+                    type: 'text',
+                    compareFunction: function (e) {
+                        alert(`sorting function: ${JSON.stringify(e)}`)
+                    },
+                    filterFunction: function (oldValue,currentValue) {
+                        scope.filterData(currentValue,'Name', ObjectTypes.String)
+                    },
+    
+                }
+            },
+            pager: {
+                display: true,
+                perPage: 10,
+    
+    
+            },
+            actions: {
+                columnTitle: this.lang.getValueByKey('actions_label')
+            }
+        };
+
         this.source.setPaging(this.pageNumber, this.pageSize, true);
         this.source.setPage(this.pageNumber, true);
         this.getData();
     }
 
     getData() {
-        this.service.getPaged(this.pageNumber, this.pageSize).subscribe(r => {
+        this.service.getFiltered(this.pageNumber, this.pageSize,this.filters,this.orderBy,this.orderDirection).subscribe(r => {
             if (r.status >= 0) {
 
                 this.source = new LocalDataSource(r.data);
@@ -52,56 +109,29 @@ export class BranchOfficeIndexComponent extends BaseComponent {
     pageNumber: number = 1;
     pageSize: number = 10;
     maxCount: number = 0;
-    settings = {
-        mode: 'external',
-        add: {
+    settings:any =null; 
 
-            addButtonContent: '<i class="nb-plus" ></i>',
-            createButtonContent: '<i class="nb-checkmark"></i>',
-            cancelButtonContent: '<i class="nb-close"></i>',
-        },
-        edit: {
-            editButtonContent: '<i class="nb-edit"></i>',
-            saveButtonContent: '<i class="nb-checkmark"></i>',
-            cancelButtonContent: '<i class="nb-close"></i>',
-        },
-        delete: {
-            deleteButtonContent: '<i class="nb-trash"></i>',
-            confirmDelete: true,
-        },
-        columns: {
-
-            id: {
-                title: this.lang.getValueByKey('id_label'),
-                type: 'number',
-                compareFunction: function (e) {
-                    alert('sort funct');
-                }
-            }
-            ,
-            name: {
-                title: this.lang.getValueByKey('name_lable'),
-                type: 'text',
-                compareFunction: function (e) {
-                    alert(`sorting function: ${JSON.stringify(e)}`)
-                },
-                filterFunction: function (e, e1, e2) {
-                    alert(`filtering function: ${JSON.stringify(e)},${JSON.stringify(e1)},${JSON.stringify(e2)}`)
-                },
-
-            }
-        },
-        pager: {
-            display: true,
-            perPage: 10,
-
-
-        },
-        actions: {
-            columnTitle: this.lang.getValueByKey('actions_label')
+   filterData(currentValue:string,propertyName:string, propertyType:ObjectTypes){
+        let currentFilter= {
+            property:propertyName,
+            value:currentValue,
+            type:propertyType
+        } as QueryFilter;
+        const index = this.filters.findIndex(x=>x.property==currentFilter.property);
+        if(index>=0){
+            this.filters.splice(index,1);
+            this.filters.push(currentFilter);
         }
-    };
+        else{
+            this.filters.push(currentFilter);
+        }
+        const scope=this;
+        setTimeout(function(){
+            scope.getData();
+        },500)
 
+
+    }
 
     addNew(e: any) {
         this.router.navigateByUrl(`pages/branchoffice/add`);
