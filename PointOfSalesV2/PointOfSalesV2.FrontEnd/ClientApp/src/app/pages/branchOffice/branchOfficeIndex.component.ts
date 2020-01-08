@@ -85,8 +85,8 @@ export class BranchOfficeIndexComponent extends BaseComponent {
                 compareFunction: function (e) {
                     alert(`sorting function: ${JSON.stringify(e)}`)
                 },
-                filterFunction: function (e) {
-                    alert(`filtering function: ${JSON.stringify(e)}`)
+                filterFunction: function (e, e1, e2) {
+                    alert(`filtering function: ${JSON.stringify(e)},${JSON.stringify(e1)},${JSON.stringify(e2)}`)
                 },
 
             }
@@ -101,6 +101,8 @@ export class BranchOfficeIndexComponent extends BaseComponent {
             columnTitle: this.lang.getValueByKey('actions_label')
         }
     };
+
+
     addNew(e: any) {
         this.router.navigateByUrl(`pages/branchoffice/add`);
     }

@@ -7,6 +7,7 @@ import { HttpHeaders, HttpClient, HttpParams } from "@angular/common/http";
 import { IPagedList } from '../data/pagedList';
 import { BaseResultModel } from '../data/baseResultModel';
 import { AuthModel } from './../data/authModel';
+import { QueryFilter, ObjectTypes } from '../common/enums';
 
 
 
@@ -108,15 +109,46 @@ export class BaseService<TEntity, TKey> implements IService<TEntity, TKey> {
     getFiltered(
         page: number,
         max: number,
+        filters: QueryFilter[] = [],
+        orderBy: string = '',
+        direction: string = 'desc',
         languageId: string = ""
     ): Observable<IPagedList<TEntity>> {
         this.setHttpOptions();
         this.setLanguageInHeaders(languageId);
         let data = this._httpClient.get<IPagedList<TEntity>>(
-            `${this.baseUrl}/${page}/${max}`,
+            `${this.baseUrl}?${this.getODataQuery(filters, page, max, orderBy, direction)}`,
             !languageId ? this.httpOptions : this.tempHttpOptions
         );
         return data;
+    }
+
+    getODataQuery(filters: QueryFilter[], page: number, max: number, orderBy: string, direction: string): string {
+        let result = '';
+        let query = '$filter=';
+        filters.forEach(f => {
+            switch (f.type) {
+                case ObjectTypes.String:
+                    query = `${query}contains(@word,${f.property})&@word='${f.value} and '`;
+                    break;
+                case ObjectTypes.Number:
+                    query = `${query}${f.property} eq ${f.value} and `;
+                    break;
+                case ObjectTypes.Date:
+                    query = `${query}${f.property} eq '${f.value}' and `;
+                    break;
+                case ObjectTypes.Boolean:
+                    query = `${query}${f.property} eq ${f.value} and `;
+                    break;
+            }
+        })
+        result = query.length > 8 ? `${result}${query}` : result;
+        if (result.endsWith('and ')) {
+            result = result.substring(0, result.length - 5);
+        }
+        result = `${result}${result.length > 8 ? '&' : ''}$skip=${page * max}&$top=${max}&orderby=${orderBy} ${direction}`;
+
+        return result;
     }
 
     getById(id: TKey, languageId: string = ""): Observable<BaseResultModel<TEntity>> {

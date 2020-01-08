@@ -1,3 +1,5 @@
+
+
 export enum BillingStates {
     Billed = 'B',
     Nulled = 'N',
@@ -13,7 +15,46 @@ export enum ExcelColumnsDef {
     DATETIME = 4
 }
 
+export const ODataOperations = {
+    select: '$select',
+    filter: '$filter=',
+    count: '$count',
+    skip: '$skip=',
+    order: '$orderby=',
+    search: '$search',
+    top: '$top=',
+    expand: '$expand='
+}
 
+export class QueryFilter {
+    property: string;
+    value: string;
+    type: ObjectTypes;
+}
+
+export const ODataComparers = {
+    equals: ' eq ',
+    lesOrEqual: ' le ',
+    NotEqual: ' ne ',
+    greaterThan: ' gt ',
+    greaterThanOrEqual: ' ge ',
+    lessThan: ' lt ',
+    not: ' not ',
+    endWiths: ' endswith',
+    in: ' in '
+
+}
+export enum ObjectTypes {
+    String = 0,
+    Number = 1,
+    Date = 2,
+    Boolean = 3
+}
+
+export const ODataOperators = {
+    and: ' and ',
+    or: ' or '
+}
 
 export enum AppSections {
     Permissions = 1,

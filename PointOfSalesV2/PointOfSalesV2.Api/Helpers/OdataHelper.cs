@@ -36,7 +36,7 @@ namespace PointOfSalesV2.Api.Helpers
          builder.EntitySet<Invoice>("Invoices").EntityType.HasKey(x =>x.Id).Filter(QueryOptionSetting.Allowed);
          builder.EntitySet<InvoiceDetail>("InvoicesDetails").EntityType.HasKey(x =>x.Id).Filter(QueryOptionSetting.Allowed);
          builder.EntitySet<InvoiceTax>("InvoicesTaxes").EntityType.HasKey(x =>x.Id).Filter(QueryOptionSetting.Allowed);
-         builder.EntitySet<BranchOffice>("BranchOffices").EntityType.HasKey(x =>x.Id).Filter(QueryOptionSetting.Allowed);
+         builder.EntitySet<BranchOffice>("BranchOffices").EntityType.HasKey(x =>x.Id).Count().Expand().OrderBy().Page().Select().OrderBy().Filter(QueryOptionSetting.Allowed);
          builder.EntitySet<MovementType>("MovementTypes").EntityType.HasKey(x =>x.Id).Filter(QueryOptionSetting.Allowed);
          builder.EntitySet<OpeningAmount>("OpeningsAmounts").EntityType.HasKey(x =>x.Id).Filter(QueryOptionSetting.Allowed);
          builder.EntitySet<PaymentType>("PaymentTypes").EntityType.HasKey(x =>x.Id).Filter(QueryOptionSetting.Allowed);
