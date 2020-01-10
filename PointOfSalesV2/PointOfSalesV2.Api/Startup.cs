@@ -19,6 +19,7 @@ using Microsoft.IdentityModel.Tokens;
 using PointOfSalesV2.Api.Helpers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.AspNetCore.Mvc;
 
 namespace PointOfSalesV2.Api
 {
@@ -101,10 +102,19 @@ namespace PointOfSalesV2.Api
                  Encoding.UTF8.GetBytes(appSettings.TokenKey)),
                  ClockSkew = TimeSpan.Zero
              });
-          
-           
-           
-          //  services.AddMvc().AddXmlSerializerFormatters();
+
+            services.AddCors(o => o.AddPolicy("AllowAllOrigins", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
+
+            //services.Configure<MvcOptions>(options =>
+            //{
+            //    options.Filters.Add(new CorsAuthorizationFilterFactory("AllowAllOrigins"));
+            //});
+            //  services.AddMvc().AddXmlSerializerFormatters();
 
 
         }
@@ -117,8 +127,11 @@ namespace PointOfSalesV2.Api
                 app.UseDeveloperExceptionPage();
 
             }
-        
+            app.UseCors("AllowAllOrigins");
 
+            app.UseHttpsRedirection();
+            app.UseStaticFiles();
+            app.UseAuthentication();
 
             app.UseMvc(routerBuilder =>
             {

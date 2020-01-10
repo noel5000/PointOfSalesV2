@@ -17,9 +17,9 @@ declare const $: any;
 })
 export class BranchOfficeIndexComponent extends BaseComponent {
 
-    filters:QueryFilter[]=[];
-    orderBy:string='Id';
-    orderDirection:string='desc'
+    filters: QueryFilter[] = [];
+    orderBy: string = 'Id';
+    orderDirection: string = 'desc'
     constructor(
         route: Router,
         langService: LanguageService,
@@ -27,10 +27,10 @@ export class BranchOfficeIndexComponent extends BaseComponent {
     ) {
         super(route, langService, AppSections.BranchOffices);
         let scope = this;
-        this.settings={
+        this.settings = {
             mode: 'external',
             add: {
-    
+
                 addButtonContent: '<i class="nb-plus" ></i>',
                 createButtonContent: '<i class="nb-checkmark"></i>',
                 cancelButtonContent: '<i class="nb-close"></i>',
@@ -45,15 +45,15 @@ export class BranchOfficeIndexComponent extends BaseComponent {
                 confirmDelete: true,
             },
             columns: {
-    
+
                 id: {
                     title: this.lang.getValueByKey('id_label'),
                     type: 'number',
                     compareFunction: function (e) {
                         alert(`sorting function: ${JSON.stringify(e)}`)
                     },
-                    filterFunction: function (oldValue,currentValue) {
-                        scope.filterData(currentValue,'Id', ObjectTypes.Number)
+                    filterFunction: function (oldValue, currentValue) {
+                        scope.filterData(currentValue, 'Id', ObjectTypes.Number)
                     },
                 }
                 ,
@@ -63,17 +63,17 @@ export class BranchOfficeIndexComponent extends BaseComponent {
                     compareFunction: function (e) {
                         alert(`sorting function: ${JSON.stringify(e)}`)
                     },
-                    filterFunction: function (oldValue,currentValue) {
-                        scope.filterData(currentValue,'Name', ObjectTypes.String)
+                    filterFunction: function (oldValue, currentValue) {
+                        scope.filterData(currentValue, 'Name', ObjectTypes.String)
                     },
-    
+
                 }
             },
             pager: {
                 display: true,
                 perPage: 10,
-    
-    
+
+
             },
             actions: {
                 columnTitle: this.lang.getValueByKey('actions_label')
@@ -86,15 +86,9 @@ export class BranchOfficeIndexComponent extends BaseComponent {
     }
 
     getData() {
-        this.service.getFiltered(this.pageNumber, this.pageSize,this.filters,this.orderBy,this.orderDirection).subscribe(r => {
-            if (r.status >= 0) {
-
-                this.source = new LocalDataSource(r.data);
-                this.maxCount = r.totalItemCount;
-
-            }
-            else
-                alert(r.message)
+        this.service.getFiltered(this.pageNumber, this.pageSize, this.filters, this.orderBy, this.orderDirection).subscribe(r => {
+            this.source = new LocalDataSource(r);
+            this.maxCount = r['@odata.count'];
         },
             error => {
                 alert(`${this.lang.getValueByKey('error_msg')}: ${error.message}`);
@@ -109,26 +103,26 @@ export class BranchOfficeIndexComponent extends BaseComponent {
     pageNumber: number = 1;
     pageSize: number = 10;
     maxCount: number = 0;
-    settings:any =null; 
+    settings: any = null;
 
-   filterData(currentValue:string,propertyName:string, propertyType:ObjectTypes){
-        let currentFilter= {
-            property:propertyName,
-            value:currentValue,
-            type:propertyType
+    filterData(currentValue: string, propertyName: string, propertyType: ObjectTypes) {
+        let currentFilter = {
+            property: propertyName,
+            value: currentValue,
+            type: propertyType
         } as QueryFilter;
-        const index = this.filters.findIndex(x=>x.property==currentFilter.property);
-        if(index>=0){
-            this.filters.splice(index,1);
+        const index = this.filters.findIndex(x => x.property == currentFilter.property);
+        if (index >= 0) {
+            this.filters.splice(index, 1);
             this.filters.push(currentFilter);
         }
-        else{
+        else {
             this.filters.push(currentFilter);
         }
-        const scope=this;
-        setTimeout(function(){
+        const scope = this;
+        setTimeout(function () {
             scope.getData();
-        },500)
+        }, 500)
 
 
     }

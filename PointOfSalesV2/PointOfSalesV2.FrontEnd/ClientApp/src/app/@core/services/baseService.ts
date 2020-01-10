@@ -113,10 +113,10 @@ export class BaseService<TEntity, TKey> implements IService<TEntity, TKey> {
         orderBy: string = '',
         direction: string = 'desc',
         languageId: string = ""
-    ): Observable<IPagedList<TEntity>> {
+    ): Observable<any> {
         this.setHttpOptions();
         this.setLanguageInHeaders(languageId);
-        let data = this._httpClient.get<IPagedList<TEntity>>(
+        let data = this._httpClient.get<any>(
             `${this.baseUrl}?${this.getODataQuery(filters, page, max, orderBy, direction)}`,
             !languageId ? this.httpOptions : this.tempHttpOptions
         );
@@ -146,7 +146,7 @@ export class BaseService<TEntity, TKey> implements IService<TEntity, TKey> {
         if (result.endsWith('and ')) {
             result = result.substring(0, result.length - 5);
         }
-        result = `${result}${result.length > 8 ? '&' : ''}$skip=${page * max}&$top=${max}&orderby=${orderBy} ${direction}`;
+        result = `${result}${result.length > 8 ? '&' : ''}$skip=${page * max}&$count=true&$top=${max}&orderby=${orderBy} ${direction}`;
 
         return result;
     }
