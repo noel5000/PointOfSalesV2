@@ -23,6 +23,7 @@ import {
   SearchInputComponent,
   SwitcherComponent,
 } from './components';
+
 import {
   CapitalizePipe,
   PluralPipe,
@@ -41,6 +42,7 @@ import { CORPORATE_THEME } from './styles/theme.corporate';
 import { DARK_THEME } from './styles/theme.dark';
 import { TranslateService } from '@ngx-translate/core';
 import { LanguageService } from '../@core/services/translateService';
+import { PaginationCompoment } from './components/pagination/pagination.component';
 
 const NB_MODULES = [
   NbLayoutModule,
@@ -60,6 +62,7 @@ const COMPONENTS = [
   SwitcherComponent,
   LayoutDirectionSwitcherComponent,
   HeaderComponent,
+  PaginationCompoment,
   FooterComponent,
   SearchInputComponent,
   OneColumnLayoutComponent,

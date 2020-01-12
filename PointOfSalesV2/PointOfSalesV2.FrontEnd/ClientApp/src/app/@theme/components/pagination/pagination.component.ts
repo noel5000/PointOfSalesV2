@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { map, takeUntil, filter } from 'rxjs/operators';
 import { Subject } from 'rxjs';
@@ -17,13 +17,16 @@ import { AppSections } from '../../../@core/common/enums';
   styleUrls: ['./pagination.component.scss'],
   templateUrl: './pagination.component.html',
 })
-export class CustomPagination{
-    ngOnDestroy(): void {
-        throw new Error("Method not implemented.");
-    }
-    ngOnInit(): void {
-        throw new Error("Method not implemented.");
-    }
+export class PaginationCompoment{
+    @Input() tableConfig:IPaginationModel[]=[];
+    @Input() actions:IActionButtonModel[]=[];
+    @Input() pageNumber:number=1;
+    @Input() pageSize:number=10;
+    @Input() maxCount:number=0;
+    @Input() data:any[]=[];
+    @Output() getPagedData: EventEmitter<any> = new EventEmitter<any>();
+    @Output() addFilter: EventEmitter<any> = new EventEmitter<any>();
+    @Output() onSort: EventEmitter<any> = new EventEmitter<any>();
 
     constructor(
       private  route:Router,
@@ -32,4 +35,21 @@ export class CustomPagination{
       
 
     }
+
+
+}
+
+
+
+export interface IPaginationModel{
+    visible:boolean;
+    id:string;
+    type:string;
+    search:string;
+    name:string;
+}
+export interface IActionButtonModel{
+    title:string;
+    class:string;
+    icon:string;
 }

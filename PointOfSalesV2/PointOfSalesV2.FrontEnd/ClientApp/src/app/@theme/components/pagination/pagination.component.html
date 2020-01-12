@@ -1,45 +1,62 @@
-<nb-card>
-    <nb-card-header>
-      Smart Table
-    </nb-card-header>
+
   
-    <nb-card-body>
-        <div>
-            <div>
-        
-        
+        <div class="">
+            <div id="columnsVisibility">
+                <div ngbDropdown class="d-inline-block">
+                    <button class="btn btn-outline-primary" id="columnsSelection" ngbDropdownToggle>{{'selectColumns_label'}}</button>
+                    <div ngbDropdownMenu aria-labelledby="columnsSelection">
+                        <div class="form-check"*ngFor="let header of tableConfig">
+                            <input ngbDropdownItem type="checkbox"  [(ngModel)]="header.visible" class="form-check-input" [id]="'columnsVisibility-'+header.id">
+                            <label class="form-check-label" [for]="'columnsVisibility-'+header.id">{{header.name}}</label>
+                          </div>
+                    </div>
+                  </div>
             </div>
-            <table class="table table-striped">
+                <div id="paginationFilters">
+            <table>
                 <thead>
                     <tr>
-                      
-                      <th *ngFor="let header of tableConfig" scope="col" [sortable]="header.name" (sort)="onSort(header.name)">{{header.name}}</th>
-                      <th scope="col">{{'actions_label' | translate}}</th>
-                    </tr>
-                    </thead>
-                    <tbody *ngFor="let item of data" >
-                    <tr >
-                      
-                      <td *ngFor="let prop of tableConfig">{{ item[prop] }}</td>
-                      <tr>
-                        <td>
-                            <div *ngFor="let action of actions" class="btn-group  btn-group-sm  btn-group-lg text-center">
-                                <a [class]="action.class" (click)="actionFunc(action,item)" [title]="action.title"><i [class]="action.icon"></i> <span class="option">{{action.title}}</span> </a>
-                            </div>
-                            
+                        <td *ngFor="let header of tableConfig">
+                            <input class="form-control" *ngIf="header.visible" [type]="header.type" [(ngModel)]="header.search" (ngModelChange)="addFilter(header.id)" >
                         </td>
+                        <td></td>
                     </tr>
-                    </tr>
-                    </tbody>
-                    
+                </thead>
             </table>
-            <ngb-pagination
-          [(page)]="pageNumber"
-          [pageSize]="pageSize"
-          [collectionSize]="maxCount"
-          (pageChange)="getPagedData($event)"
-        ></ngb-pagination>
+            
+                </div>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                          
+                          <th *ngFor="let header of tableConfig" scope="col" [sortable]="header.name" *ngIf="header.visible" (sort)="onSort(header.name)">{{header.name}}</th>
+                          <th scope="col">{{'actions_label' | translate}}</th>
+                        </tr>
+                        </thead>
+                        <tbody *ngFor="let item of data" >
+                        <tr >
+                          
+                          <td *ngFor="let prop of tableConfig" *ngIf="prop.visible">{{ item[prop.id] }}</td>
+                          <tr>
+                            <td>
+                                <div *ngFor="let action of actions" class="btn-group  btn-group-sm  btn-group-lg text-center">
+                                    <a [class]="action.class" (click)="actionFunc(action,item)" [title]="action.title"><i [class]="action.icon"></i> <span class="option">{{action.title}}</span> </a>
+                                </div>
+                                
+                            </td>
+                        </tr>
+                        </tr>
+                        </tbody>
+                        
+                </table>
+                <ngb-pagination
+              [(page)]="pageNumber"
+              [pageSize]="pageSize"
+              [collectionSize]="maxCount"
+              (pageChange)="getPagedData($event)"
+            ></ngb-pagination>
+           
         </div>
-    </nb-card-body>
-  </nb-card>
+      
+
 
