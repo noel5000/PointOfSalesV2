@@ -15,7 +15,7 @@ namespace PointOfSalesV2.Api.Helpers
         public static IEdmModel GetEdmModel(IApplicationBuilder app)
         {
             ODataConventionModelBuilder builder = new ODataConventionModelBuilder();
-           
+            builder.EnableLowerCamelCase();
             builder.EntitySet<Invoice>("Invoice");
             builder.EntitySet<InvoiceDetail>("InvoiceDetail");
             builder.EntitySet<Product>("Product");
@@ -37,7 +37,7 @@ namespace PointOfSalesV2.Api.Helpers
             builder.EntitySet<Invoice>("Invoice");
             builder.EntitySet<InvoiceDetail>("InvoiceDetail");
             builder.EntitySet<InvoiceTax>("InvoiceTax");
-            builder.EntitySet<BranchOffice>("BranchOffice");
+            builder.EntitySet<BranchOffice>("BranchOffice").EntityType.HasKey(x=>x.Id);
             builder.EntitySet<MovementType>("MovementType");
             builder.EntitySet<OpeningAmount>("OpeningAmount");
             builder.EntitySet<PaymentType>("PaymentType");

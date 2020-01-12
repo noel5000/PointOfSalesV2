@@ -1,0 +1,45 @@
+<nb-card>
+    <nb-card-header>
+      Smart Table
+    </nb-card-header>
+  
+    <nb-card-body>
+        <div>
+            <div>
+        
+        
+            </div>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                      
+                      <th *ngFor="let header of tableConfig" scope="col" [sortable]="header.name" (sort)="onSort(header.name)">{{header.name}}</th>
+                      <th scope="col">{{'actions_label' | translate}}</th>
+                    </tr>
+                    </thead>
+                    <tbody *ngFor="let item of data" >
+                    <tr >
+                      
+                      <td *ngFor="let prop of tableConfig">{{ item[prop] }}</td>
+                      <tr>
+                        <td>
+                            <div *ngFor="let action of actions" class="btn-group  btn-group-sm  btn-group-lg text-center">
+                                <a [class]="action.class" (click)="actionFunc(action,item)" [title]="action.title"><i [class]="action.icon"></i> <span class="option">{{action.title}}</span> </a>
+                            </div>
+                            
+                        </td>
+                    </tr>
+                    </tr>
+                    </tbody>
+                    
+            </table>
+            <ngb-pagination
+          [(page)]="pageNumber"
+          [pageSize]="pageSize"
+          [collectionSize]="maxCount"
+          (pageChange)="getPagedData($event)"
+        ></ngb-pagination>
+        </div>
+    </nb-card-body>
+  </nb-card>
+

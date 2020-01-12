@@ -8,7 +8,6 @@ import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { LanguageService } from '../../../@core/services/translateService';
 import { BaseService } from '../../../@core/services/baseService';
-import { BaseComponent } from '../../../@core/common/baseComponent';
 import { HttpClient } from '@angular/common/http';
 import { endpointControllers, endpointUrl } from '../../../@core/common/constants';
 import { AuthModel } from '../../../@core/data/authModel';

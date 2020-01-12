@@ -16,19 +16,23 @@ namespace PointOfSalesV2.Entities
 
     public class TranslateUtility 
     {
-        static IHttpContextAccessor httpContext = AppDomain.CurrentDomain.GetService<IHttpContextAccessor>();
+        static IHttpContextAccessor httpContextAccessor = null;
+        public static void SetHttpContext(IHttpContextAccessor newContext) 
+        {
+            httpContextAccessor = newContext;
+        }
         public static string GetRequestLanguage()
         {
             string requestLanguage = "";
-            if (httpContext != null && httpContext.HttpContext != null && httpContext.HttpContext.Request != null && httpContext.HttpContext.Request.Headers != null)
-                requestLanguage = httpContext.HttpContext.Request.Headers.FirstOrDefault(x => x.Key == "languageid").Value.ToString();
+            if (httpContextAccessor != null && httpContextAccessor.HttpContext != null && httpContextAccessor.HttpContext.Request != null && httpContextAccessor.HttpContext.Request.Headers != null)
+                requestLanguage = httpContextAccessor.HttpContext.Request.Headers.FirstOrDefault(x => x.Key == "languageid").Value.ToString();
 
             return string.IsNullOrEmpty(requestLanguage) ? "EN" : requestLanguage;
         }
 
         public static int GetRequestUser()
         {
-            string currentUserId = httpContext.HttpContext.Request.Headers.FirstOrDefault(x => x.Key == "UserId").Value.ToString();
+            string currentUserId = httpContextAccessor.HttpContext.Request.Headers.FirstOrDefault(x => x.Key == "UserId").Value.ToString();
             int userId = !string.IsNullOrEmpty(currentUserId) ? Convert.ToInt32(currentUserId) : 1;
 
             return userId;
@@ -67,7 +71,7 @@ namespace PointOfSalesV2.Entities
         {
             if (obj != null)
             {
-                IHttpContextAccessor httpContextAccessor = AppDomain.CurrentDomain.GetService<IHttpContextAccessor>();
+             
                 string requestLanguage = "";
                 if (httpContextAccessor != null && httpContextAccessor.HttpContext != null && httpContextAccessor.HttpContext.Request != null && httpContextAccessor.HttpContext.Request.Headers != null)
                 {
@@ -95,7 +99,7 @@ namespace PointOfSalesV2.Entities
 
         {
 
-            IHttpContextAccessor httpContextAccessor = AppDomain.CurrentDomain.GetService<IHttpContextAccessor>();
+      
             string requestLanguage = "";
             if (httpContextAccessor != null && httpContextAccessor.HttpContext != null && httpContextAccessor.HttpContext.Request != null && httpContextAccessor.HttpContext.Request.Headers != null)
             {

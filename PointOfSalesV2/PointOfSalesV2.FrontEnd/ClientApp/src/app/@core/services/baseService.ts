@@ -39,7 +39,9 @@ export class BaseService<TEntity, TKey> implements IService<TEntity, TKey> {
 
     tempHttpOptions = {};
 
-    constructor(protected _httpClient: HttpClient, private _baseUrl: string) {
+    constructor(protected _httpClient: HttpClient,
+        
+        private _baseUrl: string) {
         this.setHttpOptions();
     }
 
@@ -117,9 +119,10 @@ export class BaseService<TEntity, TKey> implements IService<TEntity, TKey> {
         this.setHttpOptions();
         this.setLanguageInHeaders(languageId);
         let data = this._httpClient.get<any>(
-            `${this.baseUrl}?${this.getODataQuery(filters, page, max, orderBy, direction)}`,
+            `${this.baseUrl.replace('/api/','/odata/')}?${this.getODataQuery(filters, page, max, orderBy, direction)}`,
             !languageId ? this.httpOptions : this.tempHttpOptions
         );
+       
         return data;
     }
 
@@ -129,7 +132,7 @@ export class BaseService<TEntity, TKey> implements IService<TEntity, TKey> {
         filters.forEach(f => {
             switch (f.type) {
                 case ObjectTypes.String:
-                    query = `${query}contains(@word,${f.property})&@word='${f.value} and '`;
+                    query = `${query}contains(@word,${f.property})&@word='${f.value}' and '`;
                     break;
                 case ObjectTypes.Number:
                     query = `${query}${f.property} eq ${f.value} and `;
@@ -143,10 +146,10 @@ export class BaseService<TEntity, TKey> implements IService<TEntity, TKey> {
             }
         })
         result = query.length > 8 ? `${result}${query}` : result;
-        if (result.endsWith('and ')) {
+        if (result.endsWith(" and '")|| result.endsWith(" and ")) {
             result = result.substring(0, result.length - 5);
         }
-        result = `${result}${result.length > 8 ? '&' : ''}$skip=${page * max}&$count=true&$top=${max}&orderby=${orderBy} ${direction}`;
+        result = `${result}${result.length > 8 ? '&' : ''}$skip=${(page-1) * max}&$count=true&$top=${max}&$orderby=${orderBy} ${direction}`;
 
         return result;
     }

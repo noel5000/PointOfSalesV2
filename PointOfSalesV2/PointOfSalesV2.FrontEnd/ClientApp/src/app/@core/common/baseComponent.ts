@@ -2,19 +2,25 @@ import { AppSections, Operations } from './enums';
 import { Router } from '@angular/router';
 import { AuthModel } from '../data/authModel';
 import { LanguageService } from './../services/translateService';
+import { OnInit } from '@angular/core';
 
-export class BaseComponent {
-    constructor(route: Router, langService: LanguageService, baseSection: AppSections) {
-        this.section = baseSection;
+export class BaseComponent  {
+   
+    constructor(route: Router, langService: LanguageService) {
+       
         this.lang = langService;
         this.router = route;
+        
+
+    }
+
+    verifyUser(){
         this.authModel = JSON.parse(localStorage.getItem('currentUser'));
         if (this.authModel && new Date(this.authModel.expiration) > new Date()) {
             this.getUserAuthorizations();
         }
         else
             this.returnToLogin();
-
 
     }
     section: AppSections = null;
@@ -48,6 +54,11 @@ export class BaseComponent {
 
     returnToLogin() {
         var auth = JSON.parse(localStorage.getItem(`currentUser`)) as AuthModel;
+        if(!auth)
+        {
+            auth=new AuthModel();
+            auth.languageId='EN';
+        }
         localStorage.setItem(`language-${auth.languageId}`, null);
         localStorage.setItem('currentUser', null);
         this.lang.setLanguageInHeaders('EN');

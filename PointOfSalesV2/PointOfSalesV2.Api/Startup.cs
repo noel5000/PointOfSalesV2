@@ -20,6 +20,9 @@ using PointOfSalesV2.Api.Helpers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.AspNetCore.Mvc;
+using PointOfSalesV2.Entities;
+using Newtonsoft.Json.Serialization;
+using System.Text.Json;
 
 namespace PointOfSalesV2.Api
 {
@@ -51,6 +54,7 @@ namespace PointOfSalesV2.Api
             });
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            TranslateUtility.SetHttpContext(services.BuildServiceProvider().GetService< IHttpContextAccessor>());
             services.AddSingleton<IFileProvider>(
                new PhysicalFileProvider(
                    Path.Combine(Directory.GetCurrentDirectory(), "")));
@@ -109,7 +113,7 @@ namespace PointOfSalesV2.Api
                        .AllowAnyMethod()
                        .AllowAnyHeader();
             }));
-
+           
             //services.Configure<MvcOptions>(options =>
             //{
             //    options.Filters.Add(new CorsAuthorizationFilterFactory("AllowAllOrigins"));
@@ -122,6 +126,7 @@ namespace PointOfSalesV2.Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -136,7 +141,7 @@ namespace PointOfSalesV2.Api
             app.UseMvc(routerBuilder =>
             {
                 routerBuilder.EnableDependencyInjection();
-                routerBuilder.Select().Filter().Count().MaxTop(null).Expand();
+                routerBuilder.Select().Filter().Count().MaxTop(null).OrderBy().Expand();
                 routerBuilder.MapODataServiceRoute("odata", "odata", OdataHelper.GetEdmModel(app));
 
             });

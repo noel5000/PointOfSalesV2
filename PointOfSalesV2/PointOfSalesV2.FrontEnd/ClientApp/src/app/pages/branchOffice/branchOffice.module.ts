@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
-import { BranchOfficeIndexComponent } from './branchOfficeIndex.component';
-import { BranchOfficeFormComponent } from './branchOfficeForm.component';
+import { BranchOfficeIndexComponent } from './index/branchOfficeIndex.component';
+import { BranchOfficeFormComponent } from './form/branchOfficeForm.component';
 import { LanguageService } from './../../@core/services/translateService';
 import { SecurityService } from './../../@core/services/securityService';
 import { TranslateModule } from '@ngx-translate/core';
@@ -10,7 +10,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { BranchOfficeService } from './../../@core/services/branchOfficeService';
 import { NbCardModule, NbTreeGridModule, NbIconModule, NbInputModule } from '@nebular/theme';
 import { ThemeModule } from '../../@theme/theme.module';
-import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { NgbPaginationModule, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 
 
@@ -47,7 +46,6 @@ const routes: Routes = [
         NbIconModule,
         NbInputModule,
         ThemeModule,
-        Ng2SmartTableModule,
         CommonModule,
         RouterModule.forChild(routes),
         ReactiveFormsModule,

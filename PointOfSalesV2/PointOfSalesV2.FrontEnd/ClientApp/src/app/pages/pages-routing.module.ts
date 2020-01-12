@@ -3,8 +3,8 @@ import { NgModule } from '@angular/core';
 
 import { PagesComponent } from './pages.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { BranchOfficeIndexComponent } from './branchOffice/branchOfficeIndex.component';
-import { BranchOfficeFormComponent } from './branchOffice/branchOfficeForm.component';
+import { BranchOfficeIndexComponent } from './branchOffice/index/branchOfficeIndex.component';
+import { BranchOfficeFormComponent } from './branchOffice/form/branchOfficeForm.component';
 
 const routes: Routes = [{
   path: '',

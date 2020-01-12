@@ -1,21 +1,25 @@
-import { Component } from '@angular/core';
-import { BaseComponent } from './../../@core/common/baseComponent';
-import { AppSections, ObjectTypes, QueryFilter } from '../../@core/common/enums';
-import { LanguageService } from './../../@core/services/translateService';
+import { Component, OnInit } from '@angular/core';
+import { BaseComponent } from '../../../@core/common/baseComponent';
+import { AppSections, ObjectTypes, QueryFilter } from '../../../@core/common/enums';
+import { LanguageService } from '../../../@core/services/translateService';
 import { Router } from '@angular/router';
-import { BranchOfficeService } from './../../@core/services/branchOfficeService';
-import { LocalDataSource } from 'ng2-smart-table';
-
-import { SmartTableData } from './../../@core/data/smart-table';
-import { BranchOffice } from './../../@core/data/branchOffice';
+import { BranchOfficeService } from '../../../@core/services/branchOfficeService';
+import { BranchOffice } from '../../../@core/data/branchOffice';
+import { basename } from 'path';
 
 declare const $: any;
 @Component({
     selector: "branch-Office-list",
     templateUrl: "./branchOfficeIndex.component.html",
-    styleUrls: ["./branchOfficeStyles.component.scss"]
+    styleUrls: ["../branchOfficeStyles.component.scss"]
 })
-export class BranchOfficeIndexComponent extends BaseComponent {
+export class BranchOfficeIndexComponent extends BaseComponent implements OnInit {
+    ngOnInit(): void {
+        this.verifyUser();
+        this.source.setPaging(this.pageNumber, this.pageSize, true);
+        this.source.setPage(this.pageNumber, true);
+        this.getData();
+    }
 
     filters: QueryFilter[] = [];
     orderBy: string = 'Id';
@@ -25,7 +29,8 @@ export class BranchOfficeIndexComponent extends BaseComponent {
         langService: LanguageService,
         private service: BranchOfficeService
     ) {
-        super(route, langService, AppSections.BranchOffices);
+        super(route, langService);
+        this.section=AppSections.BranchOffices;
         let scope = this;
         this.settings = {
             mode: 'external',
@@ -53,7 +58,10 @@ export class BranchOfficeIndexComponent extends BaseComponent {
                         alert(`sorting function: ${JSON.stringify(e)}`)
                     },
                     filterFunction: function (oldValue, currentValue) {
-                        scope.filterData(currentValue, 'Id', ObjectTypes.Number)
+                   
+                            scope.filterData(currentValue, 'Id', ObjectTypes.Number);
+                      
+                        
                     },
                 }
                 ,
@@ -64,7 +72,9 @@ export class BranchOfficeIndexComponent extends BaseComponent {
                         alert(`sorting function: ${JSON.stringify(e)}`)
                     },
                     filterFunction: function (oldValue, currentValue) {
-                        scope.filterData(currentValue, 'Name', ObjectTypes.String)
+                      
+                            scope.filterData(currentValue, 'Name', ObjectTypes.String);
+                   
                     },
 
                 }
@@ -80,15 +90,20 @@ export class BranchOfficeIndexComponent extends BaseComponent {
             }
         };
 
-        this.source.setPaging(this.pageNumber, this.pageSize, true);
-        this.source.setPage(this.pageNumber, true);
-        this.getData();
+       
     }
 
     getData() {
         this.service.getFiltered(this.pageNumber, this.pageSize, this.filters, this.orderBy, this.orderDirection).subscribe(r => {
-            this.source = new LocalDataSource(r);
-            this.maxCount = r['@odata.count'];
+          
+        
+            
+            this.maxCount = r['@odata.count']?r['@odata.count']:0;
+            //   this.source.load((r['value'] && r['value'].length>0)?r['value']:[{id:0}]);
+            //   this.source.refresh();
+           
+            //  this.pageNumber=r['value'] && r['value'].length>0?this.pageNumber:1;
+          
         },
             error => {
                 alert(`${this.lang.getValueByKey('error_msg')}: ${error.message}`);
@@ -106,6 +121,7 @@ export class BranchOfficeIndexComponent extends BaseComponent {
     settings: any = null;
 
     filterData(currentValue: string, propertyName: string, propertyType: ObjectTypes) {
+        const scope = this;
         let currentFilter = {
             property: propertyName,
             value: currentValue,
@@ -119,10 +135,12 @@ export class BranchOfficeIndexComponent extends BaseComponent {
         else {
             this.filters.push(currentFilter);
         }
-        const scope = this;
-        setTimeout(function () {
-            scope.getData();
-        }, 500)
+                scope.getData();  
+       
+      
+           
+      
+        
 
 
     }
@@ -133,7 +151,7 @@ export class BranchOfficeIndexComponent extends BaseComponent {
     edit(e) {
         this.router.navigateByUrl(`pages/branchoffice/edit/${e.data.id}`);
     }
-    source: LocalDataSource = new LocalDataSource();
+    source:any={};
     onDeleteConfirm(event): void {
         if (window.confirm(this.lang.getValueByKey('deleteConfirm_msg'))) {
             this.delete(event.data.id);
