@@ -132,18 +132,18 @@ export class BaseService<TEntity, TKey> implements IService<TEntity, TKey> {
         filters.forEach(f => {
             switch (f.type) {
                 case ObjectTypes.String:
-                    query =!f.isTranslated? `${query}contains(@word,${f.property})&@word='${f.value}' and '`:
-                    `${query}contains(@word,${'translationData'})&@word='${f.value}' and '`
+                    query =!f.isTranslated? `${query}(contains(toLower(${f.property}), '${f.value}')) and `:
+                    `${query}(contains(toLower(TranslationData), '${f.value}')) and `
                     ;
                     break;
                 case ObjectTypes.Number:
-                    query = `${query}${f.property} eq ${f.value} and `;
+                    query = `${query}(${f.property} eq ${f.value}) and `;
                     break;
                 case ObjectTypes.Date:
-                    query = `${query}${f.property} eq '${f.value}' and `;
+                    query = `${query}(${f.property} eq '${f.value}') and `;
                     break;
                 case ObjectTypes.Boolean:
-                    query = `${query}${f.property} eq ${f.value} and `;
+                    query = `${query}(${f.property} eq ${f.value}) and `;
                     break;
             }
         })

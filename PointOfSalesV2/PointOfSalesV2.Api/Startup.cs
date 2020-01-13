@@ -141,6 +141,7 @@ namespace PointOfSalesV2.Api
             app.UseMvc(routerBuilder =>
             {
                 routerBuilder.EnableDependencyInjection();
+                
                 routerBuilder.Select().Filter().Count().MaxTop(null).OrderBy().Expand();
                 routerBuilder.MapODataServiceRoute("odata", "odata", OdataHelper.GetEdmModel(app));
 
