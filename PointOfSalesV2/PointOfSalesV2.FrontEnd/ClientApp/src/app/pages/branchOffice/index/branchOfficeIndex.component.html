@@ -4,12 +4,21 @@
   </nb-card-header>
 
   <nb-card-body>
+<custom-pagination
+[tableConfig]="tableConfig"
+[actions]="rowActions"
+[pageNumber]="pageNumber"
+[pageSize]="pageSize"
+[maxCount]="maxCount"
+[data]="branchOffices"
+(getPagedDataEvent)="getPagedData($event)"
+(addFilterEvent)="addFilter($event)"
+(onSortEvent)="onSort($event)"
 
+>
+
+</custom-pagination
+>
   </nb-card-body>
 </nb-card>
-<ngb-pagination
-  [(page)]="pageNumber"
-  [pageSize]="pageSize"
-  [collectionSize]="maxCount"
-  (pageChange)="getPagedData($event)"
-></ngb-pagination>
+

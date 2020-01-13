@@ -10,7 +10,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { BranchOfficeService } from './../../@core/services/branchOfficeService';
 import { NbCardModule, NbTreeGridModule, NbIconModule, NbInputModule } from '@nebular/theme';
 import { ThemeModule } from '../../@theme/theme.module';
-import { NgbPaginationModule, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbPaginationModule, NgbAlertModule, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 const routes: Routes = [
@@ -42,6 +42,7 @@ const routes: Routes = [
     imports: [
         NbCardModule,
         NgbPaginationModule,
+        NgbDropdownModule,
         NgbAlertModule,
         NbIconModule,
         NbInputModule,

@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { BranchOfficeService } from '../../../@core/services/branchOfficeService';
 import { BranchOffice } from '../../../@core/data/branchOffice';
 import { basename } from 'path';
+import {IPaginationModel, IActionButtonModel } from '../../../@theme/components/pagination/pagination.component';
+
 
 declare const $: any;
 @Component({
@@ -16,93 +18,70 @@ declare const $: any;
 export class BranchOfficeIndexComponent extends BaseComponent implements OnInit {
     ngOnInit(): void {
         this.verifyUser();
-        this.source.setPaging(this.pageNumber, this.pageSize, true);
-        this.source.setPage(this.pageNumber, true);
-        this.getData();
+        this.getPagedData(1);
     }
-
+    tableConfig:IPaginationModel[]=[]
+    actions:IActionButtonModel[]=[];
+    pageNumber:number=1;
+    pageSize:number=10;
+    maxCount:number=0;
     filters: QueryFilter[] = [];
     orderBy: string = 'Id';
-    orderDirection: string = 'desc'
+    orderDirection: string = 'desc';
+    branchOffices:BranchOffice[]=[];
+
+
     constructor(
         route: Router,
         langService: LanguageService,
         private service: BranchOfficeService
     ) {
-        super(route, langService);
+        super(route, langService, AppSections.BranchOffices);
         this.section=AppSections.BranchOffices;
         let scope = this;
-        this.settings = {
-            mode: 'external',
-            add: {
-
-                addButtonContent: '<i class="nb-plus" ></i>',
-                createButtonContent: '<i class="nb-checkmark"></i>',
-                cancelButtonContent: '<i class="nb-close"></i>',
-            },
-            edit: {
-                editButtonContent: '<i class="nb-edit"></i>',
-                saveButtonContent: '<i class="nb-checkmark"></i>',
-                cancelButtonContent: '<i class="nb-close"></i>',
-            },
-            delete: {
-                deleteButtonContent: '<i class="nb-trash"></i>',
-                confirmDelete: true,
-            },
-            columns: {
-
-                id: {
-                    title: this.lang.getValueByKey('id_label'),
-                    type: 'number',
-                    compareFunction: function (e) {
-                        alert(`sorting function: ${JSON.stringify(e)}`)
-                    },
-                    filterFunction: function (oldValue, currentValue) {
-                   
-                            scope.filterData(currentValue, 'Id', ObjectTypes.Number);
-                      
-                        
-                    },
-                }
-                ,
-                name: {
-                    title: this.lang.getValueByKey('name_lable'),
-                    type: 'text',
-                    compareFunction: function (e) {
-                        alert(`sorting function: ${JSON.stringify(e)}`)
-                    },
-                    filterFunction: function (oldValue, currentValue) {
-                      
-                            scope.filterData(currentValue, 'Name', ObjectTypes.String);
-                   
-                    },
-
-                }
-            },
-            pager: {
-                display: true,
-                perPage: 10,
-
-
-            },
-            actions: {
-                columnTitle: this.lang.getValueByKey('actions_label')
-            }
-        };
-
+       
+        this.tableConfig=[
+{
+  visible:true,
+  id:'id',
+  type:'number',
+  isTranslated:false,
+  name:scope.lang.getValueByKey('id_label'),
+  sorting:'desc',
+  toSort:true,
+  objectType:ObjectTypes.Number
+},
+{
+    visible:true,
+    id:'name',
+    type:'text',
+    isTranslated:true,
+    name:this.lang.getValueByKey('name_label'),
+    sorting:'desc',
+    toSort:false,
+    objectType:ObjectTypes.String
+  }
+        ];
+this.actions=[
+    {
+        title:scope.lang.getValueByKey('edit_label'),
+        class:'btn btn-primary',
+        icon:''
+    },
+    {
+        title:scope.lang.getValueByKey('delete_label'),
+        class:'btn btn-danger',
+        icon:''
+    }
+];
        
     }
 
     getData() {
         this.service.getFiltered(this.pageNumber, this.pageSize, this.filters, this.orderBy, this.orderDirection).subscribe(r => {
-          
-        
-            
+
             this.maxCount = r['@odata.count']?r['@odata.count']:0;
-            //   this.source.load((r['value'] && r['value'].length>0)?r['value']:[{id:0}]);
-            //   this.source.refresh();
-           
-            //  this.pageNumber=r['value'] && r['value'].length>0?this.pageNumber:1;
+            this.branchOffices=r['value'];
           
         },
             error => {
@@ -110,22 +89,57 @@ export class BranchOfficeIndexComponent extends BaseComponent implements OnInit 
             }
         )
     }
+addFilter(e){
+const config = e.config as IPaginationModel;
+if(e.value)
+this.filterData(e.value,config.id,config.objectType,config.isTranslated);
+else{
+  const index=  this.filters.findIndex(x=>x.property==config.id);
+  if(index>-1){
+      this.filters.splice(index,1);
+    this.getPagedData(1);
+  }
+}
 
-    getPagedData(e) {
-        this.pageNumber = e;
+
+}
+    getPagedData(page:number) {
+        this.pageNumber = page?page:1;
+        this.orderBy=this.tableConfig.find(x=>x.toSort).id;
+        this.orderDirection=this.tableConfig.find(x=>x.toSort).sorting;
         this.getData();
     }
-    pageNumber: number = 1;
-    pageSize: number = 10;
-    maxCount: number = 0;
-    settings: any = null;
 
-    filterData(currentValue: string, propertyName: string, propertyType: ObjectTypes) {
+    onSort(e){
+        let temp = e as IPaginationModel;
+       let config = {
+           sorting:temp.sorting,
+           toSort:true,
+           visible:temp.visible,
+            id:temp.id,
+  type:temp.type,
+  isTranslated:temp.isTranslated,
+  name:temp.name,
+  objectType:temp.objectType
+       };
+       config.sorting=config.sorting=='desc'?'asc':'desc';
+       config.toSort=true;
+       this.tableConfig.forEach(c=>c.toSort=false);
+       const index = this.tableConfig.findIndex(x=>x.id==config.id);
+       if(index!== -1)
+       this.tableConfig[index]=config;
+
+       this.getPagedData(1);
+    }
+ 
+
+    filterData(currentValue: string, propertyName: string, propertyType: ObjectTypes, isTranslated:boolean=false) {
         const scope = this;
         let currentFilter = {
             property: propertyName,
             value: currentValue,
-            type: propertyType
+            type: propertyType,
+            isTranslated:isTranslated
         } as QueryFilter;
         const index = this.filters.findIndex(x => x.property == currentFilter.property);
         if (index >= 0) {

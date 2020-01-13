@@ -40,9 +40,10 @@ import { DEFAULT_THEME } from './styles/theme.default';
 import { COSMIC_THEME } from './styles/theme.cosmic';
 import { CORPORATE_THEME } from './styles/theme.corporate';
 import { DARK_THEME } from './styles/theme.dark';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { LanguageService } from '../@core/services/translateService';
-import { PaginationCompoment } from './components/pagination/pagination.component';
+import { PaginationCompoment, NgbdSortableHeader } from './components/pagination/pagination.component';
+import { NgbPaginationModule, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 
 const NB_MODULES = [
   NbLayoutModule,
@@ -78,9 +79,9 @@ const PIPES = [
 ];
 
 @NgModule({
-  imports: [CommonModule, ...NB_MODULES],
+  imports: [CommonModule, ...NB_MODULES,TranslateModule,NgbPaginationModule, NgbDropdownModule],
   exports: [CommonModule, ...PIPES, ...COMPONENTS],
-  declarations: [...COMPONENTS, ...PIPES],
+  declarations: [...COMPONENTS, ...PIPES,NgbdSortableHeader],
   providers: [LanguageService]
 })
 export class ThemeModule {

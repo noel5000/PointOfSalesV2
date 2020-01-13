@@ -37,7 +37,7 @@ namespace PointOfSalesV2.Api.Helpers
             builder.EntitySet<Invoice>("Invoice");
             builder.EntitySet<InvoiceDetail>("InvoiceDetail");
             builder.EntitySet<InvoiceTax>("InvoiceTax");
-            builder.EntitySet<BranchOffice>("BranchOffice").EntityType.HasKey(x=>x.Id);
+            builder.EntitySet<BranchOffice>("BranchOffice").EntityType.HasKey(x=>x.Id).Property(x=>x.TranslationData).IsFilterable().IsNavigable();
             builder.EntitySet<MovementType>("MovementType");
             builder.EntitySet<OpeningAmount>("OpeningAmount");
             builder.EntitySet<PaymentType>("PaymentType");

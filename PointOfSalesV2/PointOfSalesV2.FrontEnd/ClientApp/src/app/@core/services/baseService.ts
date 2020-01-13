@@ -132,7 +132,9 @@ export class BaseService<TEntity, TKey> implements IService<TEntity, TKey> {
         filters.forEach(f => {
             switch (f.type) {
                 case ObjectTypes.String:
-                    query = `${query}contains(@word,${f.property})&@word='${f.value}' and '`;
+                    query =!f.isTranslated? `${query}contains(@word,${f.property})&@word='${f.value}' and '`:
+                    `${query}contains(@word,${'translationData'})&@word='${f.value}' and '`
+                    ;
                     break;
                 case ObjectTypes.Number:
                     query = `${query}${f.property} eq ${f.value} and `;
@@ -149,7 +151,8 @@ export class BaseService<TEntity, TKey> implements IService<TEntity, TKey> {
         if (result.endsWith(" and '")|| result.endsWith(" and ")) {
             result = result.substring(0, result.length - 5);
         }
-        result = `${result}${result.length > 8 ? '&' : ''}$skip=${(page-1) * max}&$count=true&$top=${max}&$orderby=${orderBy} ${direction}`;
+        const skipVal=((page-1) * max)<0?0:(page-1) * max;
+        result = `${result}${result.length > 8 ? '&' : ''}$skip=${skipVal}&$count=true&$top=${max}&$orderby=${orderBy} ${direction}`;
 
         return result;
     }

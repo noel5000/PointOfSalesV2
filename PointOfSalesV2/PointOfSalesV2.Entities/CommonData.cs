@@ -36,8 +36,8 @@ namespace PointOfSalesV2.Entities
         public virtual long Id { get; set; }
 
         public virtual bool Active { get; set; }
-        [JsonIgnore]
-        [IgnoreDataMember]
+     
+   
         public virtual string TranslationData 
         {
             get

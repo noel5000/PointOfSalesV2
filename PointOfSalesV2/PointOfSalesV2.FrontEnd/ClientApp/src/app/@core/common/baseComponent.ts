@@ -6,11 +6,11 @@ import { OnInit } from '@angular/core';
 
 export class BaseComponent  {
    
-    constructor(route: Router, langService: LanguageService) {
+    constructor(route: Router, langService: LanguageService, section:AppSections) {
        
         this.lang = langService;
         this.router = route;
-        
+        this.section=section;
 
     }
 

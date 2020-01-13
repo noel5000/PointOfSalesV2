@@ -30,6 +30,7 @@ export class QueryFilter {
     property: string;
     value: string;
     type: ObjectTypes;
+    isTranslated:boolean=false;
 }
 
 export const ODataComparers = {
