@@ -6,7 +6,7 @@
   <nb-card-body>
 <custom-pagination
 [tableConfig]="tableConfig"
-[actions]="rowActions"
+[actions]="actions"
 [pageNumber]="pageNumber"
 [pageSize]="pageSize"
 [maxCount]="maxCount"
@@ -14,6 +14,7 @@
 (getPagedDataEvent)="getPagedData($event)"
 (addFilterEvent)="addFilter($event)"
 (onSortEvent)="onSort($event)"
+(actionFuncEvent)="rowAction($event)"
 
 >
 

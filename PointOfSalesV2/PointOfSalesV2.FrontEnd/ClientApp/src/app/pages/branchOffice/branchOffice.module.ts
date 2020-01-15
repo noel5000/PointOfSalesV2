@@ -11,6 +11,7 @@ import { BranchOfficeService } from './../../@core/services/branchOfficeService'
 import { NbCardModule, NbTreeGridModule, NbIconModule, NbInputModule } from '@nebular/theme';
 import { ThemeModule } from '../../@theme/theme.module';
 import { NgbPaginationModule, NgbAlertModule, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { ModalService } from '../../@core/services/modal.service';
 
 
 const routes: Routes = [
@@ -37,11 +38,11 @@ const routes: Routes = [
     providers: [
         LanguageService,
         SecurityService,
-        BranchOfficeService
+        BranchOfficeService,
+        ModalService
     ],
     imports: [
         NbCardModule,
-        NgbPaginationModule,
         NgbDropdownModule,
         NgbAlertModule,
         NbIconModule,

@@ -11,9 +11,10 @@
 @import '~bootstrap/scss/variables';
 @import '~bootstrap/scss/mixins';
 @import '~bootstrap/scss/grid';
-
+@import '~ngx-toastr/toastr-bs4-alert';
 // loading progress bar theme
 @import './pace.theme';
+@import '~ngx-toastr/toastr';
 
 @import './layout';
 @import './overrides';

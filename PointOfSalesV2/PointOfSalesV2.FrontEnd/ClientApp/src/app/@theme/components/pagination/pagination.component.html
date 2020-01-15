@@ -6,9 +6,8 @@
                     <button class="btn btn-outline-primary" id="columnsSelection" ngbDropdownToggle>{{'selectColumns_label'}}</button>
                     <div ngbDropdownMenu aria-labelledby="columnsSelection">
                         <div class="form-check"*ngFor="let header of tableConfig">
-                            <input ngbDropdownItem type="checkbox" [checked]="header.visible"  (click)="hideColumn(header,$event)" class="form-check-input" [id]="'columnsVisibility-'+header.id">
-                            <label class="form-check-label" [for]="'columnsVisibility-'+header.id">{{header.name}}</label>
-                          </div>
+                          <label class="form-check-label"><input ngbDropdownItem type="checkbox" [checked]="header.visible"  (click)="hideColumn(header,$event)" class="form-check-input" [id]="'columnsVisibility-'+header.id"> {{header.name}}</label>
+                            </div>
                     </div>
                   </div>
             </div>
@@ -37,7 +36,7 @@
                         
                             <td>
                                 <div *ngFor="let action of actions" class="btn-group  btn-group-sm  btn-group-lg text-center">
-                                    <a [class]="action.class" (click)="actionFunc(action,item)" [title]="action.title"><i [class]="action.icon"></i> <span class="option">{{action.title}}</span> </a>
+                                    <a [class]="action.class" (click)="onActionClick(action,item)" [title]="action.title"><i [class]="action.icon"></i> <span class="option">{{action.title}}</span> </a>
                                 </div>
                                 
                             </td>

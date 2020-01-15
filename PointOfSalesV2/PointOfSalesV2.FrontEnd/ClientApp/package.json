@@ -58,6 +58,7 @@
     "ng2-ckeditor": "^1.2.6",
     "ng2-completer": "^2.0.8",
     "ng2-smart-table": "^1.5.0",
+    "ngx-toastr": "^11.3.0",
     "node-sass": "^4.13.0",
     "normalize.css": "6.0.0",
     "pace-js": "1.0.2",

@@ -37,6 +37,7 @@ export interface IActionButtonModel{
   title:string;
   class:string;
   icon:string;
+  id:string;
 }
 
 export type SortDirection = 'asc' | 'desc' | '';
@@ -84,6 +85,7 @@ export class PaginationCompoment{
     @Output() getPagedDataEvent: EventEmitter<any> = new EventEmitter<any>();
     @Output() addFilterEvent: EventEmitter<any> = new EventEmitter<any>();
     @Output() onSortEvent: EventEmitter<any> = new EventEmitter<any>();
+    @Output() actionFuncEvent:EventEmitter<any>= new EventEmitter<any>();
     @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
 
    
@@ -95,6 +97,9 @@ export class PaginationCompoment{
     }
     onSort(e){
       this.onSortEvent.emit(e);
+    }
+    onActionClick(action:string, item:any){
+      this.actionFuncEvent.emit({action:action, item:item});
     }
 
     hideColumn(config:IPaginationModel,e:any){

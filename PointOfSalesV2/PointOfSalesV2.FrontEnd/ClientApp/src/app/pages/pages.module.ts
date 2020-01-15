@@ -9,6 +9,7 @@ import { LanguageService } from './../@core/services/translateService';
 import { SecurityService } from '../@core/services/securityService';
 import { BranchOfficeModule } from './branchOffice/branchOffice.module';
 import { TranslateModule } from '@ngx-translate/core';
+import { NgbdModalConfirmAutofocus } from '../@theme/components/modal/modal.component';
 
 @NgModule({
   imports: [
@@ -25,7 +26,8 @@ import { TranslateModule } from '@ngx-translate/core';
   providers: [
     LanguageService,
     SecurityService
-  ]
+  ],
+  entryComponents:[NgbdModalConfirmAutofocus]
 })
 export class PagesModule {
 }

@@ -7,6 +7,9 @@ import { BranchOfficeService } from '../../../@core/services/branchOfficeService
 import { BranchOffice } from '../../../@core/data/branchOffice';
 import { basename } from 'path';
 import {IPaginationModel, IActionButtonModel } from '../../../@theme/components/pagination/pagination.component';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { NgbdModalConfirmAutofocus } from '../../../@theme/components/modal/modal.component';
+import { ModalService } from '../../../@core/services/modal.service';
 
 
 declare const $: any;
@@ -20,6 +23,7 @@ export class BranchOfficeIndexComponent extends BaseComponent implements OnInit 
         this.verifyUser();
         this.getPagedData(1);
     }
+    modalRef:NgbModalRef=null;
     tableConfig:IPaginationModel[]=[]
     actions:IActionButtonModel[]=[];
     pageNumber:number=1;
@@ -34,7 +38,9 @@ export class BranchOfficeIndexComponent extends BaseComponent implements OnInit 
     constructor(
         route: Router,
         langService: LanguageService,
-        private service: BranchOfficeService
+        private service: BranchOfficeService,
+        private modals:NgbModal,
+        private modalService:ModalService
     ) {
         super(route, langService, AppSections.BranchOffices);
         this.section=AppSections.BranchOffices;
@@ -66,15 +72,30 @@ this.actions=[
     {
         title:scope.lang.getValueByKey('edit_label'),
         class:'btn btn-primary',
-        icon:''
+        icon:'',
+        id:'edit'
     },
     {
         title:scope.lang.getValueByKey('delete_label'),
         class:'btn btn-danger',
-        icon:''
+        icon:'',
+        id:'delete'
     }
 ];
        
+    }
+
+    rowAction(e){
+        if(e && e.action && e.item){
+            switch(e.action.id){
+                case 'edit':
+                    this.edit(e.item);
+                    break;
+                case 'delete':
+                    this.onDeleteConfirm(e.item);
+                    break;
+            }
+        }
     }
 
     getData() {
@@ -85,7 +106,9 @@ this.actions=[
           
         },
             error => {
-                alert(`${this.lang.getValueByKey('error_msg')}: ${error.message}`);
+               
+                
+                this.modalService.showError(`${this.lang.getValueByKey('error_msg')}: ${error.message}`);
             }
         )
     }
@@ -162,28 +185,35 @@ else{
     addNew(e: any) {
         this.router.navigateByUrl(`pages/branchoffice/add`);
     }
-    edit(e) {
-        this.router.navigateByUrl(`pages/branchoffice/edit/${e.data.id}`);
+    edit(e:BranchOffice) {
+        this.router.navigateByUrl(`pages/branchoffice/edit/${e.id}`);
     }
     source:any={};
-    onDeleteConfirm(event): void {
-        if (window.confirm(this.lang.getValueByKey('deleteConfirm_msg'))) {
-            this.delete(event.data.id);
-
-        }
+    onDeleteConfirm(event:BranchOffice): void {
+ var result =       this.modalService.confirmationModal({
+            titleText:this.lang.getValueByKey('deleteConfirm_label'),
+            bodyText:this.lang.getValueByKey('areYouSure_label'),
+            cancelButtonText:this.lang.getValueByKey('cancel_btn'),
+            okText:this.lang.getValueByKey('ok_btn'),
+        });
+  result.subscribe(r=>{
+      if(r)
+      this.delete(event.id);
+  })
+   
     }
 
     delete(id: number) {
         this.service.delete(id).subscribe(r => {
             if (r.status >= 0) {
-                alert(this.lang.getValueByKey('success_msg'))
+                this.modalService.showSuccess(this.lang.getValueByKey('success_msg'))
                 this.getData();
             }
             else
-                alert(r.message);
+             this.modalService.showError(r.message);
         },
             error => {
-                alert(this.lang.getValueByKey('error_msg'));
+                this.modalService.showError();
             })
     }
 }

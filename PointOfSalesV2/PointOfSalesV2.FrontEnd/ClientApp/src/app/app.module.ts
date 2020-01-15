@@ -28,16 +28,22 @@ export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
 }
 
+import { CommonModule } from '@angular/common';
+ 
+import { ToastrModule } from 'ngx-toastr';
+
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
+    CommonModule,
     NgbPaginationModule,
     NgbAlertModule,
     NgbDropdownModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    ToastrModule.forRoot(),
     AppRoutingModule,
 
     ThemeModule.forRoot(),
