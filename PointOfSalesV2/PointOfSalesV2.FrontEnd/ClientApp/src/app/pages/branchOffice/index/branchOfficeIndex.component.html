@@ -1,6 +1,12 @@
 <nb-card>
   <nb-card-header>
-    Smart Table
+    <div class="row">
+      <div class="col-md-6">{{'branchOffice_menu' | translate}}</div>
+      <div class="col-md-6">
+        <button type="button" class="btn btn-primary" (click)="addNew()">{{'add_btn' | translate}}</button>
+    </div>
+    </div>
+   
   </nb-card-header>
 
   <nb-card-body>

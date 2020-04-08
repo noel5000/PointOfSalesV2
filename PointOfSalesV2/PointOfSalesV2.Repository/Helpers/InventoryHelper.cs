@@ -1,4 +1,5 @@
-﻿using PointOfSalesV2.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using PointOfSalesV2.Entities;
 using PointOfSalesV2.Repository.Helpers.BillServices;
 using System;
 using System.Collections.Generic;
@@ -9,19 +10,19 @@ namespace PointOfSalesV2.Repository.Helpers
 {
  public   class InventoryHelper
     {
-        public static Result<object> UpdateInventory(InvoiceDetail detail, Warehouse currentWarehouse, Invoice invoice, IDataRepositoryFactory _repositoryFactory)
+        public static Result<object> UpdateInventory(LeadDetail detail, Warehouse currentWarehouse, InvoiceLead invoiceLead, IDataRepositoryFactory _repositoryFactory)
         {
             var warehouseMovementRepo = _repositoryFactory.GetDataRepositories<WarehouseMovement>();
             var productUnitsRepo = _repositoryFactory.GetDataRepositories<UnitProductEquivalence>();
             var productRepo = _repositoryFactory.GetDataRepositories<Product>();
             var inventoryRepo = _repositoryFactory.GetDataRepositories<Inventory>();
-            Inventory currentInventory = inventoryRepo.Get(x => x.Where(y => y.Active == true && y.ProductId == detail.ProductId && y.WarehouseId == currentWarehouse.Id));
+            Inventory currentInventory = inventoryRepo.Get(x => x.AsNoTracking().Where(y => y.Active == true && y.ProductId == detail.ProductId && y.WarehouseId == currentWarehouse.Id));
             if (currentInventory != null)
             {
                 var convertionResult = ProductsHelper.ConvertToProductPrincipalUnit(
        detail.Quantity,
        detail.UnitId.Value,
-      detail.Product.ProductUnits
+      detail.Product.ProductUnits.ToList()
        );
                 if (convertionResult.Status >= 0)
                     detail.Quantity =(decimal) convertionResult.Data.FirstOrDefault();
@@ -32,7 +33,7 @@ namespace PointOfSalesV2.Repository.Helpers
                 convertionResult = ProductsHelper.ConvertFromProductPrincipalUnit(
        currentInventory.Quantity,
        detail.Product.ProductUnits.Where(pu => pu.IsPrimary).FirstOrDefault().UnitId,
-      detail.Product.ProductUnits
+      detail.Product.ProductUnits.ToList()
        );
 
                 if (convertionResult.Status >= 0)
@@ -52,10 +53,10 @@ namespace PointOfSalesV2.Repository.Helpers
                     inventoryRepo.Update(currentInventory);
 
 
-                    var units = detail.Product.ProductUnits ?? productUnitsRepo.GetAll(x=>x.Where(y=>y.Active==true && y.ProductId==detail.ProductId)).Data;
+                    var units = detail.Product.ProductUnits ?? productUnitsRepo.GetAll(x=>x.AsNoTracking().Where(y=>y.Active==true && y.ProductId==detail.ProductId)).Data;
                     WarehouseMovement movement = new WarehouseMovement(currentWarehouse.Id, detail.ProductId, detail.Quantity * -1,
                         true, units.Where(u => u.IsPrimary).FirstOrDefault().UnitId, 0, "OUT",
-                        invoice.InvoiceNumber ??invoice.DocumentNumber?? string.Empty, currentInventory.Quantity);
+                        invoiceLead.InvoiceNumber ??invoiceLead.DocumentNumber?? string.Empty, currentInventory.Quantity);
 
                     warehouseMovementRepo.Add(movement);
                     return new Result<object>(0, 0, "ok_msg");
@@ -69,7 +70,7 @@ namespace PointOfSalesV2.Repository.Helpers
         }
 
 
-        public static Result<object> AddInventory(InvoiceDetail detail, Invoice invoice, IDataRepositoryFactory _repositoryFactory)
+        public static Result<object> AddInventory(LeadDetail detail, InvoiceLead invoiceLead, IDataRepositoryFactory _repositoryFactory)
         {
             var warehouseMovementRepo = _repositoryFactory.GetDataRepositories<WarehouseMovement>();
             var productUnitsRepo = _repositoryFactory.GetDataRepositories<UnitProductEquivalence>();
@@ -77,18 +78,18 @@ namespace PointOfSalesV2.Repository.Helpers
             var inventoryRepo = _repositoryFactory.GetDataRepositories<Inventory>();
             if (!detail.Product.IsService)
             {
-                detail.Product.ProductUnits = detail.Product.ProductUnits ?? productUnitsRepo.GetAll(x=>x.Where(y=>y.Active==true && y.ProductId==detail.ProductId)).Data.ToList();
+                detail.Product.ProductUnits = detail.Product.ProductUnits ?? productUnitsRepo.GetAll(x=>x.AsNoTracking().Where(y=>y.Active==true && y.ProductId==detail.ProductId)).Data.ToList();
                
               
                 if (detail.WarehouseId.HasValue)
                 {
-                    Inventory currentInventory = inventoryRepo.Get(x=>x.Where(y=>y.Active==true && y.ProductId==detail.ProductId && y.WarehouseId==detail.WarehouseId.Value));
+                    Inventory currentInventory = inventoryRepo.Get(x=>x.AsNoTracking().Where(y=>y.Active==true && y.ProductId==detail.ProductId && y.WarehouseId==detail.WarehouseId.Value));
                     if (currentInventory != null)
                     {
                         var convertionResult = ProductsHelper.ConvertToProductPrincipalUnit(
                currentInventory.Quantity,
                detail.Product.ProductUnits.Where(pu => pu.IsPrimary).FirstOrDefault().UnitId,
-               detail.Product.ProductUnits
+               detail.Product.ProductUnits.ToList()
                );
                         if (convertionResult.Status < 0)
                             return convertionResult;
@@ -98,13 +99,13 @@ namespace PointOfSalesV2.Repository.Helpers
                         convertionResult= ProductsHelper.ConvertToProductPrincipalUnit(
                detail.Quantity,
                detail.UnitId.Value,
-                detail.Product.ProductUnits
+                detail.Product.ProductUnits.ToList()
                );
                         if (convertionResult.Status < 0)
                             return convertionResult;
 
                         detail.Quantity = (decimal)convertionResult.Data.FirstOrDefault();
-                        var units = detail.Product.ProductUnits ?? productUnitsRepo.GetAll(x=>x.Where(y=>y.Active==true && y.ProductId==detail.ProductId)).Data.ToList();
+                        var units = detail.Product.ProductUnits ?? productUnitsRepo.GetAll(x=>x.AsNoTracking().Where(y=>y.Active==true && y.ProductId==detail.ProductId)).Data.ToList();
                        
 
                         currentInventory.Quantity += detail.Quantity;
@@ -114,7 +115,7 @@ namespace PointOfSalesV2.Repository.Helpers
                         inventoryRepo.Update(currentInventory);
 
                         WarehouseMovement movimientoAlmacen = new WarehouseMovement(currentInventory.WarehouseId, detail.ProductId, detail.Quantity, true,
-                           units.Where(u => u.IsPrimary).FirstOrDefault().UnitId, 0, "IN", invoice.InvoiceNumber ?? invoice.DocumentNumber ?? string.Empty, currentInventory.Quantity);
+                           units.Where(u => u.IsPrimary).FirstOrDefault().UnitId, 0, "IN", invoiceLead.InvoiceNumber ?? invoiceLead.DocumentNumber ?? string.Empty, currentInventory.Quantity);
                         warehouseMovementRepo.Add(movimientoAlmacen);
                         return new Result<object>(0, 0, "ok_msg");
                     }
@@ -128,22 +129,22 @@ namespace PointOfSalesV2.Repository.Helpers
         }
 
 
-        public static Result<object> ReInsertInventoryToWarehouse(InvoiceDetail detail, IDataRepositoryFactory _repositoryFactory, Warehouse currentWarehouse)
+        public static Result<object> ReInsertInventoryToWarehouse(LeadDetail detail, IDataRepositoryFactory _repositoryFactory, Warehouse currentWarehouse)
         {
             var productUnitsRepo = _repositoryFactory.GetDataRepositories<UnitProductEquivalence>();
             var inventoryRepo = _repositoryFactory.GetDataRepositories<Inventory>();
             var warehouseMovementRepo = _repositoryFactory.GetDataRepositories<WarehouseMovement>();
             var productRepo = _repositoryFactory.GetDataRepositories<Product>();
 
-            Inventory currentInventory = inventoryRepo.Get(x=>x.Where(y=>y.ProductId==detail.ProductId && y.WarehouseId== currentWarehouse.Id && y.Active==true));
+            Inventory currentInventory = inventoryRepo.Get(x=>x.AsNoTracking().Where(y=>y.ProductId==detail.ProductId && y.WarehouseId== currentWarehouse.Id && y.Active==true));
             if (currentInventory != null)
             {
-                detail.Product.ProductUnits = detail.Product.ProductUnits ?? productUnitsRepo.GetAll(x=>x.Where(y=>y.Active && y.ProductId==detail.ProductId)).Data.ToList();
+                detail.Product.ProductUnits = detail.Product.ProductUnits ?? productUnitsRepo.GetAll(x=>x.AsNoTracking().Where(y=>y.Active && y.ProductId==detail.ProductId)).Data.ToList();
 
                 var convertionResult = ProductsHelper.ConvertToProductPrincipalUnit(
        currentInventory.Quantity,
        detail.Product.ProductUnits.Where(pu => pu.IsPrimary).FirstOrDefault().UnitId,
-        detail.Product.ProductUnits
+        detail.Product.ProductUnits.ToList()
        );
                 if (convertionResult.Status < 0)
                     return convertionResult;
@@ -152,7 +153,7 @@ namespace PointOfSalesV2.Repository.Helpers
                 convertionResult = ProductsHelper.ConvertToProductPrincipalUnit(
            detail.Quantity,
            detail.UnitId.Value,
-           detail.Product.ProductUnits
+           detail.Product.ProductUnits.ToList()
            );
                 if (convertionResult.Status < 0)
                     return convertionResult;
@@ -182,17 +183,17 @@ namespace PointOfSalesV2.Repository.Helpers
 
         }
 
-        public static Result<InvoiceDetail> UpdateProductInventory(BranchOffice branchOffice, InvoiceDetail detail, IDataRepositoryFactory _repositoryFactory, Invoice invoice)
+        public static Result<LeadDetail> UpdateProductInventory(BranchOffice branchOffice, LeadDetail detail, IDataRepositoryFactory _repositoryFactory, InvoiceLead invoice)
         {
-            InvoiceDetail newdetail = new InvoiceDetail(detail);
+            LeadDetail newdetail = new LeadDetail(detail);
             var productRepo = _repositoryFactory.GetDataRepositories<Product>();
             var inventoryRepo = _repositoryFactory.GetDataRepositories<Inventory>();
-            var detailRepo = _repositoryFactory.GetDataRepositories<InvoiceDetail>();
+            var detailRepo = _repositoryFactory.GetDataRepositories<LeadDetail>();
 
             var service = GetBillProductOrServiceInstance.GetBillingInstance(detail.Product);
             var result = service.ProcessProductService(branchOffice.Id, detail, _repositoryFactory,invoice);
             if (result.Status >= 0)
-                result.Data = new List<InvoiceDetail>() { newdetail };
+                result.Data = new List<LeadDetail>() { newdetail };
 
 
             return result;

@@ -1,0 +1,60 @@
+<div class="card m-3">
+    <h5 class="card-header">{{'suppliers_menu' | translate}}</h5>
+    <div class="card-body">
+        <form [formGroup]="itemForm" (ngSubmit)="save()">
+            <div class="form-row">
+               
+                <div class="form-group col-md-6 col-xs-12">
+                    <label>{{'name_lbl' | translate}}</label>
+                    <input type="text" formControlName="name" maxlength="50" minlength="3" required class="form-control" [ngClass]="{ 'is-invalid': form.name.errors }" />
+                    <div *ngIf="form.name.errors" class="invalid-feedback">
+                        <div *ngIf="form.name.errors.required">{{'required_lbl' | translate}}</div>
+                    </div>
+                </div>
+
+                <div class="form-group col-md-6 col-xs-12">
+                    <label>{{'cardId_lbl' | translate}}</label>
+                    <input type="text" formControlName="cardId" minlength="1" maxlength="20" required class="form-control" [ngClass]="{ 'is-invalid': form.cardId.errors }" />
+                    <div *ngIf="form.cardId.errors" class="invalid-feedback">
+                        <div *ngIf="form.cardId.required">{{'required_lbl' | translate}}</div>
+                    </div>
+                </div>
+
+               
+            </div>
+            <div class="form-row">
+               
+                <div class="form-group col-md-6 col-xs-12">
+                    <label>{{'phoneNumber_lbl' | translate}}</label>
+                    <input type="text" formControlName="phoneNumber" maxlength="20" minlength="3" class="form-control" [ngClass]="{ 'is-invalid': form.phoneNumber.errors }" />
+                    <div *ngIf="form.phoneNumber.errors" class="invalid-feedback">
+                        <div *ngIf="form.phoneNumber.errors.required">{{'required_lbl' | translate}}</div>
+                    </div>
+                </div>
+
+                <div class="form-group col-md-6 col-xs-12">
+                    <label>{{'address_lbl' | translate}}</label>
+                    <textarea 
+                    formControlName="address" 
+                    minlength="1" 
+                    maxlength="200" 
+                    required 
+                    class="form-control" 
+                    [ngClass]="{ 'is-invalid': form.address.errors }"
+                    ></textarea>
+                    <div *ngIf="form.address.errors" class="invalid-feedback">
+                        <div *ngIf="form.address.required">{{'required_lbl' | translate}}</div>
+                    </div>
+                </div>
+
+               
+            </div>
+           
+            
+            <div class="text-center">
+                <button class="btn btn-primary mr-1">{{'save_btn' | translate}}</button>
+                <button class="btn btn-secondary" type="reset" (click)="cancel()">{{'cancel_btn' | translate}}</button>
+            </div>
+        </form>
+    </div>
+</div>

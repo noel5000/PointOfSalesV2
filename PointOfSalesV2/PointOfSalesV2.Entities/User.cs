@@ -107,6 +107,8 @@ namespace PointOfSalesV2.Entities
 
         public virtual List<UserClaims> Claims { get; set; }
 
+        public virtual IEnumerable<CashRegisterOpening> CashRegisterOpeningClosings { get; set; }
+
         public virtual List<UserOperation> Permissions { get; set; }
        [NotMapped]
         public long Id { get ; set ; }

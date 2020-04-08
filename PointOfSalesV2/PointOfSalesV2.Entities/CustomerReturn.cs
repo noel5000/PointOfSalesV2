@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.Serialization;
 
 namespace PointOfSalesV2.Entities
 {
@@ -16,6 +17,7 @@ namespace PointOfSalesV2.Entities
 
         public List<CustomerReturnDetail> ReturnDetails { get; set; }
         [NotMapped]
+        [IgnoreDataMember]
         public override string TranslationData { get; set; }
 
 

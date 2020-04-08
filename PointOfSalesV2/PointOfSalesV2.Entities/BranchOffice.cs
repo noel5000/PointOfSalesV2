@@ -16,6 +16,9 @@ namespace PointOfSalesV2.Entities
 
         public virtual IEnumerable<Warehouse> Warehouses { get; set; }
 
+        public virtual IEnumerable<User> Users { get; set; }
+        public virtual IEnumerable<CashRegister> CashRegisters { get; set; }
+
 
     }
 }

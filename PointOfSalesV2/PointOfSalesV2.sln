@@ -13,7 +13,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PointOfSalesV2.EntityFramew
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PointOfSalesV2.FrontEnd", "PointOfSalesV2.FrontEnd\PointOfSalesV2.FrontEnd.csproj", "{C5ADCF95-0B25-48CB-970E-5D969CD24C63}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PointOfSalesV2.Common", "PointOfSalesV2.Common\PointOfSalesV2.Common.csproj", "{DF432089-5F62-44D5-9180-E12FCB7C48DE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PointOfSalesV2.Common", "PointOfSalesV2.Common\PointOfSalesV2.Common.csproj", "{DF432089-5F62-44D5-9180-E12FCB7C48DE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PointOfSalesV2.Test", "PointOfSalesV2.Test\PointOfSalesV2.Test.csproj", "{2F4343E2-1FA5-4656-81CB-18F27A3C8177}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PointOfSalesV2.Console", "PointOfSalesV2.Console\PointOfSalesV2.Console.csproj", "{FD8E1476-5627-441A-8308-422C0D237907}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +49,14 @@ Global
 		{DF432089-5F62-44D5-9180-E12FCB7C48DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF432089-5F62-44D5-9180-E12FCB7C48DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF432089-5F62-44D5-9180-E12FCB7C48DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F4343E2-1FA5-4656-81CB-18F27A3C8177}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F4343E2-1FA5-4656-81CB-18F27A3C8177}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F4343E2-1FA5-4656-81CB-18F27A3C8177}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F4343E2-1FA5-4656-81CB-18F27A3C8177}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD8E1476-5627-441A-8308-422C0D237907}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD8E1476-5627-441A-8308-422C0D237907}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD8E1476-5627-441A-8308-422C0D237907}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD8E1476-5627-441A-8308-422C0D237907}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

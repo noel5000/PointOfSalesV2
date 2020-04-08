@@ -51,9 +51,15 @@ namespace PointOfSalesV2.Repository
             _Context.Set<T>().AddRange(entities);
 
             _Context.SaveChanges();
-
-
         }
+        public virtual void RemoveRange(IEnumerable<T> entities)
+        {
+            _Context.Set<T>().RemoveRange(entities);
+
+            _Context.SaveChanges();
+        }
+
+
 
         public virtual Result<T> Remove(T entity)
         {
@@ -191,6 +197,7 @@ namespace PointOfSalesV2.Repository
             try
             {
                 var entity = _DbSet.Find(id);
+                _Context.Entry<T>(entity).State = EntityState.Detached;
                 //TranslateUtility.Translate(entity, entity.TranslationData);
                 return new Result<T>(0,0,"OK",new List<T>() { entity });
             }
@@ -206,7 +213,9 @@ namespace PointOfSalesV2.Repository
         {
             try
             {
-                return new Result<T>(0, 0, "OK", new List<T>() { _DbSet.Find(id) });
+                var entity = _DbSet.Find(id);
+                _Context.Entry<T>(entity).State = EntityState.Detached;
+                return new Result<T>(0, 0, "OK", new List<T>() { entity });
             }
 
             catch (Exception ex)
@@ -218,7 +227,7 @@ namespace PointOfSalesV2.Repository
 
         public virtual TResult Get<TResult>(Func<IQueryable<T>, IQueryable<TResult>> transform, Expression<Func<T, bool>> filter = null, string sortExpression = null)
         {
-            var query = filter == null ? _DbSet : _DbSet.Where(filter);
+            var query = filter == null ? _DbSet.AsNoTracking() : _DbSet.AsNoTracking().Where(filter);
 
             var notSortedResults = transform(query);
 
@@ -228,7 +237,7 @@ namespace PointOfSalesV2.Repository
         }
         public virtual bool Exists(long id)
         {
-            return _DbSet.Find(id) != null;
+            return _DbSet.Any(x=>x.Id==id && x.Active==true);
         }
 
         public virtual bool Exists(Func<IQueryable<T>, IQueryable<T>> selector, Expression<Func<T, bool>> filter = null)

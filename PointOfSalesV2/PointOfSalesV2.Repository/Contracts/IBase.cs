@@ -20,6 +20,7 @@ namespace PointOfSalesV2.Repository
         Result<T> Remove(T entity);
 
         Result<T> Remove(long id);
+        void RemoveRange(IEnumerable<T> entities);
 
         Result<T> Update(T entity);
 

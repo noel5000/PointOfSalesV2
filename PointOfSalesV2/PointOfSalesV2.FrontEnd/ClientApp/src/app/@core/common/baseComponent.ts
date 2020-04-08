@@ -23,6 +23,14 @@ export class BaseComponent  {
             this.returnToLogin();
 
     }
+
+    updateModel<T>(model:any,toUpdate:T):T{
+        for(var prop in model){
+            toUpdate[prop]=model[prop];
+        }
+
+        return toUpdate;
+    }
     section: AppSections = null;
     authModel: AuthModel = null;
     permits: any = {};

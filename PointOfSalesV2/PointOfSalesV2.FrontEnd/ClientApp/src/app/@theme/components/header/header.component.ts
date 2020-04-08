@@ -141,10 +141,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   logout() {
     var auth = JSON.parse(localStorage.getItem(`currentUser`)) as AuthModel;
-    localStorage.setItem(`language-${auth.languageId}`, null);
+    if(auth){
+      localStorage.setItem(`language-${auth.languageId}`, null);
+    }
     localStorage.setItem('currentUser', null);
-    this.lang.setLanguageInHeaders('EN');
-    this.lang.setCurrentLanguage('EN');
+    this.lang.setLanguageInHeaders('ES');
+    this.lang.setCurrentLanguage('ES');
     this.route.navigateByUrl('auth/login');
   }
 

@@ -6,6 +6,7 @@ using System.Linq;
 using Newtonsoft.Json;
 using System.IO;
 using static PointOfSalesV2.Common.Enums;
+using Microsoft.EntityFrameworkCore;
 
 namespace PointOfSalesV2.Repository
 {
@@ -31,7 +32,7 @@ namespace PointOfSalesV2.Repository
                 var languages = _Context.Languages.ToList();
                 foreach (var language in languages)
                 {
-                    var keys = _Context.LanguageKeys.Where(k => k.Active == true && k.LanguageCode.ToLower() == language.Code.ToLower()).ToList();
+                    var keys = _Context.LanguageKeys.AsNoTracking().Where(k => k.Active == true && k.LanguageCode.ToLower() == language.Code.ToLower()).ToList();
                     Dictionary<string, string> currentLanguageDict = new Dictionary<string, string>();
                     keys.ForEach(k =>
                     {
@@ -55,7 +56,7 @@ namespace PointOfSalesV2.Repository
             }
             catch (Exception ex)
             {
-                result = new Result<object>(-1, -1, "Error_msg", null, ex);
+                result = new Result<object>(-1, -1, "error_msg", null, ex);
                 
             }
             return result;

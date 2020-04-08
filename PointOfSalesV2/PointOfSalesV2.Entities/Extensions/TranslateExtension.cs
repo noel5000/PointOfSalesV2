@@ -23,7 +23,7 @@ namespace PointOfSalesV2.Entities
         }
         public static string GetRequestLanguage()
         {
-            string requestLanguage = "";
+            string requestLanguage = "EN";
             if (httpContextAccessor != null && httpContextAccessor.HttpContext != null && httpContextAccessor.HttpContext.Request != null && httpContextAccessor.HttpContext.Request.Headers != null)
                 requestLanguage = httpContextAccessor.HttpContext.Request.Headers.FirstOrDefault(x => x.Key == "languageid").Value.ToString();
 
@@ -77,9 +77,12 @@ namespace PointOfSalesV2.Entities
                 {
                     requestLanguage = httpContextAccessor.HttpContext.Request.Headers.Any(x => x.Key == "languageid")
                         ? httpContextAccessor.HttpContext.Request.Headers.FirstOrDefault(x => x.Key == "languageid").Value.ToString().ToUpper()
-                        : "EN";
+                        : "ES";
+                }
+                else
+                    requestLanguage = "ES";
 
-                    if (!string.IsNullOrEmpty(translationData) && TranslateUtility.IsValidJson(translationData))
+                if (!string.IsNullOrEmpty(translationData) && TranslateUtility.IsValidJson(translationData))
                     {
                         Dictionary<string, List<TranslateData>> dictionary = JsonConvert.DeserializeObject<Dictionary<string, List<TranslateData>>>(translationData) ?? new Dictionary<string, List<TranslateData>>();
                         var translateProperties = obj.GetType().GetProperties().Where(t => t.GetCustomAttributes(typeof(TranslateAttribute), true).Length > 0).ToList();
@@ -91,7 +94,7 @@ namespace PointOfSalesV2.Entities
                         }
 
                     }
-                }
+                
             }
         }
 
@@ -105,7 +108,7 @@ namespace PointOfSalesV2.Entities
             {
                 requestLanguage = httpContextAccessor.HttpContext.Request.Headers.Any(x => x.Key == "languageid")
                            ? httpContextAccessor.HttpContext.Request.Headers.FirstOrDefault(x => x.Key == "languageid").Value.ToString().ToUpper()
-                           : "EN";
+                           : "ES";
 
 
                 if (string.IsNullOrEmpty(translationData) || !TranslateUtility.IsValidJson(translationData))
@@ -119,7 +122,7 @@ namespace PointOfSalesV2.Entities
                 {
                     var currentDictionary = dictionary.ContainsKey(requestLanguage.ToUpper()) ? dictionary.GetValueOrDefault(requestLanguage) : new List<TranslateData>();
                     bool existData = currentDictionary.Exists(x => x.PropertyName.ToLower() == prop.Name.ToLower());
-                    var currentProp = existData ? currentDictionary.FirstOrDefault(x => x.PropertyName.ToLower() == prop.Name.ToLower()) : new TranslateData()
+                    var currentProp = new TranslateData()
                     {
                         PropertyName = prop.Name,
                         Value = prop.GetValue(obj).ToString()

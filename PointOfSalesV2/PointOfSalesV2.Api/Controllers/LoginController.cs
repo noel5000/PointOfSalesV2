@@ -11,7 +11,7 @@ using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using PointOfSalesV2.Common;
-using PointOfSalesV2.Entities;
+using PointOfSalesV2.Entities; using Microsoft.Extensions.Caching.Memory;
 using PointOfSalesV2.Entities.Model;
 using PointOfSalesV2.Repository;
 using PointOfSalesV2.Repository.Helpers;

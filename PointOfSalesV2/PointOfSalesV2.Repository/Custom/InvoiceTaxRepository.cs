@@ -1,4 +1,5 @@
-﻿using PointOfSalesV2.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using PointOfSalesV2.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,12 +15,12 @@ namespace PointOfSalesV2.Repository
 
         public IEnumerable<InvoiceTax> GetInvoiceTaxes(string invoiceNumber)
         {
-            return _Context.InvoicesTaxes.Where(x => x.InvoiceNumber.ToLower() == invoiceNumber.ToLower());
+            return _Context.InvoicesTaxes.AsNoTracking().Where(x => x.InvoiceNumber.ToLower() == invoiceNumber.ToLower());
         }
 
         public IEnumerable<InvoiceTax> GetInvoiceTaxes(long invoiceID)
         {
-            return _Context.InvoicesTaxes.Where(x => x.InvoiceId == invoiceID);
+            return _Context.InvoicesTaxes.AsNoTracking().Where(x => x.InvoiceId == invoiceID);
         }
     }
 }

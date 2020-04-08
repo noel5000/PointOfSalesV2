@@ -16,28 +16,30 @@ namespace PointOfSalesV2.Entities
        
 
         private string _jsonData;
-        [JsonIgnore]
         [IgnoreDataMember]
         public virtual Guid CreatedBy { get; set; }
         [MaxLength(100)]
-        [JsonIgnore]
+        [IgnoreDataMember]
         public virtual string CreatedByName { get; set; }
-        [JsonIgnore]
+        [IgnoreDataMember]
         public virtual Guid? ModifiedBy { get; set; }
         [MaxLength(100)]
-        [JsonIgnore]
+        [IgnoreDataMember]
         public virtual string ModifiedByName { get; set; }
-        [JsonIgnore]
+     
+        [IgnoreDataMember]
         public virtual DateTime CreatedDate { get; set; }
-        [JsonIgnore]
+     
+        [IgnoreDataMember]
         public virtual DateTime? ModifiedDate { get; set; }
 
         [Key]
         public virtual long Id { get; set; }
 
         public virtual bool Active { get; set; }
-     
-   
+
+      
+        [IgnoreDataMember]
         public virtual string TranslationData 
         {
             get

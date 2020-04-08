@@ -20,7 +20,7 @@ using PointOfSalesV2.Api.Helpers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.AspNetCore.Mvc;
-using PointOfSalesV2.Entities;
+using PointOfSalesV2.Entities; using Microsoft.Extensions.Caching.Memory;
 using Newtonsoft.Json.Serialization;
 using System.Text.Json;
 
@@ -60,6 +60,11 @@ namespace PointOfSalesV2.Api
                    Path.Combine(Directory.GetCurrentDirectory(), "")));
 
             services.AddScoped<IBranchOfficeRepository, BranchOfficeRepository>();
+            services.AddScoped<ICashRegisterOpeningRepository, CashRegisterOpeningRepository>();
+            services.AddScoped<IRoleSectionOperationRepository, RoleSectionOperationRepository>();
+            services.AddScoped<ISellerRepository, SellerRepository>();
+            services.AddScoped<ISequenceManagerRepository,SequenceManagerRepository>();
+            services.AddScoped<ICompanyPaymentRepository, CompanyPaymentRepository>();
             services.AddScoped<ILanguageKeyRepository, LanguageKeyRepository>();
             services.AddScoped<IBusinessStateRepository, BusinessStateRepository>();
             services.AddScoped<ICompositeProductRepository, CompositeProductRepository>();
@@ -67,6 +72,7 @@ namespace PointOfSalesV2.Api
             services.AddScoped<ICustomerBalanceRepository, CustomerBalanceRepository>();
             services.AddScoped<ICustomerPaymentRepository, CustomerPaymentRepository>();
             services.AddScoped<IExpenseRepository, ExpenseRepository>();
+            services.AddScoped<IExpensesPaymentRepository, ExpensesPaymentRepository>();
             services.AddScoped<IInventoryEntryRepository, InventoryEntryRepository>();
             services.AddScoped<IExpenseTaxRepository, ExpenseTaxRepository>();
             services.AddScoped<IInventoryRepository, InventoryRepository>();
@@ -113,12 +119,10 @@ namespace PointOfSalesV2.Api
                        .AllowAnyMethod()
                        .AllowAnyHeader();
             }));
-           
-            //services.Configure<MvcOptions>(options =>
-            //{
-            //    options.Filters.Add(new CorsAuthorizationFilterFactory("AllowAllOrigins"));
-            //});
-            //  services.AddMvc().AddXmlSerializerFormatters();
+
+            services.AddControllers().AddNewtonsoftJson(options =>
+     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+ );
 
 
         }
@@ -142,8 +146,9 @@ namespace PointOfSalesV2.Api
             {
                 routerBuilder.EnableDependencyInjection();
                 
-                routerBuilder.Select().Filter().Count().MaxTop(null).OrderBy().Expand();
+                routerBuilder.Expand().Select().Filter().Count().MaxTop(null).OrderBy();
                 routerBuilder.MapODataServiceRoute("odata", "odata", OdataHelper.GetEdmModel(app));
+                routerBuilder.MapODataServiceRoute("odata/exporttoexcel", "odata/exporttoexcel", OdataHelper.GetEdmModel(app));
 
             });
            

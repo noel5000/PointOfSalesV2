@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using PointOfSalesV2.Api.Security;
-using PointOfSalesV2.Entities;
+using PointOfSalesV2.Entities; using Microsoft.Extensions.Caching.Memory;
 using PointOfSalesV2.Entities.Model;
 using PointOfSalesV2.Repository;
 
@@ -17,7 +17,7 @@ namespace PointOfSalesV2.Api.Controllers
     [ControllerAuthorize(Common.Enums.AppSections.Suppliers)]
     public class SupplierController : BaseController<Supplier>
     {
-        public SupplierController(IOptions<AppSettings> appSettings, IDataRepositoryFactory repositoryFactory) : base(appSettings, repositoryFactory)
+        public SupplierController(IOptions<AppSettings> appSettings, IDataRepositoryFactory repositoryFactory, IMemoryCache cache) : base(appSettings, repositoryFactory,cache)
         {
         }
     }

@@ -30,31 +30,34 @@ export class QueryFilter {
     property: string;
     value: string;
     type: ObjectTypes;
+    comparer?:ODataComparers;
     isTranslated:boolean=false;
 }
 
-export const ODataComparers = {
-    equals: ' eq ',
-    lesOrEqual: ' le ',
-    NotEqual: ' ne ',
-    greaterThan: ' gt ',
-    greaterThanOrEqual: ' ge ',
-    lessThan: ' lt ',
-    not: ' not ',
-    endWiths: ' endswith',
-    in: ' in '
+export enum ODataComparers  {
+    equals= 'eq',
+    lesOrEqual='le',
+    NotEqual='ne',
+    greaterThan= 'gt',
+    greaterThanOrEqual= 'ge',
+    lessThan= 'lt',
+    not='not',
+    endWiths= 'endswith',
+    in= 'in'
 
 }
 export enum ObjectTypes {
     String = 0,
     Number = 1,
     Date = 2,
-    Boolean = 3
+    Boolean = 3,
+    ChildObject=4
 }
 
 export const ODataOperators = {
     and: ' and ',
-    or: ' or '
+    or: ' or ',
+    expand:'expand'
 }
 
 export enum AppSections {

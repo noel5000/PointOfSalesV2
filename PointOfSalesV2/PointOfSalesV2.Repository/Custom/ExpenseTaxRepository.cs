@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace PointOfSalesV2.Repository
 {
@@ -14,12 +15,12 @@ namespace PointOfSalesV2.Repository
 
         public IEnumerable<ExpenseTax> GetExpenseTaxes(string reference)
         {
-            return _Context.ExpenseTaxes.Where(x => x.Active == true && x.Reference.ToLower() == reference.ToLower());
+            return _Context.ExpenseTaxes.AsNoTracking().Where(x => x.Active == true && x.Reference.ToLower() == reference.ToLower());
         }
 
         public IEnumerable<ExpenseTax> GetExpenseTaxes(long id)
         {
-            return _Context.ExpenseTaxes.Where(x => x.Active == true && x.ExpenseId==id);
+            return _Context.ExpenseTaxes.AsNoTracking().Where(x => x.Active == true && x.ExpenseId==id);
         }
     }
 }

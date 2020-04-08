@@ -43,7 +43,6 @@ export class BranchOfficeIndexComponent extends BaseComponent implements OnInit 
         private modalService:ModalService
     ) {
         super(route, langService, AppSections.BranchOffices);
-        this.section=AppSections.BranchOffices;
         let scope = this;
        
         this.tableConfig=[
@@ -52,31 +51,33 @@ export class BranchOfficeIndexComponent extends BaseComponent implements OnInit 
   id:'id',
   type:'number',
   isTranslated:false,
-  name:scope.lang.getValueByKey('id_label'),
+  name:scope.lang.getValueByKey('id_lbl'),
   sorting:'desc',
   toSort:true,
-  objectType:ObjectTypes.Number
+  objectType:ObjectTypes.Number,
+  filterIsActive:true
 },
 {
     visible:true,
     id:'name',
     type:'text',
     isTranslated:true,
-    name:this.lang.getValueByKey('name_label'),
+    name:this.lang.getValueByKey('name_lbl'),
     sorting:'desc',
     toSort:false,
-    objectType:ObjectTypes.String
+    objectType:ObjectTypes.String,
+    filterIsActive:true
   }
         ];
 this.actions=[
     {
-        title:scope.lang.getValueByKey('edit_label'),
+        title:scope.lang.getValueByKey('edit_btn'),
         class:'btn btn-primary',
         icon:'',
         id:'edit'
     },
     {
-        title:scope.lang.getValueByKey('delete_label'),
+        title:scope.lang.getValueByKey('delete_btn'),
         class:'btn btn-danger',
         icon:'',
         id:'delete'
@@ -143,7 +144,8 @@ else{
   type:temp.type,
   isTranslated:temp.isTranslated,
   name:temp.name,
-  objectType:temp.objectType
+  objectType:temp.objectType,
+  filterIsActive:temp.filterIsActive
        };
        config.sorting=config.sorting=='desc'?'asc':'desc';
        config.toSort=true;
@@ -182,7 +184,7 @@ else{
 
     }
 
-    addNew(e: any) {
+    addNew() {
         this.router.navigateByUrl(`pages/branchoffice/add`);
     }
     edit(e:BranchOffice) {
@@ -191,8 +193,8 @@ else{
     source:any={};
     onDeleteConfirm(event:BranchOffice): void {
  var result =       this.modalService.confirmationModal({
-            titleText:this.lang.getValueByKey('deleteConfirm_label'),
-            bodyText:this.lang.getValueByKey('areYouSure_label'),
+            titleText:this.lang.getValueByKey('deleteConfirm_lbl'),
+            bodyText:this.lang.getValueByKey('areYouSure_lbl'),
             cancelButtonText:this.lang.getValueByKey('cancel_btn'),
             okText:this.lang.getValueByKey('ok_btn'),
         });

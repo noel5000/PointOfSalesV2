@@ -35,7 +35,7 @@ namespace PointOfSalesV2.Repository.Helpers
         public static bool AddUnits(Product product, IDataRepositoryFactory dataRepositoryFactory)
         {
             var unitsRepo = dataRepositoryFactory.GetDataRepositories<UnitProductEquivalence>();
-            product.ProductUnits.ForEach(u =>
+            product.ProductUnits.ToList().ForEach(u =>
             {
                 u.CreatedBy = product.CreatedBy;
                 u.CreatedDate = DateTime.Now;
@@ -50,7 +50,7 @@ namespace PointOfSalesV2.Repository.Helpers
         public static bool InsertarImpuestos(Product product, IDataRepositoryFactory dataRepositoryFactory)
         {
             var taxesRepo = dataRepositoryFactory.GetDataRepositories<ProductTax>();
-            product.Taxes.ForEach(u =>
+            product.Taxes.ToList().ForEach(u =>
             {
                 u.CreatedBy = product.CreatedBy;
                 u.CreatedDate = DateTime.Now;
@@ -66,7 +66,7 @@ namespace PointOfSalesV2.Repository.Helpers
         {
             var baseProductsRepo = dataRepositoryFactory.GetDataRepositories<CompositeProduct>();
             if (product.IsService && product.IsCompositeProduct)
-                product.BaseCompositeProducts.ForEach(u =>
+                product.BaseCompositeProducts.ToList().ForEach(u =>
                 {
                     u.CreatedBy = product.CreatedBy;
                     u.CreatedDate = DateTime.Now;
@@ -81,7 +81,7 @@ namespace PointOfSalesV2.Repository.Helpers
         public static bool UpdateProductUnits(Product product, IDataRepositoryFactory dataRepositoryFactory)
         {
             var unitsRepo = dataRepositoryFactory.GetCustomDataRepositories<IUnitProductEquivalenceRepository>();
-            List<UnitProductEquivalence> productUnits = product.ProductUnits ?? new List<UnitProductEquivalence>();
+            List<UnitProductEquivalence> productUnits = product.ProductUnits!=null?product.ProductUnits.ToList(): new List<UnitProductEquivalence>();
             var previousUnits = unitsRepo.GetProductUnits(product.Id).ToList();
 
             if (product.IsService)
@@ -134,7 +134,7 @@ namespace PointOfSalesV2.Repository.Helpers
                         {
                             unitsRepo.Remove(e.Id);
                         }
-                        catch (Exception ex)
+                        catch
                         {
                             throw new Exception("cannotEraseUnit_msg");
                         }
@@ -147,7 +147,7 @@ namespace PointOfSalesV2.Repository.Helpers
 
         public static bool UpdateProductTaxes(Product product, IDataRepositoryFactory dataRepositoryFactory)
         {
-            List<ProductTax> productTaxes = product.Taxes ?? new List<ProductTax>();
+            List<ProductTax> productTaxes = product.Taxes!=null?product.Taxes.ToList() : new List<ProductTax>();
             var taxesRepo = dataRepositoryFactory.GetCustomDataRepositories<IProductTaxRepository>();
             var previousTaxes = taxesRepo.GetProductTaxes(product.Id).ToList();
 
@@ -185,7 +185,7 @@ namespace PointOfSalesV2.Repository.Helpers
                         {
                             taxesRepo.Remove(e.Id);
                         }
-                        catch (Exception ex)
+                        catch 
                         {
                             throw new Exception("cannotDeleteTax_msg");
                         }
@@ -199,7 +199,7 @@ namespace PointOfSalesV2.Repository.Helpers
         public static bool UpdateProductBases(Product product, IDataRepositoryFactory dataRepositoryFactory)
         {
             var repo = dataRepositoryFactory.GetCustomDataRepositories<ICompositeProductRepository>();
-            List<CompositeProduct> productBases = product.BaseCompositeProducts ?? new List<CompositeProduct>();
+            List<CompositeProduct> productBases = product.BaseCompositeProducts!=null?product.BaseCompositeProducts.ToList() : new List<CompositeProduct>();
             var previousBases = repo.GetProductBases(product.Id).ToList() ?? new List<CompositeProduct>();
 
             if (!product.IsService)
@@ -249,7 +249,7 @@ namespace PointOfSalesV2.Repository.Helpers
                         {
                             repo.Remove(e.Id);
                         }
-                        catch (Exception ex)
+                        catch 
                         {
                             throw new Exception("cannotRemoveBaseProduct_msg");
                         }
@@ -265,7 +265,7 @@ namespace PointOfSalesV2.Repository.Helpers
                     {
                         repo.Remove(e.Id);
                     }
-                    catch (Exception ex)
+                    catch 
                     {
                         throw new Exception("cannotRemoveBaseProduct_msg");
                     }

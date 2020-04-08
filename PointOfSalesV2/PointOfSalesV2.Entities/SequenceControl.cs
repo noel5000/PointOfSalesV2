@@ -15,5 +15,8 @@ namespace PointOfSalesV2.Entities
         [MaxLength(100)]
         public string Name { get; set; }
 
+        [MaxLength(10)]
+        public string CodeName { get; set; }
+
     }
 }

@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PointOfSalesV2.Api\PointOfSalesV2.Api.csproj" />
+    <ProjectReference Include="..\PointOfSalesV2.Common\PointOfSalesV2.Common.csproj" />
+    <ProjectReference Include="..\PointOfSalesV2.Entities\PointOfSalesV2.Entities.csproj" />
+    <ProjectReference Include="..\PointOfSalesV2.EntityFramework\PointOfSalesV2.EntityFramework.csproj" />
+    <ProjectReference Include="..\PointOfSalesV2.Repository\PointOfSalesV2.Repository.csproj" />
+  </ItemGroup>
+
+</Project>

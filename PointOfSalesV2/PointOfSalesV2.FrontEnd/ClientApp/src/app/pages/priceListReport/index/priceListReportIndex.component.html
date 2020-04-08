@@ -1,0 +1,34 @@
+<nb-card>
+  <nb-card-header>
+    <div class="row">
+      <div class="col-md-6">{{'pricesList_menu' | translate}}</div>
+      <div class="col-md-3">
+        <button type="button" class="btn btn-primary" (click)="print()">{{'print_btn' | translate}}</button>
+    </div>
+    <div class="col-md-3">
+      <button type="button" class="btn btn-success" (click)="exportToCSV()">{{'export_btn' | translate}}</button>
+  </div>
+    </div>
+   
+  </nb-card-header>
+
+  <nb-card-body>
+<custom-pagination
+[tableConfig]="tableConfig"
+[actions]="actions"
+[isPaginated]="isPaginated"
+[showActions]="showActions"
+[pageNumber]="pageNumber"
+[pageSize]="pageSize"
+[maxCount]="maxCount"
+[data]="Products"
+(getPagedDataEvent)="getPagedData($event)"
+(addFilterEvent)="addFilter($event)"
+
+>
+
+</custom-pagination
+>
+  </nb-card-body>
+</nb-card>
+

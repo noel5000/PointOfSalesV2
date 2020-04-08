@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace PointOfSalesV2.Repository
 {
@@ -17,22 +18,22 @@ namespace PointOfSalesV2.Repository
             Func<Inventory, bool> func = inventory => inventory.Active == true && (productId.HasValue ? inventory.ProductId == productId.Value : inventory.Id > 0) &&
             inventory.BranchOfficeId == branchOfficeId;
 
-            return _Context.Inventory.Where(func);
+            return _Context.Inventory.AsNoTracking().Where(func);
         }
 
         public IEnumerable<Inventory> GetProductInventory(long productId)
         {
-            return _Context.Inventory.Where(x=>x.Active==true && x.ProductId==productId);
+            return _Context.Inventory.AsNoTracking().Where(x=>x.Active==true && x.ProductId==productId);
         }
 
         public IEnumerable<Inventory> GetWarehouseInventory(long warehouseId)
         {
-            return _Context.Inventory.Where(x => x.Active == true && x.WarehouseId == warehouseId);
+            return _Context.Inventory.AsNoTracking().Where(x => x.Active == true && x.WarehouseId == warehouseId);
         }
 
         public IEnumerable<Inventory> GetWarehouseInventoryByProduct(long warehouseId, long productId)
         {
-            return _Context.Inventory.Where(x => x.Active == true && x.ProductId == productId && x.WarehouseId==warehouseId);
+            return _Context.Inventory.AsNoTracking().Where(x => x.Active == true && x.ProductId == productId && x.WarehouseId==warehouseId);
         }
     }
 }

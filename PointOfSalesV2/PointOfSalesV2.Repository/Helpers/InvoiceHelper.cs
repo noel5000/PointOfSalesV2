@@ -36,13 +36,13 @@ namespace PointOfSalesV2.Repository.Helpers
                 invoice.AppliedCreditNoteAmount = creditNoteToApply.Amount;
                 invoice.PaidAmount += creditNoteToApply.Amount;
                 // Invoice.MontoAdeudado -= creditNoteToApply.Monto;
-                invoice.InvoiceDetails.ForEach(d =>
-                {
-                    decimal porcentajeNC = (d.TotalAmount / invoice.TotalAmount) / d.Quantity;
-                    d.CreditNoteAmount = porcentajeNC * creditNoteToApply.Amount;
+                //invoice.InvoiceLeads.ForEach(d =>
+                //{
+                //    decimal porcentajeNC = (d.TotalAmount / invoice.TotalAmount) / d.Quantity;
+                //    d.CreditNoteAmount = porcentajeNC * creditNoteToApply.Amount;
 
 
-                });
+                //});
 
                 return new Result<Invoice>(0,0,"ok_msg",new List<Invoice>() { invoice});
 

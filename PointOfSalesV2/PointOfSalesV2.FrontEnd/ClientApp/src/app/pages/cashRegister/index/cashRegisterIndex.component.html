@@ -1,0 +1,31 @@
+<nb-card>
+  <nb-card-header>
+    <div class="row">
+      <div class="col-md-6">{{'cashRegister_menu' | translate}}</div>
+      <div class="col-md-6">
+        <button type="button" class="btn btn-primary" (click)="addNew()">{{'add_btn' | translate}}</button>
+    </div>
+    </div>
+   
+  </nb-card-header>
+
+  <nb-card-body>
+<custom-pagination
+[tableConfig]="tableConfig"
+[actions]="actions"
+[pageNumber]="pageNumber"
+[pageSize]="pageSize"
+[maxCount]="maxCount"
+[data]="CashRegisters"
+(getPagedDataEvent)="getPagedData($event)"
+(addFilterEvent)="addFilter($event)"
+(onSortEvent)="onSort($event)"
+(actionFuncEvent)="rowAction($event)"
+
+>
+
+</custom-pagination
+>
+  </nb-card-body>
+</nb-card>
+

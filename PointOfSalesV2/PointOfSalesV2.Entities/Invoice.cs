@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using PointOfSalesV2.Common;
+using System.Runtime.Serialization;
 
 namespace PointOfSalesV2.Entities
 {
@@ -22,7 +23,7 @@ namespace PointOfSalesV2.Entities
             this.CustomerId = newInvoice.CustomerId;
             this.CreatedBy = newInvoice.CreatedBy;
             this.Details = newInvoice.Details ?? null;
-            this.InvoiceDetails = newInvoice.InvoiceDetails ?? new List<InvoiceDetail>();
+            this.InvoiceLeads = newInvoice.InvoiceLeads ?? new List<InvoiceLead>();
             this.State = newInvoice.State;
             this.CreatedDate = newInvoice.CreatedDate;
             this.BillingDate = newInvoice.BillingDate;
@@ -48,16 +49,13 @@ namespace PointOfSalesV2.Entities
             this.TRN = newInvoice.TRN;
             this.TRNType = newInvoice.TRNType;
             this.TNRControl = newInvoice.TNRControl ?? null;
-            this.WarehouseId = newInvoice.WarehouseId;
             this.NRC = newInvoice.NRC;
             this.DocumentNumber = newInvoice.DocumentNumber ?? null;
             this.CashRegisterId = newInvoice.CashRegisterId ?? null;
             this.SellerRate = newInvoice.SellerRate;
             this.SellerId = newInvoice.SellerId ?? null;
-            this.ZoneId = newInvoice.ZoneId;
             this.Cost = newInvoice.Cost;
             this.Seller = newInvoice.Seller ?? null;
-            this.Zone = newInvoice.Zone ?? null;
             this.TRNControlId = newInvoice.TRNControlId;
             this.AppliedCreditNote = newInvoice.AppliedCreditNote;
             this.Taxes = newInvoice.Taxes ?? new List<InvoiceTax>();
@@ -65,52 +63,71 @@ namespace PointOfSalesV2.Entities
 
         public long CustomerId { get; set; }
 
-        public long ZoneId { get; set; }
         [MaxLength(50)]
+        [Export(Order = 23)]
         public string DocumentNumber { get; set; }
+        [Export(Order = 15)]
         public decimal DiscountRate { get; set; }
         public long? SellerId { get; set; }
+        [Export(Order = 22)]
 
-        public long WarehouseId { get; set; }
         public decimal SellerRate { get; set; } = 0;
         public long? CashRegisterId { get; set; }
 
         [NotMapped]
+        [IgnoreDataMember]
         public override string TranslationData { get; set; }
 
+        [Export(Order = 14)]
 
         public decimal ReturnedAmount { get; set; }
 
+        [Export(Order =13 )]
         public decimal ReceivedAmount { get; set; }
+        [Export(Order =16 )]
         public decimal Cost { get; set; }
 
 
+        [Export(Order = 12)]
         public decimal OwedAmount { get; set; }
+        [Export(Order = 8)]
         public decimal DiscountAmount { get; set; }
+        [Export(Order = 9)]
         public decimal AppliedCreditNoteAmount { get; set; }
         [MaxLength(100)]
+        [Export(Order =21 )]
         public string NRC { get; set; }
 
 
         public long BranchOfficeId { get; set; }
         [MaxLength(50)]
+        [Export(Order =1 )]
         public string InvoiceNumber { get; set; }
         public long CurrencyId { get; set; }
+        [Export(Order = 10)]
         public decimal TotalAmount { get; set; }
         [MaxLength(50)]
+        [Export(Order =19 )]
         public string TRN { get; set; }
         [MaxLength(2)]
+        [Export(Order =18 )]
         public string TRNType { get; set; }
         public long TRNControlId { get; set; }
+        [Export(Order = 11)]
         public decimal PaidAmount { get; set; }
 
+        [Export(Order = 17)]
         public char State { get; set; }
+        [Export(Order = 0)]
         public DateTime? BillingDate { get; set; }
+        [Export(Order = 7)]
         public decimal TaxesAmount { get; set; }
 
         [MaxLength(200)]
+        [Export(Order = 20)]
         public string Details { get; set; }
 
+        [Export(Order = 6)]
         public decimal BeforeTaxesAmount { get; set; }
 
         [NotMapped]
@@ -124,25 +141,34 @@ namespace PointOfSalesV2.Entities
 
 
         [ForeignKey("CurrencyId")]
+        [Export(Order =5,ChildProperty ="Code" )]
         public Currency Currency { get; set; }
+
         [ForeignKey("SellerId")]
+        [Export(Order =4, ChildProperty ="NameAndCode" )]
         public Seller Seller { get; set; }
-        [ForeignKey("ZoneId")]
-        public Zone Zone { get; set; }
+
+
         [ForeignKey("TRNControlId")]
+        [Export(Order =3, ChildProperty ="Name" )]
         public TRNControl TNRControl { get; set; }
+
         [ForeignKey("CustomerId")]
+        [Export(Order =2, ChildProperty ="NameAndCode" )]
         public Customer Customer { get; set; }
+
         [ForeignKey("BranchOfficeId")]
+        [Export(Order = 24, ChildProperty ="Name")]
         public BranchOffice BranchOffice { get; set; }
-     
+
         public virtual  List<CustomerPayment> Payments { get; set; }
 
-        public virtual List<InvoiceDetail> InvoiceDetails { get; set; }
+        public virtual List<InvoiceLead> InvoiceLeads { get; set; }
         public virtual List<InvoiceTax> Taxes { get; set; }
 
 
         [NotMapped]
+        [Export(Order =25 )]
         public int DaysAmount
         {
             get

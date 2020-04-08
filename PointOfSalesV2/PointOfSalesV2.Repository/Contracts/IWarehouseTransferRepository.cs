@@ -7,5 +7,7 @@ namespace PointOfSalesV2.Repository
 {
     public interface IWarehouseTransferRepository: IBase<WarehouseTransfer>
     {
+        Result<object> AddTransfersList(List<WarehouseTransfer> entries, string reference, string details);
+        Result<object> RemoveTransfers(string sequence);
     }
 }

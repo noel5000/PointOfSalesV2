@@ -1,0 +1,48 @@
+<div class="card m-3">
+    <h5 class="card-header">{{'currencies_menu' | translate}}</h5>
+    <div class="card-body">
+        <form [formGroup]="itemForm" (ngSubmit)="save()">
+            <div class="form-row">
+               
+                <div class="form-group col-md-5 col-xs-12">
+                    <label>{{'name_lbl' | translate}}</label>
+                    <input type="text" formControlName="name" maxlength="50" required minlength="3" class="form-control" [ngClass]="{ 'is-invalid': form.name.errors }" />
+                    <div *ngIf="form.name.errors" class="invalid-feedback">
+                        <div *ngIf="form.name.errors.required">{{'required_lbl' | translate}}</div>
+                    </div>
+                </div>
+                <div class="form-group col-md-5 col-xs-12">
+                    <label>{{'code_lbl' | translate}}</label>
+                    <input type="text" formControlName="code" maxlength="3" required minlength="1" class="form-control" [ngClass]="{ 'is-invalid': form.code.errors }" />
+                    <div *ngIf="form.code.errors" class="invalid-feedback">
+                        <div *ngIf="form.code.errors.required">{{'required_lbl' | translate}}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+               
+                <div class="form-group col-md-5 col-xs-12">
+                    <label>{{'exchangeRate_lbl' | translate}}</label>
+                    <input type="number" formControlName="exchangeRate" min="1" required class="form-control" [ngClass]="{ 'is-invalid': form.exchangeRate.errors }" />
+                    <div *ngIf="form.exchangeRate.errors" class="invalid-feedback">
+                        <div *ngIf="form.exchangeRate.required">{{'required_lbl' | translate}}</div>
+                    </div>
+                </div>
+
+                <div class="form-check col-md-2 offset-md-1 col-xs-12 my-4">
+                    <input class="form-check-input" type="checkbox"  formControlName="isLocalCurrency"   >
+                    <label class="form-check-label" for="defaultCheck2">
+                        {{'isLocalCurrency_lbl' | translate}}
+                    </label>
+                  </div>
+            </div>
+           
+            
+            <div class="text-center">
+                <button class="btn btn-primary mr-1">{{'save_btn' | translate}}</button>
+                <button class="btn btn-secondary" type="reset" (click)="cancel()">{{'cancel_btn' | translate}}</button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -30,11 +30,15 @@ public class MainDataContext : DbContext
     public virtual DbSet<CashRegister> CashRegisters { get; set; }
     public virtual DbSet<LanguageKey> LanguageKeys { get; set; }
     public virtual DbSet<CashRegisterOpening> CashRegisterOpenings { get; set; }
+    public virtual DbSet<CashRegisterOpeningDetail> CashRegisterOpeningDetails { get; set; }
     public virtual DbSet<CustomerPayment> CustomersPayments { get; set; }
     public virtual DbSet<CompositeProduct> CompositeProducts { get; set; }
     public virtual DbSet<CreditNote> CreditNotes { get; set; }
     public virtual DbSet<Currency> Currencies { get; set; }
+    public virtual DbSet<CompanyPayments> CompanyPayments { get; set; }
     public virtual DbSet<Customer> Customers { get; set; }
+    public virtual DbSet<School> Schools { get; set; }
+    public virtual DbSet<SchoolContact> SchoolContacts { get; set; }
     public virtual DbSet<CustomerBalance> CustomersBalance { get; set; }
     public virtual DbSet<CustomerReturn> CustomersReturns { get; set; }
     public virtual DbSet<CustomerReturnDetail> CustomersReturnDetails { get; set; }
@@ -43,7 +47,8 @@ public class MainDataContext : DbContext
     public virtual DbSet<ExpensesPayment> ExpensesPayments { get; set; }
     public virtual DbSet<InventoryEntry> InventoryEntries { get; set; }
     public virtual DbSet<Invoice> Invoices { get; set; }
-    public virtual DbSet<InvoiceDetail> InvoicesDetails{ get; set; }
+    public virtual DbSet<InvoiceLead> InvoicesLeads{ get; set; }
+    public virtual DbSet<LeadDetail> LeadsDetails { get; set; }
     public virtual DbSet<InvoiceTax> InvoicesTaxes { get; set; }
     public virtual DbSet<BranchOffice> BranchOffices { get; set; }
     public virtual DbSet<MovementType> MovementTypes { get; set; }
@@ -63,6 +68,7 @@ public class MainDataContext : DbContext
     public virtual DbSet<TRNControl> TRNsControl { get; set; }
     public virtual DbSet<Unit> Units { get; set; }
     public virtual DbSet<UnitProductEquivalence> UnitProductsEquivalences { get; set; }
+    public virtual DbSet<ProductSupplierCost> ProductSupplierCosts { get; set; }
     public virtual DbSet<Warehouse> Warehouses { get; set; }
     public virtual DbSet<WarehouseMovement> WarehousesMovements { get; set; }
     public virtual DbSet<Inventory> Inventory { get; set; }
@@ -73,7 +79,7 @@ public class MainDataContext : DbContext
     public virtual DbSet<SectionOperation> SectionOperations { get; set; }
     public virtual DbSet<Operation> Operations { get; set; }
     public virtual DbSet<Role> Roles { get; set; }
-    public virtual DbSet<RoleSection> RoleSections { get; set; }
+    public virtual DbSet<RoleSectionOperation> RoleSectionOperations { get; set; }
     public virtual DbSet<User> Users { get; set; }
     public virtual DbSet<UserClaims> UsersClaims { get; set; }
 
@@ -100,13 +106,107 @@ public class MainDataContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Invoice>()
-          .HasMany(p => p.InvoiceDetails)
+          .HasMany(p => p.InvoiceLeads)
           .WithOne(d=>d.Invoice).OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<InvoiceLead>()
+          .HasMany(p => p.LeadDetails)
+          .WithOne(d => d.Lead).OnDelete(DeleteBehavior.NoAction);
+
+        modelBuilder.Entity<Section>()
+         .HasMany(p => p.Operations)
+         .WithOne(d => d.Section).OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Role>()
+       .HasMany(p => p.SectionOperations)
+       .WithOne(d => d.Role).OnDelete(DeleteBehavior.Restrict);
+
+
         modelBuilder.Entity<Language>().HasIndex(x=>x.Code).IsUnique();
         modelBuilder.Entity<Language>().HasKey( x => x.Code).HasName("Code");
         modelBuilder.Entity<Product>()
          .HasMany(p => p.Taxes)
          .WithOne(d => d.Product).OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<BranchOffice>()
+        .HasMany(x => x.Warehouses)
+        .WithOne(x => x.BranchOffice)
+        .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<CashRegisterOpening>()
+       .HasMany(x => x.Details)
+       .WithOne(x => x.CashRegisterOpening)
+       .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<CashRegisterOpeningDetail>()
+      .HasOne(x => x.CashRegisterOpening)
+      .WithMany(x => x.Details)
+      .OnDelete(DeleteBehavior.NoAction);
+
+        modelBuilder.Entity<BranchOffice>()
+       .HasMany(x => x.CashRegisters)
+       .WithOne(x => x.BranchOffice)
+       .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<BranchOffice>()
+ .HasMany(x => x.Users)
+ .WithOne(x => x.BranchOffice)
+ .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<PaymentType>()
+.HasMany(x => x.ExpensesPayments)
+.WithOne(x => x.PaymentType)
+.OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<PaymentType>()
+.HasMany(x => x.Expenses)
+.WithOne(x => x.PaymentType)
+.OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<PaymentType>()
+.HasMany(x => x.InvoicesPayments)
+.WithOne(x => x.PaymentType)
+.OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<User>()
+     .HasMany(x => x.CashRegisterOpeningClosings)
+     .WithOne(x => x.User)
+     .OnDelete(DeleteBehavior.Restrict);
+
+
+        modelBuilder.Entity<CompositeProduct>()
+      .HasOne(x => x.UnitProductEquivalence)
+      .WithMany(y => y.CompositeProducts)
+      .OnDelete(DeleteBehavior.SetNull);
+
+        modelBuilder.Entity<Expense>()
+   .HasOne(x => x.PaymentType)
+   .WithMany(y => y.Expenses)
+   .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<ExpensesPayment>()
+   .HasOne(x => x.PaymentType)
+   .WithMany(y => y.ExpensesPayments)
+   .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Payment>()
+   .HasOne(x => x.PaymentType)
+   .WithMany(y => y.InvoicesPayments)
+   .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Warehouse>()
+        .HasOne(x => x.BranchOffice)
+        .WithMany(x => x.Warehouses);
+
+        modelBuilder.Entity<SectionOperation>()
+        .HasOne(x => x.Section)
+        .WithMany(x => x.Operations)
+        .OnDelete(DeleteBehavior.NoAction);
+
+        modelBuilder.Entity<SectionOperation>()
+        .HasOne(x => x.Operation)
+        .WithMany(x => x.Sections)
+        .OnDelete(DeleteBehavior.NoAction);
 
         modelBuilder.Entity<Product>()
         .HasMany(p => p.ProductUnits)
@@ -115,6 +215,18 @@ public class MainDataContext : DbContext
         modelBuilder.Entity<Product>()
         .HasMany(p => p.BaseCompositeProducts)
         .WithOne(d => d.Product).OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Product>()
+       .HasMany(p => p.Taxes)
+       .WithOne(d => d.Product).OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Product>()
+       .HasMany(p => p.SuppliersCosts)
+       .WithOne(d => d.Product).OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Supplier>()
+      .HasMany(p => p.ProductsCosts)
+      .WithOne(d => d.Supplier).OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<User>().Property(x => x.UserId).HasDefaultValueSql("NEWID()");
 
@@ -158,8 +270,10 @@ public class MainDataContext : DbContext
             // Audit set the audit information foreach record
             foreach (var auditableEntity in auditableEntitySet.Where(c => c.State == EntityState.Added || c.State == EntityState.Modified))
             {
+                
                 if (auditableEntity.State == EntityState.Added)
                 {
+                    auditableEntity.Entity.Active = true;
                     auditableEntity.Entity.CreatedDate = currentDate;
                 }
 
@@ -178,10 +292,22 @@ public class MainDataContext : DbContext
                                 auditableEntity.Entity.CreatedByName = currentUser.FullName;
                             }
                             auditableEntity.Entity.ModifiedBy = currentUser.UserId;
-                            auditableEntity.Entity.ModifiedByName = currentUser.ModifiedByName;
+                            auditableEntity.Entity.ModifiedByName = currentUser.FullName;
                             
                         }
                     }
+                }
+                if (auditableEntity.State == EntityState.Deleted)
+                {
+                    auditableEntity.Entity.Active = false;
+                    auditableEntity.State = EntityState.Modified;
+                }
+
+                if (auditableEntity.State == EntityState.Modified) 
+                {
+                    auditableEntity.Property(nameof(ICommonData.CreatedDate)).IsModified = false;
+                    auditableEntity.Property(nameof(ICommonData.CreatedBy)).IsModified = false;
+                    auditableEntity.Property(nameof(ICommonData.CreatedByName)).IsModified = false;
                 }
             }
         }

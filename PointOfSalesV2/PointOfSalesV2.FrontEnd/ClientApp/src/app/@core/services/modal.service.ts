@@ -20,8 +20,8 @@ modalRef:any;
     
         this.modalRef=this.modals.open(NgbdModalConfirmAutofocus);
         this.modalRef.componentInstance.config={
-            titleText:this.lang.getValueByKey('deleteConfirm_label'),
-            bodyText:this.lang.getValueByKey('areYouSure_label'),
+            titleText:this.lang.getValueByKey('deleteConfirm_lbl'),
+            bodyText:this.lang.getValueByKey('areYouSure_lbl'),
             cancelButtonText:this.lang.getValueByKey('cancel_btn'),
             okText:this.lang.getValueByKey('ok_btn'),
         }
@@ -33,10 +33,10 @@ modalRef:any;
     }
 
     showSuccess(message:string='') {
-        this.toastr.success(!message?this.lang.getValueByKey('success_msg'):message, this.lang.getValueByKey('success_msg'));
+        this.toastr.success(!message?this.lang.getValueByKey('success_msg'):this.lang.getValueByKey(message), this.lang.getValueByKey('success_msg'));
       }
 
       showError(message:string='') {
-        this.toastr.error(!message?this.lang.getValueByKey('error_msg'):message, this.lang.getValueByKey('error_msg'));
+        this.toastr.error(!message?this.lang.getValueByKey('error_msg'):this.lang.getValueByKey(message), this.lang.getValueByKey('error_msg'));
       }
 }

@@ -21,9 +21,9 @@ export class User {
   width: number = 0;
   height: number = 0;
   size: number = 0;
-  branchOfficeId: number = 0;
-  cashRegisterId: number = 0;
-  warehouseId: number = 0;
+  branchOfficeId?: number;
+  cashRegisterId?: number;
+  warehouseId?: number;
   cashRegisterOpenningTimeHours: number = 0;
   fullName = (): string => `${this.name} ${this.lastName}`;
   gender: string = '';

@@ -15,6 +15,19 @@ namespace PointOfSalesV2.Common
             Converted = 'C'
         }
 
+    
+
+        public enum CashRegisterOpeningType 
+        {
+        cash,
+        check,
+        creditCard
+        }
+        public enum CashRegisterOpeningStates
+        {
+           Open='O',
+           Close='C'
+        }
         public enum SortDirections 
         {
         DESC=0,
@@ -29,6 +42,19 @@ namespace PointOfSalesV2.Common
             DATETIME = 4
         }
 
+        public static Dictionary<string, ExcelColumnsDef> PropertyTypesToExcelEnum = new Dictionary<string, ExcelColumnsDef>() 
+        {
+            {"datetime",ExcelColumnsDef.DATETIME },
+            {"int",ExcelColumnsDef.INTEGER },
+            {"byte",ExcelColumnsDef.INTEGER },
+            {"long",ExcelColumnsDef.INTEGER },
+            {"short",ExcelColumnsDef.INTEGER },
+            {"string",ExcelColumnsDef.TEXT },
+            {"decimal",ExcelColumnsDef.DECIMAL },
+            {"float",ExcelColumnsDef.DECIMAL },
+            {"char",ExcelColumnsDef.TEXT },
+        };
+
         public enum ObjectType 
         {
         STRING=0,
@@ -40,6 +66,7 @@ namespace PointOfSalesV2.Common
 
         public enum SequenceTypes
         {
+            
             Invoices = 1,
             Sellers = 2,
             Customers = 3,
@@ -50,8 +77,38 @@ namespace PointOfSalesV2.Common
             CustomersReturns = 8,
             SupplierReturns = 9,
             CustomerPayments = 10,
-            ExpensesPayments = 11
+            CompanyPayments = 11,
+            Leads=12,
+            Schools=13,
+            ExpensePayments=14,
+            Products=15
         }
+
+        public enum CompanyPaymentTypes
+        {
+        ExpensePayment=0,
+        CustomerPayment=1
+        }
+
+        public enum SequenceTypeCode
+        {
+            FAC = 1,
+            VEND = 2,
+            CLI = 3,
+            COT = 4,
+            GST = 5,
+            TRF = 6,
+            ENT = 7,
+            DEV = 8,
+            DEVS = 9,
+            R = 10,
+            P = 11,
+            CONDUCE = 12,
+            ESC = 13,
+            PG=14,
+            PRO = 15,
+        }
+
         public enum AppSections
         {
             Permissions = 1,
@@ -100,7 +157,8 @@ namespace PointOfSalesV2.Common
             AccountState = 44,
             ResultState = 45,
             TaxesReport = 46,
-            InventoryIncomes = 47
+            InventoryIncomes = 47,
+            CompanyPayments=48
 
         }
         public enum MovementTypes
@@ -165,6 +223,7 @@ namespace PointOfSalesV2.Common
             {AppSections.ResultState,"" },
             {AppSections.TaxesReport,"" },
             {AppSections.InventoryIncomes,"" },
+            {AppSections.CompanyPayments,"" },
         };
         public enum Gender
         {

@@ -14,8 +14,8 @@ import { TranslateService } from '@ngx-translate/core';
 export class AppComponent implements OnInit {
 
   constructor(private analytics: AnalyticsService, translate: TranslateService) {
-    translate.setDefaultLang('EN');
-    translate.use('EN')
+    translate.setDefaultLang('ES');
+    translate.use('ES')
   }
 
   ngOnInit() {

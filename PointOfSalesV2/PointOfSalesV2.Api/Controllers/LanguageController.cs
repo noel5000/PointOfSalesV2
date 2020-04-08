@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using PointOfSalesV2.Api.Security;
-using PointOfSalesV2.Entities;
+using PointOfSalesV2.Entities; using Microsoft.Extensions.Caching.Memory;
 using PointOfSalesV2.Entities.Model;
 using PointOfSalesV2.Repository;
 using static PointOfSalesV2.Common.Enums;
@@ -19,7 +19,7 @@ namespace PointOfSalesV2.Api.Controllers
     public class LanguageController : BaseController<Language>
     {
         private readonly ILanguageKeyRepository languageKeyRepository;
-        public LanguageController(IOptions<AppSettings> appSettings, IDataRepositoryFactory repositoryFactory) : base(appSettings, repositoryFactory)
+        public LanguageController(IOptions<AppSettings> appSettings, IDataRepositoryFactory repositoryFactory, IMemoryCache cache) : base(appSettings, repositoryFactory,cache)
         {
             this.languageKeyRepository = repositoryFactory.GetCustomDataRepositories<ILanguageKeyRepository>();
         }
@@ -36,7 +36,7 @@ namespace PointOfSalesV2.Api.Controllers
                 var result = languageKeyRepository.UploadI18nDictionaries(path, folderType);
                 return Ok(result);
             }
-            catch (Exception ex) 
+            catch
             {
                 return Ok(new Result<object>(-1, -1, "errorDictionary_msg"));
             }

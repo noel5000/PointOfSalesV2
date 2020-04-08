@@ -1,14 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Microsoft.AspNet.OData;
 using Microsoft.AspNet.OData.Query;
 using Microsoft.AspNet.OData.Routing;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
+using Microsoft.OData.Edm;
 using PointOfSalesV2.Api.Security;
+using PointOfSalesV2.Common;
 using PointOfSalesV2.Entities;
 using PointOfSalesV2.Entities.Model;
 using PointOfSalesV2.Repository;
@@ -23,11 +27,22 @@ namespace PointOfSalesV2.Api.Controllers
         protected readonly IDataRepositoryFactory _repositoryFactory;
         protected readonly IOptions<AppSettings> _appSettings;
         protected readonly IBase<T> _baseRepo;
-        public BaseController(IOptions<AppSettings> appSettings, IDataRepositoryFactory repositoryFactory)
+        protected readonly IMemoryCache _cache;
+        protected readonly IBase<LanguageKey> languageKeysRepo;
+        protected IEnumerable<LanguageKey> languageKeys;
+        public BaseController(IOptions<AppSettings> appSettings, IDataRepositoryFactory repositoryFactory,IMemoryCache cache, IBase<T> customRepo = null)
         {
+            this._cache = cache;
             _appSettings = appSettings;
             _repositoryFactory = repositoryFactory;
-            this._baseRepo = _repositoryFactory.GetDataRepositories<T>();
+            this.languageKeysRepo = repositoryFactory.GetDataRepositories<LanguageKey>();
+            this.languageKeys = _cache.Get<IEnumerable<LanguageKey>>("languageKeysMem");
+            if (this.languageKeys == null) 
+            {
+                this.languageKeys = this.languageKeysRepo.GetAll(x=>x, y => y.Active == true).Data;
+                this._cache.Set("languageKeysMem", this.languageKeys,DateTime.Now.AddHours(24));
+            }
+            this._baseRepo=customRepo?? _repositoryFactory.GetDataRepositories<T>();
         }
 
         [HttpGet]
@@ -39,6 +54,39 @@ namespace PointOfSalesV2.Api.Controllers
             {
                 var data = _baseRepo.GetAll<T>(x => x.Where(y => y.Active == true));
                 return Ok(data);
+            }
+
+            catch (Exception ex)
+            {
+                return Ok(new { status = -1, message = ex.Message });
+            }
+        }
+
+        [HttpGet("ExportToExcel")]
+        [ActionAuthorize(Operations.READALL)]
+        [EnableQuery()]
+        [ODataRoute("[controller]/ExportToExcel")]
+        public virtual IActionResult ExportToExcel()
+        {
+            try
+            {
+                var data = _baseRepo.GetAll<T>(x => x.Where(y => y.Active == true));
+                string requestLanguage = "EN";
+                var languageIdHeader = this.Request.Headers["languageid"];
+                requestLanguage = languageIdHeader.FirstOrDefault() ?? "es";
+                var excelData = ExportUtility.GetExcelData<T>(data, requestLanguage,this.languageKeys.ToList());
+                var excelStream = ExcelImport.CreateXlsStream(
+                    excelData.Item1,
+                   excelData.Item2
+                   );
+                if (data != null && excelStream != null && excelStream.Length > 0)
+                {
+
+                    return File(excelStream.ToArray(), "application/octet-stream", $"{new T().GetType().Name}-{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}.xls");
+                }
+                return BadRequest(new { status = -1, message = "Documento no existe" });
+
+
             }
 
             catch (Exception ex)
@@ -135,18 +183,8 @@ namespace PointOfSalesV2.Api.Controllers
         {
             try
             {
-                var model = _baseRepo.Get(id).Data.FirstOrDefault() as ICommonData;
-                if (model != null)
-                {
-                    model.Active = false;
-                    var result = _baseRepo.Update(model as T);
-                    return Ok(result);
-                }
-                else
-                {
-                    return Ok(new { status = -1, message = "error_msg" });
-                }
-
+                var result = _baseRepo.Remove(id);
+                return Ok(result);
             }
 
             catch (Exception ex)

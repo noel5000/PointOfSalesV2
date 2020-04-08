@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
 
 namespace PointOfSalesV2.Entities
 {
@@ -12,28 +13,32 @@ namespace PointOfSalesV2.Entities
     {
 
         public long WarehouseId { get; set; }
-        public long LocationId { get; set; }
+        public long BranchOfficeId { get; set; }
         public long ProductId { get; set; }
+
+        [Export(Order = 4)]
         public decimal Quantity { get; set; }
 
 
 
 
         [NotMapped]
+        [IgnoreDataMember]
         public override string TranslationData { get; set; }
 
         public long UnitId { get; set; }
-
+        [Export(Order = 5)]
         public string MovementType { get; set; }
         [MaxLength(50)]
+        [Export(Order = 6)]
         public string Reference { get; set; }
-
+        [Export(Order =7)]
         public decimal CurrentBalance { get; set; }
 
 
         public WarehouseMovement() { }
 
-        public WarehouseMovement(long warehouseId, long productId, decimal quantity, bool active, long unitId, long locationId, string movType, string reference, decimal currentBalance = 0)
+        public WarehouseMovement(long warehouseId, long productId, decimal quantity, bool active, long unitId, long branchOfficeId, string movType, string reference, decimal currentBalance = 0)
         {
             this.WarehouseId = warehouseId;
             this.ProductId = productId;
@@ -41,7 +46,7 @@ namespace PointOfSalesV2.Entities
             this.CreatedDate = DateTime.Now;
             this.Active = active;
             this.UnitId = unitId;
-            this.LocationId = locationId;
+            this.BranchOfficeId = branchOfficeId;
             this.MovementType = movType;
             this.Reference = reference;
             this.CurrentBalance = currentBalance;
@@ -49,10 +54,13 @@ namespace PointOfSalesV2.Entities
 
 
         [ForeignKey("ProductId")]
+        [Export(Order = 2, ChildProperty = "Name")]
         public Product Product { get; set; }
-        [ForeignKey("LocationId")]
-        public BranchOffice Location { get; set; }
+        [ForeignKey("BranchOfficeId")]
+        [Export(Order = 0, ChildProperty = "Name")]
+        public BranchOffice BranchOffice { get; set; }
         [ForeignKey("WarehouseId")]
+        [Export(Order = 1, ChildProperty = "Name")]
         public Warehouse Warehouse { get; set; }
 
         [NotMapped]
@@ -65,6 +73,7 @@ namespace PointOfSalesV2.Entities
         [NotMapped]
         public string Details { get; set; }
         [ForeignKey("UnitId")]
+        [Export(Order = 3, ChildProperty = "Name")]
         public Unit Unit { get; set; }
        
 

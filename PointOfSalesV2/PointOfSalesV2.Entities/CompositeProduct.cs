@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,7 +15,9 @@ namespace PointOfSalesV2.Entities
         public long ProductId { get; set; }
 
         public long BaseProductId { get; set; }
+        public long CurrencyId { get; set; }
         [NotMapped]
+        [IgnoreDataMember]
         public override string TranslationData { get; set; }
 
         public Nullable<long> BaseProductUnitId { get; set; }

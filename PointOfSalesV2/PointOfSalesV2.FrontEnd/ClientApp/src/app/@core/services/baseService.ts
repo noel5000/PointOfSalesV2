@@ -1,7 +1,7 @@
 
 import { isNullOrUndefined } from 'util';
 import { of, Observable, from } from "rxjs";
-import { map } from "rxjs/operators";
+import { map, filter } from "rxjs/operators";
 import { Injectable } from "@angular/core";
 import { HttpHeaders, HttpClient, HttpParams } from "@angular/common/http";
 import { IPagedList } from '../data/pagedList';
@@ -15,11 +15,11 @@ import { QueryFilter, ObjectTypes } from '../common/enums';
 export interface IService<TEntity, TKey> {
     baseUrl: string;
     get();
-    getAll(): Observable<BaseResultModel<TEntity>>;
+    getAll(): Observable<TEntity[]>;
     getById(id: TKey): Observable<BaseResultModel<TEntity>>;
     post(entity: TEntity): Observable<BaseResultModel<TEntity>>;
     patch(entity: TEntity, id: TKey): Observable<BaseResultModel<TEntity>>;
-    put(id: TKey, entity: TEntity): Observable<BaseResultModel<TEntity>>;
+    put(entity: TEntity): Observable<BaseResultModel<TEntity>>;
     putList(entity: TEntity[]): Observable<BaseResultModel<TEntity>>;
     delete(id: TKey): Observable<BaseResultModel<TEntity>>;
 }
@@ -45,17 +45,19 @@ export class BaseService<TEntity, TKey> implements IService<TEntity, TKey> {
         this.setHttpOptions();
     }
 
-    setHttpOptions() {
+    setHttpOptions(responseType:string="") {
         const currentUser = JSON.parse(localStorage.getItem("currentUser")) as AuthModel;
         this.tempHttpOptions = {
             headers: this._headers,
-            params: null
+            params: null,
+            responseType:responseType?responseType:'application/json'
         };
 
+        
 
 
         this._headers = new HttpHeaders({
-            "Content-Type": "application/json",
+            "Content-Type": responseType?responseType:"application/json",
             "UserId": currentUser ? currentUser.user.userId : '',
             "LanguageId": currentUser ? currentUser.languageId : 'en',
             "Authorization": currentUser ? `Bearer ${currentUser.token}` : ''
@@ -84,10 +86,10 @@ export class BaseService<TEntity, TKey> implements IService<TEntity, TKey> {
         );
     }
 
-    getAll(languageId: string = ""): Observable<BaseResultModel<TEntity>> {
+    getAll(languageId: string = ""): Observable<TEntity[]> {
         this.setHttpOptions();
         this.setLanguageInHeaders(languageId);
-        let data = this._httpClient.get<BaseResultModel<TEntity>>(
+        let data = this._httpClient.get<TEntity[]>(
             this.baseUrl,
             !languageId ? this.httpOptions : this.tempHttpOptions
         );
@@ -126,24 +128,91 @@ export class BaseService<TEntity, TKey> implements IService<TEntity, TKey> {
         return data;
     }
 
+    downLoadFile(data: any, type: string, fileName:string='Report', fileExt:string='xls') {
+        let blob = new Blob([data], { type: type});
+        let url = window.URL.createObjectURL(blob);
+        var anchor = document.createElement("a");
+anchor.download = `${fileName}.${fileExt}`;
+anchor.href = url;
+anchor.click();
+        
+    }
+
+    getAllFiltered(
+        filters: QueryFilter[] = [],
+        languageId: string = ""
+    ): Observable<any> {
+        this.setHttpOptions();
+        this.setLanguageInHeaders(languageId);
+        let data = this._httpClient.get<any>(
+            `${this.baseUrl.replace('/api/','/odata/')}?${this.getODataQueryAll(filters)}`,
+            !languageId ? this.httpOptions : this.tempHttpOptions
+        );
+       
+        return data;
+    }
+
+    getAllFilteredToExport(
+        filters: QueryFilter[] = [],
+        languageId: string = ""
+    ): Observable<Blob> {
+        const currentUser = JSON.parse(localStorage.getItem("currentUser")) as AuthModel;
+        return this._httpClient.post(`${this.baseUrl}/exporttoexcel`,
+        {filters}
+        ,{responseType:'blob',
+        headers:new HttpHeaders({
+            "UserId": currentUser ? currentUser.user.userId : '',
+            "LanguageId": currentUser ? currentUser.languageId : 'en',
+            "Authorization": currentUser ? `Bearer ${currentUser.token}` : ''
+        })})
+    }
+
+    exportToExcel(
+        data:any={},
+        url:string="",
+        languageId: string = "",
+    ): Observable<Blob> {
+        const currentUser = JSON.parse(localStorage.getItem("currentUser")) as AuthModel;
+        return this._httpClient.post(`${this.baseUrl}${url?'/'+url:''}`,
+        data
+        ,{responseType:'blob',
+        headers:new HttpHeaders({
+            "UserId": currentUser ? currentUser.user.userId : '',
+            "LanguageId": currentUser ? currentUser.languageId : 'en',
+            "Authorization": currentUser ? `Bearer ${currentUser.token}` : ''
+        })})
+    }
+
     getODataQuery(filters: QueryFilter[], page: number, max: number, orderBy: string, direction: string): string {
         let result = '';
+
+        const expandFilters = filters.filter(x=>x.type== ObjectTypes.ChildObject);
+        if(expandFilters && expandFilters.length>0){
+            let expandResult='$expand=';
+            for(let i=0;i<expandFilters.length;i++){
+                expandResult+=`${expandFilters[i].property}${expandFilters[i].value?`($select=${expandFilters[i].value})`:''}${i==expandFilters.length-1?'&':','}`;
+            }
+          result+=expandResult;
+        }
         let query = '$filter=';
+      
         filters.forEach(f => {
+            let comparer= f.comparer?f.comparer.toString():'eq';
             switch (f.type) {
+                
                 case ObjectTypes.String:
                     query =!f.isTranslated? `${query}(contains(toLower(${f.property}), '${f.value}')) and `:
                     `${query}(contains(toLower(TranslationData), '${f.value}')) and `
                     ;
                     break;
                 case ObjectTypes.Number:
-                    query = `${query}(${f.property} eq ${f.value}) and `;
+                    query = `${query}(${f.property} ${comparer} ${f.value}) and `;
                     break;
                 case ObjectTypes.Date:
-                    query = `${query}(${f.property} eq '${f.value}') and `;
+                    query = `${query}(${f.property} ${comparer} '${f.value}') and `;
                     break;
                 case ObjectTypes.Boolean:
-                    query = `${query}(${f.property} eq ${f.value}) and `;
+                    query = `${query}(${f.property} ${comparer} ${f.value}) and `;
                     break;
             }
         })
@@ -151,8 +220,58 @@ export class BaseService<TEntity, TKey> implements IService<TEntity, TKey> {
         if (result.endsWith(" and '")|| result.endsWith(" and ")) {
             result = result.substring(0, result.length - 5);
         }
+
+        if (result.endsWith("&")) {
+            result = result.substring(0, result.length - 1);
+        }
         const skipVal=((page-1) * max)<0?0:(page-1) * max;
         result = `${result}${result.length > 8 ? '&' : ''}$skip=${skipVal}&$count=true&$top=${max}&$orderby=${orderBy} ${direction}`;
+
+        return result;
+    }
+
+    getODataQueryAll(filters: QueryFilter[]): string {
+        let result = '';
+
+        const expandFilters = filters.filter(x=>x.type== ObjectTypes.ChildObject);
+        if(expandFilters && expandFilters.length>0){
+            let expandResult='$expand=';
+            for(let i=0;i<expandFilters.length;i++){
+                expandResult+=`${expandFilters[i].property}${expandFilters[i].value?`($select=${expandFilters[i].value})`:''}${i==expandFilters.length-1?'&':','}`;
+            }
+            result+=expandResult;
+        }
+        let query = '$filter=';
+      
+        filters.forEach(f => {
+            let comparer= f.comparer?f.comparer.toString():'eq';
+            switch (f.type) {
+                case ObjectTypes.String:
+                    query =!f.isTranslated? `${query}(contains(toLower(${f.property}), '${f.value}')) and `:
+                    `${query}(contains(toLower(TranslationData), '${f.value}')) and `
+                    ;
+                    break;
+                case ObjectTypes.Number:
+                    query = `${query}(${f.property} ${comparer} ${f.value}) and `;
+                    break;
+                case ObjectTypes.Date:
+                    query = `${query}(${f.property} ${comparer} '${f.value}') and `;
+                    break;
+                case ObjectTypes.Boolean:
+                    query = `${query}(${f.property} ${comparer} ${f.value}) and `;
+                    break;
+            }
+        })
+        result = query.length > 8 ? `${result}${query}` : result;
+        if (result.endsWith(" and '")|| result.endsWith(" and ")) {
+            result = result.substring(0, result.length - 5);
+        }
+
+        if (result.endsWith("&")) {
+            result = result.substring(0, result.length - 1);
+        }
+      
+        result = `${result}`;
 
         return result;
     }
@@ -177,28 +296,28 @@ export class BaseService<TEntity, TKey> implements IService<TEntity, TKey> {
         }
     }
 
-    post(entity: TEntity, languageId: string = ""): Observable<BaseResultModel<TEntity>> {
+    post(entity: TEntity, languageId: string = "", optionalUrl=""): Observable<BaseResultModel<TEntity>> {
         this.setHttpOptions();
         this.setLanguageInHeaders(languageId);
         return this._httpClient.post<BaseResultModel<TEntity>>(
-            this.baseUrl,
+          optionalUrl?`${this.baseUrl}/${optionalUrl}`:  this.baseUrl,
             entity,
             !languageId ? this.httpOptions : this.tempHttpOptions
         );
     }
-    postList(entity: TEntity[], languageId: string = ""): Observable<BaseResultModel<TEntity>> {
+    postList(entity: TEntity[], languageId: string = "", optionalUrl:string=''): Observable<BaseResultModel<TEntity>> {
         this.setHttpOptions();
         this.setLanguageInHeaders(languageId);
         return this._httpClient.put<BaseResultModel<TEntity>>(
-            this.baseUrl,
+            optionalUrl?`${this.baseUrl}/${optionalUrl}`:  this.baseUrl,
             entity,
             !languageId ? this.httpOptions : this.tempHttpOptions
         );
     }
-    putList(entity: TEntity[], languageId: string = ""): Observable<BaseResultModel<TEntity>> {
+    putList(entity: TEntity[], languageId: string = "", optionalUrl:string=""): Observable<BaseResultModel<TEntity>> {
         this.setHttpOptions();
         return this._httpClient.put<BaseResultModel<TEntity>>(
-            this.baseUrl,
+            optionalUrl?`${this.baseUrl}/${optionalUrl}`:  this.baseUrl,
             entity,
             !languageId ? this.httpOptions : this.tempHttpOptions
         );
@@ -213,11 +332,11 @@ export class BaseService<TEntity, TKey> implements IService<TEntity, TKey> {
         return this._httpClient.patch<BaseResultModel<TEntity>>(this.baseUrl + "/" + id, entity);
     }
 
-    put(id: TKey, entity: TEntity, languageId: string = ""): Observable<BaseResultModel<TEntity>> {
+    put(entity: TEntity, languageId: string = "",optionalUrl:string=""): Observable<BaseResultModel<TEntity>> {
         this.setHttpOptions();
         this.setLanguageInHeaders(languageId);
         return this._httpClient.put<BaseResultModel<TEntity>>(
-            this.baseUrl + "/" + id,
+            optionalUrl?`${this.baseUrl}/${optionalUrl}`:  this.baseUrl,
             entity,
             !languageId ? this.httpOptions : this.tempHttpOptions
         );
@@ -228,6 +347,15 @@ export class BaseService<TEntity, TKey> implements IService<TEntity, TKey> {
         this.setLanguageInHeaders(languageId);
         return this._httpClient.delete<BaseResultModel<TEntity>>(
             this.baseUrl + "/" + id,
+            !languageId ? this.httpOptions : this.tempHttpOptions
+        );
+    }
+
+    deleteGeneric(id: string, languageId: string = "", optionalUrl:string=""): Observable<BaseResultModel<TEntity>> {
+        this.setHttpOptions();
+        this.setLanguageInHeaders(languageId);
+        return this._httpClient.delete<BaseResultModel<TEntity>>(
+            optionalUrl?`${this.baseUrl}/${optionalUrl}/${id}`:  `${this.baseUrl}/${id}`,
             !languageId ? this.httpOptions : this.tempHttpOptions
         );
     }

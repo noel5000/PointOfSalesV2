@@ -1,4 +1,5 @@
-﻿using PointOfSalesV2.Common;
+﻿using Microsoft.EntityFrameworkCore;
+using PointOfSalesV2.Common;
 using PointOfSalesV2.Entities;
 using System;
 using System.Collections.Generic;
@@ -42,14 +43,14 @@ namespace PointOfSalesV2.Repository
             {
                 try
                 {
-                    var invoice = _Context.Invoices.FirstOrDefault(x => x.InvoiceNumber.ToLower() == entity.InvoiceNumber.ToLower() && x.Active==true);
+                    var invoice = _Context.Invoices.AsNoTracking().FirstOrDefault(x => x.InvoiceNumber.ToLower() == entity.InvoiceNumber.ToLower() && x.Active==true);
                     if (invoice == null)
                         return new Result<CustomerPayment>(-1,-1,"invalidInvoice_msg");
                     if(invoice.OwedAmount != entity.OutstandingAmount)
                         return new Result<CustomerPayment>(-1, -1, "owedAmountOutdated_msg");
                     if(invoice.OwedAmount<=0)
                         return new Result<CustomerPayment>(-1, -1, "invoicePaid_msg");
-                    var previousPayments = _Context.CustomersPayments.Where(x => x.InvoiceNumber.ToLower() == entity.InvoiceNumber.ToLower()&& x.Active==true).ToList();
+                    var previousPayments = _Context.CustomersPayments.AsNoTracking().Where(x => x.InvoiceNumber.ToLower() == entity.InvoiceNumber.ToLower()&& x.Active==true).ToList();
                     invoice.PaidAmount += invoice.PaidAmount;
                     entity.TotalAmount = invoice.TotalAmount;
                     decimal comissionRate = invoice.SellerRate / invoice.BeforeTaxesAmount;
@@ -63,7 +64,7 @@ namespace PointOfSalesV2.Repository
 
                     _Context.Invoices.Update(invoice);
                     _Context.SaveChanges();
-                    var customerBalance = _Context.CustomersBalance.FirstOrDefault(x=>x.CustomerId==entity.CustomerId && x.CurrencyId== entity.CurrencyId && x.Active==true);
+                    var customerBalance = _Context.CustomersBalance.AsNoTracking().FirstOrDefault(x=>x.CustomerId==entity.CustomerId && x.CurrencyId== entity.CurrencyId && x.Active==true);
                     if (customerBalance != null)
                     {
                         customerBalance.OwedAmount -= entity.PaidAmount;
@@ -106,7 +107,7 @@ namespace PointOfSalesV2.Repository
                         return new Result<CustomerPayment>(-1, -1, "paymentNotValid_msg");
                     obj.Active = false;
 
-                    Invoice invoice = _Context.Invoices.FirstOrDefault(x => x.Active == true && x.InvoiceNumber == obj.InvoiceNumber);
+                    Invoice invoice = _Context.Invoices.AsNoTracking().FirstOrDefault(x => x.Active == true && x.InvoiceNumber == obj.InvoiceNumber);
 
                     invoice.PaidAmount -= obj.PaidAmount;
                     invoice.PaidAmount = invoice.PaidAmount < 0 ? 0 : invoice.PaidAmount;
@@ -116,7 +117,7 @@ namespace PointOfSalesV2.Repository
                         invoice.State = (char)Enums.BillingStates.Billed;
                     _Context.Invoices.Update(invoice);
                     _Context.SaveChanges();
-                    CustomerBalance customerBalance = _Context.CustomersBalance.FirstOrDefault(x => x.Active == true && x.CustomerId == obj.CustomerId && x.CurrencyId == obj.CurrencyId);
+                    CustomerBalance customerBalance = _Context.CustomersBalance.AsNoTracking().FirstOrDefault(x => x.Active == true && x.CustomerId == obj.CustomerId && x.CurrencyId == obj.CurrencyId);
                     if (customerBalance != null)
                     {
                         customerBalance.OwedAmount += obj.PaidAmount;
@@ -151,7 +152,7 @@ namespace PointOfSalesV2.Repository
                         return new Result<CustomerPayment>(-1, -1, "paymentNotValid_msg");
                     obj.Active = false;
 
-                    Invoice invoice = _Context.Invoices.FirstOrDefault(x => x.Active == true && x.InvoiceNumber == obj.InvoiceNumber);
+                    Invoice invoice = _Context.Invoices.AsNoTracking().FirstOrDefault(x => x.Active == true && x.InvoiceNumber == obj.InvoiceNumber);
 
                     invoice.PaidAmount -= obj.PaidAmount;
                     invoice.PaidAmount = invoice.PaidAmount < 0 ? 0 : invoice.PaidAmount;
@@ -161,7 +162,7 @@ namespace PointOfSalesV2.Repository
                         invoice.State = (char)Enums.BillingStates.Billed;
                     _Context.Invoices.Update(invoice);
                     _Context.SaveChanges();
-                    CustomerBalance customerBalance = _Context.CustomersBalance.FirstOrDefault(x => x.Active == true && x.CustomerId == obj.CustomerId && x.CurrencyId == obj.CurrencyId);
+                    CustomerBalance customerBalance = _Context.CustomersBalance.AsNoTracking().FirstOrDefault(x => x.Active == true && x.CustomerId == obj.CustomerId && x.CurrencyId == obj.CurrencyId);
                     if (customerBalance != null)
                     {
                         customerBalance.OwedAmount += obj.PaidAmount;

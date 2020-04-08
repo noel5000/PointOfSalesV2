@@ -11,6 +11,10 @@
     <Compile Remove="Migrations\20191230014603_newSections.Designer.cs" />
     <Compile Remove="Migrations\20191230213459_SeedsTranslationsFix2.cs" />
     <Compile Remove="Migrations\20191230213459_SeedsTranslationsFix2.Designer.cs" />
+    <Compile Remove="Migrations\20200327010215_UsersBranchOfficeCashOpening2.cs" />
+    <Compile Remove="Migrations\20200327010215_UsersBranchOfficeCashOpening2.Designer.cs" />
+    <Compile Remove="Migrations\20200328195856_Expenses.cs" />
+    <Compile Remove="Migrations\20200328195856_Expenses.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

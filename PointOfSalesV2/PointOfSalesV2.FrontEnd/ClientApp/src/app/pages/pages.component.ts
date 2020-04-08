@@ -13,7 +13,7 @@ import { AppSections } from '../@core/common/enums';
   styleUrls: ['pages.component.scss'],
   template: `
     <ngx-one-column-layout>
-      <nb-menu [items]="menu"></nb-menu>
+      <nb-menu [items]="menu" class="dontPrint"></nb-menu>
       <router-outlet></router-outlet>
     </ngx-one-column-layout>
   `,
@@ -68,52 +68,52 @@ export class PagesComponent {
         },
         {
           title: this.lang.getValueByKey('warehouse_menu'),
-          link: '',
+          link: 'warehouse',
           hidden: !this.securityService.isUserValidInMenu(AppSections.Warehouses)
         },
         {
           title: this.lang.getValueByKey('currencies_menu'),
-          link: '',
+          link: 'currency',
           hidden: !this.securityService.isUserValidInMenu(AppSections.Currencies)
         },
         {
           title: this.lang.getValueByKey('suppliers_menu'),
-          link: '',
+          link: 'supplier',
           hidden: !this.securityService.isUserValidInMenu(AppSections.Suppliers)
         },
         {
           title: this.lang.getValueByKey('taxes_menu'),
-          link: '',
+          link: 'tax',
           hidden: !this.securityService.isUserValidInMenu(AppSections.Taxes)
         },
         {
           title: this.lang.getValueByKey('units_menu'),
-          link: '',
+          link: 'unit',
           hidden: !this.securityService.isUserValidInMenu(AppSections.Units)
         },
         {
           title: this.lang.getValueByKey('TRNControl_menu'),
-          link: '',
+          link: 'trncontrol',
           hidden: !this.securityService.isUserValidInMenu(AppSections.TRNControl)
         },
         {
           title: this.lang.getValueByKey('zones_menu'),
-          link: '',
+          link: 'zone',
           hidden: !this.securityService.isUserValidInMenu(AppSections.Zones)
         },
         {
           title: this.lang.getValueByKey('sellers_menu'),
-          link: '',
+          link: 'seller',
           hidden: !this.securityService.isUserValidInMenu(AppSections.Sellers)
         },
         {
           title: this.lang.getValueByKey('customers_menu'),
-          link: '',
+          link: 'customer',
           hidden: !this.securityService.isUserValidInMenu(AppSections.Customers)
         },
         {
           title: this.lang.getValueByKey('products_menu'),
-          link: '',
+          link: 'product',
           hidden: !this.securityService.isUserValidInMenu(AppSections.Products)
         },
       ],
@@ -125,12 +125,12 @@ export class PagesComponent {
       children: [
         {
           title: this.lang.getValueByKey('cashRegisterManteinance_menu'),
-          link: '',
+          link: 'cashregister',
           hidden: !this.securityService.isUserValidInMenu(AppSections.CashRegisters)
         },
         {
           title: this.lang.getValueByKey('cashROpenClose_menu'),
-          link: '',
+          link: 'cashregisteropening',
           hidden: !this.securityService.isUserValidInMenu(AppSections.CashRegisterOpenings)
         }
       ],
@@ -164,12 +164,12 @@ export class PagesComponent {
       children: [
         {
           title: this.lang.getValueByKey('expensesRegister_menu'),
-          link: '',
+          link: 'expense',
           hidden: !this.securityService.isUserValidInMenu(AppSections.Expenses)
         },
         {
           title: this.lang.getValueByKey('expensesPayment_menu'),
-          link: '',
+          link: 'expensepayment',
           hidden: !this.securityService.isUserValidInMenu(AppSections.ExpensesPayments)
         }
       ],
@@ -201,12 +201,12 @@ export class PagesComponent {
         },
         {
           title: this.lang.getValueByKey('inventory_menu'),
-          link: '',
+          link: 'inventoryreport',
           hidden: !this.securityService.isUserValidInMenu(AppSections.Inventories)
         },
         {
           title: this.lang.getValueByKey('productsMovements_menu'),
-          link: '',
+          link: 'warehousemovements',
           hidden: !this.securityService.isUserValidInMenu(AppSections.ProductMovements)
         },
         {
@@ -216,12 +216,12 @@ export class PagesComponent {
         },
         {
           title: this.lang.getValueByKey('pricesList_menu'),
-          link: '',
+          link: 'pricelist',
           hidden: !this.securityService.isUserValidInMenu(AppSections.PriceList)
         },
         {
           title: this.lang.getValueByKey('customersList_menu'),
-          link: '',
+          link: 'customerlist',
           hidden: !this.securityService.isUserValidInMenu(AppSections.CustomersList)
         },
         {
@@ -248,12 +248,12 @@ export class PagesComponent {
       children: [
         {
           title: this.lang.getValueByKey('inventoryIn_menu'),
-          link: '',
+          link: 'inventoryentry',
           hidden: !this.securityService.isUserValidInMenu(AppSections.InventoryIncomes)
         },
         {
           title: this.lang.getValueByKey('warehouseTransfers_menu'),
-          link: '',
+          link: 'warehousetransfer',
           hidden: !this.securityService.isUserValidInMenu(AppSections.WarehouseTransfers)
         },
         {
@@ -263,7 +263,7 @@ export class PagesComponent {
         },
         {
           title: this.lang.getValueByKey('suppliersReturns_menu'),
-          link: '',
+          link: 'supplierreturn',
           hidden: !this.securityService.isUserValidInMenu(AppSections.SuppliersReturns)
         }
       ],
@@ -275,12 +275,12 @@ export class PagesComponent {
       children: [
         {
           title: this.lang.getValueByKey('users_menu'),
-          link: '',
+          link: 'user',
           hidden: !this.securityService.isUserValidInMenu(AppSections.Users)
         },
         {
           title: this.lang.getValueByKey('roles_menu'),
-          link: '',
+          link: 'role',
           hidden: !this.securityService.isUserValidInMenu(AppSections.Roles)
         }
       ],

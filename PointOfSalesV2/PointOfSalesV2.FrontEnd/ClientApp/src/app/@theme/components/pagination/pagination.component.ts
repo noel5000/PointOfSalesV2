@@ -25,9 +25,11 @@ import { AppSections, ObjectTypes } from '../../../@core/common/enums';
 
 export interface IPaginationModel{
   visible:boolean;
+  filterIsActive:boolean;
   id:string;
   type:string;
   isTranslated:boolean,
+  fieldToShow?:string;
   name:string;
   sorting:string;
   toSort:boolean;
@@ -80,6 +82,8 @@ export class PaginationCompoment{
     @Input() actions:IActionButtonModel[]=[];
     @Input() pageNumber:number=1;
     @Input() pageSize:number=10;
+    @Input() isPaginated:boolean=true;
+    @Input() showActions:boolean=true;
     @Input() maxCount:number=0;
     @Input() data:any[]=[];
     @Output() getPagedDataEvent: EventEmitter<any> = new EventEmitter<any>();
@@ -88,6 +92,7 @@ export class PaginationCompoment{
     @Output() actionFuncEvent:EventEmitter<any>= new EventEmitter<any>();
     @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
 
+    constructor(private lang:LanguageService){}
    
     getPagedData(e){
       this.getPagedDataEvent.emit(e);
@@ -100,6 +105,29 @@ export class PaginationCompoment{
     }
     onActionClick(action:string, item:any){
       this.actionFuncEvent.emit({action:action, item:item});
+    }
+    showValue(item:any,prop:IPaginationModel):any{
+      let result="";
+      const property = prop.fieldToShow?prop.fieldToShow:prop.id;
+      if(!property.includes('.'))
+      result= item[property];
+      else{
+        const properties = property.split('.');
+        let temp=item;
+        properties.forEach(p=>{
+          if(!temp[p])
+          return '';
+
+          temp= temp[p];
+        });
+        result= temp;
+      }
+      switch(prop.type){
+        case 'bool':
+          result=result?this.lang.getValueByKey('yes_lbl'):this.lang.getValueByKey('no_lbl');
+          break;
+      }
+      return result;
     }
 
     hideColumn(config:IPaginationModel,e:any){

@@ -14,6 +14,7 @@
 @import '~ngx-toastr/toastr-bs4-alert';
 // loading progress bar theme
 @import './pace.theme';
+@import './noPrint';
 @import '~ngx-toastr/toastr';
 
 @import './layout';
@@ -32,3 +33,11 @@
 
   @include nb-overrides();
 };
+
+body, #main-container {
+  height: auto;
+}
+
+.scrollTableMobile{
+  overflow-x:scroll !important;
+  }

@@ -5,10 +5,24 @@ export const endpointUrl = 'https://localhost:44386/api/';
 
 export const endpointControllers = {
     login: 'Login',
-    products: 'products',
+    products: 'product',
     logout: 'logout',
     languages: 'language',
-    branchOffices: 'branchOffice'
+    branchOffices: 'branchOffice',
+    units: 'unit',
+    taxes: 'tax',
+    currencies: 'currency',
+    zones: 'zone',
+    trncontrol: 'trncontrol',
+    warehoses: 'warehouse',
+    sellers:'seller',
+    suppliers:'supplier',
+    customers:'customer',
+    productTaxes:'productTax',
+    users:'user',
+    cashRegister:'cashRegister',
+    expenses:'expense',
+    expensePayment:'expensesPayment'
 }
 
 export const menuChildren = {
