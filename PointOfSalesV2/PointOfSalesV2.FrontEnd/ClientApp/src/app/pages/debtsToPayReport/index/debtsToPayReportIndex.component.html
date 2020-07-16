@@ -1,0 +1,102 @@
+<nb-card>
+  <nb-card-header>
+    <div class="row">
+      <div class="col-md-6">{{'debtsToPay_menu' | translate}}</div>
+      <div class="col-md-3">
+        <button type="button" class="btn btn-primary" (click)="print()">{{'print_btn' | translate}}</button>
+    </div>
+    <div class="col-md-3">
+      <button type="button" class="btn btn-success" (click)="exportToCSV()">{{'export_btn' | translate}}</button>
+  </div>
+    </div>
+   
+  </nb-card-header>
+
+  <nb-card-body>
+<div id="filter" class="dontPrint" >
+  <form [formGroup]="itemForm" (ngSubmit)="getData()">
+<div class="form-row">
+  <div class="form-group col-md-6 col-xs-12">
+    <label>{{'branchOffice_lbl' | translate}}</label>
+    <select class="form-control"
+    formControlName="branchOfficeId"
+    
+    >
+    <option *ngFor="let branchoffice of branchOffices"
+     [value]="branchoffice.id"
+     >{{branchoffice.name}}</option>
+    </select>
+</div>
+
+<div class="form-group col-md-6 col-xs-12">
+  <label>{{'supplier_lbl' | translate}}</label>
+  <select class="form-control"
+  formControlName="supplierId"
+  
+  >
+  <option *ngFor="let supplier of suppliers"
+   [value]="supplier.id"
+   >{{supplier.name}}</option>
+  </select>
+</div>
+
+<div class="form-group col-md-6 col-xs-12">
+  <label>{{'currency_lbl' | translate}}</label>
+  <select class="form-control"
+  formControlName="currencyId"
+  
+  >
+  <option *ngFor="let currency of currencies"
+   [value]="currency.id"
+   >{{currency.name}}</option>
+  </select>
+</div>
+
+<div class="form-group col-md-6 col-xs-12">
+  <label>{{'startDate_lbl' | translate}}</label>
+  <input type="date" formControlName="startDate" class="form-control" />
+</div>
+<div class="form-group col-md-6 col-xs-12">
+  <label>{{'endDate_lbl' | translate}}</label>
+  <input type="date" formControlName="endDate" class="form-control" />
+</div>
+</div>
+  </form>
+</div>
+<div id="body">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>{{'supplier_lbl' | translate}}</th>
+        <th>{{'sequence_lbl' | translate}}</th>
+        <th>{{'date_lbl' | translate}}</th>
+        <th>{{'trn_lbl' | translate}}</th>
+        <th>{{'beforeTaxesAmount_lbl' | translate}}</th>
+        <th>{{'taxesAmount_lbl' | translate}}</th>
+        <th>{{'totalAmount_lbl' | translate}}</th>
+        <th>{{'paidAmount_lbl' | translate}}</th>
+        <th>{{'owedAmount_lbl' | translate}}</th>
+        <th>{{'daysAmount_lbl' | translate}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor=" let expense of expenses">
+        <td>{{expense.supplier.name}}</td>
+        <td>{{expense.sequence}}</td>
+        <td>{{expense.date | date:"shortDate"}}</td>
+        <td>{{expense.trn}}</td>
+        <td>{{expense.beforeTaxesAmount | currency:""}}</td>
+        <td>{{expense.taxesAmount | currency:"" }}</td>
+        <td>{{expense.totalAmount | currency:"" }}</td>
+        <td>{{expense.paidAmount | currency:"" }}</td>
+        <td>{{expense.owedAmount | currency:"" }}</td>
+        <td>{{expense.numberOfDays}}</td>
+
+      </tr>
+    </tbody>
+      </table>
+
+</div>
+  </nb-card-body>
+</nb-card>
+

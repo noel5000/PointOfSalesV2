@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Caching.Memory;
 using PointOfSalesV2.Common;
-using PointOfSalesV2.Entities;
+using PointOfSalesV2.Entities; using Microsoft.Extensions.Caching.Memory;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,6 +46,7 @@ namespace PointOfSalesV2.Api.Security
 
             var currentPath = _httpContextAccessor.HttpContext.Request.Path.ToString().Split("/").ToList();
             int index = currentPath.IndexOf("api") + 1;
+            index = index == 0 ? currentPath.IndexOf("odata") + 1 : index;
             string[] currentController =_section== AppSections.All? new string[1] { currentPath[index] } :Enums.SectionsControllers[_section].Split(",");
             if (string.IsNullOrEmpty(currentToken) || currentController.Length==0 || !currentToken.Contains("Bearer"))
                 isInvalid = true;

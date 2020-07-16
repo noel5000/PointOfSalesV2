@@ -1,0 +1,59 @@
+<div class="card m-3">
+    <h5 class="card-header">{{'users_menu' | translate}}</h5>
+    <div class="card-body">
+        <form [formGroup]="itemForm" (ngSubmit)="save()">
+            <div class="form-row">
+               
+                <div class="form-group col-md-6 col-xs-12">
+                    <label>{{'name_lbl' | translate}}</label>
+                    <input type="text" formControlName="userName" maxlength="50" minlength="3" disabled class="form-control" />
+                   
+                </div>
+               
+            </div>
+          
+           
+            <div *ngIf="userId"  class="scrollTableMobile">
+                <h5 class="row mx-2">{{'roles_menu' | translate}}</h5>
+                <div class="row">
+                    <div class="form-group col-md-3 col-xs-12">
+                        <label>{{'role_lbl' | translate}}</label>
+                        <select class="form-control"
+                        [ngClass]="{ 'is-invalid': form.roleId.errors }"
+                        formControlName="roleId"
+                        >
+                        <option *ngFor="let role of roles"
+                         [value]="role.id"
+                         >{{role.name}}</option>
+                        </select>
+                        <div *ngIf="form.roleId.errors" class="invalid-feedback">
+                            <div *ngIf="form.roleId.errors.required">{{'required_lbl' | translate}}</div>
+                        </div>
+                    </div>  
+                    <div class="col-md-3 col-xs-12">
+                        <i class="btn btn-primary mr-1 my-4" (click)="saveRole()">{{'add_btn' | translate}}</i>
+                    </div>
+                </div>
+                <table class="table" *ngIf="userRoles.length>0">
+                    <thead>
+                        <tr>
+                            <th>{{'user_lbl' | translate}}</th>
+                            <th>{{'role_lbl' | translate}}</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let userRole of userRoles">
+                            <td>{{user.userName}}</td>
+                            <td>{{userRole.role.name}}</td>
+                            <td><i class="btn btn-danger" (click)="deleteRole(userRole)">{{'delete_btn' | translate}}</i></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="text-center">
+                <button class="btn btn-secondary" type="reset" (click)="cancel()">{{'cancel_btn' | translate}}</button>
+            </div>
+        </form>
+    </div>
+</div>

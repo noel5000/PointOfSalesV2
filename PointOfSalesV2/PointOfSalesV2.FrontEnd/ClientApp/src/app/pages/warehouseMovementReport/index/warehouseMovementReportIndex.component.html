@@ -1,0 +1,88 @@
+<nb-card>
+  <nb-card-header>
+    <div class="row">
+      <div class="col-md-6">{{'productsMovements_menu' | translate}}</div>
+      <div class="col-md-3">
+        <button type="button" class="btn btn-primary" (click)="print()">{{'print_btn' | translate}}</button>
+    </div>
+    <div class="col-md-3">
+      <button type="button" class="btn btn-success" (click)="exportToCSV()">{{'export_btn' | translate}}</button>
+  </div>
+    </div>
+   
+  </nb-card-header>
+
+  <nb-card-body>
+<div id="filter" class="dontPrint" >
+  <form [formGroup]="itemForm" (ngSubmit)="getData()">
+<div class="form-row">
+  <div class="form-group col-md-6 col-xs-12">
+    <label>{{'branchOffice_lbl' | translate}}</label>
+    <select class="form-control"
+    formControlName="branchOfficeId"
+    required
+    >
+    <option *ngFor="let branchoffice of branchOffices"
+     [value]="branchoffice.id"
+     >{{branchoffice.name}}</option>
+    </select>
+</div>
+
+<div class="form-group col-md-6 col-xs-12">
+  <label>{{'warehouse_lbl' | translate}}</label>
+  <select class="form-control"
+  formControlName="warehouseId"
+  required
+  >
+  <option *ngFor="let warehouse of warehouses"
+   [value]="warehouse.id"
+   >{{warehouse.name}}</option>
+  </select>
+</div>
+
+<div class="form-group col-md-6 col-xs-12">
+  <label>{{'product_lbl' | translate}}</label>
+  <select class="form-control"
+  formControlName="productId"
+  required
+  >
+  <option *ngFor="let product of products"
+   [value]="product.id"
+   >{{product.name}}</option>
+  </select>
+</div>
+</div>
+  </form>
+</div>
+<div id="body"  class="scrollTableMobile">
+  <table class="table">
+<thead>
+  <tr>
+    <th>{{'branchOffice_lbl' | translate}}</th>
+    <th>{{'warehouse_lbl' | translate}}</th>
+    <th>{{'product_lbl' | translate}}</th>
+    <th>{{'quantity_lbl' | translate}}</th>
+    <th>{{'movementType_lbl' | translate}}</th>
+    <th>{{'unit_lbl' | translate}}</th>
+    <th>{{'existence_lbl' | translate}}</th>
+    <th>{{'reference_lbl' | translate}}</th>
+  </tr>
+</thead>
+<tbody>
+  <tr *ngFor=" let movement of movements">
+    <td>{{movement.branchOffice.name}}</td>
+    <td>{{movement.warehouse.name}}</td>
+    <td>{{movement.product.name}}</td>
+    <td>{{movement.quantity}}</td>
+    <td>{{movement.movementType}}</td>
+    <td>{{movement.unit.name}}</td>
+    <td>{{movement.currentBalance}}</td>
+    <td>{{movement.reference}}</td>
+  </tr>
+</tbody>
+  </table>
+
+</div>
+  </nb-card-body>
+</nb-card>
+

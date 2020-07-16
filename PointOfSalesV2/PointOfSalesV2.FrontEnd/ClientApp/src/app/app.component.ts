@@ -1,9 +1,24 @@
-import { Component } from '@angular/core';
+/**
+ * @license
+ * Copyright Akveo. All Rights Reserved.
+ * Licensed under the MIT License. See License.txt in the project root for license information.
+ */
+import { Component, OnInit } from '@angular/core';
+import { AnalyticsService } from './@core/utils/analytics.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html'
+  selector: 'ngx-app',
+  template: '<router-outlet></router-outlet>',
 })
-export class AppComponent {
-  title = 'app';
+export class AppComponent implements OnInit {
+
+  constructor(private analytics: AnalyticsService, translate: TranslateService) {
+    translate.setDefaultLang('ES');
+    translate.use('ES')
+  }
+
+  ngOnInit() {
+    this.analytics.trackPageViews();
+  }
 }

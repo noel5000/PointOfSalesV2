@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
-using Microsoft.AspNet.OData;
 using PointOfSalesV2.Entities;
+using static PointOfSalesV2.Common.Enums;
 
 namespace PointOfSalesV2.Repository
 {
@@ -15,11 +15,13 @@ namespace PointOfSalesV2.Repository
     {
         protected readonly U _Context;
         private readonly DbSet<T> _DbSet;
+        public  List<Language> languages;
 
         public Base(U context)
         {
             _Context = context;
             _DbSet = _Context.Set<T>();
+          
         }
 
         public virtual Result<T> Add(T entity)
@@ -29,7 +31,8 @@ namespace PointOfSalesV2.Repository
                 var translation = entity as IEntityTranslate;
                 if (translation != null) 
                 {
-                  entity.TranslationData=  TranslateUtility.SaveTranslation(entity, translation.TranslationData);
+                    languages = _Context.Set<Language>().AsNoTracking().Where(x => x.Active == true).ToList();
+                    entity.TranslationData=  TranslateUtility.SaveTranslation(entity, translation.TranslationData,languages);
                    
                 }
                 _Context.Set<T>().Add(entity);
@@ -51,9 +54,15 @@ namespace PointOfSalesV2.Repository
             _Context.Set<T>().AddRange(entities);
 
             _Context.SaveChanges();
-
-
         }
+        public virtual void RemoveRange(IEnumerable<T> entities)
+        {
+            _Context.Set<T>().RemoveRange(entities);
+
+            _Context.SaveChanges();
+        }
+
+
 
         public virtual Result<T> Remove(T entity)
         {
@@ -79,7 +88,7 @@ namespace PointOfSalesV2.Repository
         {
             try
             {
-                T entity = _DbSet.Find(id);
+                var entity = _DbSet.AsNoTracking().FirstOrDefault(x => x.Id == id && x.Active == true);
 
                 _Context.Entry<T>(entity).State = EntityState.Deleted;
                 _Context.SaveChanges();
@@ -94,20 +103,28 @@ namespace PointOfSalesV2.Repository
             
         }
 
-        public virtual Result<T> Update(T entity)
+        public virtual Result<T> Update(T entity, bool getFromDb=true)
         {
             try
             {
-                var dbEntity = _DbSet.Find(entity.Id);
-                _Context.Entry<T>(dbEntity).State = EntityState.Detached;
+                var dbEntity =getFromDb? _DbSet.AsNoTracking().FirstOrDefault(x=>x.Id==entity.Id && x.Active==true):entity;
                 var translation = dbEntity as IEntityTranslate;
                 if (translation != null)
                 {
-                    entity.TranslationData = TranslateUtility.SaveTranslation(entity, translation.TranslationData);
+                    languages = _Context.Set<Language>().AsNoTracking().Where(x => x.Active == true).ToList();
+                    entity.TranslationData = TranslateUtility.SaveTranslation(entity, translation.TranslationData,languages);
                    
                 }
-                _DbSet.Attach(entity);
-                _Context.Entry<T>(entity).State = EntityState.Modified;
+                if (!getFromDb)
+                {
+                    _DbSet.Update(entity);
+                }
+                else 
+                {
+                    _DbSet.Attach(entity);
+                    _Context.Entry<T>(entity).State = EntityState.Modified;
+                }
+                
 
                 _Context.SaveChanges();
 
@@ -128,13 +145,11 @@ namespace PointOfSalesV2.Repository
 
         public virtual IPagedList<T> GetPaged(int startRowIndex, int pageSize, string sortExpression = null)
         {
-            return new PagedList<T>(_DbSet.AsNoTracking(), startRowIndex, pageSize);
+            return new PagedList<T>(_DbSet.AsNoTracking().Where(x=>x.Active==true), startRowIndex, pageSize);
         }
 
-        public virtual PageResult<T> GetPagedNew(int startRowIndex, int pageSize, string sortExpression = null)
-        {
-            return new PageResult<T>(_DbSet, new Uri("https://localhost:44383/api/products/2/2"), _DbSet.Count());
-        }
+
+       
 
         public virtual Result<T> GetAll(Func<IQueryable<T>, IQueryable<T>> transform, Expression<Func<T, bool>> filter = null, string sortExpression = null)
         {
@@ -148,7 +163,7 @@ namespace PointOfSalesV2.Repository
             return new Result<T>(0,0,"OK", sortedResults.ToArray().ToList());
         }
 
-        public virtual IEnumerable<TResult> GetAll<TResult>(Func<IQueryable<T>, IQueryable<TResult>> transform, Expression<Func<T, bool>> filter = null, string sortExpression = null)
+        public virtual IQueryable<TResult> GetAll<TResult>(Func<IQueryable<T>, IQueryable<TResult>> transform, Expression<Func<T, bool>> filter = null, string sortExpression = null)
         {
             var query = filter == null ? _DbSet.AsNoTracking().OrderBy(sortExpression) : _DbSet.AsNoTracking().Where(filter).OrderBy(sortExpression);
 
@@ -156,7 +171,7 @@ namespace PointOfSalesV2.Repository
 
             var sortedResults = sortExpression == null ? notSortedResults : notSortedResults.OrderBy(sortExpression);
 
-            return sortedResults.ToArray().ToList();
+            return sortedResults.AsQueryable();
         }
 
         public int GetCount<TResult>(Func<IQueryable<T>, IQueryable<TResult>> transform, Expression<Func<T, bool>> filter = null)
@@ -192,7 +207,7 @@ namespace PointOfSalesV2.Repository
         {
             try
             {
-                var entity = _DbSet.Find(id);
+                var entity = _DbSet.AsNoTracking().FirstOrDefault(x => x.Id == id && x.Active == true);
                 //TranslateUtility.Translate(entity, entity.TranslationData);
                 return new Result<T>(0,0,"OK",new List<T>() { entity });
             }
@@ -208,7 +223,9 @@ namespace PointOfSalesV2.Repository
         {
             try
             {
-                return new Result<T>(0, 0, "OK", new List<T>() { _DbSet.Find(id) });
+                var entity = _DbSet.Find(id);
+                _Context.Entry<T>(entity).State = EntityState.Detached;
+                return new Result<T>(0, 0, "OK", new List<T>() { entity });
             }
 
             catch (Exception ex)
@@ -220,7 +237,7 @@ namespace PointOfSalesV2.Repository
 
         public virtual TResult Get<TResult>(Func<IQueryable<T>, IQueryable<TResult>> transform, Expression<Func<T, bool>> filter = null, string sortExpression = null)
         {
-            var query = filter == null ? _DbSet : _DbSet.Where(filter);
+            var query = filter == null ? _DbSet.AsNoTracking() : _DbSet.AsNoTracking().Where(filter);
 
             var notSortedResults = transform(query);
 
@@ -230,7 +247,7 @@ namespace PointOfSalesV2.Repository
         }
         public virtual bool Exists(long id)
         {
-            return _DbSet.Find(id) != null;
+            return _DbSet.AsNoTracking().Any(x=>x.Id==id && x.Active==true);
         }
 
         public virtual bool Exists(Func<IQueryable<T>, IQueryable<T>> selector, Expression<Func<T, bool>> filter = null)

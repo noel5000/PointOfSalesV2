@@ -1,0 +1,126 @@
+<nb-card>
+  <nb-card-header>
+  
+   
+  </nb-card-header>
+
+  <nb-card-body>
+    <div id="impresoraNormal">
+
+      <div id="estadoCuenta" class="row">
+          <div class="col-xs-12">
+              <div class="block full">
+                 
+                   
+                 
+              
+                  <div id="invoiceContainer" >
+                      <div class="divBody scrollTableMobile">
+                          <table class="">
+                              <thead>
+                                  <tr><th class="titulo">Compania</th></tr>
+                                  <tr><th class="titulo">Dominicana. SRL</th></tr>
+                              </thead>
+                          </table>
+                          <table >
+                              <thead>
+                                  <tr><th class="companyInfo">{{'address_lbl' | translate}}: Calle # Esq.  No. #</th></tr>
+                                  <tr><th class="companyInfo">{{'phoneNumber_lbl' | translate}}: 809-555-5555</th></tr>
+                                  <tr><th class="companyInfo">{{'ntr_lbl' | translate}}: 000000000</th></tr>
+                                  <tr><th class="companyInfo">{{'email_lbl' | translate}}: email@gmail.com</th></tr>
+                              </thead>
+                          </table>
+                          <br />
+                          <table class="table table-vcenter">
+                              <thead>
+                                  <tr>
+                                      <th></th>
+                                      <th></th>
+                                      <th class="text-left">{{'date_lbl' | translate}}:</th>
+                                      <th class="text-left"> {{item.date | date:'dd-MM-yyyy'}}</th>
+                                  </tr>
+
+                                  <tr>
+                                      <th>{{'customer_lbl' | translate}}: {{item.customer.name}} {{item.customer.code}}</th>
+                                      <th class=" "></th>
+                                      <th class="text-left"></th>
+                                      <th class="text-left">{{item.sequence.toUpperCase()}}</th>
+                                  </tr>
+                                  <tr>
+                                      <th class=" "></th>
+                                      <th class="text-left"></th>
+                                      <th class="text-left"></th>
+                                  </tr>
+                                  <tr>
+                                      <th>{{'address_lbl' | translate}}: {{item.customer.address}}</th>
+                                      <th class=" "></th>
+                                      
+                                  </tr>
+                                  <tr>
+                                      <th>{{'phoneNumber_lbl' | translate}}: {{item.customer.phoneNumber}}</th>
+                                      <th></th>
+                                      <th class="text-left">{{'trn_lbl' | translate}}:</th>
+                                      
+                                  </tr>
+
+                                  <tr>
+                                      <th style="color:white !important; visibility:hidden;">sssss</th>
+                                  </tr>
+                                 
+                              </thead>
+                           
+                          </table>
+                          <table class="table table-vcenter">
+                              <thead class="table-bordered tabl">
+                                  <tr>
+                                      <th class="text-left" style="border: 1px solid black;">{{'invoiceNo_lbl' | translate}}</th>
+                                      <th class="text-center" style="border: 1px solid black;">{{'totalAmount_lbl' | translate}}</th>
+                                      <th class="text-center" style="border: 1px solid black;">{{'paidAmount_lbl' | translate}}</th>
+                                      <th class="text-center" style="border: 1px solid black;">{{'owedAmount_lbl' | translate}}</th>
+                                  </tr>
+                              </thead>
+                              <tbody  class="rows">
+                                  <tr *ngFor="let invoice of paidInvoices">
+                                      <td>{{invoice.invoiceNumber}}</td>
+                                      <td class="text-center">{{invoice.totalAmount | currency:''}}</td>
+                                      <td class="text-center">{{invoice.paidAmount | currency:''}}</td>
+                                      <td class="text-center">{{invoice.outstandingAmount | currency:''}}</td>
+                                  </tr>
+                              </tbody>
+                          </table>
+                        
+                          <br /><br /><br />
+                      </div>
+                      <div class="divFooter">
+                         
+                          <table class="table table-vcenter">
+                              <tfoot>
+
+                                  <tr>
+
+                                      <th class="text-center" style="border-top: 1px solid black !important;font-size:10px !important; ">  {{'billedBy_lbl' | translate}}  </th>
+                                      <th style=" border:none; width:220px;"></th>
+                                      <th class="text-center" style="border-top: 1px solid black !important;font-size:10px !important; ">    {{'deliveredBy_lbl' | translate}}    </th>
+                                      <th style=" border:none; width:220px;"></th>
+                                      <th class="text-center" style="border-top: 1px solid black !important;font-size:10px !important; ">   {{'receivedBy_lbl' | translate}}  </th>
+
+                                  </tr>
+                              </tfoot>
+                          </table>
+                      </div>
+                  </div>
+            
+                      
+                     
+                 
+
+
+
+
+              </div>
+          </div>
+      </div>
+  </div>
+  </nb-card-body>
+</nb-card>
+

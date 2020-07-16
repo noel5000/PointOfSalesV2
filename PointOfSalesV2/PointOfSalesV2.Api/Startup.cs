@@ -1,31 +1,29 @@
 
-
-using Microsoft.AspNet.OData.Builder;
+using System;
+using System.Linq;
 using Microsoft.AspNet.OData.Extensions;
-using Microsoft.AspNet.OData.Query;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.FileProviders;
-using Microsoft.OData.Edm;
-using Newtonsoft.Json.Serialization;
-using PointOfSalesV2.Entities;
+using Microsoft.Extensions.Hosting;
+using Microsoft.EntityFrameworkCore;
 using PointOfSalesV2.Entities.Model;
 using PointOfSalesV2.Repository;
-using System;
 using System.Data.SqlClient;
 using System.Globalization;
 using System.IO;
 using System.Text;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using PointOfSalesV2.Common;
-//using Microsoft.AspNetCore.Mvc.Cors.Internal;
+using PointOfSalesV2.Api.Helpers;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.FileProviders;
+using Microsoft.AspNetCore.Mvc;
+using PointOfSalesV2.Entities;
+using Microsoft.Extensions.Caching.Memory;
+using Newtonsoft.Json.Serialization;
+using System.Text.Json;
 
 namespace PointOfSalesV2.Api
 {
@@ -41,6 +39,13 @@ namespace PointOfSalesV2.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+           
+            services.AddControllers(mvcOptions =>
+            {
+                mvcOptions.EnableEndpointRouting = false;
+            });
+            services.AddControllersWithViews();
+            services.AddOData();
             services.AddMemoryCache();
             var appSettings = Configuration.GetSection("AppSettings").Get<AppSettings>();
             var connections = Configuration.GetSection("ConnectionStrings").Get<ConnectionStrings>();
@@ -52,21 +57,27 @@ namespace PointOfSalesV2.Api
             });
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            TranslateUtility.SetHttpContext(services.BuildServiceProvider().GetService<IHttpContextAccessor>());
             services.AddSingleton<IFileProvider>(
                new PhysicalFileProvider(
                    Path.Combine(Directory.GetCurrentDirectory(), "")));
 
-
-            //services.AddScoped<IParqueoRepository, ParqueoRepository>(); 
             services.AddScoped<IBranchOfficeRepository, BranchOfficeRepository>();
+            services.AddScoped<ICashRegisterOpeningRepository, CashRegisterOpeningRepository>();
+            services.AddScoped<IRoleSectionOperationRepository, RoleSectionOperationRepository>();
+            services.AddScoped<ISellerRepository, SellerRepository>();
+            services.AddScoped<ISequenceManagerRepository, SequenceManagerRepository>();
+            services.AddScoped<ICompanyPaymentRepository, CompanyPaymentRepository>();
+            services.AddScoped<ILanguageKeyRepository, LanguageKeyRepository>();
             services.AddScoped<IBusinessStateRepository, BusinessStateRepository>();
             services.AddScoped<ICompositeProductRepository, CompositeProductRepository>();
             services.AddScoped<ICreditNoteRepository, CreditNoteRepository>();
             services.AddScoped<ICustomerBalanceRepository, CustomerBalanceRepository>();
             services.AddScoped<ICustomerPaymentRepository, CustomerPaymentRepository>();
             services.AddScoped<IExpenseRepository, ExpenseRepository>();
+            services.AddScoped<IExpensesPaymentRepository, ExpensesPaymentRepository>();
             services.AddScoped<IInventoryEntryRepository, InventoryEntryRepository>();
-            services.AddScoped<IExpenseTaxRepository, ExpenseTaxRepository>();                                                                 
+            services.AddScoped<IExpenseTaxRepository, ExpenseTaxRepository>();
             services.AddScoped<IInventoryRepository, InventoryRepository>();
             services.AddScoped<IInvoiceDetailRepository, InvoiceDetailRepository>();
             services.AddScoped<IInvoiceRepository, InvoiceRepository>();
@@ -79,16 +90,15 @@ namespace PointOfSalesV2.Api
             services.AddScoped<IWarehouseMovementRepository, WarehouseMovementRepository>();
             services.AddScoped<IWarehouseRepository, WarehouseRepository>();
             services.AddScoped<IWarehouseTransferRepository, WarehouseTransferRepository>();
+            services.AddScoped<IMenuRepository, MenuRepository>();
+            services.AddScoped<ISchoolRepository, SchoolRepository>();
+            services.AddScoped<IInvoiceLeadRepository, InvoiceLeadRepository>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IDataRepositoryFactory, DataRepositoriesFactory>();
 
             //New instance for injection
             services.AddTransient(typeof(IBase<>), typeof(Repository<>));
-            // Add Culture
-            var cultureInfo = new CultureInfo("es-DO");
-            CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
-            CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
@@ -104,72 +114,59 @@ namespace PointOfSalesV2.Api
                  Encoding.UTF8.GetBytes(appSettings.TokenKey)),
                  ClockSkew = TimeSpan.Zero
              });
+
             services.AddCors(o => o.AddPolicy("AllowAllOrigins", builder =>
             {
                 builder.AllowAnyOrigin()
                        .AllowAnyMethod()
                        .AllowAnyHeader();
             }));
-           // services.AddOData();
-            services.AddMvc().AddXmlSerializerFormatters();
-            //services.AddMvc().AddJsonOptions(opt =>
-            //{
-            //    opt.SerializerSettings.ContractResolver = new DefaultContractResolver();
-            //    opt.SerializerSettings.DateFormatString = "dd/MM/yyyy";
-            //    opt.SerializerSettings.Culture = cultureInfo;
-            //});
+            services.AddMvc(a => { });
 
-            //Esto para no terner que poner el attributo a cada metodo de controlado
-            //para que permita crosorgine [EnableCors("AllowAllOrigins")]
-            services.Configure<MvcOptions>(options =>
-            {
-                options.EnableEndpointRouting = false;
-              //  options.Filters.Add(new CorsAuthorizationFilterFactory("AllowAllOrigins"));
-            });
+            services.AddControllers().AddNewtonsoftJson(options =>
+     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+ );
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
 
             }
-            else
-            {
-                app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-            }
+            //app.UseRouting();
+            //app.UseEndpoints(endpoints =>
+            //{
+            //    endpoints.MapControllerRoute(
+            //        name: "default",
+            //        pattern: "api/{controller}/{action=Index}/{id?}");
+            //});
 
+            app.UseMvcWithDefaultRoute();
             app.UseCors("AllowAllOrigins");
+
+            app.UseHttpsRedirection();
+            app.UseStaticFiles();
             app.UseAuthentication();
-            app.UseDependency();
-            app.UseMvc(routes =>
+
+            app.UseMvc(routerBuilder =>
             {
+                routerBuilder.EnableDependencyInjection();
+                routerBuilder.Expand().Select().Filter().Count().MaxTop(null).OrderBy();
+                routerBuilder.MapODataServiceRoute("odata", "odata", OdataHelper.GetEdmModel(app));
+                routerBuilder.MapODataServiceRoute("odata/exporttoexcel", "odata/exporttoexcel", OdataHelper.GetEdmModel(app));
 
-                //    routes.Select().Expand().Filter().OrderBy().MaxTop(null).Count();
-                //    routes.MapODataServiceRoute("odata", "odata", GetEdmModel(app));
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller}/{action=Index}/{id?}");
             });
-            //app.UseMvc(routeBuilder => routeBuilder.EnableDependencyInjection());
 
-        
+
+
         }
 
-        private static IEdmModel GetEdmModel(IApplicationBuilder app)
-        {
-         ODataConventionModelBuilder builder = new ODataConventionModelBuilder(app.ApplicationServices);
-            builder.EntitySet<Invoice>("Invoices");
-            builder.EntitySet<InvoiceDetail>("InvoiceDetails");
-            builder.EntitySet<Product>("Products").EntityType.HasKey(p => p.Id)
-               .Filter(QueryOptionSetting.Allowed);
-            //builder.EntitySet<Stock>("Stocks");
-            //builder.EntitySet<User>("Users");
-            return builder.GetEdmModel();
-        }
+
     }
 }

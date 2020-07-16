@@ -1,0 +1,183 @@
+<div class="card m-3">
+    <h5 class="card-header">{{'inventoryIn_menu' | translate}}</h5>
+    <div class="card-body">
+        <form [formGroup]="itemForm" (ngSubmit)="save()">
+            <div class="form-row">
+               
+                <div class="form-group col-md-6 col-xs-12">
+                    <label>{{'branchOffice_lbl' | translate}}</label>
+                    <select class="form-control"
+                    [ngClass]="{ 'is-invalid': form.branchOfficeId.errors }"
+                    formControlName="branchOfficeId"
+                    required
+                    >
+                    <option *ngFor="let branchOffice of branchOffices"
+                     [value]="branchOffice.id"
+                     >{{branchOffice.name}}</option>
+                    </select>
+                    <div *ngIf="form.branchOfficeId.errors" class="invalid-feedback">
+                        <div *ngIf="form.branchOfficeId.errors.required">{{'required_lbl' | translate}}</div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-xs-12">
+                    <label>{{'warehouse_lbl' | translate}}</label>
+                    <select class="form-control"
+                    [ngClass]="{ 'is-invalid': form.warehouseId.errors }"
+                    formControlName="warehouseId"
+                    required
+                    >
+                    <option *ngFor="let warehouse of warehouses"
+                     [value]="warehouse.id"
+                     >{{warehouse.name}}</option>
+                    </select>
+                    <div *ngIf="form.warehouseId.errors" class="invalid-feedback">
+                        <div *ngIf="form.warehouseId.errors.required">{{'required_lbl' | translate}}</div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-xs-12">
+                    <label>{{'supplier_lbl' | translate}}</label>
+                    <select class="form-control"
+                    [ngClass]="{ 'is-invalid': form.supplierId.errors }"
+                    formControlName="supplierId"
+                    required
+                    >
+                    <option *ngFor="let supplier of suppliers"
+                     [value]="supplier.id"
+                     >{{supplier.name}}</option>
+                    </select>
+                    <div *ngIf="form.supplierId.errors" class="invalid-feedback">
+                        <div *ngIf="form.supplierId.errors.required">{{'required_lbl' | translate}}</div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-xs-12">
+                    <label>{{'product_lbl' | translate}}</label>
+                    <select class="form-control"
+                    [ngClass]="{ 'is-invalid': form.productId.errors }"
+                    formControlName="productId"
+                    required
+                    >
+                    <option *ngFor="let product of products"
+                     [value]="product.id"
+                     >{{product.name}}</option>
+                    </select>
+                    <div *ngIf="form.productId.errors" class="invalid-feedback">
+                        <div *ngIf="form.productId.errors.required">{{'required_lbl' | translate}}</div>
+                    </div>
+                </div>
+
+                <div class="form-group col-md-6 col-xs-12">
+                    <label>{{'unit_lbl' | translate}}</label>
+                    <select class="form-control"
+                    [ngClass]="{ 'is-invalid': form.unitId.errors }"
+                    formControlName="unitId"
+                    required
+                    >
+                    <option *ngFor="let unit of productUnits"
+                     [value]="unit.unitId"
+                     >{{unit.unit.name}}</option>
+                    </select>
+                    <div *ngIf="form.unitId.errors" class="invalid-feedback">
+                        <div *ngIf="form.unitId.errors.required">{{'required_lbl' | translate}}</div>
+                    </div>
+                </div>
+
+              
+
+                <div class="form-group col-md-6 col-xs-12">
+                    <label>{{'reference_lbl' | translate}}</label>
+                    <input type="text" formControlName="reference"  maxlength="50" class="form-control"/>
+                </div>
+
+                <div class="form-group col-md-6 col-xs-12">
+                    <label>{{'details_lbl' | translate}}</label>
+                    <textarea class="form-control"
+                    formControlName="details" maxlength="200" class="form-control" [ngClass]="{ 'is-invalid': form.details.errors }"
+                    ></textarea>
+                </div>
+                <div class="form-group col-md-6 col-xs-12">
+                    <label>{{'currency_lbl' | translate}}</label>
+                    <input type="text" formControlName="currencyCode"  disabled class="form-control"/>
+                </div>
+                <div class="form-group col-md-6 col-xs-12">
+                    <label>{{'quantity_lbl' | translate}}</label>
+                    <input type="number" formControlName="quantity" required class="form-control" min="1" [ngClass]="{ 'is-invalid':form.quantity && form.quantity.errors }" />
+                    <div *ngIf="form.quantity.errors" class="invalid-feedback">
+                        <div *ngIf="form.quantity.required">{{'required_lbl' | translate}}</div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-xs-12">
+                    <label>{{'unitCost_lbl' | translate}}</label>
+                    <input type="number" formControlName="productCost"class="form-control"  />
+                    <div *ngIf="form.productCost.errors" class="invalid-feedback">
+                        <div *ngIf="form.productCost.required">{{'required_lbl' | translate}}</div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-xs-12">
+                    <label>{{'beforeTaxesAmount_lbl' | translate}}</label>
+                    <input type="number" formControlName="beforeTaxesAmount"class="form-control" disabled />
+                    <div *ngIf="form.beforeTaxesAmount.errors" class="invalid-feedback">
+                        <div *ngIf="form.beforeTaxesAmount.required">{{'required_lbl' | translate}}</div>
+                    </div>
+                </div>
+                <div class="form-check form-group col-md-3  col-xs-4 mx-4 my-4">
+                    <input class="form-check-input" type="checkbox"  formControlName="noTaxes"    >
+                    <label class="form-check-label" for="defaultCheck2">
+                        {{'exo_lbl' | translate}}
+                    </label>
+                  </div>
+                <div class="form-group col-md-6 col-xs-12">
+                    <label>{{'taxAmount_lbl' | translate}}</label>
+                    <input type="number" formControlName="taxAmount"class="form-control"  [ngClass]="{ 'is-invalid':form.taxAmount && form.taxAmount.errors }"  />
+                    <div *ngIf="form.taxAmount.errors" class="invalid-feedback">
+                        <div *ngIf="form.taxAmount.required">{{'required_lbl' | translate}}</div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-xs-12">
+                    <label>{{'totalAmount_lbl' | translate}}</label>
+                    <input type="number" formControlName="totalAmount" required class="form-control" [ngClass]="{ 'is-invalid': form.totalAmount.errors || amountsNotEquals }" />
+                    <div *ngIf="form.totalAmount.errors" class="invalid-feedback">
+                        <div *ngIf="form.totalAmount.required">{{'required_lbl' | translate}}</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-xs-12">
+                    <i class="btn btn-primary mr-1  my-4" (click)="addEntry()">{{'add_btn' | translate}}</i>
+                </div>
+               
+            </div>
+           
+            <div class="scrollTableMobile">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>{{'warehouse_lbl' | translate}}</th>
+                            <th>{{'product_lbl' | translate}}</th>
+                            <th>{{'unit_lbl' | translate}}</th>
+                            <th>{{'quantity_lbl' | translate}}</th>
+                            <th>{{'beforeTaxesAmount_lbl' | translate}}</th>
+                            <th>{{'taxes_lbl' | translate}}</th>
+                            <th>{{'totalAmount_lbl' | translate}}</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let entry of entries;let i=index">
+                            <td>{{entry.warehouse.name}}</td>
+                            <td>{{entry.product.name}}</td>
+                            <td>{{entry.unit.name}}</td>
+                            <td>{{entry.quantity}}</td>
+                            <td>{{entry.beforeTaxesAmount | currency : ""}}</td>
+                            <td>{{entry.taxAmount | currency : ""}}</td>
+                            <td>{{entry.totalAmount | currency : ""}}</td>
+                            <td><i class="btn btn-danger" (click)="deleteEntry(i)">{{'delete_btn' | translate}}</i></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="text-center">
+                <button class="btn btn-primary mr-1">{{'save_btn' | translate}}</button>
+                <button class="btn btn-secondary" type="reset" (click)="cancel()">{{'cancel_btn' | translate}}</button>
+            </div>
+        </form>
+    </div>
+</div>

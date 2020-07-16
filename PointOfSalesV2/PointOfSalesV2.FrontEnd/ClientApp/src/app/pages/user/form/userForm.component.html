@@ -1,0 +1,176 @@
+<div class="card m-3">
+    <h5 class="card-header">{{'user_menu' | translate}}</h5>
+    <div class="card-body">
+        <form [formGroup]="itemForm" (ngSubmit)="save()">
+            <div class="form-row">
+               
+                <div class="form-group col-md-6 col-xs-12">
+                    <label>{{'name_lbl' | translate}}</label>
+                    <input type="text" formControlName="name" maxlength="30" minlength="3" class="form-control" [ngClass]="{ 'is-invalid': form.name.errors }" />
+                    <div *ngIf="form.name.errors" class="invalid-feedback">
+                        <div *ngIf="form.name.errors.required">{{'required_lbl' | translate}}</div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-xs-12">
+                    <label>{{'lastName_lbl' | translate}}</label>
+                    <input type="text" formControlName="lastName" maxlength="30" minlength="3" class="form-control" [ngClass]="{ 'is-invalid': form.lastName.errors }" />
+                    <div *ngIf="form.lastName.errors" class="invalid-feedback">
+                        <div *ngIf="form.lastName.errors.required">{{'required_lbl' | translate}}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+               
+                <div class="form-group col-md-6 col-xs-12">
+                    <label>{{'phone_lbl' | translate}}</label>
+                    <input type="text" formControlName="phone" maxlength="15" minlength="3" class="form-control" [ngClass]="{ 'is-invalid': form.phone.errors }" />
+                    <div *ngIf="form.phone.errors" class="invalid-feedback">
+                        <div *ngIf="form.phone.errors.required">{{'required_lbl' | translate}}</div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-xs-12">
+                    <label>{{'mobile_lbl' | translate}}</label>
+                    <input type="text" formControlName="mobile" maxlength="15" minlength="3" class="form-control" [ngClass]="{ 'is-invalid': form.mobile.errors }" />
+                    <div *ngIf="form.mobile.errors" class="invalid-feedback">
+                        <div *ngIf="form.mobile.errors.required">{{'required_lbl' | translate}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+               
+                <div class="form-group col-md-6 col-xs-12">
+                    <label>{{'email_lbl' | translate}}</label>
+                    <input type="email" formControlName="email" maxlength="15" minlength="3" class="form-control" [ngClass]="{ 'is-invalid': form.email.errors }" />
+                    <div *ngIf="form.email.errors" class="invalid-feedback">
+                        <div *ngIf="form.email.errors.required">{{'required_lbl' | translate}}</div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-xs-12">
+                    <label>{{'address_lbl' | translate}}</label>
+                    <textarea formControlName="address" maxlength="200" minlength="3" class="form-control" [ngClass]="{ 'is-invalid': form.address.errors }">
+
+                    </textarea>
+                    <div *ngIf="form.address.errors" class="invalid-feedback">
+                        <div *ngIf="form.address.errors.required">{{'required_lbl' | translate}}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+               
+                <div class="form-group col-md-6 col-xs-12">
+                    <label>{{'userName_lbl' | translate}}</label>
+                    <input type="text" formControlName="userName" maxlength="30" minlength="3" class="form-control" [ngClass]="{ 'is-invalid': form.userName.errors }" />
+                    <div *ngIf="form.userName.errors" class="invalid-feedback">
+                        <div *ngIf="form.userName.errors.required">{{'required_lbl' | translate}}</div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-xs-12">
+                    <label>{{'password_lbl' | translate}}</label>
+                    <input type="password" formControlName="password" maxlength="30" minlength="3" class="form-control" [ngClass]="{ 'is-invalid': form.password.errors }" />
+                    <div *ngIf="form.password.errors" class="invalid-feedback">
+                        <div *ngIf="form.password.errors.required">{{'required_lbl' | translate}}</div>
+                    </div>
+                </div>
+                <div class="form-check col-md-2 offset-md-1 col-xs-12 my-4">
+                    <input class="form-check-input" type="checkbox"  formControlName="active"   >
+                    <label class="form-check-label" for="defaultCheck2">
+                        {{'isActive_lbl' | translate}}
+                    </label>
+                  </div>
+
+                  <div class="form-group col-md-6 col-xs-12">
+                    <label>{{'birthDay_lbl' | translate}}</label>
+                    <input type="date" formControlName="birthDay" class="form-control" [ngClass]="{ 'is-invalid': form.birthDay.errors }" />
+                    <div *ngIf="form.birthDay.errors" class="invalid-feedback">
+                        <div *ngIf="form.birthDay.errors.required">{{'required_lbl' | translate}}</div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-xs-12">
+                    <label>{{'cashRegisterOpeningHours_lbl' | translate}}</label>
+                    <input type="number" formControlName="cashRegisterOpenningTimeHours" min="0" max="100" class="form-control" [ngClass]="{ 'is-invalid': form.cashRegisterOpenningTimeHours.errors }" />
+                    <div *ngIf="form.cashRegisterOpenningTimeHours.errors" class="invalid-feedback">
+                        <div *ngIf="form.cashRegisterOpenningTimeHours.errors.required">{{'required_lbl' | translate}}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+               
+                <div class="form-group col-md-6 col-xs-12">
+                    <label>{{'gender_lbl' | translate}}</label>
+                    <select class="form-control"
+                    [ngClass]="{ 'is-invalid': form.gender.errors }"
+                    formControlName="gender"
+                    >
+                    <option *ngFor="let genderOpt of genders"
+                     [value]="genderOpt.id"
+                     >{{genderOpt.name}}</option>
+                    </select>
+                    <div *ngIf="form.gender.errors" class="invalid-feedback">
+                        <div *ngIf="form.gender.errors.required">{{'required_lbl' | translate}}</div>
+                    </div>
+                </div>
+
+                <div class="form-group col-md-6 col-xs-12">
+                    <label>{{'language_lbl' | translate}}</label>
+                    <select class="form-control"
+                    [ngClass]="{ 'is-invalid': form.languageCode.errors }"
+                    formControlName="languageCode"
+                    >
+                    <option *ngFor="let language of languages"
+                     [value]="language.code"
+                     >{{language.name}}</option>
+                    </select>
+                    <div *ngIf="form.languageCode.errors" class="invalid-feedback">
+                        <div *ngIf="form.languageCode.errors.required">{{'required_lbl' | translate}}</div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-xs-12">
+                    <label>{{'branchOffice_lbl' | translate}}</label>
+                    <select class="form-control"
+                    [ngClass]="{ 'is-invalid': form.branchOfficeId.errors }"
+                    formControlName="branchOfficeId"
+                    >
+                    <option *ngFor="let branchOffice of branchOffices"
+                     [value]="branchOffice.id"
+                     >{{branchOffice.name}}</option>
+                    </select>
+                    <div *ngIf="form.branchOfficeId.errors" class="invalid-feedback">
+                        <div *ngIf="form.branchOfficeId.errors.required">{{'required_lbl' | translate}}</div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-xs-12">
+                    <label>{{'warehouse_lbl' | translate}}</label>
+                    <select class="form-control"
+                    formControlName="warehouseId"
+                    >
+                    <option *ngFor="let warehouse of warehouses"
+                     [value]="warehouse.id"
+                     >{{warehouse.name}}</option>
+                    </select>
+                    
+                </div>
+                <div class="form-group col-md-6 col-xs-12">
+                    <label>{{'cashRegister_lbl' | translate}}</label>
+                    <select class="form-control"
+                    formControlName="cashRegisterId"
+                    >
+                    <option *ngFor="let cashRegister of cashRegisters"
+                     [value]="cashRegister.id"
+                     >{{cashRegister.name}}</option>
+                    </select>
+                  
+                </div>
+               
+            </div>
+           
+            
+            <div class="text-center">
+                <button class="btn btn-primary mr-1">{{'save_btn' | translate}}</button>
+                <button class="btn btn-secondary" type="reset" (click)="cancel()">{{'cancel_btn' | translate}}</button>
+            </div>
+        </form>
+    </div>
+</div>

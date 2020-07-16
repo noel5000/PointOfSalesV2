@@ -1,0 +1,143 @@
+<div class="card m-3">
+    <h5 class="card-header">{{'cashROpenClose_menu' | translate}}</h5>
+    <div class="card-body">
+        <form [formGroup]="itemForm" (ngSubmit)="save()">
+          
+
+            <div class="form-row">
+               
+                <div class="form-group col-md-6 col-xs-12">
+                    <label>{{'branchOffice_lbl' | translate}}</label>
+                    <select class="form-control"
+                    [ngClass]="{ 'is-invalid': form.branchOfficeId.errors }"
+                    formControlName="branchOfficeId"
+                    [attr.disabled]="isClosing? '' : null"
+                    >
+                    <option *ngFor="let branchOffice of branchOffices"
+                     [value]="branchOffice.id"
+                     >{{branchOffice.name}}</option>
+                    </select>
+                    <div *ngIf="form.branchOfficeId.errors" class="invalid-feedback">
+                        <div *ngIf="form.branchOfficeId.errors.required">{{'required_lbl' | translate}}</div>
+                    </div>
+                </div>
+
+                <div class="form-group col-md-6 col-xs-12">
+                    <label>{{'user_lbl' | translate}}</label>
+                    <select class="form-control"
+                    [attr.disabled]="isClosing? '' : null"
+                    [ngClass]="{ 'is-invalid': form.userId.errors }"
+                    formControlName="userId"
+                    >
+                    <option *ngFor="let user of users"
+                     [value]="user.userId"
+                     >{{user.userName}}</option>
+                    </select>
+                    <div *ngIf="form.userId.errors" class="invalid-feedback">
+                        <div *ngIf="form.userId.errors.required">{{'required_lbl' | translate}}</div>
+                    </div>
+                </div>
+
+                <div class="form-group col-md-6 col-xs-12">
+                    <label>{{'cashRegister_lbl' | translate}}</label>
+                    <select class="form-control"
+                    [attr.disabled]="(!user || !user.cashRegisterId || isClosing)? '' : null"
+                    [ngClass]="{ 'is-invalid': form.cashRegisterId.errors }"
+                    formControlName="cashRegisterId"
+                    >
+                    <option *ngFor="let cashRegister of cashRegisters"
+                     [value]="cashRegister.id"
+                     >{{cashRegister.name}}</option>
+                    </select>
+                    <div *ngIf="form.cashRegisterId.errors" class="invalid-feedback">
+                        <div *ngIf="form.cashRegisterId.errors.required">{{'required_lbl' | translate}}</div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-xs-12">
+                    <label>{{'currency_lbl' | translate}}</label>
+                    <select class="form-control"
+                    [attr.disabled]="isClosing? '' : null"
+                    [ngClass]="{ 'is-invalid': form.currencyId.errors }"
+                    formControlName="currencyId"
+                    >
+                    <option *ngFor="let currency of currencies"
+                     [value]="currency.id"
+                     >{{currency.name}}</option>
+                    </select>
+                    <div *ngIf="form.currencyId.errors" class="invalid-feedback">
+                        <div *ngIf="form.currencyId.errors.required">{{'required_lbl' | translate}}</div>
+                    </div>
+                </div>
+            </div>
+           <div class="form-row">
+            <div class="form-group col-md-6 col-xs-12">
+                <label>{{'type_lbl' | translate}}</label>
+                <select class="form-control"
+                [attr.disabled]="!currentCurrency? '' : null"
+                [ngClass]="{ 'is-invalid': form.type.errors }"
+                formControlName="type"
+                >
+                <option *ngFor="let type of types"
+                 [value]="type.id"
+                 >{{type.name}}</option>
+                </select>
+                <div *ngIf="form.type.errors" class="invalid-feedback">
+                    <div *ngIf="form.type.errors.required">{{'required_lbl' | translate}}</div>
+                </div>
+            </div>
+
+            <div class="form-group col-md-3 col-xs-12" *ngIf="typeId && typeId!='cash'">
+                <label>{{'amount_lbl' | translate}}</label>
+                <input type="number" formControlName="amount" min="1" class="form-control" [ngClass]="{ 'is-invalid': form.amount.errors }" />
+                <div *ngIf="form.amount.errors" class="invalid-feedback">
+                    <div *ngIf="form.amount.errors.required">{{'required_lbl' | translate}}</div>
+                </div>
+            </div>
+            <div class="form-group col-md-3 col-xs-4 my-4">
+                <i class="btn btn-primary" (click)="addOpening()">{{'add_btn' | translate}}</i>
+            </div>
+           </div>
+      
+            <div class="text-center">
+                <button class="btn btn-primary mr-1">{{'save_btn' | translate}}</button>
+                <button class="btn btn-secondary" type="reset" (click)="cancel()">{{'cancel_btn' | translate}}</button>
+            </div>
+        </form>
+        <div *ngIf="typeId && typeId=='cash'" class="scrollTableMobile">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>{{'amount_lbl' | translate}}</th>
+                        <th>{{'quantity_lbl' | translate}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let amount of openingAmounts">
+                        <td class="text-center">{{amount.amount}}</td>
+                        <td><input type="number" class="form-control" [(ngModel)]="amount.quantity"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+         
+
+        <div *ngIf="details.length>0" class="scrollTableMobile">
+         <table class="table">
+             <thead>
+                 <tr>
+                     <th>{{'type_lbl' | translate}}</th>
+                     <th>{{'totalAmount_lbl' | translate}}</th>
+                     <th>{{'actions_lbl' | translate}}</th>
+                 </tr>
+             </thead>
+             <tbody>
+                 <tr *ngFor="let opening of details">
+                     <td >{{(opening.type+'_lbl') | translate}}</td>
+                     <td>{{opening.totalAmount  | currency : ""}}</td>
+                     <td>{{(opening.isClosing?'closing_lbl':'opening_lbl') | translate}}</td>
+                 </tr>
+             </tbody>
+         </table>
+     </div>
+    </div>
+</div>

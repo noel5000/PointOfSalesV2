@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
 
 namespace PointOfSalesV2.Entities
 {
@@ -16,12 +17,25 @@ namespace PointOfSalesV2.Entities
         public long ExpenseId { get; set; }
         public long CurrencyId { get; set; }
         [NotMapped]
+        [IgnoreDataMember]
         public override string TranslationData { get; set; }
         public long TaxId { get; set; }
         [MaxLength(50)]
         public string Reference { get; set; }
+        [MaxLength(50)]
+        public string TRN { get; set; }
         public DateTime Date { get; set; }
         public decimal TaxAmount { get; set; }
+
+        public decimal ExchangeRateAmount { get; set; }
+
+
+        [NotMapped]
+        public decimal PaidAmount { get; set; }
+
+        [NotMapped]
+        public decimal TotalAmount { get; set; }
+
 
 
 

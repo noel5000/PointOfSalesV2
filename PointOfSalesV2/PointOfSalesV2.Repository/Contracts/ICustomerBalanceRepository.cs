@@ -8,5 +8,7 @@ namespace PointOfSalesV2.Repository
     public interface ICustomerBalanceRepository: IBase<CustomerBalance>
     {
         CustomerBalance CustomerBalanceByCurrency(long customerId, long currencyId);
+
+        CustomerStateReport CustomerState(long customerId);
     }
 }

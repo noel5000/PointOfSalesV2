@@ -1,0 +1,334 @@
+﻿@using PointOfSalesV2.Entities;
+@using System.Collections.Generic;
+@using System.Linq;
+
+@{InvoiceLead invoiceLead = ViewBag.Invoice;}
+@{
+    Layout = null;
+    List<LanguageKey> languageKeys = ViewBag.LanguageKeys;
+    string language = (string)(ViewBag.CurrentLanguage);
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+    <meta name="viewport" content="width=device-width" />
+    <title>InvoicePrint</title>
+    <style>
+
+
+        textarea {
+            resize: none;
+            overflow: hidden;
+            min-height: 50px;
+            max-height: 100px;
+        }
+
+
+
+        @@page {
+            size: 8.5in 11in;
+            margin-top: 25px;
+            margin: 15px;
+        }
+
+
+
+
+        @@media print {
+            table tfoot {
+                display: table-row-group;
+                position: relative;
+            }
+
+            #invoiceContainer {
+                position: relative;
+            }
+
+            div > .divHeader {
+                position: fixed;
+                top: 0;
+            }
+
+            div > .divBody {
+                display: inline;
+            }
+
+
+            div > .divFooter {
+                position: relative !important;
+                bottom: 0 !important;
+            }
+
+            tr .hideLines {
+                border: 0 !important;
+            }
+
+
+
+            .noel, #estadoCuenta {
+                display: block !important;
+                font-size: 12px !important;
+            }
+
+            .noImprimir {
+                display: none;
+            }
+
+            body {
+                font-size: 12px;
+                margin: 0cm;
+            }
+
+            h2 {
+                font-size: 20px !important;
+            }
+
+            h3 {
+                font-size: 18px !important;
+            }
+
+            h4 {
+                font-size: 14px !important;
+            }
+
+            .textoInformativo {
+                font-size: 14px !important;
+            }
+
+            .row > .col-md-2, .row > .col-md-1, .table thead > tr > th {
+                font-size: 10px !important;
+            }
+
+            .titulo {
+                font: bold;
+                font-size: 30px !important;
+                font-family: 'Agency FB';
+            }
+
+            .infoCompania {
+                font-size: 12px !important;
+                font-family: 'Agency FB';
+            }
+
+            .row > .col-md-2, .row > .col-md-1, .table tbody > tr > td {
+                font-size: 9px !important;
+            }
+
+            .row > .col-md-2, .row > .col-md-1, .table tfoot > tr > th {
+                font-size: 11px !important;
+            }
+
+
+            .row > .col-md-2, .row > .col-md-1, .table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+                padding: 0;
+            }
+        }
+
+        table > tfoot > tr > th {
+            border-top: 0 !important;
+        }
+    </style>
+
+
+</head>
+<body>
+    <div id="printingContainer" style="margin-left:2%">
+        <div class="panel-body receipt sheet" id="impresionBody">
+
+            <div class="row noImprimir">
+                <div class="col-md-6 col-xs-12 col-sm-12">
+                    <button id="printButton" class="btn btn-default col-md-2">
+                        <i class="fa fa-print"></i> @languageKeys.FirstOrDefault(x => x.Key == "print_btn").Value
+                    </button>
+                </div>
+
+
+            </div>
+            <div id="impresoraNormal">
+
+                <div id="estadoCuenta" class="row">
+                    <div class="col-xs-12">
+                        <div class="block full">
+
+
+
+
+                            <div id="invoiceContainer">
+                                <div class="divBody">
+                                    <table class="">
+                                        <thead>
+                                            <tr><th class="titulo">Compania</th></tr>
+                                            <tr><th class="titulo">Dominicana. SRL</th></tr>
+                                        </thead>
+                                    </table>
+                                    <table>
+                                        <thead>
+                                            <tr><th class="infoCompania">@languageKeys.FirstOrDefault(x => x.Key == "address_lbl").Value : Calle # Esq.  No. #</th></tr>
+                                            <tr><th class="infoCompania">@languageKeys.FirstOrDefault(x => x.Key == "phone_lbl").Value : 809-555-5555</th></tr>
+                                            <tr><th class="infoCompania">@languageKeys.FirstOrDefault(x => x.Key == "nrc_lbl").Value : 000000000</th></tr>
+                                            <tr><th class="infoCompania">@languageKeys.FirstOrDefault(x => x.Key == "email_lbl").Value : email@gmail.com</th></tr>
+                                        </thead>
+                                    </table>
+                                    <br />
+                                    <table class="table table-vcenter table-borderless">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                @*<th> <img src="~/Content/images/logo.jpg" alt="header" width="230" height="60" /></th>*@
+                                                <th></th>
+                                                <th class="text-left">@languageKeys.FirstOrDefault(x => x.Key == "date_lbl").Value :</th>
+                                                <th class="text-left">@invoiceLead.Date.ToString("dd-MM-yyyy")</th>
+                                            </tr>
+
+                                            <tr>
+                                                <th>@languageKeys.FirstOrDefault(x => x.Key == "customer_lbl").Value : @invoiceLead.Customer.NameAndCode.ToString()</th>
+                                                <th class=" "></th>
+                                                <th>@languageKeys.FirstOrDefault(x => x.Key == "school_lbl").Value : @invoiceLead.School.NameAndCode.ToString()</th>
+                                                <th class=" "></th>
+                                                <th class="text-left">@languageKeys.FirstOrDefault(x => x.Key == "sequence_lbl").Value :</th>
+                                                <th class="text-left">@invoiceLead.DocumentNumber.ToUpper()</th>
+                                            </tr>
+                                           
+                                          
+                                            <tr>
+                                                <th style="color:white !important; visibility:hidden;">sssss</th>
+                                            </tr>
+
+                                        </thead>
+
+                                    </table>
+                                    <table class="table table-vcenter">
+                                        <thead class="table-bordered tabl">
+                                            <tr>
+
+                                                <th class="text-left" style="border: 1px solid black;">@languageKeys.FirstOrDefault(x => x.Key == "product_lbl").Value</th>
+                                                <th class="text-left" style="border: 1px solid black;">@languageKeys.FirstOrDefault(x => x.Key == "quantity_lbl").Value</th>
+                                                <th class="text-left" style="border: 1px solid black;">@languageKeys.FirstOrDefault(x => x.Key == "unit_lbl").Value </th>
+                                                <th class="text-center" style="border: 1px solid black;">@languageKeys.FirstOrDefault(x => x.Key == "beforeTaxAmount_lbl").Value </th>
+                                                <th class="text-center" style="border: 1px solid black;">@languageKeys.FirstOrDefault(x => x.Key == "taxAmount_lbl").Value </th>
+                                                <th class="text-center" style="border: 1px solid black;">@languageKeys.FirstOrDefault(x => x.Key == "totalAmount_lbl").Value </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="filas">
+                                            @for (int i = 0; i < invoiceLead.LeadDetails.Count; i++)
+                                            {
+                                            <tr>
+
+                                                <td class="text-left">@invoiceLead.LeadDetails[i].Product.Name</td>
+                                                <td class="text-center"> @invoiceLead.LeadDetails[i].Quantity</td>
+                                                <td class="text-left">@invoiceLead.LeadDetails[i].Unit?.Name</td>
+                                                <td class="text-center"> @invoiceLead.LeadDetails[i].BeforeTaxesAmount</td>
+                                                <td class="text-center"> @invoiceLead.LeadDetails[i].TaxesAmount</td>
+                                                <td class="text-center"> @invoiceLead.LeadDetails[i].TotalAmount</td>
+                                            </tr>
+                                            }
+
+
+
+
+
+                                        </tbody>
+
+
+                                        <tfoot>
+                                            <tr>
+                                                <th style="color:white !important; visibility:hidden;">sssss</th>
+                                            </tr>
+                                            <tr>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th class="text-left">@languageKeys.FirstOrDefault(x => x.Key == "beforeTaxAmount_lbl").Value :</th>
+                                                <th class="text-right" style="border-top: 1px solid black !important; border-bottom: 2px double black">  @($"{invoiceLead.Currency.Code} ${ invoiceLead.BeforeTaxesAmount}")</th>
+                                            </tr>
+                                            <tr>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th class="text-left">@languageKeys.FirstOrDefault(x => x.Key == "taxAmount_lbl").Value :</th>
+                                                <th class="text-right" style=" border-bottom:2px double black"> @($"{invoiceLead.Currency.Code} ${ invoiceLead.TaxesAmount}")</th>
+                                            </tr>
+
+                                            <tr>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th class="text-left">@languageKeys.FirstOrDefault(x => x.Key == "totalAmount_lbl").Value  :</th>
+                                                <th class="text-right" style=" border-bottom: 2px double black">  @($"{invoiceLead.Currency.Code} ${ invoiceLead.TotalAmount}")</th>
+                                            </tr>
+                                            @if (invoiceLead.PaidAmount > 0)
+                                            {
+                                                <tr>
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th class="text-left">@languageKeys.FirstOrDefault(x => x.Key == "paidAmount_lbl").Value :</th>
+                                                    <th class="text-right" style=" border-bottom:2px double black"> @($"{invoiceLead.Currency.Code} ${ invoiceLead.PaidAmount}")</th>
+                                                </tr>
+                                            }
+
+                                        </tfoot>
+                                    </table>
+                                    <br /><br /><br />
+                                </div>
+                                <div class="divFooter">
+
+                                    <table class="table table-vcenter">
+                                        <tfoot>
+
+                                            <tr>
+
+                                                <th class="text-center" style="border-top: 1px solid black !important;font-size:10px !important; ">&nbsp &nbsp  @languageKeys.FirstOrDefault(x => x.Key == "billedBy_lbl").Value.ToUpper() &nbsp &nbsp </th>
+                                                <th style=" border:none; width:220px;"></th>
+                                                <th class="text-center" style="border-top: 1px solid black !important;font-size:10px !important; "> &nbsp &nbsp   @languageKeys.FirstOrDefault(x => x.Key == "deliverdBy_lbl").Value.ToUpper()  &nbsp &nbsp  </th>
+                                                <th style=" border:none; width:220px;"></th>
+                                                <th class="text-center" style="border-top: 1px solid black !important;font-size:10px !important; "> &nbsp &nbsp  @languageKeys.FirstOrDefault(x => x.Key == "receivedBy_lbl").Value.ToUpper() &nbsp &nbsp </th>
+
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+
+
+
+
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row ">
+                <div class="col-md-12 col-xs-12 col-sm-12">
+
+                    <h4 style="height:10px;"></h4>
+                    <h4 class="text-center"></h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.getElementById("printButton").addEventListener("click", function (event) {
+            window.print();
+
+        }, false);
+        function auto_grow(elementId) {
+            var element = document.getElementById(elementId);
+            element.style.height = "5px";
+            element.style.height = (element.scrollHeight) + "px";
+        }
+    </script>
+</body>
+</html>

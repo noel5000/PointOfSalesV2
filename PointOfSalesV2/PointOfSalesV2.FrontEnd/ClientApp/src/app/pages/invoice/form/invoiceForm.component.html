@@ -1,0 +1,113 @@
+<div class="card m-3">
+    <h5 class="card-header">{{'invoices_menu' | translate}}</h5>
+    <div class="card-body">
+        <form [formGroup]="itemForm" (ngSubmit)="save()">
+            <div class="form-row">
+               
+                <div class="form-group col-md-6 col-xs-12">
+                    <label>{{'branchOffice_lbl' | translate}}</label>
+                    <select class="form-control"
+                    [ngClass]="{ 'is-invalid': form.branchOfficeId.errors }"
+                    formControlName="branchOfficeId"
+                    required
+                    >
+                    <option *ngFor="let branchOffice of branchOffices"
+                     [value]="branchOffice.id"
+                     >{{branchOffice.name}}</option>
+                    </select>
+                    <div *ngIf="form.branchOfficeId.errors" class="invalid-feedback">
+                        <div *ngIf="form.branchOfficeId.errors.required">{{'required_lbl' | translate}}</div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-xs-12">
+                    <label>{{'customer_lbl' | translate}}</label>
+                    <select class="form-control"
+                    [ngClass]="{ 'is-invalid': form.customerId.errors }"
+                    formControlName="customerId"
+                    required
+                    >
+                    <option *ngFor="let customer of customers"
+                     [value]="customer.id"
+                     >{{customer.name}}</option>
+                    </select>
+                    <div *ngIf="form.customerId.errors" class="invalid-feedback">
+                        <div *ngIf="form.customerId.errors.required">{{'required_lbl' | translate}}</div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-xs-12">
+                    <label>{{'currency_lbl' | translate}}</label>
+                    <select class="form-control"
+                    [ngClass]="{ 'is-invalid': form.currencyId.errors }"
+                    formControlName="currencyId"
+                    required
+                    >
+                    <option *ngFor="let currency of currencies"
+                     [value]="currency.id"
+                     >{{currency.name}}</option>
+                    </select>
+                    <div *ngIf="form.currencyId.errors" class="invalid-feedback">
+                        <div *ngIf="form.currencyId.errors.required">{{'required_lbl' | translate}}</div>
+                    </div>
+                </div>
+               
+
+                <div class="form-group col-md-6 col-xs-12">
+                    <label>{{'month_lbl' | translate}}</label>
+                    <select class="form-control"
+                    [ngClass]="{ 'is-invalid': form.month.errors }"
+                    formControlName="month"
+                    required
+                    >
+                    <option *ngFor="let selectedMonth of months"
+                     [value]="selectedMonth.id"
+                     >{{selectedMonth.name}}</option>
+                    </select>
+                    <div *ngIf="form.month.errors" class="invalid-feedback">
+                        <div *ngIf="form.month.errors.required">{{'required_lbl' | translate}}</div>
+                    </div>
+                </div>
+
+                <div class="form-group col-md-6 col-xs-12">
+                    <label>{{'details_lbl' | translate}}</label>
+                    <textarea class="form-control"
+                    formControlName="details" maxlength="200" class="form-control" [ngClass]="{ 'is-invalid': form.details.errors }"
+                    ></textarea>
+                </div>
+              
+               
+            </div>
+           
+            <div class="scrollTableMobile">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>{{'school_lbl' | translate}}</th>
+                            <th>{{'leadNumber_lbl' | translate}}</th>
+                            <th>{{'date_lbl' | translate}}</th>
+                            <th>{{'beforeTaxesAmount_lbl' | translate}}</th>
+                            <th>{{'taxes_lbl' | translate}}</th>
+                            <th>{{'totalAmount_lbl' | translate}}</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let lead of invoiceLeads;let i=index">
+                            <td>{{lead.school.name}}</td>
+                            <td>{{lead.documentNumber}}</td>
+                            <td>{{lead.date | date:"shortDate"}}</td>
+                            <td>{{lead.beforeTaxesAmount | currency : ""}}</td>
+                            <td>{{lead.taxesAmount | currency : ""}}</td>
+                            <td>{{lead.totalAmount | currency : ""}}</td>
+                            <td> <input class="form-check-input" type="checkbox"  [formControlName]="'leadChecked_'+i" ></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="text-center">
+                <button class="btn btn-primary mr-1">{{'save_btn' | translate}}</button>
+                <button class="btn btn-secondary" type="reset" (click)="cancel()">{{'cancel_btn' | translate}}</button>
+            </div>
+        </form>
+    </div>
+</div>

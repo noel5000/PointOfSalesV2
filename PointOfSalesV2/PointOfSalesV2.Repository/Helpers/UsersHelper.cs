@@ -1,4 +1,5 @@
-﻿using PointOfSalesV2.Common;
+﻿using Microsoft.EntityFrameworkCore;
+using PointOfSalesV2.Common;
 using PointOfSalesV2.Entities;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace PointOfSalesV2.Repository.Helpers
         public static void VerifyAdminUser(IDataRepositoryFactory dataRepositoryFactory)
         {
             var usersRepo = dataRepositoryFactory.GetDataRepositories<User>();
-            var adminUser = usersRepo.Get(x => x.Where(y => y.UserName == "admin" && y.Active == true));
+            var adminUser = usersRepo.Get(x => x.AsNoTracking().Where(y => y.UserName == "admin" && y.Active == true));
             if (adminUser == null) 
             {
                 adminUser = new User()
@@ -27,7 +28,7 @@ namespace PointOfSalesV2.Repository.Helpers
                     CreatedByName="admin",
                     Email="admin@admin.com",
                     Gender='M',
-                    LanguageCode = "EN",
+                    LanguageCode = "ES",
                     UserName ="admin",
                     Password= MD5.Encrypt("Admin@123", "uJ0TLb5KVx5C2qzcCdKwsynac18KBQ06"),
                     LastName="admin",

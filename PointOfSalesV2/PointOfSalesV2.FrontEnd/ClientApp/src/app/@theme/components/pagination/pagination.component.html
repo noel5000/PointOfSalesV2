@@ -1,0 +1,62 @@
+
+  
+        <div class="scrollTableMobile divBody" id="accountState">
+            <div id="columnsVisibility" class="dontPrint">
+                <div ngbDropdown class="d-inline-block">
+                    <button class="btn btn-outline-primary" id="columnsSelection" ngbDropdownToggle>{{getTranslation('selectColumns_lbl')}}</button>
+                    <div ngbDropdownMenu aria-labelledby="columnsSelection">
+                        <div class="form-check"*ngFor="let header of tableConfig">
+                          <label class="form-check-label"><input ngbDropdownItem type="checkbox" [checked]="header.visible"  (click)="hideColumn(header,$event)" class="form-check-input" [id]="'columnsVisibility-'+header.id"> {{header.name}}</label>
+                            </div>
+                    </div>
+                  </div>
+            </div>
+            <div class="scrollTableMobile">
+              <table class="table table-striped table-vcenter " id="pagedTable" >
+                <thead>
+                    <tr class="dontPrint">
+                        <td *ngFor="let header of tableConfig" [hidden]="!header.visible && !header.filterIsActive">
+                            <input class="form-control"  [type]="header.type"  (input)="addFilter(header,$event)" >
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                      <ng-container  *ngFor="let header of tableConfig">
+                        <th  scope="col" [sortable]="header.name" *ngIf="header.visible" (sort)="onSort(header)">{{header.name}}</th>
+                      </ng-container >
+                       <th scope="col" *ngIf="showActions">{{getTranslation('actions_lbl')}}</th>
+                    </tr>
+                    </thead>
+                    <tbody *ngFor="let item of data" >
+                    <tr >
+                      <ng-container *ngFor="let prop of tableConfig">
+                        <td  *ngIf="prop.visible">{{showValue(item,prop) }}</td>
+                      </ng-container>
+                      
+                    
+                        <td *ngIf="showActions">
+                            <div *ngFor="let action of actions" class="btn-group  btn-group-sm  btn-group-lg text-center" [hidden]=" !verifyAction(action,item)">
+                                <a [class]="action.class" (click)="onActionClick(action,item)" [title]="action.title"><i [class]="action.icon"></i> <span class="option">{{action.title}}</span> </a>
+                            </div>
+                            
+                        </td>
+                   
+                    </tr>
+                    </tbody>
+                    
+            </table>
+      
+            </div>
+            <ngb-pagination
+            class="dontPrint  "
+            *ngIf="isPaginated"
+          [(page)]="pageNumber"
+          [pageSize]="pageSize"
+          [collectionSize]="maxCount"
+          (pageChange)="getPagedData($event)"
+        ></ngb-pagination>
+           
+        </div>
+      
+
+

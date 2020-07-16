@@ -14,7 +14,7 @@ namespace PointOfSalesV2.Entities
         [Translate]
         public string Name { get; set; }
 
-        public IEnumerable<RoleSection> Sections { get; set; }
+        public IEnumerable<RoleSectionOperation> SectionOperations { get; set; }
 
     }
 }

@@ -1,0 +1,87 @@
+<nb-card>
+  <nb-card-header>
+    <div class="row">
+      <div class="col-md-6">{{'accountState_menu' | translate}}</div>
+      <div class="col-md-3">
+        <button type="button" class="btn btn-primary" (click)="print()">{{'print_btn' | translate}}</button>
+    </div>
+    <div class="col-md-3">
+      <button type="button" class="btn btn-success" (click)="exportToCSV()">{{'export_btn' | translate}}</button>
+  </div>
+    </div>
+   
+  </nb-card-header>
+
+  <nb-card-body>
+<div id="filter" class="dontPrint" >
+  <form [formGroup]="itemForm" (ngSubmit)="getData()">
+<div class="form-row">
+  <div class="form-group col-md-6 col-xs-12">
+    <label>{{'customer_lbl' | translate}}</label>
+    <select class="form-control"
+    formControlName="customerId"
+    [ngClass]="{ 'is-invalid': form.customerId.errors }"
+    
+    >
+    <option *ngFor="let customer of customers"
+     [value]="customer.id"
+     >{{customer.name}}</option>
+    </select>
+    <div *ngIf="form.customerId.errors" class="invalid-feedback">
+      <div *ngIf="form.customerId.errors.required">{{'required_lbl' | translate}}</div>
+  </div>
+</div>
+
+
+</div>
+  </form>
+</div>
+<div id="body">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>{{'documentNumber_lbl' | translate}}</th>
+        <th>{{'date_lbl' | translate}}</th>
+        <th>{{'debits_lbl' | translate}}</th>
+        <th>{{'credits_lbl' | translate}}</th>
+        <th>{{'reference_lbl' | translate}}</th>
+        <th>{{'balance_lbl' | translate}}</th>
+        <th>{{'currency_lbl' | translate}}</th>
+        <th>{{'seller_lbl' | translate}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let state of states">
+        <td>{{state.documentNumber}}</td>
+        <td>{{state.date | date:"shortDate"}}</td>
+        <td>{{state.debit | currency:"" }}</td>
+        <td>{{state.credit | currency:"" }}</td>
+        <td>{{state.reference}}</td>
+        <td>{{state.balance | currency:"" }}</td>
+        <td>{{state.currencyName}}</td>
+        <td>{{state.sellerName}}</td>
+      </tr>
+    </tbody>
+      </table>
+      <hr>
+      <table *ngIf="result.data" class="">
+        <thead>
+          <tr class="row">
+            <th class="col-4">{{'totalBilled_lbl' | translate}}</th>
+            <th class="col-4">{{'totalPaid_lbl' | translate}}</th>
+            <th class="col-4">{{'totalOwed_lbl' | translate}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="row">
+            <td class="col-4">{{result.totalBilledAmount | currency:""}}</td>
+            <td class="col-4">{{result.totalPaidAmount | currency:""}}</td>
+            <td class="col-4">{{result.totalOwedAmount | currency:""}}</td>
+          </tr>
+        </tbody>
+      </table>
+
+</div>
+  </nb-card-body>
+</nb-card>
+

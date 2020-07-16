@@ -9,3 +9,7 @@ PointOfSalesV2/PointOfSalesV2.Common/obj/
 PointOfSalesV2/PointOfSalesV2.Entities/bin/
 PointOfSalesV2/PointOfSalesV2.EntityFramework/bin/
 PointOfSalesV2/PointOfSalesV2.Repository/bin/
+PointOfSalesV2/PointOfSalesV2.Console/bin/
+PointOfSalesV2/PointOfSalesV2.Console/obj/
+PointOfSalesV2/PointOfSalesV2.Test/bin/
+PointOfSalesV2/PointOfSalesV2.Test/obj/

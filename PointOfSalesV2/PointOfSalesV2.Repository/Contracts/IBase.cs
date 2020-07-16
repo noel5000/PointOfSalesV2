@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
-using Microsoft.AspNet.OData;
 
 namespace PointOfSalesV2.Repository
 {
@@ -21,17 +20,17 @@ namespace PointOfSalesV2.Repository
         Result<T> Remove(T entity);
 
         Result<T> Remove(long id);
+        void RemoveRange(IEnumerable<T> entities);
 
-        Result<T> Update(T entity);
+        Result<T> Update(T entity,bool getFromDb= true);
 
         Result<T> GetAll(string sortExpression = null);
 
         IPagedList<T> GetPaged(int startRowIndex, int pageSize, string sortExpression = null);
-        PageResult<T> GetPagedNew(int startRowIndex, int pageSize, string sortExpression = null);
 
         Result<T> GetAll(Func<IQueryable<T>, IQueryable<T>> transform, Expression<Func<T, bool>> filter = null, string sortExpression = null);
 
-        IEnumerable<TResult> GetAll<TResult>(Func<IQueryable<T>, IQueryable<TResult>> transform, Expression<Func<T, bool>> filter = null, string sortExpression = null);
+        IQueryable<TResult> GetAll<TResult>(Func<IQueryable<T>, IQueryable<TResult>> transform, Expression<Func<T, bool>> filter = null, string sortExpression = null);
 
         int GetCount<TResult>(Func<IQueryable<T>, IQueryable<TResult>> transform, Expression<Func<T, bool>> filter = null);
 
@@ -48,5 +47,6 @@ namespace PointOfSalesV2.Repository
         bool Exists(long id);
 
         bool Exists(Func<IQueryable<T>, IQueryable<T>> query, Expression<Func<T, bool>> filter = null);
+     
     }
 }

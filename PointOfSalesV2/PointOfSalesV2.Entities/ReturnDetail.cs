@@ -8,9 +8,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PointOfSalesV2.Entities
 {
-    public class ReturnDetail : InvoiceDetail
+    public class ReturnDetail : LeadDetail
     {
-        public decimal ReturnAmount { get; set; }
         public ReturnDetail() { }
 
         public ReturnDetail(ReturnDetail newDetail)

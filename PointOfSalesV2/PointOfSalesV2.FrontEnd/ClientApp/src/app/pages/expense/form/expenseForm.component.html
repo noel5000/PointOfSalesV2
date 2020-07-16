@@ -1,0 +1,184 @@
+<div class="card m-3">
+    <h5 class="card-header">{{'expenses_menu' | translate}}</h5>
+    <div class="card-body">
+        <form [formGroup]="itemForm" (ngSubmit)="save()">
+            <div class="form-row">
+               
+                <div class="form-group col-md-6 col-xs-12">
+                    <label>{{'branchOffice_lbl' | translate}}</label>
+                    <select class="form-control"
+                    [ngClass]="{ 'is-invalid': form.branchOfficeId.errors }"
+                    formControlName="branchOfficeId"
+                    required
+                    >
+                    <option *ngFor="let branchOffice of branchOffices"
+                     [value]="branchOffice.id"
+                     >{{branchOffice.name}}</option>
+                    </select>
+                    <div *ngIf="form.branchOfficeId.errors" class="invalid-feedback">
+                        <div *ngIf="form.branchOfficeId.errors.required">{{'required_lbl' | translate}}</div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-xs-12">
+                    <label>{{'supplier_lbl' | translate}}</label>
+                    <select class="form-control"
+                    [ngClass]="{ 'is-invalid': form.supplierId.errors }"
+                    formControlName="supplierId"
+                    required
+                    >
+                    <option *ngFor="let supplier of suppliers"
+                     [value]="supplier.id"
+                     >{{supplier.name}}</option>
+                    </select>
+                    <div *ngIf="form.supplierId.errors" class="invalid-feedback">
+                        <div *ngIf="form.supplierId.errors.required">{{'required_lbl' | translate}}</div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-xs-12">
+                    <label>{{'currency_lbl' | translate}}</label>
+                    <select class="form-control"
+                    [ngClass]="{ 'is-invalid': form.currencyId.errors }"
+                    formControlName="currencyId"
+                    required
+                    >
+                    <option *ngFor="let currency of currencies"
+                     [value]="currency.id"
+                     >{{currency.name}}</option>
+                    </select>
+                    <div *ngIf="form.currencyId.errors" class="invalid-feedback">
+                        <div *ngIf="form.currencyId.errors.required">{{'required_lbl' | translate}}</div>
+                    </div>
+                </div>
+
+                <div class="form-group col-md-6 col-xs-12">
+                    <label>{{'date_lbl' | translate}}</label>
+                    <input type="date" formControlName="date" required class="form-control" [ngClass]="{ 'is-invalid':form.date && form.date.errors }" />
+                    <div *ngIf="form.date.errors" class="invalid-feedback">
+                        <div *ngIf="form.date.required">{{'required_lbl' | translate}}</div>
+                    </div>
+                </div>
+
+                <div class="form-group col-md-6 col-xs-12">
+                    <label>{{'trn_lbl' | translate}}</label>
+                    <input type="text" formControlName="trn"  maxlength="50" class="form-control" [ngClass]="{ 'is-invalid': form.trn.errors }" />
+                    <div *ngIf="form.trn.errors" class="invalid-feedback">
+                        <div *ngIf="form.trn.required">{{'required_lbl' | translate}}</div>
+                    </div>
+                </div>
+
+                <div class="form-group col-md-6 col-xs-12">
+                    <label>{{'details_lbl' | translate}}</label>
+                    <textarea class="form-control"
+                    formControlName="details" maxlength="200" class="form-control" [ngClass]="{ 'is-invalid': form.trn.errors }"
+                    ></textarea>
+                </div>
+                <div class="form-group col-md-6 col-xs-12">
+                    <label>{{'beforeTaxesAmount_lbl' | translate}}</label>
+                    <input type="number" formControlName="beforeTaxesAmount"class="form-control" required min="1" [ngClass]="{ 'is-invalid': form.beforeTaxesAmount.errors }" />
+                    <div *ngIf="form.beforeTaxesAmount.errors" class="invalid-feedback">
+                        <div *ngIf="form.beforeTaxesAmount.required">{{'required_lbl' | translate}}</div>
+                    </div>
+                </div>
+             
+                <div class="form-group col-md-6 col-xs-12">
+                    <label>{{'totalAmount_lbl' | translate}}</label>
+                    <input type="number" formControlName="totalAmount" min="1"  required class="form-control" [ngClass]="{ 'is-invalid': form.totalAmount.errors || amountsNotEquals }" />
+                    <div *ngIf="form.totalAmount.errors" class="invalid-feedback">
+                        <div *ngIf="form.totalAmount.required">{{'required_lbl' | translate}}</div>
+                    </div>
+                </div>
+                
+               
+            </div>
+            <div>
+                <div class="form-row">
+                    <div class="form-group col-md-6 col-xs-12">
+                        <label>{{'taxes_lbl' | translate}}</label>
+                        <select class="form-control"
+                        [ngClass]="{ 'is-invalid': form.taxId.errors }"
+                        formControlName="taxId"
+                        >
+                        <option *ngFor="let tax of taxes"
+                         [value]="tax.id"
+                         >{{tax.name}}</option>
+                        </select>
+                        <div *ngIf="form.taxId.errors" class="invalid-feedback">
+                            <div *ngIf="form.taxId.errors.required">{{'required_lbl' | translate}}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-xs-12">
+                        <i class="btn btn-primary mr-1  my-4" (click)="saveTax()">{{'add_btn' | translate}}</i>
+                    </div>
+                </div>
+                <div *ngIf="expenseTaxes.length>0" class="scrollTableMobile">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>{{'tax_lbl' | translate}}</th>
+                                <th>{{'totalAmount_lbl' | translate}}</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let expenseTax of expenseTaxes">
+                                <td>{{expenseTax.tax.name}}</td>
+                                <td>{{expenseTax.taxAmount | currency : ""}}</td>
+                                <td><i class="btn btn-danger" (click)="deleteTax(expenseTax)">{{'delete_btn' | translate}}</i></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="form-row">
+                
+                <div class="form-group col-md-6 col-xs-12">
+                    <label>{{'totalAmount_lbl' | translate}}</label>
+                    <input type="number" disabled formControlName="totalAmountCalc"class="form-control"  [ngClass]="{ 'is-invalid':amountsNotEquals }" />
+                   
+                </div>
+            </div>
+            <div class="form-row" >
+                <div class="form-group col-md-6 col-xs-12">
+                    <label>{{'paymentType_lbl' | translate}}</label>
+                    <select class="form-control"
+                    formControlName="paymentTypeId"
+                    >
+                    <option *ngFor="let paymentType of paymentTypes"
+                     [value]="paymentType.id"
+                     >{{paymentType.name}}</option>
+                    </select>
+                   
+                </div>
+
+                <div class="form-group col-md-6 col-xs-12" *ngIf="isPaid">
+                    <label>{{'paidAmount_lbl' | translate}}</label>
+                    <input type="number" formControlName="givenAmount"  class="form-control" [ngClass]="{ 'is-invalid': form.givenAmount.errors }" />
+                    <div *ngIf="form.givenAmount.errors" class="invalid-feedback">
+                        <div *ngIf="form.givenAmount.required">{{'required_lbl' | translate}}</div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-xs-12" *ngIf="isPaid">
+                    <label>{{'owedAmount_lbl' | translate}}</label>
+                    <input type="number" formControlName="owedAmount" disabled class="form-control" [ngClass]="{ 'is-invalid': form.owedAmount.errors }" />
+                    <div *ngIf="form.owedAmount.errors" class="invalid-feedback">
+                        <div *ngIf="form.owedAmount.required">{{'required_lbl' | translate}}</div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-xs-12" *ngIf="isPaid">
+                    <label>{{'returnedAmount_lbl' | translate}}</label>
+                    <input type="number" formControlName="returnedAmount" disabled  class="form-control" [ngClass]="{ 'is-invalid': form.returnedAmount.errors }" />
+                    <div *ngIf="form.returnedAmount.errors" class="invalid-feedback">
+                        <div *ngIf="form.returnedAmount.required">{{'required_lbl' | translate}}</div>
+                    </div>
+                </div>
+                
+            </div>
+          
+
+            <div class="text-center">
+                <button class="btn btn-primary mr-1">{{'save_btn' | translate}}</button>
+                <button class="btn btn-secondary" type="reset" (click)="cancel()">{{'cancel_btn' | translate}}</button>
+            </div>
+        </form>
+    </div>
+</div>

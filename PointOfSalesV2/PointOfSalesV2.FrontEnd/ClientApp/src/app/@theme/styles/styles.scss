@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap');
+
+// themes - our custom or/and out of the box themes
+@import 'themes';
+
+/* angular-cli file: src/styles.css */
+@import "../../../../node_modules/angular-calendar/css/angular-calendar.css";
+
+// framework component themes (styles tied to theme variables)
+@import '~@nebular/theme/styles/globals';
+@import '~@nebular/auth/styles/all';
+
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~bootstrap/scss/mixins';
+@import '~bootstrap/scss/grid';
+@import '~ngx-toastr/toastr-bs4-alert';
+// loading progress bar theme
+@import './pace.theme';
+@import './noPrint';
+@import '~ngx-toastr/toastr';
+
+@import './layout';
+@import './overrides';
+
+// install the framework and custom global styles
+@include nb-install() {
+
+  // framework global styles
+  @include nb-theme-global();
+  @include nb-auth-global();
+
+  @include ngx-layout();
+  // loading progress bar
+  @include ngx-pace-theme();
+
+  @include nb-overrides();
+};
+
+body, #main-container {
+  height: auto;
+}
+.bg-pink {
+  background-color: hotpink !important;
+}
+
+@media screen and (max-width: 900px) {
+  .scrollTableMobile {
+      overflow-x: scroll !important;
+  }
+  .pull-right {
+      float: left !important;
+  }
+  .formTable {
+      padding-left:24px;
+  }
+}
+
+ td:hover {
+  background: #DE9886;
+}
+
+

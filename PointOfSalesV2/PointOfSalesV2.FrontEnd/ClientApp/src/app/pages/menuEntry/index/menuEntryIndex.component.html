@@ -1,0 +1,44 @@
+<div class="card m-3">
+  <h5 class="card-header">{{'menu_lbl' | translate}}</h5>
+  <div class="card-body">
+      <div >
+          <div class="scrollTableMobile">
+              <table class="table table-bordered table-striped " >
+                  <thead>
+                      <tr class="text-center" (contextmenu)="onContextMenu($event, '0,month')">
+                          <th></th>
+                          <th>{{'monday_lbl' | translate}}</th>
+                          <th>{{'tusday_lbl' | translate}}</th>
+                          <th>{{'wendsday_lbl' | translate}}</th>
+                          <th>{{'thursday_lbl' | translate}}</th>
+                          <th>{{'friday_lbl' | translate}}</th>
+                      </tr>
+                  </thead>
+                  <tbody class="text-left">
+                      <tr *ngFor="let week of MenuEntries; let i=index" (contextmenu)="onContextMenu($event,(week.weekNumber+',week'))">
+                          <td>{{'week_lbl' | translate}} {{i+1}}</td>
+                          <td class="menuItem" *ngFor="let day of week.days" (contextmenu)="onContextMenu($event,(day.dayOfWeek+',day_'+week.weekNumber))">
+                              <ul *ngFor="let item of day.menuDetails">
+                                  <li>{{item.product.name}} {{item.quantity}} {{item.unit?item.unit.name:''}}</li>
+                              </ul>
+                          </td>
+                      </tr>
+                  </tbody>
+              </table>
+          </div>
+    </div>
+  </div>
+</div>
+
+<div style="visibility: hidden; position: fixed"
+    [style.left]="contextMenuPosition.x"
+    [style.top]="contextMenuPosition.y"
+    [matMenuTriggerFor]="contextMenu">
+</div>
+<mat-menu #contextMenu="matMenu">
+	<ng-template matMenuContent let-item="item">
+		<button mat-menu-item *ngIf="!item.hasChildren" (click)="addButtonAction(item)">{{'add_btn' | translate}}</button>
+        <button mat-menu-item  *ngIf="item.hasChildren" (click)="addButtonAction(item)">{{'edit_btn' | translate}}</button>
+        <button mat-menu-item *ngIf="item.hasChildren" (click)="deleteButtonAction(item)">{{'delete_btn' | translate}}</button>
+	</ng-template>
+</mat-menu>

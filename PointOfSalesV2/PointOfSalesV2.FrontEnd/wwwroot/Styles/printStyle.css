@@ -1,0 +1,113 @@
+﻿
+
+textarea {
+    resize: none;
+    overflow: hidden;
+    min-height: 50px;
+    max-height: 100px;
+}
+
+
+
+@page {
+    size: 8.5in 11in;
+    margin-top: 25px;
+    margin: 15px;
+}
+
+
+
+
+@media print {
+    table tfoot {
+        display: table-row-group;
+        position: relative;
+    }
+
+    #invoiceContainer {
+        position: relative;
+    }
+
+    div > .divHeader {
+        position: fixed;
+        top: 0;
+    }
+
+    div > .divBody {
+        display: inline;
+    }
+
+
+    div > .divFooter {
+        position: relative !important;
+        bottom: 0 !important;
+    }
+
+    tr .hideLines {
+        border: 0 !important;
+    }
+
+
+
+    .noel, #estadoCuenta {
+        display: block !important;
+        font-size: 12px !important;
+    }
+
+    .noImprimir {
+        display: none;
+    }
+
+    body {
+        font-size: 12px;
+        margin: 0cm;
+    }
+
+    h2 {
+        font-size: 20px !important;
+    }
+
+    h3 {
+        font-size: 18px !important;
+    }
+
+    h4 {
+        font-size: 14px !important;
+    }
+
+    .textoInformativo {
+        font-size: 14px !important;
+    }
+
+    .row > .col-md-2, .row > .col-md-1, .table thead > tr > th {
+        font-size: 10px !important;
+    }
+
+    .titulo {
+        font: bold;
+        font-size: 30px !important;
+        font-family: 'Agency FB';
+    }
+
+    .infoCompania {
+        font-size: 12px !important;
+        font-family: 'Agency FB';
+    }
+
+    .row > .col-md-2, .row > .col-md-1, .table tbody > tr > td {
+        font-size: 9px !important;
+    }
+
+    .row > .col-md-2, .row > .col-md-1, .table tfoot > tr > th {
+        font-size: 11px !important;
+    }
+
+
+    .row > .col-md-2, .row > .col-md-1, .table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+        padding: 0;
+    }
+}
+
+table > tfoot > tr > th {
+    border-top: 0 !important;
+}

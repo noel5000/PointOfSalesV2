@@ -1,0 +1,94 @@
+<nb-card>
+  <nb-card-header>
+    <div class="row">
+      <div class="col-md-6">{{'sales_menu' | translate}}</div>
+      <div class="col-md-3">
+        <button type="button" class="btn btn-primary" (click)="print()">{{'print_btn' | translate}}</button>
+    </div>
+    <div class="col-md-3">
+      <button type="button" class="btn btn-success" (click)="exportToCSV()">{{'export_btn' | translate}}</button>
+  </div>
+    </div>
+   
+  </nb-card-header>
+
+  <nb-card-body>
+<div id="filter" class="dontPrint" >
+  <form [formGroup]="itemForm" (ngSubmit)="getData()">
+<div class="form-row">
+  <div class="form-group col-md-6 col-xs-12">
+    <label>{{'branchOffice_lbl' | translate}}</label>
+    <select class="form-control"
+    formControlName="branchOfficeId"
+    
+    >
+    <option *ngFor="let branchoffice of branchOffices"
+     [value]="branchoffice.id"
+     >{{branchoffice.name}}</option>
+    </select>
+</div>
+
+<div class="form-group col-md-6 col-xs-12">
+  <label>{{'customer_lbl' | translate}}</label>
+  <select class="form-control"
+  formControlName="customerId"
+  
+  >
+  <option *ngFor="let customer of customers"
+   [value]="customer.id"
+   >{{customer.name}}</option>
+  </select>
+</div>
+
+<div class="form-group col-md-6 col-xs-12">
+  <label>{{'startDate_lbl' | translate}}</label>
+  <input type="date" formControlName="startDate" class="form-control" />
+</div>
+<div class="form-group col-md-6 col-xs-12">
+  <label>{{'endDate_lbl' | translate}}</label>
+  <input type="date" formControlName="endDate" class="form-control" />
+</div>
+</div>
+  </form>
+</div>
+<div id="body">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>{{'customer_lbl' | translate}}</th>
+        <th>{{'invoiceNumber_lbl' | translate}}</th>
+        <th>{{'date_lbl' | translate}}</th>
+        <th>{{'trn_lbl' | translate}}</th>
+        <th>{{'beforeTaxesAmount_lbl' | translate}}</th>
+        <th>{{'taxesAmount_lbl' | translate}}</th>
+        <th>{{'discountAmount_lbl' | translate}}</th>
+        <th>{{'appliedCreditNoteAmount_lbl' | translate}}</th>
+        <th>{{'totalAmount_lbl' | translate}}</th>
+        <th>{{'paidAmount_lbl' | translate}}</th>
+        <th>{{'owedAmount_lbl' | translate}}</th>
+        <th>{{'daysAmount_lbl' | translate}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor=" let invoice of invoices">
+        <td>{{invoice.customer.nameAndCode}}</td>
+        <td>{{invoice.invoiceNumber}}</td>
+        <td>{{invoice.billingDate | date:"shortDate"}}</td>
+        <td>{{invoice.trn}}</td>
+        <td>{{invoice.beforeTaxesAmount | currency:""}}</td>
+        <td>{{invoice.taxesAmount | currency:"" }}</td>
+        <td>{{invoice.discountAmount | currency:"" }}</td>
+        <td>{{invoice.appliedCreditNoteAmount | currency:"" }}</td>
+        <td>{{invoice.totalAmount | currency:"" }}</td>
+        <td>{{invoice.paidAmount | currency:"" }}</td>
+        <td>{{invoice.owedAmount | currency:"" }}</td>
+        <td>{{invoice.daysAmount}}</td>
+
+      </tr>
+    </tbody>
+      </table>
+
+</div>
+  </nb-card-body>
+</nb-card>
+

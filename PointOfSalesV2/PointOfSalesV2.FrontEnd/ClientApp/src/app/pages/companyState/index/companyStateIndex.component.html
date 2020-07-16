@@ -1,0 +1,93 @@
+<nb-card>
+  <nb-card-header>
+    <div class="row">
+      <div class="col-md-6">{{'resultState_menu' | translate}}</div>
+      <div class="col-md-3">
+        <button type="button" class="btn btn-primary" (click)="print()">{{'print_btn' | translate}}</button>
+    </div>
+    <div class="col-md-3">
+      <button type="button" class="btn btn-success" (click)="exportToCSV()">{{'export_btn' | translate}}</button>
+  </div>
+    </div>
+   
+  </nb-card-header>
+
+  <nb-card-body>
+<div id="filter" class="dontPrint" >
+  <form [formGroup]="itemForm" (ngSubmit)="getData()">
+<div class="form-row">
+
+
+<div class="form-group col-md-4 col-xs-12">
+  <label>{{'startDate_lbl' | translate}}</label>
+  <input type="date" formControlName="startDate" class="form-control" />
+</div>
+<div class="form-group col-md-4 col-xs-12">
+  <label>{{'endDate_lbl' | translate}}</label>
+  <input type="date" formControlName="endDate" class="form-control" />
+</div>
+
+<div class="form-group col-md-4 col-xs-12">
+  <input type="submit" class="btn btn-danger my-4" [value]="getLanguageValue('search_lbl')">
+</div>
+</div>
+  </form>
+</div>
+<div id="body" *ngIf="result && result.length>0">
+ <div *ngFor="let state of result">
+   <h3>{{state.currencyCode}}</h3>
+   <hr>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>{{'details_lbl' | translate}}</th>
+        <th>{{'reference_lbl' | translate}}</th>
+        <th>{{'date_lbl' | translate}}</th>
+        <th>{{'incomeAmount_lbl' | translate}}</th>
+        <th>{{'outcomeAmount_lbl' | translate}}</th>
+        <th>{{'customerDebt_lbl' | translate}}</th>
+        <th>{{'companyDebt_lbl' | translate}}</th>
+        <th>{{'recordedRate_lbl' | translate}}</th>
+        <th>{{'daysAmount_lbl' | translate}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor=" let invoice of state.data">
+        <td>{{invoice.details}}</td>
+        <td>{{invoice.reference}}</td>
+        <td>{{invoice.date | date:"shortDate"}}</td>
+        <td>{{invoice.incomeAmount | currency:""}}</td>
+        <td>{{invoice.outcomeAmount | currency:"" }}</td>
+        <td>{{invoice.customersOwedAmount | currency:"" }}</td>
+        <td>{{invoice.companyOwedAmount | currency:"" }}</td>
+        <td>{{invoice.exchangeRate | currency:"" }}</td>
+        <td>{{invoice.daysCount }}</td>
+
+      </tr>
+    </tbody>
+      </table>
+      <hr>
+      <table>
+        <thead>
+          <tr>
+            <th>{{'totalIncome_lbl' | translate}}</th>
+            <th>{{'totalOutcome_lbl' | translate}}</th>
+            <th>{{'totalCustomersDebt_lbl' | translate}}</th>
+            <th>{{'totalCompanyDebt_lbl' | translate}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{state.totalIncomesAmount | currency:""}}</td>
+            <td>{{state.totalOutComesAmount | currency:""}}</td>
+            <td>{{state.totalCustomersOwedAmount | currency:""}}</td>
+            <td>{{state.totalCompanyOwedAmount | currency:""}}</td>
+          </tr>
+        </tbody>
+      </table>
+ </div>
+
+</div>
+  </nb-card-body>
+</nb-card>
+

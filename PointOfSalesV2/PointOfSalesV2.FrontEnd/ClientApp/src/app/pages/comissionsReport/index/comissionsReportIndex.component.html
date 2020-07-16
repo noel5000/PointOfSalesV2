@@ -1,0 +1,132 @@
+<nb-card>
+  <nb-card-header>
+    <div class="row">
+      <div class="col-md-6">{{'commissions_menu' | translate}}</div>
+      <div class="col-md-3">
+        <button type="button" class="btn btn-primary" (click)="print()">{{'print_btn' | translate}}</button>
+    </div>
+    <div class="col-md-3">
+      <button type="button" class="btn btn-success" (click)="exportToCSV()">{{'export_btn' | translate}}</button>
+  </div>
+    </div>
+   
+  </nb-card-header>
+
+  <nb-card-body>
+<div id="filter" class="dontPrint" >
+  <form [formGroup]="itemForm" (ngSubmit)="getData()">
+<div class="form-row">
+
+  <div class="form-group col-md-6 col-xs-12">
+    <label>{{'reportType_lbl' | translate}}</label>
+    <select class="form-control"
+    formControlName="reportType"
+    
+    >
+    <option *ngFor="let reportType of reportTypes"
+     [value]="reportType.id"
+     >{{reportType.name}}</option>
+    </select>
+  </div>
+
+  <div class="form-group col-md-6 col-xs-12">
+    <label>{{'customer_lbl' | translate}}</label>
+    <select class="form-control"
+    formControlName="customerId"
+    
+    >
+    <option *ngFor="let customer of customers"
+     [value]="customer.id"
+     >{{customer.name}}</option>
+    </select>
+  </div>
+
+  <div class="form-group col-md-6 col-xs-12">
+    <label>{{'seller_lbl' | translate}}</label>
+    <select class="form-control"
+    formControlName="sellerId"
+    
+    >
+    <option *ngFor="let seller of sellers"
+     [value]="seller.id"
+     >{{seller.name}}</option>
+    </select>
+  </div>
+
+  <div class="form-group col-md-6 col-xs-12">
+    <label>{{'currency_lbl' | translate}}</label>
+    <select class="form-control"
+    formControlName="currencyId"
+    
+    >
+    <option *ngFor="let currency of currencies"
+     [value]="currency.id"
+     >{{currency.name}}</option>
+    </select>
+  </div>
+
+<div class="form-group col-md-4 col-xs-12">
+  <label>{{'startDate_lbl' | translate}}</label>
+  <input type="date" formControlName="startDate" class="form-control" />
+</div>
+<div class="form-group col-md-4 col-xs-12">
+  <label>{{'endDate_lbl' | translate}}</label>
+  <input type="date" formControlName="endDate" class="form-control" />
+</div>
+
+<div class="form-group col-md-4 col-xs-12">
+  <input type="submit" class="btn btn-danger my-4" [value]="getLanguageValue('search_lbl')">
+</div>
+</div>
+  </form>
+</div>
+<div id="body" *ngIf="result && result.comissionsByCyrrencies && result.comissionsByCyrrencies.length>0">
+ <div *ngFor="let report of result.comissionsByCyrrencies">
+   <h3>{{report.currencyName}} {{report.currecyCode}}</h3>
+   <hr>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>{{'reference_lbl' | translate}}</th>
+        <th>{{'customer_lbl' | translate}}</th>
+        <th>{{'seller_lbl' | translate}}</th>
+        <th>{{'date_lbl' | translate}}</th>
+        <th>{{'comissionAmount_lbl' | translate}}</th>
+        <th>{{'totalAmount_lbl' | translate}}</th>
+        <th>{{'paidAmount_lbl' | translate}}</th>
+        <th>{{'daysAmount_lbl' | translate}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor=" let comission of report.details">
+        <td>{{comission.reference}}</td>
+        <td>{{comission.customerName}}</td>
+        <td>{{comission.sellerName}}</td>
+        <td>{{comission.date | date:"shortDate"}}</td>
+        <td>{{comission.amount | currency:"" }}</td>
+        <td>{{comission.totalAmount | currency:"" }}</td>
+        <td>{{comission.paidAmount | currency:"" }}</td>
+        <td>{{comission.daysAmount | currency:"" }}</td>
+
+      </tr>
+    </tbody>
+      </table>
+      <hr>
+      <table>
+        <thead>
+          <tr>
+            <th>{{'totalIncome_lbl' | translate}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{report.totalAmount | currency:""}}</td>
+          </tr>
+        </tbody>
+      </table>
+ </div>
+
+</div>
+  </nb-card-body>
+</nb-card>
+

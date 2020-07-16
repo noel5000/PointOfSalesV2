@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.Serialization;
 
 namespace PointOfSalesV2.Entities
 {
@@ -17,6 +18,7 @@ namespace PointOfSalesV2.Entities
         [ForeignKey("OperationId")]
         public virtual Operation Operation { get; set; }
         [NotMapped]
+        [IgnoreDataMember]
         public override string TranslationData { get; set; }
 
     }

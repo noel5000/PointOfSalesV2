@@ -5,13 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20191227234115_LanguagesAndTranslations.cs" />
-    <Compile Remove="Migrations\20191227234115_LanguagesAndTranslations.Designer.cs" />
-    <Compile Remove="Migrations\20191230014603_newSections.cs" />
-    <Compile Remove="Migrations\20191230014603_newSections.Designer.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.0">

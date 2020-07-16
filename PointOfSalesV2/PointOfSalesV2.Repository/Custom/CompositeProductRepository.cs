@@ -1,4 +1,5 @@
-﻿using PointOfSalesV2.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using PointOfSalesV2.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,12 +15,12 @@ namespace PointOfSalesV2.Repository
 
         public IEnumerable<CompositeProduct> GetDerivedProducts(long productId)
         {
-            return base._Context.CompositeProducts.Where(x => x.Active == true && x.BaseProductId == productId);
+            return base._Context.CompositeProducts.AsNoTracking().Where(x => x.Active == true && x.BaseProductId == productId);
         }
 
         public IEnumerable<CompositeProduct> GetProductBases(long productId)
         {
-            return _Context.CompositeProducts.Where(x => x.Active == true && x.ProductId == productId);
+            return _Context.CompositeProducts.AsNoTracking().Where(x => x.Active == true && x.ProductId == productId);
         }
     }
 }

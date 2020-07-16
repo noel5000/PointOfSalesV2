@@ -11,7 +11,7 @@ namespace PointOfSalesV2.Entities
         {
             var actualUnit = units.Where(u => u.UnitId == unitId).FirstOrDefault();
             if (actualUnit == null) 
-                return new Result<object>(-1, -1, "unitNotExist_msg");
+                return new Result<object>(-1, -1, "unitDoesntExist_msg");
             
             var parentUnit = units.Where(u => u.IsPrimary).FirstOrDefault();
             if (parentUnit == null)
@@ -26,7 +26,7 @@ namespace PointOfSalesV2.Entities
         {
             var actualUnit = units.Where(u => u.UnitId == unitId).FirstOrDefault();
             if (actualUnit == null)
-                return new Result<object>(-1, -1, "unitNotExist_msg");
+                return new Result<object>(-1, -1, "unitDoesntExist_msg");
 
             decimal equivalence = (quantity * actualUnit.Equivalence);
 

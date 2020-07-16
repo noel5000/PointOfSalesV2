@@ -6,13 +6,58 @@ namespace PointOfSalesV2.Common
 {
     public class Enums
     {
+
+        public enum Month
+        {
+            NotSet = 0,
+            January = 1,
+            February = 2,
+            March = 3,
+            April = 4,
+            May = 5,
+            June = 6,
+            July = 7,
+            August = 8,
+            September = 9,
+            October = 10,
+            November = 11,
+            December = 12
+        }
         public enum BillingStates
         {
             Billed = 'B',
             Nulled = 'N',
             Paid = 'P',
+            FullPaid = 'R',
             Quoted = 'Q',
-            Converted = 'C'
+            Converted = 'C',
+            Generated='G',
+            Projected='J',
+            Delivered='D',
+            Expired='E',
+            NotEnoughInventory='I',
+            NulledLead = 'M',
+            GeneratedWithoutInventory = 'O',
+
+        }
+       
+
+
+        public enum CashRegisterOpeningType 
+        {
+        cash,
+        check,
+        creditCard
+        }
+        public enum CashRegisterOpeningStates
+        {
+           Open='O',
+           Close='C'
+        }
+        public enum SortDirections 
+        {
+        DESC=0,
+        ASC=1
         }
 
         public enum ExcelColumnsDef
@@ -22,10 +67,32 @@ namespace PointOfSalesV2.Common
             INTEGER = 3,
             DATETIME = 4
         }
-       
+
+        public static Dictionary<string, ExcelColumnsDef> PropertyTypesToExcelEnum = new Dictionary<string, ExcelColumnsDef>() 
+        {
+            {"datetime",ExcelColumnsDef.DATETIME },
+            {"int",ExcelColumnsDef.INTEGER },
+            {"byte",ExcelColumnsDef.INTEGER },
+            {"long",ExcelColumnsDef.INTEGER },
+            {"short",ExcelColumnsDef.INTEGER },
+            {"string",ExcelColumnsDef.TEXT },
+            {"decimal",ExcelColumnsDef.DECIMAL },
+            {"float",ExcelColumnsDef.DECIMAL },
+            {"char",ExcelColumnsDef.TEXT },
+        };
+
+        public enum ObjectType 
+        {
+        STRING=0,
+        NUMBER=2,
+        DATE=3,
+        BOOL=4
+        }
+        
 
         public enum SequenceTypes
         {
+            
             Invoices = 1,
             Sellers = 2,
             Customers = 3,
@@ -36,8 +103,42 @@ namespace PointOfSalesV2.Common
             CustomersReturns = 8,
             SupplierReturns = 9,
             CustomerPayments = 10,
-            ExpensesPayments = 11
+            CompanyPayments = 11,
+            Leads=12,
+            Schools=13,
+            ExpensePayments=14,
+            Products=15,
+            Menus=16
         }
+
+      
+
+        public enum CompanyPaymentTypes
+        {
+        ExpensePayment=0,
+        CustomerPayment=1
+        }
+
+        public enum SequenceTypeCode
+        {
+            FAC = 1,
+            VEND = 2,
+            CLI = 3,
+            COT = 4,
+            GST = 5,
+            TRF = 6,
+            ENT = 7,
+            DEV = 8,
+            DEVS = 9,
+            R = 10,
+            P = 11,
+            CONDUCE = 12,
+            ESC = 13,
+            PG=14,
+            PRO = 15,
+            MEN=16,
+        }
+
         public enum AppSections
         {
             Permissions = 1,
@@ -71,11 +172,27 @@ namespace PointOfSalesV2.Common
             Roles=29,
             Sections=30,
             Operations=31,
-            Menu=32,
-            Sellers=33,
-            Zones=34,
-            UserRoles=35,
-            WarehouseMovements=36,
+            Sellers=32,
+            Zones=33,
+            UserRoles=34,
+            DashBoard=35,
+            SalesReport = 36,
+            AccountsReceivable = 37,
+            IncomeReceipts = 38,
+            Commisions = 39,
+            ProductMovements = 40,
+            DebstToPay = 41,
+            PriceList = 42,
+            CustomersList = 43,
+            AccountState = 44,
+            ResultState = 45,
+            TaxesReport = 46,
+            InventoryIncomes = 47,
+            CompanyPayments=48,
+            Menu = 49,
+            School = 50,
+            SchoolMenu=51,
+            InvoiceLeads=52,
 
         }
         public enum MovementTypes
@@ -98,7 +215,8 @@ namespace PointOfSalesV2.Common
             {AppSections.Products,"Product,ProductTax" },
             {AppSections.CustomerPayments,"Customer,CustomerPayment" },
             {AppSections.Currencies,"Currency" },
-            {AppSections.Taxes,"Taxe" },
+            {AppSections.Taxes,"Tax" },
+            {AppSections.InvoiceLeads,"InvoiceLead,Product,Customer,BranchOffice" },
             {AppSections.Invoices,"Invoice,InvoiceDetail,TRNControl,Unit,UnitProductEquivalence,Seller,BranchOffice,Warehouse,CreditNote,Currency,Customer,Inventory,PaymentType" },
             {AppSections.Quotes,"Invoice,InvoiceDetail,Unit,UnitProductEquivalence,Seller,Currency,Customer" },
             {AppSections.Customers,"Customer,BranchOffice,Warehouse,TRNControl,Zone" },
@@ -108,7 +226,7 @@ namespace PointOfSalesV2.Common
             {AppSections.TRNControl,"TRNControl" },
             {AppSections.Expenses,"Supplier,Expense,Tax,ExpenseTax,Currency" },
             {AppSections.BranchOffices,"BranchOffice,Warehouse" },
-            {AppSections.ExpensesPayments,"Supplier,BranchOffice,User,Currency,Tax" },
+            {AppSections.ExpensesPayments,"Supplier,BranchOffice,User,Currency,Tax,ExpensesPayment" },
             {AppSections.Suppliers,"Supplier" },
             {AppSections.Units,"Unit" },
             {AppSections.Users,"User,BranchOffice,Warehouse,CashRegister" },
@@ -118,22 +236,43 @@ namespace PointOfSalesV2.Common
             {AppSections.CashRegisterOpeningsAmounts,"CashRegister,User,CashRegisterOpening" },
             {AppSections.IncomeMovements,"Supplier,Product,Tax,User" },
             {AppSections.CustomersReturns,"Invoice,Product,InvoiceDetail,Customer" },
-            {AppSections.SuppliersReturns,"Supplier,Expense,Tax,Currency" },
-            {AppSections.WarehouseTransfers,"BranchOffice,Warehouse,User,Product,Unit" },
+            {AppSections.SuppliersReturns,"Supplier,Expense,Tax,Currency,SupplierReturn" },
+            {AppSections.WarehouseTransfers,"BranchOffice,Warehouse,User,Product,Unit,WarehouseTransfer" },
             {AppSections.ProductUnits,"Product,Unit," },
             {AppSections.Roles,"Role" },
             {AppSections.Sections,"Section" },
             {AppSections.Operations,"Operation" },
-            {AppSections.Menu,"" },
             {AppSections.Sellers,"Seller,Zone,BranchOffice" },
-            {AppSections.Zones,"" },
+            {AppSections.Zones,"Zone" },
             {AppSections.UserRoles,"Users,Role,UserRole" },
-            {AppSections.WarehouseMovements,"" },
+            {AppSections.DashBoard,"" },
+            {AppSections.SalesReport,"Invoice" },
+            {AppSections.AccountsReceivable,"Invoice" },
+            {AppSections.IncomeReceipts,"CustomerPayment,Invoice" },
+            {AppSections.Commisions,"Invoice,CustomerPayment,Seller" },
+            {AppSections.ProductMovements,"Product,Inventory,WarehouseMovement" },
+            {AppSections.DebstToPay,"Expense" },
+            {AppSections.PriceList,"Product" },
+            {AppSections.CustomersList,"Customer" },
+            {AppSections.AccountState,"Customer,Invoice,CustomerPayment" },
+            {AppSections.ResultState,"Invoice,Expense,CompanyState" },
+            {AppSections.TaxesReport,"Tax,InvoiceTax" },
+            {AppSections.InventoryIncomes,"InventoryEntry" },
+            {AppSections.CompanyPayments,"CompanyPayment" },
+            {AppSections.Menu,"" },
+           { AppSections.School,"School,BranchOffice,Zone,Customer"},
+            {AppSections.SchoolMenu,"Menu" },
         };
         public enum Gender
         {
             Male = 'M',
             Female = 'F'
+        }
+
+        public enum ServerDirectoryType 
+        {
+        Folder=0,
+        FTP=1
         }
 
         public enum Operations
@@ -143,8 +282,21 @@ namespace PointOfSalesV2.Common
             UPDATE = 3,
             DELETE = 4,
             READALL=5,
-            READPAGED=6,
-            ALL=7
+            EXPORT=6,
+            ALL=7,
+            NONE = 8,
+            ACCOUNTSTATEREPORT=9,
+            RECEIPTSREPORT=10,
+            DEBTSTOPAYREPORT=11,
+            MENU=12,
+            INVENTORYREPORT=13,
+            ACCOUNTRECEIVABLES=14,
+            SALESREPORT=15,
+            TAXREPORT=16,
+            GENERATEDICTIONARY=17,
+            COMISSIONSREPORT=18,
+            PRODUCTMOVEMENTS=19
+
         }
     }
 }

@@ -1,0 +1,170 @@
+<nb-card>
+  <nb-card-header>
+    <div class="form-row">
+      <div class="col-md-6 col-xs-12">{{'invoiceLeads_lbl' | translate}}</div>
+      
+    </div>
+    <br>
+    <div class="form-row">
+      <div class="col-md-1 text-right col-xs-6">{{'branchOffice_lbl' | translate}}</div>
+      <div class="col-md-3 col-xs-6">
+        <select class="form-control" [ngModel]="branchOfficeId"(ngModelChange)="getWarehouses($event)">
+          <option value="0"></option>
+          <option *ngFor="let branchOffice of branchOffices" [value]="branchOffice.id" >{{branchOffice.name}}</option>
+        </select>
+      </div>
+      <div class="col-md-1 text-right col-xs-6">{{'warehouse_lbl' | translate}}</div>
+      <div class="col-md-3 col-xs-6">
+        <select class="form-control" [ngModel]="warehouseId"(ngModelChange)="warehouseChange($event)">
+          <option value="0"></option>
+          <option *ngFor="let warehouse of warehouses" [value]="warehouse.id" >{{warehouse.name}}</option>
+        </select>
+      </div>
+    </div>
+   
+  </nb-card-header>
+
+  <nb-card-body>
+    <div class="row text-center">
+      <div class="col-md-4">
+        <div class="btn-group">
+          <div
+            class="btn btn-primary"
+            mwlCalendarPreviousView
+            [view]="view"
+            [(viewDate)]="viewDate"
+            (viewDateChange)="closeOpenMonthViewDay()"
+          >
+            Previous
+          </div>
+          <div
+            class="btn btn-outline-secondary"
+            mwlCalendarToday
+            [(viewDate)]="viewDate"
+          >
+            Today
+          </div>
+          <div
+            class="btn btn-primary"
+            mwlCalendarNextView
+            [view]="view"
+            [(viewDate)]="viewDate"
+            (viewDateChange)="closeOpenMonthViewDay()"
+          >
+            Next
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
+      </div>
+      <!-- <div class="col-md-4">
+        <div class="btn-group">
+          <div
+            class="btn btn-primary"
+            (click)="setView(CalendarView.Month)"
+            [class.active]="view === CalendarView.Month"
+          >
+            Month
+          </div>
+          <div
+            class="btn btn-primary"
+            (click)="setView(CalendarView.Week)"
+            [class.active]="view === CalendarView.Week"
+          >
+            Week
+          </div>
+          <div
+            class="btn btn-primary"
+            (click)="setView(CalendarView.Day)"
+            [class.active]="view === CalendarView.Day"
+          >
+            Day
+          </div>
+        </div>
+      </div> -->
+    </div>
+    <br />
+    <div >
+      <mwl-calendar-month-view
+        [viewDate]="viewDate"
+        [events]="events"
+        [refresh]="refresh"
+        [activeDayIsOpen]="activeDayIsOpen"
+        (dayClicked)="dayClicked($event.day)"
+        (eventClicked)="handleEvent('Clicked', $event.event)"
+        (eventTimesChanged)="eventTimesChanged($event)"
+        (beforeViewRender)="beforeMonthViewRender($event)"
+      >
+      </mwl-calendar-month-view>
+    </div>
+    
+    <!-- Everything you see below is just for the demo, you don't need to include it in your app -->
+    
+    <br /><br /><br />
+    
+ 
+    
+    <div class="table-responsive scrollTableMobile" *ngIf="selectedLeads.length>0">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>{{'school_lbl' | translate}}</th>
+            <th>{{'sequence_lbl' | translate}}</th>
+            <th>{{'state_lbl' | translate}}?</th>
+            <th>{{'existence_lbl' | translate}}?</th>
+          </tr>
+        </thead>
+    
+        <tbody>
+          <tr *ngFor="let selectedLead of selectedLeads">
+            <td>{{selectedLead.schoolName}}</td>
+            <td>{{selectedLead.leadSequence}}</td>
+            <td>{{getStatusDescription(selectedLead.state)}}</td>
+            <td>{{(selectedLead.enoughExistence?'yes_lbl':'no_lbl')| translate}}</td>
+            <td>
+              <button mat-button [matMenuTriggerFor]="menu">{{'actions_lbl' | translate}}</button>
+<mat-menu #menu="matMenu">
+  <button *ngIf="selectedLead.state=='J'" (click)="addNew(selectedLead)" mat-menu-item>{{'createLead_lbl' | translate}}</button>
+  <button *ngIf="selectedLead.state=='G' || selectedLead.state=='O'" (click)="editLead(selectedLead)"  mat-menu-item>{{'edit_btn' | translate}}</button>
+  <button *ngIf="selectedLead.state=='G' || selectedLead.state=='O'" (click)="removeLead(selectedLead)"  mat-menu-item>{{'delete_btn' | translate}}</button>
+  <button *ngIf="selectedLead.state=='G'" (click)="deliverLead(selectedLead)" mat-menu-item>{{'deliverLead_lbl' | translate}}</button>
+  <button (click)="printLead(selectedLead)" mat-menu-item>{{'print_lbl' | translate}}</button>
+</mat-menu>
+            </td>
+            <!-- <td>
+              <button class="btn btn-danger" (click)="deleteEvent(event)">
+                Delete
+              </button>
+            </td> -->
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    
+    <ng-template #modalContent let-close="close">
+      <div class="modal-header">
+        <h5 class="modal-title">Event action occurred</h5>
+        <button type="button" class="close" (click)="close()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div>
+          Action:
+          <pre>{{ modalData?.action }}</pre>
+        </div>
+        <div>
+          Event:
+          <pre>{{ modalData?.event | json }}</pre>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="close()">
+          OK
+        </button>
+      </div>
+    </ng-template>
+  </nb-card-body>
+</nb-card>
+

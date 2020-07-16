@@ -8,5 +8,7 @@ namespace PointOfSalesV2.Repository
     public interface IBusinessStateRepository 
     {
         List<object> GetFinancialState(DateTime? startDate, DateTime? endDate);
+
+        public List<TaxesReport> GetTaxesReport(DateTime? startDate, DateTime? endDate);
     }
 }
