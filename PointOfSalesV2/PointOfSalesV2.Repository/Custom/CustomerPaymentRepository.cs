@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static PointOfSalesV2.Common.Enums;
 
 namespace PointOfSalesV2.Repository
 {
@@ -156,6 +157,31 @@ namespace PointOfSalesV2.Repository
             {
                 try
                 {
+                    CashRegisterOpening cashRegisterOpening = null;
+                    bool processCashRegister = false;
+                    var currentUser = _Context.Users.AsNoTracking().FirstOrDefault(x=>x.UserId==model.UserId && x.Active==true);
+                  
+                    if (currentUser == null)
+                    {
+                        transaction.Rollback();
+                        return new Result<object>(-1, -1, "invalidUser_msg");
+                    }
+                    else
+                    {
+                        if (currentUser.CashRegisterId.HasValue && currentUser.CashRegisterId > 0) 
+                        {
+                            cashRegisterOpening = _Context.CashRegisterOpenings.AsNoTracking().FirstOrDefault(x => x.Active == true && x.UserId == model.UserId 
+                            && x.State == (char)CashRegisterOpeningStates.Open && x.MaxClosureDate>DateTime.Now && x.CurrencyId==model.Payment.CurrencyId);
+                            if(cashRegisterOpening==null)
+                            {
+                                transaction.Rollback();
+                                return new Result<object>(-1, -1, "notCashRegisteredOpened_msg");
+                            }
+                           
+                            processCashRegister = true;
+                        }
+                    }
+                   
                     string sequence = dataRepositoryFactory.GetCustomDataRepositories<ISequenceManagerRepository>().CreateSequence(Enums.SequenceTypes.CustomerPayments);
                     if (model.Invoices.Count == 0 && model.Invoices.Any(x => x.CurrentPaidAmount == 0))
                     {
@@ -202,6 +228,25 @@ namespace PointOfSalesV2.Repository
                         _Context.CustomersBalance.Update(customerBalance);
                         _Context.SaveChanges();
                     }
+                    if (processCashRegister) 
+                    {
+                        _Context.CashRegisterFlowDetails.Add(new CashRegisterFlowDetail()
+                        {
+                            Active = true,
+                            Reference = sequence,
+                            TotalAmount = model.Payment.GivenAmount,
+                            CashRegisterOpeningId = cashRegisterOpening.Id,
+                            CurrencyId = model.Payment.CurrencyId,
+                            MovementType = MovementTypes.IN.ToString(),
+                            PaymentTypeId = model.Payment.PaymentTypeId
+                        });
+                        _Context.SaveChanges();
+                        cashRegisterOpening.TotalPaymentsAmount += model.Payment.GivenAmount;
+                        _Context.CashRegisterOpenings.Update(cashRegisterOpening);
+                        _Context.SaveChanges();
+                    }
+                
+
                     transaction.Commit();
                     return new Result<object>(0, 0, "ok_msg", new List<CustomerPayment>() { new CustomerPayment() });
 
@@ -257,6 +302,21 @@ namespace PointOfSalesV2.Repository
                     _Context.SaveChanges();
                     _Context.CustomersBalance.Update(balances);
                     _Context.SaveChanges();
+
+                    var cashFlowDetails = _Context.CashRegisterFlowDetails.AsNoTracking().Include(x=>x.CashRegisterOpening).Where(x => x.Active == true && x.Reference.ToUpper() == sequence.ToUpper());
+                    if (cashFlowDetails != null && cashFlowDetails.Count()>0) 
+                    {
+                        var cashRegisterOpening = cashFlowDetails.FirstOrDefault()?.CashRegisterOpening;
+                        if (cashRegisterOpening != null) 
+                        {
+                            cashRegisterOpening.TotalPaymentsAmount -= cashFlowDetails.Sum(x => x.TotalAmount);
+                            _Context.CashRegisterOpenings.Update(cashRegisterOpening);
+                            _Context.SaveChanges();
+                        }
+                        _Context.CashRegisterFlowDetails.RemoveRange(cashFlowDetails);
+                        _Context.SaveChanges();
+                    }
+
                     trans.Commit();
                     result = new Result<object>(0, 0, "ok_msg");
                 }

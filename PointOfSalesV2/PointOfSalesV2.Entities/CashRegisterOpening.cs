@@ -47,6 +47,7 @@ namespace PointOfSalesV2.Entities
         public BranchOffice BranchOffice { get; set; }
 
         public virtual IEnumerable<CashRegisterOpeningDetail> Details { get; set; }
+        public virtual IEnumerable<CashRegisterFlowDetail> CashFlow { get; set; }
 
     }
 
@@ -60,6 +61,30 @@ namespace PointOfSalesV2.Entities
 
         [ForeignKey("CashRegisterOpeningId")]
         public virtual CashRegisterOpening CashRegisterOpening { get; set; }
+        [NotMapped]
+        [IgnoreDataMember]
+        public override string TranslationData { get; set; }
+    }
+
+    public class CashRegisterFlowDetail : CommonData
+    {
+       
+        public long CashRegisterOpeningId { get; set; }
+        public long PaymentTypeId { get; set; }
+        public string MovementType { get; set; }
+        public string Reference { get; set; }
+        public long CurrencyId { get; set; }
+        public decimal TotalAmount { get; set; }
+
+        [ForeignKey("CashRegisterOpeningId")]
+        public virtual CashRegisterOpening CashRegisterOpening { get; set; }
+
+        [ForeignKey("CurrencyId")]
+        public virtual Currency Currency { get; set; }
+
+        [ForeignKey("PaymentTypeId")]
+        public virtual PaymentType PaymentType { get; set; }
+
         [NotMapped]
         [IgnoreDataMember]
         public override string TranslationData { get; set; }

@@ -212,7 +212,8 @@ async getCustomers(){
                 positiveBalance:formValue.positiveBalance,
                 givenAmount:formValue.givenAmount,
             },
-              invoices:this.invoices.filter(x=>x.currentPaidAmount>0)
+              invoices:this.invoices.filter(x=>x.currentPaidAmount>0),
+              userId:this.authModel.user.userId
           };
             const subscription =this.paymentService.post(toPost,null,'PayInvoices');
             subscription.subscribe(r=>{

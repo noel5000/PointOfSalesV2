@@ -7,6 +7,7 @@ namespace PointOfSalesV2.Entities
     public class InvoicesPaymentModel
     {
         public PaymentModelInfo Payment { get; set; }
+        public Guid UserId { get; set; }
         public List<Invoice> Invoices { get; set; }
     }
 

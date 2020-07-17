@@ -3,14 +3,16 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace PointOfSalesV2.EntityFramework.Migrations
 {
     [DbContext(typeof(MainDataContext))]
-    partial class MainDataContextModelSnapshot : ModelSnapshot
+    [Migration("20200716232200_CashFlow")]
+    partial class CashFlow
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -142,11 +144,8 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                     b.Property<string>("MovementType")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("PaymentTypeId")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("Reference")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<byte>("PaymentType")
+                        .HasColumnType("tinyint");
 
                     b.Property<decimal>("TotalAmount")
                         .HasColumnType("decimal(18, 2)");
@@ -156,8 +155,6 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                     b.HasIndex("CashRegisterOpeningId");
 
                     b.HasIndex("CurrencyId");
-
-                    b.HasIndex("PaymentTypeId");
 
                     b.ToTable("CashRegisterFlowDetails");
                 });
@@ -22528,12 +22525,6 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                     b.HasOne("PointOfSalesV2.Entities.Currency", "Currency")
                         .WithMany()
                         .HasForeignKey("CurrencyId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("PointOfSalesV2.Entities.PaymentType", "PaymentType")
-                        .WithMany()
-                        .HasForeignKey("PaymentTypeId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });

@@ -31,6 +31,7 @@ public class MainDataContext : DbContext
     public virtual DbSet<LanguageKey> LanguageKeys { get; set; }
     public virtual DbSet<CashRegisterOpening> CashRegisterOpenings { get; set; }
     public virtual DbSet<CashRegisterOpeningDetail> CashRegisterOpeningDetails { get; set; }
+    public virtual DbSet<CashRegisterFlowDetail> CashRegisterFlowDetails { get; set; }
     public virtual DbSet<CustomerPayment> CustomersPayments { get; set; }
     public virtual DbSet<CompositeProduct> CompositeProducts { get; set; }
     public virtual DbSet<CreditNote> CreditNotes { get; set; }
@@ -165,10 +166,20 @@ public class MainDataContext : DbContext
        .WithOne(x => x.CashRegisterOpening)
        .OnDelete(DeleteBehavior.Restrict);
 
+        modelBuilder.Entity<CashRegisterOpening>()
+      .HasMany(x => x.CashFlow)
+      .WithOne(x => x.CashRegisterOpening)
+      .OnDelete(DeleteBehavior.Restrict);
+
         modelBuilder.Entity<CashRegisterOpeningDetail>()
       .HasOne(x => x.CashRegisterOpening)
       .WithMany(x => x.Details)
       .OnDelete(DeleteBehavior.NoAction);
+
+        modelBuilder.Entity<CashRegisterFlowDetail>()
+  .HasOne(x => x.CashRegisterOpening)
+  .WithMany(x => x.CashFlow)
+  .OnDelete(DeleteBehavior.NoAction);
 
         modelBuilder.Entity<BranchOffice>()
        .HasMany(x => x.CashRegisters)
