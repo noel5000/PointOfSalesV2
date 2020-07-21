@@ -122,7 +122,7 @@ namespace PointOfSalesV2.Api.Controllers
                 var model = _baseRepo.Get(id).Data.FirstOrDefault();
                 if (model != null && model.State ==(char) Enums.CashRegisterOpeningStates.Open)
                 {
-                    model.Active = false;
+                    model.State = (char)Enums.CashRegisterOpeningStates.Nulled;
                     var result = _baseRepo.Update(model as CashRegisterOpening);
                     return Ok(result);
                 }

@@ -87,6 +87,8 @@ onChanges(){
         )
     }
 
+   
+
     getCustomers(){
         this.customersService.getAll().subscribe(r=>{
             this.customers=[{id:0,name:this.lang.getValueByKey('all_lbl')} as Customer];

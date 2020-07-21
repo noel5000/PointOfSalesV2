@@ -96,6 +96,25 @@
     </tbody>
       </table>
 
+      <hr>
+      <table *ngIf="expenses && expenses.length>0" class="table table-bordered text-center">
+        <thead>
+          <tr class="row">
+            <th class="col-4">{{'totalBilled_lbl' | translate}}</th>
+            <th class="col-4">{{'totalPaid_lbl' | translate}}</th>
+            <th class="col-4">{{'totalOwed_lbl' | translate}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="row">
+            <td class="col-4">{{getTotalAmount(expenses,'totalAmount') | currency:""}}</td>
+            <td class="col-4">{{getTotalAmount(expenses,'paidAmount') | currency:""}}</td>
+            <td class="col-4">{{getTotalAmount(expenses,'owedAmount') | currency:""}}</td>
+          </tr>
+        </tbody>
+      </table>
+
+
 </div>
   </nb-card-body>
 </nb-card>

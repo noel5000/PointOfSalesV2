@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../../../@core/common/baseComponent';
-import { AppSections, ObjectTypes, QueryFilter } from '../../../@core/common/enums';
+import { AppSections, ObjectTypes, QueryFilter, BillingStates } from '../../../@core/common/enums';
 import { LanguageService } from '../../../@core/services/translateService';
 import { Router } from '@angular/router';
 import { basename } from 'path';
@@ -170,7 +170,10 @@ this.actions=[
         title:scope.lang.getValueByKey('delete_btn'),
         class:'btn btn-danger',
         icon:'',
-        id:'delete'
+        id:'delete',
+        visible:(item)=>{
+            return item.state != BillingStates.Nulled;
+        }
     },
     {
         title:scope.lang.getValueByKey('print_btn'),
@@ -181,6 +184,10 @@ this.actions=[
 ];
        
     }
+
+    getStatusDescription(state:string):string{
+        return this.lang.getValueByKey(`billingState${state}_lbl`);
+      }
 
     rowAction(e){
         if(e && e.action && e.item){
@@ -333,7 +340,7 @@ else{
     }
 
     delete(sequence: string) {
-        this.service.deleteGeneric(sequence,'','ReversePayment').subscribe(r => {
+        this.service.deleteGeneric(`${sequence}/${this.authModel.user.userId}`,'','ReversePayment').subscribe(r => {
             if (r.status >= 0) {
                 this.modalService.showSuccess(this.lang.getValueByKey('success_msg'))
                 this.getData();

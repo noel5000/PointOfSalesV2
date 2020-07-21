@@ -94,6 +94,9 @@ namespace PointOfSalesV2.Entities
         [Export(Order = 11)]
         public string Details { get; set; }
 
+        [Export(Order = 100)]
+        public char State { get; set; } = 'P';
+
         [ForeignKey("CurrencyId")]
 
         [Export(Order = 3, ChildProperty ="Code")]

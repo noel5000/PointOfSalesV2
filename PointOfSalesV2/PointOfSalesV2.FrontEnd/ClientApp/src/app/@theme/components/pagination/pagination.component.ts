@@ -34,7 +34,8 @@ export interface IPaginationModel{
   name:string;
   sorting:string;
   toSort:boolean;
-  objectType:ObjectTypes
+  objectType:ObjectTypes,
+  customText?(item:any):string
 }
 export interface IActionButtonModel{
   title:string;

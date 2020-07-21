@@ -395,7 +395,7 @@ namespace PointOfSalesV2.Repository
                     ExchangeRate = invoice.ExchangeRate,
                     SellerName = string.Empty
                 });
-                invoice.Payments.Where(x => x.Active == true).ToList().ForEach(payment => {
+                invoice.Payments.Where(x => x.Active == true && x.State==(char)BillingStates.Paid).ToList().ForEach(payment => {
                     result.Add(new CompanyStateModel()
                     {
                         CompanyOwedAmount = 0,

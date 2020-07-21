@@ -13,6 +13,6 @@ namespace PointOfSalesV2.Repository
         public object CommisionsReport(object searchParams);
 
         Result<object> PayInvoices(InvoicesPaymentModel model);
-        Result<object> ReversePayment(string sequence);
+        Result<object> ReversePayment(string sequence, string userId);
     }
 }

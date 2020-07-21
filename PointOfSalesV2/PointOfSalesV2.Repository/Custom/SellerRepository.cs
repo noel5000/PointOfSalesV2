@@ -27,7 +27,7 @@ namespace PointOfSalesV2.Repository
             var result = new ComissionsReport() { ComissionsByCyrrencies = new List<ComissionsByCurrency>() };
             var invoices = _Context.CustomersPayments.AsNoTracking().Include(x => x.Currency).Include(x => x.Seller).Include(x=>x.Customer)
                 .Where(x => 
-                x.Active == true &&
+                x.Active == true && x.State!=(char)BillingStates.Nulled &&
                 (search.CustomerId.HasValue && search.CustomerId.Value>0?x.CustomerId== search.CustomerId.Value:x.CustomerId>0) &&
                 (search.CurrencyId.HasValue && search.CurrencyId.Value > 0 ? x.CurrencyId == search.CurrencyId.Value : x.CurrencyId > 0) &&
                 (search.SellerId.HasValue && search.SellerId.Value > 0 ? x.SellerId == search.SellerId.Value : x.SellerId > 0) &&

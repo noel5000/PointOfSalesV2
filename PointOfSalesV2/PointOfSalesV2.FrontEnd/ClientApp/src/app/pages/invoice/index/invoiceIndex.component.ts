@@ -184,7 +184,7 @@ this.actions=[
         icon:'',
         id:'edit',
         visible:(item)=>{
-           return item.state != BillingStates.Nulled;
+            return item.state != BillingStates.Nulled && item.state != BillingStates.Paid && item.state != BillingStates.FullPaid  ;
         }
     },
     {
@@ -203,7 +203,7 @@ this.actions=[
         icon:'',
         id:'delete',
         visible:(item)=>{
-           return item.state != BillingStates.Nulled;
+           return item.state != BillingStates.Nulled && item.state != BillingStates.Paid && item.state != BillingStates.FullPaid  ;
         }
     },
     

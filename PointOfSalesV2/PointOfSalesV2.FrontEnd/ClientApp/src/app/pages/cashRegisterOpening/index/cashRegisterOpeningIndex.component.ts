@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../../../@core/common/baseComponent';
-import { AppSections, ObjectTypes, QueryFilter } from '../../../@core/common/enums';
+import { AppSections, ObjectTypes, QueryFilter, BillingStates, CashRegisterOpeningStates } from '../../../@core/common/enums';
 import { LanguageService } from '../../../@core/services/translateService';
 import { Router } from '@angular/router';
 import { CashRegisterOpening } from '../../../@core/data/CashRegisterOpening';
@@ -178,19 +178,29 @@ this.actions=[
         title:scope.lang.getValueByKey('edit_btn'),
         class:'btn btn-primary',
         icon:'',
-        id:'edit'
+        id:'edit',
+        visible:(item)=>{
+            return item.state == CashRegisterOpeningStates.Open;
+         }
+   
     },
     {
         title:scope.lang.getValueByKey('closeCashRegister_btn'),
         class:'btn btn-warning',
         icon:'',
-        id:'closeRegister'
+        id:'closeRegister',
+        visible:(item)=>{
+            return item.state == CashRegisterOpeningStates.Open;
+         }
     },
     {
         title:scope.lang.getValueByKey('delete_btn'),
         class:'btn btn-danger',
         icon:'',
-        id:'delete'
+        id:'delete',
+        visible:(item)=>{
+            return item.state == CashRegisterOpeningStates.Open;
+         }
     }
 ];
        

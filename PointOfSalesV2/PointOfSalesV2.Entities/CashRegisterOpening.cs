@@ -73,6 +73,7 @@ namespace PointOfSalesV2.Entities
         public long PaymentTypeId { get; set; }
         public string MovementType { get; set; }
         public string Reference { get; set; }
+        public Guid UserId { get; set; } = new Guid();
         public long CurrencyId { get; set; }
         public decimal TotalAmount { get; set; }
 

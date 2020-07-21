@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../../../@core/common/baseComponent';
-import { AppSections, ObjectTypes, QueryFilter } from '../../../@core/common/enums';
+import { AppSections, ObjectTypes, QueryFilter, BillingStates } from '../../../@core/common/enums';
 import { LanguageService } from '../../../@core/services/translateService';
 import { Router } from '@angular/router';
 import { ExpenseService } from '../../../@core/services/ExpenseService';
@@ -163,13 +163,19 @@ this.actions=[
         title:scope.lang.getValueByKey('edit_btn'),
         class:'btn btn-primary',
         icon:'',
-        id:'edit'
+        id:'edit',
+        visible:(item)=>{
+            return item.state != BillingStates.Nulled && item.state != BillingStates.Paid && item.state != BillingStates.FullPaid  ;
+        }
     },
     {
         title:scope.lang.getValueByKey('delete_btn'),
         class:'btn btn-danger',
         icon:'',
-        id:'delete'
+        id:'delete',
+        visible:(item)=>{
+            return item.state != BillingStates.Nulled && item.state != BillingStates.Paid && item.state != BillingStates.FullPaid  ;
+        }
     },
     {
         title:scope.lang.getValueByKey('print_btn'),

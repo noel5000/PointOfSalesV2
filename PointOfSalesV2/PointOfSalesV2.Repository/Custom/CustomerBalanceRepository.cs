@@ -16,7 +16,7 @@ namespace PointOfSalesV2.Repository
 
         public CustomerBalance CustomerBalanceByCurrency(long customerId, long currencyId)
         {
-            return _Context.CustomersBalance.AsNoTracking().FirstOrDefault(x => x.Active == true && x.CurrencyId == currencyId && x.CustomerId == customerId);
+            return _Context.CustomersBalance.AsNoTracking().Include(x=>x.Customer).Include(x=>x.Currency).FirstOrDefault(x => x.Active == true && x.CurrencyId == currencyId && x.CustomerId == customerId);
         }
 
         public CustomerStateReport CustomerState(long customerId)
@@ -43,7 +43,7 @@ namespace PointOfSalesV2.Repository
                     Balance = x.OwedAmount,
                     CustomerName=report.Customer.NameAndCode
                 });
-                x.Payments = x.Payments == null ? new List<CustomerPayment>() : x.Payments.Where(x=>x.Active==true).ToList();
+                x.Payments = x.Payments == null ? new List<CustomerPayment>() : x.Payments.Where(x=>x.Active==true && x.State==(char)BillingStates.Paid).ToList();
                 x.Payments.ForEach(p => {
                     report.Data.Add(new CustomerStateModel()
                     {

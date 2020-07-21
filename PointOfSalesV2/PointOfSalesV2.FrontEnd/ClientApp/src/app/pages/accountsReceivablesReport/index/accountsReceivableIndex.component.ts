@@ -59,7 +59,7 @@ export class AccountsReceivableIndexComponent extends BaseComponent implements O
        endDate:['']
         });
     }
-
+ 
  
 onChanges(){
     this.itemForm.get('branchOfficeId').valueChanges.subscribe(val => {

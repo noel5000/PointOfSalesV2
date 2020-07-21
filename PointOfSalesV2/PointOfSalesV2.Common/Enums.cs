@@ -52,7 +52,8 @@ namespace PointOfSalesV2.Common
         public enum CashRegisterOpeningStates
         {
            Open='O',
-           Close='C'
+           Close='C',
+           Nulled='N'
         }
         public enum SortDirections 
         {

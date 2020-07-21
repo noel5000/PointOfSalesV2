@@ -28,6 +28,18 @@ export class BaseComponent  {
 
     }
 
+    getTotalAmount(items:any[],selector:string):number{
+        let total=0;
+        
+          
+                items.forEach(i=>{
+                total+=i[selector];
+            })
+            
+        
+        return total;
+    }
+
     updateModel<T>(model:any,toUpdate:T):T{
         for(var prop in model){
             toUpdate[prop]=model[prop];

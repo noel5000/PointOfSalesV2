@@ -43,6 +43,7 @@ namespace PointOfSalesV2.Repository
             (currencyId>0?x.CurrencyId==currencyId:x.CurrencyId>0) &&
             (paymentTypeId>0?x.PaymentTypeId==paymentTypeId:x.PaymentTypeId>0) &&
             (initialDate.HasValue?x.Date>=initialDate.Value:x.Date>DateTime.MinValue) &&
+            x.State!= (char)BillingStates.Nulled &&
             (endDate.HasValue?x.Date<=endDate:x.Date<=DateTime.Now)
             ).ToList();
         }
@@ -236,6 +237,7 @@ namespace PointOfSalesV2.Repository
                             Reference = sequence,
                             TotalAmount = model.Payment.GivenAmount,
                             CashRegisterOpeningId = cashRegisterOpening.Id,
+                            UserId = model.UserId,
                             CurrencyId = model.Payment.CurrencyId,
                             MovementType = MovementTypes.IN.ToString(),
                             PaymentTypeId = model.Payment.PaymentTypeId
@@ -263,18 +265,23 @@ namespace PointOfSalesV2.Repository
             }
         }
 
-        public Result<object> ReversePayment(string sequence) 
+        public Result<object> ReversePayment(string sequence, string userId) 
         {
             var result = new Result<object>(-1, -1, "error_msg");
             using (var trans = _Context.Database.BeginTransaction()) 
             {
                 try
                 {
-                    var payments = this.GetAll(x => x, y => y.Active == true && y.Sequence.ToLower() == sequence.ToLower()).Data.ToList();
+                    var payments = this.GetAll(x => x, y => y.Active == true && y.Sequence.ToLower() == sequence.ToLower() && y.State!= (char) BillingStates.Nulled).Data.ToList();
+                    if (payments.Count == 0) 
+                    {
+                        trans.Rollback();
+                        return new Result<object>(-1, -1, "paymentNotValid_msg");
+                    }
                     var invoices = _Context.Invoices.Include(i=>i.Customer).ThenInclude(c=>c.CustomerBalances).AsNoTracking().Where(i => payments.Select(p => p.InvoiceNumber).Contains(i.InvoiceNumber)).ToList();
                     var balances = invoices.SelectMany(x => x.Customer.CustomerBalances).Where(x=>x.Active==true && x.CurrencyId== payments.FirstOrDefault().CurrencyId).FirstOrDefault();
                     payments.ForEach(p => {
-                        p.Active = false;
+                        p.State =(char) BillingStates.Nulled;
                         var index = invoices.FindIndex(x=>x.Id==p.InvoiceId);
                         invoices[index].PaidAmount-= p.PaidAmount;
                         invoices[index].PaidAmount = invoices[index].PaidAmount < 0 ? 0 : invoices[index].PaidAmount;
@@ -303,14 +310,16 @@ namespace PointOfSalesV2.Repository
                     _Context.CustomersBalance.Update(balances);
                     _Context.SaveChanges();
 
-                    var cashFlowDetails = _Context.CashRegisterFlowDetails.AsNoTracking().Include(x=>x.CashRegisterOpening).Where(x => x.Active == true && x.Reference.ToUpper() == sequence.ToUpper());
-                    if (cashFlowDetails != null && cashFlowDetails.Count()>0) 
+                    var cashFlowDetails = _Context.CashRegisterFlowDetails.Include(x => x.CashRegisterOpening).AsNoTracking().Where(x => x.Active == true && x.Reference.ToUpper() == sequence.ToUpper()).ToList();
+                    if (cashFlowDetails != null && cashFlowDetails.Count>0) 
                     {
                         var cashRegisterOpening = cashFlowDetails.FirstOrDefault()?.CashRegisterOpening;
-                        if (cashRegisterOpening != null) 
+                        if (cashRegisterOpening != null && cashRegisterOpening.MaxClosureDate>DateTime.Now) 
                         {
+                            cashRegisterOpening.CashFlow = null;
                             cashRegisterOpening.TotalPaymentsAmount -= cashFlowDetails.Sum(x => x.TotalAmount);
                             _Context.CashRegisterOpenings.Update(cashRegisterOpening);
+                            cashFlowDetails.ForEach(c => { c.CashRegisterOpening = null; });
                             _Context.SaveChanges();
                         }
                         _Context.CashRegisterFlowDetails.RemoveRange(cashFlowDetails);
@@ -340,7 +349,7 @@ namespace PointOfSalesV2.Repository
                     var obj = this.Get(id).Data.FirstOrDefault();
                     if (obj == null)
                         return new Result<CustomerPayment>(-1, -1, "paymentNotValid_msg");
-                    obj.Active = false;
+                    obj.State = (char)BillingStates.Nulled;
 
                     Invoice invoice = _Context.Invoices.AsNoTracking().FirstOrDefault(x => x.Active == true && x.InvoiceNumber == obj.InvoiceNumber);
 
@@ -385,7 +394,7 @@ namespace PointOfSalesV2.Repository
                     var obj = this.Get(entity.Id).Data.FirstOrDefault();
                     if (obj == null)
                         return new Result<CustomerPayment>(-1, -1, "paymentNotValid_msg");
-                    obj.Active = false;
+                    obj.State = (char)BillingStates.Nulled;
 
                     Invoice invoice = _Context.Invoices.AsNoTracking().FirstOrDefault(x => x.Active == true && x.InvoiceNumber == obj.InvoiceNumber);
 

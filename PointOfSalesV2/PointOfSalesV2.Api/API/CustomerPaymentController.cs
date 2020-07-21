@@ -78,14 +78,14 @@ namespace PointOfSalesV2.Api.Controllers
 
         }
 
-        [HttpDelete("ReversePayment/{sequence}")]
+        [HttpDelete("ReversePayment/{sequence}/{userId}")]
         [EnableCors("AllowAllOrigins")]
         [ActionAuthorize(Operations.DELETE)]
-        public virtual IActionResult ReversePayment(string sequence)
+        public virtual IActionResult ReversePayment(string sequence,string userId)
         {
             try
             {
-                var result =this._repositoryFactory.GetCustomDataRepositories<ICustomerPaymentRepository>().ReversePayment(sequence);
+                var result =this._repositoryFactory.GetCustomDataRepositories<ICustomerPaymentRepository>().ReversePayment(sequence, userId);
                 return Ok(result);
             }
 

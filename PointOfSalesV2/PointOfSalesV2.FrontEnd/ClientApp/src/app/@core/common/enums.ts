@@ -1,18 +1,26 @@
 
 
 export enum BillingStates {
-    Billed = 'B',
-    Nulled = 'N',
-    Paid = 'P',
-    Quoted = 'Q',
-    Converted = 'C',
-    Generated='G',
-    Projected='J',
-    Delivered='D',
-    Expired='E',
-    NotEnoughInventory='I',
-    NulledLead='M',
-    GeneratedWithoutInventory = 'O',
+  Billed = 'B',
+  Nulled = 'N',
+  Paid = 'P',
+  FullPaid = 'R',
+  Quoted = 'Q',
+  Converted = 'C',
+  Generated='G',
+  Projected='J',
+  Delivered='D',
+  Expired='E',
+  NotEnoughInventory='I',
+  NulledLead = 'M',
+  GeneratedWithoutInventory = 'O',
+}
+
+export enum CashRegisterOpeningStates
+{
+   Open='O',
+   Close='C',
+   Nulled='N'
 }
 
 export const BillingStatesColors={
