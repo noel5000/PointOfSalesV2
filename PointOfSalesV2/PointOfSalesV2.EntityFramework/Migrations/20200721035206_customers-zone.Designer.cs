@@ -3,14 +3,16 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace PointOfSalesV2.EntityFramework.Migrations
 {
     [DbContext(typeof(MainDataContext))]
-    partial class MainDataContextModelSnapshot : ModelSnapshot
+    [Migration("20200721035206_customers-zone")]
+    partial class customerszone
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -643,10 +645,7 @@ namespace PointOfSalesV2.EntityFramework.Migrations
                     b.Property<string>("TranslationData")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long?>("WarehouseId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("ZoneId")
+                    b.Property<long>("ZoneId")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
@@ -22763,7 +22762,9 @@ namespace PointOfSalesV2.EntityFramework.Migrations
 
                     b.HasOne("PointOfSalesV2.Entities.Zone", "Zone")
                         .WithMany()
-                        .HasForeignKey("ZoneId");
+                        .HasForeignKey("ZoneId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("PointOfSalesV2.Entities.CustomerBalance", b =>

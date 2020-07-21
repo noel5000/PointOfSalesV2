@@ -232,15 +232,16 @@ string language = (string)(ViewBag.CurrentLanguage);
                                             </tr>
                                         </thead>
                                         <tbody class="filas">
-                                            @for(int i=0;i<invoice.InvoiceLeads.Count;i++){
+                                            @for(int i=0;i<invoice.InvoiceDetails.Count;i++){
+
                                             <tr>
 
-                                                <td class="text-left">@invoice.InvoiceLeads[i].School?.NameAndCode</td>
-                                                <td class="text-left">@invoice.InvoiceLeads[i].DocumentNumber</td>
-                                                <td>@invoice.InvoiceLeads[i].Date.ToString("dd-MM-yyyy")</td>
-                                                <td class="text-center"> @invoice.InvoiceLeads[i].BeforeTaxesAmount</td>
-                                                <td class="text-center"> @invoice.InvoiceLeads[i].TaxesAmount</td>
-                                                <td class="text-center"> @invoice.InvoiceLeads[i].TotalAmount</td>
+                                                <td class="text-left">@invoice.InvoiceDetails[i].Product?.Name</td>
+                                                <td class="text-left">@invoice.InvoiceDetails[i].Quantity</td>
+                                                <td>@invoice.InvoiceDetails[i].Unit?.Name??""</td>
+                                                <td class="text-center"> @invoice.InvoiceDetails[i].BeforeTaxesAmount</td>
+                                                <td class="text-center"> @invoice.InvoiceDetails[i].TaxesAmount</td>
+                                                <td class="text-center"> @invoice.InvoiceDetails[i].TotalAmount</td>
                                             </tr>
                                             }
 

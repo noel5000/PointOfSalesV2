@@ -35,6 +35,9 @@ namespace PointOfSalesV2.Entities
         [Export(Order = 8)]
         public decimal CreditAmountLimit { get; set; }
 
+        public long? ZoneId { get; set; }
+        public long? WarehouseId { get; set; }
+
 
         [MaxLength(100)]
         [Export(Order = 0)]
@@ -49,6 +52,11 @@ namespace PointOfSalesV2.Entities
         [ForeignKey("CurrencyId")]
         [Export(Order = 9, ChildProperty = "Code")]
         public Currency Currency { get; set; }
+
+
+        [ForeignKey("ZoneId")]
+        [Export(Order = 12, ChildProperty = "Name")]
+        public Zone Zone { get; set; }
 
 
 

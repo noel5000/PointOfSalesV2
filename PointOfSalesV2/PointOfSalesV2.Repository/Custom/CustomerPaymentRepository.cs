@@ -297,7 +297,6 @@ namespace PointOfSalesV2.Repository
                         i.Customer = null;
                         i.Currency = null;
                         i.BranchOffice = null;
-                        i.InvoiceLeads = null;
                         i.Payments = null;
                         i.Seller = null;
                         i.Taxes = null;

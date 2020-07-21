@@ -11,6 +11,8 @@ export class Customer extends BaseModel {
     address :string;
     code :string;
     currencyId :number;
+    warehouseId:number;
+    zoneId :number;
     comissionRate:number; 
     comissionByProduct :boolean;
     fixedComission :boolean;
