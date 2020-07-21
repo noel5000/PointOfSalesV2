@@ -8,19 +8,19 @@ namespace PointOfSalesV2.Repository.Helpers.BillServices
 {
     public abstract class BillProductServiceBase : IBillProductsServices
     {
-        public Result<LeadDetail> ProcessProductService(long branchOfficeId, LeadDetail detail, IDataRepositoryFactory _dataRepositoryFactory, InvoiceLead lead)
+        public Result<InvoiceDetail> ProcessProductService(long branchOfficeId, InvoiceDetail detail, IDataRepositoryFactory _dataRepositoryFactory, Invoice lead)
         {
             return ProcessDetail(branchOfficeId, detail, _dataRepositoryFactory, lead);
         }
 
-        public Result<LeadDetail> ReturnProductService(long branchOfficeId, LeadDetail detail, IDataRepositoryFactory _dataRepositoryFactory, InvoiceLead lead)
+        public Result<InvoiceDetail> ReturnProductService(long branchOfficeId, InvoiceDetail detail, IDataRepositoryFactory _dataRepositoryFactory, Invoice lead)
         {
             return ProcessReturnDetail(branchOfficeId, detail, _dataRepositoryFactory, lead);
         }
 
-        protected abstract Result<LeadDetail> ProcessDetail(long branchOfficeId, LeadDetail detail, IDataRepositoryFactory dataRepositoryFactory, InvoiceLead lead);
+        protected abstract Result<InvoiceDetail> ProcessDetail(long branchOfficeId, InvoiceDetail detail, IDataRepositoryFactory dataRepositoryFactory, Invoice lead);
 
-        protected abstract Result<LeadDetail> ProcessReturnDetail(long branchOfficeId, LeadDetail detail, IDataRepositoryFactory dataRepositoryFactory, InvoiceLead lead);
+        protected abstract Result<InvoiceDetail> ProcessReturnDetail(long branchOfficeId, InvoiceDetail detail, IDataRepositoryFactory dataRepositoryFactory, Invoice lead);
 
     }
 }

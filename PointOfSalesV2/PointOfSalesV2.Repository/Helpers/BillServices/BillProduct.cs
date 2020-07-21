@@ -9,12 +9,12 @@ namespace PointOfSalesV2.Repository.Helpers.BillServices
 {
     public class BillProduct : BillProductServiceBase
     {
-        protected override Result<LeadDetail> ProcessDetail(long branchOfficeId, LeadDetail detail, IDataRepositoryFactory dataRepositoryFactory, InvoiceLead invoiceLead)
+        protected override Result<InvoiceDetail> ProcessDetail(long branchOfficeId, InvoiceDetail detail, IDataRepositoryFactory dataRepositoryFactory, Invoice Invoice)
         {
             var inventoriesRepo = dataRepositoryFactory.GetDataRepositories<Inventory>();
             var warehouseRepo = dataRepositoryFactory.GetDataRepositories<Warehouse>();
             var productUnitsRepo = dataRepositoryFactory.GetDataRepositories<UnitProductEquivalence>();
-            LeadDetail newDetail = new LeadDetail(detail);
+            InvoiceDetail newDetail = new InvoiceDetail(detail);
             detail.Product.ProductUnits = detail.Product.ProductUnits == null || detail.Product.ProductUnits.Count() == 0 ?
                     productUnitsRepo.GetAll(x => x.AsNoTracking().Include(x => x.Unit).Where(y => y.Active == true && y.ProductId == detail.ProductId)).Data.ToList() : detail.Product.ProductUnits;
             var convertionResult = ProductsHelper.ConvertToProductPrincipalUnit(
@@ -24,18 +24,18 @@ newDetail.Product.ProductUnits.ToList()
 );
 
             if (convertionResult.Status < 0)
-                return new Result<LeadDetail>(-1, -1, convertionResult.Message);
+                return new Result<InvoiceDetail>(-1, -1, convertionResult.Message);
 
             decimal warehouseQuantity = (decimal)convertionResult.Data.FirstOrDefault();
             decimal quantitySumm = warehouseQuantity;
 
-            LeadDetail newDetailCustom = new LeadDetail(newDetail)
+            InvoiceDetail newDetailCustom = new InvoiceDetail(newDetail)
             {
 
                 Quantity = warehouseQuantity
             };
             Warehouse warehouse = null;
-            if (!invoiceLead.WarehouseId.HasValue || (invoiceLead.WarehouseId <= 0))
+            if (!Invoice.WarehouseId.HasValue || (Invoice.WarehouseId <= 0))
             {
                 var branchOfficeWarehouses = warehouseRepo.GetAll(x => x.AsNoTracking().Where(y => y.Active == true && y.BranchOfficeId == branchOfficeId
                 && y.Code.ToLower() != "DEF")).Data.ToList();
@@ -44,20 +44,20 @@ newDetail.Product.ProductUnits.ToList()
                 y.Quantity >= warehouseQuantity && branchOfficeWarehouses.Select(r => r.Id).ToList().Contains(y.WarehouseId)));
 
                 if (productInventory == null)
-                    return new Result<LeadDetail>(-1, -1, "outOfStock_msg");
+                    return new Result<InvoiceDetail>(-1, -1, "outOfStock_msg");
                 // ojo ojo ojo
 
                 warehouse = branchOfficeWarehouses.FirstOrDefault(x => x.Id == productInventory.WarehouseId);
             }
             else
             {
-                warehouse = warehouseRepo.Get(invoiceLead.WarehouseId.Value).Data.FirstOrDefault();
+                warehouse = warehouseRepo.Get(Invoice.WarehouseId.Value).Data.FirstOrDefault();
             }
 
 
-            if ((invoiceLead.WarehouseId > 0) && (inventoriesRepo.Get(x => x.AsNoTracking().Where(y => y.Active == true && y.ProductId == newDetail.ProductId &&
-            y.Quantity >= warehouseQuantity && y.WarehouseId == invoiceLead.WarehouseId)) == null))
-                return new Result<LeadDetail>(-1, -1, $"outOfStock_msg | {detail.Product?.Name ?? ""}");
+            if ((Invoice.WarehouseId > 0) && (inventoriesRepo.Get(x => x.AsNoTracking().Where(y => y.Active == true && y.ProductId == newDetail.ProductId &&
+            y.Quantity >= warehouseQuantity && y.WarehouseId == Invoice.WarehouseId)) == null))
+                return new Result<InvoiceDetail>(-1, -1, $"outOfStock_msg | {detail.Product?.Name ?? ""}");
 
             if (warehouse == null)
             {
@@ -68,7 +68,7 @@ newDetail.Product.ProductUnits.ToList()
                 y.Quantity > 0 && branchOfficeWarehouses.Select(r => r.Id).ToList().Contains(y.WarehouseId))).Data.ToList();
 
                 if (branchOfficeInventory == null)
-                    return new Result<LeadDetail>(-1, -1, $"outOfStock_msg | {newDetail.Product.Name}");
+                    return new Result<InvoiceDetail>(-1, -1, $"outOfStock_msg | {newDetail.Product.Name}");
 
 
                 convertionResult = ProductsHelper.ConvertToProductPrincipalUnit(
@@ -77,12 +77,12 @@ newDetail.Product.ProductUnits.ToList()
  newDetail.Product.ProductUnits.ToList()
  );
                 if (convertionResult.Status < 0)
-                    return new Result<LeadDetail>(-1, -1, convertionResult.Message);
+                    return new Result<InvoiceDetail>(-1, -1, convertionResult.Message);
 
                 decimal warehousesQuantitySumm = (decimal)convertionResult.Data.FirstOrDefault();
 
                 if (warehousesQuantitySumm < warehouseQuantity)
-                    return new Result<LeadDetail>(-1, -1, $"outOfStock_msg | {newDetail.Product.Name}");
+                    return new Result<InvoiceDetail>(-1, -1, $"outOfStock_msg | {newDetail.Product.Name}");
 
                 foreach (Inventory warehouseProduct in branchOfficeInventory)
                 {
@@ -92,7 +92,7 @@ newDetail.Product.ProductUnits.ToList()
                     if (quantitySumm < currentWarehouseQuantity)
                         currentWarehouseQuantity = quantitySumm;
 
-                    newDetailCustom = new LeadDetail(newDetail);
+                    newDetailCustom = new InvoiceDetail(newDetail);
                     newDetailCustom.Quantity = (decimal)ProductsHelper.ConvertFromProductPrincipalUnit(
  currentWarehouseQuantity,
  newDetail.UnitId.Value,
@@ -102,7 +102,7 @@ newDetail.Product.ProductUnits.ToList()
                     newDetailCustom.WarehouseId = warehouseProduct.WarehouseId;
                     
                     //  newDetailCustom.UnitId = newDetailCustom.Product.ProductUnits.FirstOrDefault(x => x.IsPrimary).UnitId;
-                    InventoryHelper.UpdateInventory(newDetailCustom, warehouseRepo.Get(warehouseProduct.WarehouseId).Data.FirstOrDefault(), invoiceLead, dataRepositoryFactory, out long? warehouseId);
+                    InventoryHelper.UpdateInventory(newDetailCustom, warehouseRepo.Get(warehouseProduct.WarehouseId).Data.FirstOrDefault(), Invoice, dataRepositoryFactory, out long? warehouseId);
                     newDetail.WarehouseId = warehouseId;
                     detail.WarehouseId = warehouseId;
                     detail.BranchOfficeId = branchOfficeId;
@@ -120,17 +120,17 @@ newDetail.Product.ProductUnits.ToList()
                 newDetailCustom.Unit = newDetailCustom.Product.ProductUnits.FirstOrDefault(x => x.IsPrimary).Unit;
                 newDetailCustom.UnitId = newDetailCustom.Product.ProductUnits.FirstOrDefault(x => x.IsPrimary).UnitId;
                 newDetailCustom.Unit = newDetailCustom.Unit == null ? dataRepositoryFactory.GetDataRepositories<Unit>().Get(newDetailCustom.UnitId.Value).Data.FirstOrDefault() : newDetailCustom.Unit;
-           var result=     InventoryHelper.UpdateInventory(newDetailCustom, warehouse, invoiceLead, dataRepositoryFactory, out long?warehouseId);
+           var result=     InventoryHelper.UpdateInventory(newDetailCustom, warehouse, Invoice, dataRepositoryFactory, out long?warehouseId);
                 newDetailCustom.WarehouseId = warehouseId;
                 if (result.Status < 0)
-                    return new Result<LeadDetail>(-1, -1, result.Message, null, result.Exception);
+                    return new Result<InvoiceDetail>(-1, -1, result.Message, null, result.Exception);
 
             }
 
-            return  new Result<LeadDetail>(0, 0, "ok_msg", new List<LeadDetail>() { newDetail });
+            return  new Result<InvoiceDetail>(0, 0, "ok_msg", new List<InvoiceDetail>() { newDetail });
         }
 
-        protected override Result<LeadDetail> ProcessReturnDetail(long branchOfficeId, LeadDetail detail, IDataRepositoryFactory dataRepositoryFactory, InvoiceLead invoice)
+        protected override Result<InvoiceDetail> ProcessReturnDetail(long branchOfficeId, InvoiceDetail detail, IDataRepositoryFactory dataRepositoryFactory, Invoice invoice)
         {
             Inventory currentInventory = null;
             var warehouseRepo = dataRepositoryFactory.GetDataRepositories<Warehouse>();
@@ -148,7 +148,7 @@ newDetail.Product.ProductUnits.ToList()
                 {
                     var defectiveWarehouse = warehouseRepo.Get(x => x.AsNoTracking().Where(y => y.Active == true && y.Code == "DEF" && y.BranchOfficeId == branchOfficeId));
                     if (defectiveWarehouse == null)
-                        return new Result<LeadDetail>(-1, -1, $"defWarehouseNotExit_msg");
+                        return new Result<InvoiceDetail>(-1, -1, $"defWarehouseNotExit_msg");
 
                     currentInventory = inventoryRepo.Get(x => x.AsNoTracking().Where(y => y.Active == true && y.BranchOfficeId == branchOfficeId && y.ProductId == detail.ProductId &&
                       y.WarehouseId == defectiveWarehouse.Id)) ??
@@ -192,7 +192,7 @@ newDetail.Product.ProductUnits.ToList()
                         units.Where(u => u.IsPrimary).FirstOrDefault().UnitId, branchOfficeId, "IN", invoice.InvoiceNumber ?? invoice.DocumentNumber ?? string.Empty);
                     var logResult = logMovementsRepo.Add(warehouseMov);
                     if (logResult.Status < 0)
-                        return new Result<LeadDetail>(-1, -1, logResult.Message, null, logResult.Exception);
+                        return new Result<InvoiceDetail>(-1, -1, logResult.Message, null, logResult.Exception);
 
                     currentInventory.Quantity += detail.Quantity;
                     currentInventory.UnitId = currentInventory.Product.ProductUnits.FirstOrDefault(x => x.IsPrimary).UnitId;
@@ -200,21 +200,21 @@ newDetail.Product.ProductUnits.ToList()
                     Product.Existence += detail.Quantity;
                     var productResult = productRepo.Update(Product);
                     if (productResult.Status < 0)
-                        return new Result<LeadDetail>(-1, -1, productResult.Message, null, productResult.Exception);
+                        return new Result<InvoiceDetail>(-1, -1, productResult.Message, null, productResult.Exception);
                     var inventoryResult = new Result<Inventory>();
                     if (currentInventory.Id > 0)
                         inventoryResult = inventoryRepo.Update(currentInventory);
                     else
                         inventoryResult = inventoryRepo.Add(currentInventory);
                     if (inventoryResult.Status < 0)
-                        return new Result<LeadDetail>(-1, -1, inventoryResult.Message, null, inventoryResult.Exception);
+                        return new Result<InvoiceDetail>(-1, -1, inventoryResult.Message, null, inventoryResult.Exception);
                 }
                 else
-                    return new Result<LeadDetail>(-1, -1, "outOfStock_msg");
+                    return new Result<InvoiceDetail>(-1, -1, "outOfStock_msg");
 
             }
 
-            return new Result<LeadDetail>(0, 0, "ok_msg", new List<LeadDetail>() { detail });
+            return new Result<InvoiceDetail>(0, 0, "ok_msg", new List<InvoiceDetail>() { detail });
         }
     }
 }

@@ -9,16 +9,16 @@ namespace PointOfSalesV2.Repository.Helpers
 {
     public class InvoiceDetailsHelper
     {
-        public static void AddDetails(InvoiceLead Invoice, BranchOffice branchOffice, IDataRepositoryFactory dataRepositoryFactory, bool updateTaxes = true)
+        public static void AddDetails(Invoice Invoice, BranchOffice branchOffice, IDataRepositoryFactory dataRepositoryFactory, bool updateTaxes = true)
         {
 
-            var invoiceDetailRepo = dataRepositoryFactory.GetDataRepositories<LeadDetail>();
+            var invoiceDetailRepo = dataRepositoryFactory.GetDataRepositories<InvoiceDetail>();
             var inventories = dataRepositoryFactory.GetDataRepositories<Inventory>();
             InventoryHelper.InventoryToUpdate = new List<Inventory>();
-            Invoice.LeadDetails.ForEach(x =>
+            Invoice.InvoiceDetails.ForEach(x =>
             {
-                x.InvoiceLeadId = Invoice.Id;
-                x.Date = Invoice.Date;
+                x.InvoiceId = Invoice.Id;
+                x.Date = Invoice.BillingDate.Value;
                 var result = InventoryHelper.UpdateProductInventory(branchOffice, x, dataRepositoryFactory, Invoice);
 
                 if (result.Status < 0)
@@ -31,7 +31,7 @@ namespace PointOfSalesV2.Repository.Helpers
                     x.Id = 0;
                     x.Unit = null;
                     x.Product = null;
-                    x.Lead = null;
+                    x.Invoice = null;
                     var addResult = invoiceDetailRepo.Add(x);
                     if (addResult.Status < 0)
                         throw addResult.Exception;
@@ -53,17 +53,17 @@ namespace PointOfSalesV2.Repository.Helpers
 
         }
 
-        public static Result<InvoiceLead> UpdateDetails(InvoiceLead invoice, BranchOffice branchOffice, IDataRepositoryFactory dataRepositoryFactory)
+        public static Result<Invoice> UpdateDetails(Invoice invoice, BranchOffice branchOffice, IDataRepositoryFactory dataRepositoryFactory)
         {
             var detailsRepo = dataRepositoryFactory.GetCustomDataRepositories<IInvoiceDetailRepository>();
             var productUnitsRepo = dataRepositoryFactory.GetCustomDataRepositories<IUnitProductEquivalenceRepository>();
             var oldDetails = detailsRepo.GetByInvoiceId(invoice.Id).ToList();
-            var newDetails = invoice.LeadDetails.Where(x => x.Id == 0).ToList();
-            var modifiedDetails = new List<LeadDetail>();
-            var untouchedDetails = new List<LeadDetail>();
+            var newDetails = invoice.InvoiceDetails.Where(x => x.Id == 0).ToList();
+            var modifiedDetails = new List<InvoiceDetail>();
+            var untouchedDetails = new List<InvoiceDetail>();
             oldDetails.ForEach(od =>
             {
-                var detail = invoice.LeadDetails.FirstOrDefault(x => x.Id == od.Id);
+                var detail = invoice.InvoiceDetails.FirstOrDefault(x => x.Id == od.Id);
                 if (detail != null)
                 {
                     if (od.ProductId != detail.ProductId || od.Quantity != detail.Quantity || od.UnitId != detail.UnitId || od.BranchOfficeId != detail.BranchOfficeId || od.WarehouseId != detail.WarehouseId)
@@ -91,11 +91,11 @@ namespace PointOfSalesV2.Repository.Helpers
             });
 
 
-            InvoiceLead newinvoice = new InvoiceLead(invoice);
-            newinvoice.LeadDetails = newDetails;
+            Invoice newinvoice = new Invoice(invoice);
+            newinvoice.InvoiceDetails = newDetails;
             AddDetails(newinvoice, branchOffice, dataRepositoryFactory, false);
 
-            var detailUpdate = new Result<LeadDetail>(-1, -1);
+            var detailUpdate = new Result<InvoiceDetail>(-1, -1);
             modifiedDetails.ForEach(d =>
             {
                 if (!d.Product.IsService)
@@ -121,7 +121,7 @@ namespace PointOfSalesV2.Repository.Helpers
                             throw new Exception("warehouseError_msg");
 
 
-                        LeadDetail nuevoDetalle = new LeadDetail()
+                        InvoiceDetail nuevoDetalle = new InvoiceDetail()
                         {
                             Product = d.Product,
                             ProductId = d.ProductId,
@@ -138,7 +138,7 @@ namespace PointOfSalesV2.Repository.Helpers
                     }
                     else if (difference < 0)
                     {
-                        LeadDetail detailToInsert = new LeadDetail(d);
+                        InvoiceDetail detailToInsert = new InvoiceDetail(d);
                         detailToInsert.Quantity = Math.Abs(difference);
                         d.Product.ProductUnits = d.Product.ProductUnits ?? productUnitsRepo.GetAll(x => x.Include(r => r.Unit).AsNoTracking(), y => y.Active == true && y.ProductId == d.ProductId).Data;
                         detailToInsert.Unit = d.Product.ProductUnits.Where(u => u.IsPrimary).FirstOrDefault().Unit;
@@ -160,10 +160,10 @@ namespace PointOfSalesV2.Repository.Helpers
             });
 
             UpdateInvoiceTaxes(invoice, dataRepositoryFactory);
-            return new Result<InvoiceLead>(0, 0, "ok_msg", new List<InvoiceLead>() { invoice });
+            return new Result<Invoice>(0, 0, "ok_msg", new List<Invoice>() { invoice });
         }
 
-        public static void UpdateInvoiceTaxes(InvoiceLead invoice, IDataRepositoryFactory dataRepositoryFactory)
+        public static void UpdateInvoiceTaxes(Invoice invoice, IDataRepositoryFactory dataRepositoryFactory)
         {
             var invoiceTaxRepo = dataRepositoryFactory.GetCustomDataRepositories<IInvoiceTaxRepository>();
             var productTaxRepository = dataRepositoryFactory.GetCustomDataRepositories<IProductTaxRepository>();
@@ -179,13 +179,13 @@ namespace PointOfSalesV2.Repository.Helpers
                 }
             }
             Dictionary<long, decimal> amountPerTax = new Dictionary<long, decimal>();
-            invoice.LeadDetails = invoice.LeadDetails == null ? leadDetailsRepo.GetAll(x => 
+            invoice.InvoiceDetails = invoice.InvoiceDetails == null ? leadDetailsRepo.GetAll(x => 
             x.Include(d=>d.Product).ThenInclude(d=>d.Taxes).ThenInclude(d=>d.Tax)
             .AsNoTracking()
-            , y => y.Active == true && y.InvoiceLeadId == invoice.Id).Data.ToList():invoice.LeadDetails;
-            invoice.LeadDetails.ForEach(x =>
+            , y => y.Active == true && y.InvoiceId == invoice.Id).Data.ToList():invoice.InvoiceDetails;
+            invoice.InvoiceDetails.ForEach(x =>
             {
-                x.InvoiceLeadId = invoice.Id;
+                x.InvoiceId = invoice.Id;
 
                 var productTaxes = x.Product?.Taxes != null && x.Product?.Taxes.Count() > 0 ? x.Product.Taxes :
                 productTaxRepository.GetProductTaxes(x.ProductId);
@@ -206,8 +206,8 @@ namespace PointOfSalesV2.Repository.Helpers
                 {
                     CreatedBy = invoice.CreatedBy,
                     Active = true,
-                    InvoiceId = invoice.InvoiceId.Value,
-                    Date= invoice.BillingDate.HasValue?invoice.BillingDate.Value:invoice.Date,
+                    InvoiceId = invoice.Id,
+                    Date= invoice.BillingDate.HasValue?invoice.BillingDate.Value:invoice.BillingDate.Value,
                     CreatedDate = DateTime.Now,
                     TaxId = invoiceTaxAmount.Key,
                     CurrencyId = invoice.CurrencyId,
@@ -222,13 +222,13 @@ namespace PointOfSalesV2.Repository.Helpers
             }
         }
 
-        public static Result<InvoiceLead> UpdateQuoteDetails(InvoiceLead invoice, IDataRepositoryFactory dataRepositoryFactory)
+        public static Result<Invoice> UpdateQuoteDetails(Invoice invoice, IDataRepositoryFactory dataRepositoryFactory)
         {
             var detailsRepo = dataRepositoryFactory.GetCustomDataRepositories<IInvoiceDetailRepository>();
             var oldDetails = detailsRepo.GetByInvoiceId(invoice.Id).ToList();
-            var newDetails = invoice.LeadDetails.Where(x => x.Id == 0).ToList();
-            var modifiedDetails = invoice.LeadDetails.Except(newDetails).ToList().Except(oldDetails).ToList();
-            var untouchedDetails = invoice.LeadDetails.Intersect(oldDetails).ToList();
+            var newDetails = invoice.InvoiceDetails.Where(x => x.Id == 0).ToList();
+            var modifiedDetails = invoice.InvoiceDetails.Except(newDetails).ToList().Except(oldDetails).ToList();
+            var untouchedDetails = invoice.InvoiceDetails.Intersect(oldDetails).ToList();
 
 
             // BORRA LOS QUE YA NO EXISTEN EN LA invoice NUEVA
@@ -243,8 +243,8 @@ namespace PointOfSalesV2.Repository.Helpers
             });
 
             //INSERTAR DETALLES NUEVOS
-            InvoiceLead newinvoice = new InvoiceLead(invoice);
-            newinvoice.LeadDetails = newDetails;
+            Invoice newinvoice = new Invoice(invoice);
+            newinvoice.InvoiceDetails = newDetails;
             AddQuoteDetails(newinvoice, dataRepositoryFactory);
 
 
@@ -257,16 +257,16 @@ namespace PointOfSalesV2.Repository.Helpers
             });
 
             UpdateInvoiceTaxes(invoice, dataRepositoryFactory);
-            return new Result<InvoiceLead>(0, 0, "ok_msg", new List<InvoiceLead>() { invoice });
+            return new Result<Invoice>(0, 0, "ok_msg", new List<Invoice>() { invoice });
         }
 
-        public static void AddQuoteDetails(InvoiceLead invoice, IDataRepositoryFactory dataRepositoryFactory)
+        public static void AddQuoteDetails(Invoice invoice, IDataRepositoryFactory dataRepositoryFactory)
         {
-            var detailsRepo = dataRepositoryFactory.GetDataRepositories<LeadDetail>();
+            var detailsRepo = dataRepositoryFactory.GetDataRepositories<InvoiceDetail>();
 
-            invoice.LeadDetails.ForEach(x =>
+            invoice.InvoiceDetails.ForEach(x =>
             {
-                x.InvoiceLeadId = invoice.Id;
+                x.InvoiceId = invoice.Id;
                 x.CreatedDate = DateTime.Now;
                 x.CreatedBy = invoice.CreatedBy;
                 x.Active = true;

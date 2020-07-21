@@ -12,7 +12,7 @@ namespace PointOfSalesV2.Repository.Helpers
 {
     public class InventoryHelper
     {
-        public static Result<object> UpdateInventory(IDetailEntity detail, Warehouse currentWarehouse, InvoiceLead invoiceLead, IDataRepositoryFactory _repositoryFactory, out long? warehouseId)
+        public static Result<object> UpdateInventory(IDetailEntity detail, Warehouse currentWarehouse, Invoice invoiceLead, IDataRepositoryFactory _repositoryFactory, out long? warehouseId)
         {
             warehouseId = null;
             var warehouseMovementRepo = _repositoryFactory.GetDataRepositories<WarehouseMovement>();
@@ -171,7 +171,7 @@ namespace PointOfSalesV2.Repository.Helpers
         }
 
 
-        public static Result<object> AddInventory(IDetailEntity detail, InvoiceLead invoiceLead, IDataRepositoryFactory _repositoryFactory)
+        public static Result<object> AddInventory(IDetailEntity detail, Invoice invoiceLead, IDataRepositoryFactory _repositoryFactory)
         {
            
             var warehouseMovementRepo = _repositoryFactory.GetDataRepositories<WarehouseMovement>();
@@ -239,7 +239,7 @@ namespace PointOfSalesV2.Repository.Helpers
         }
 
 
-        public static Result<object> ReInsertInventoryToWarehouse(LeadDetail detail, IDataRepositoryFactory _repositoryFactory, Warehouse currentWarehouse)
+        public static Result<object> ReInsertInventoryToWarehouse(InvoiceDetail detail, IDataRepositoryFactory _repositoryFactory, Warehouse currentWarehouse)
         {
             var productUnitsRepo = _repositoryFactory.GetDataRepositories<UnitProductEquivalence>();
             var inventoryRepo = _repositoryFactory.GetDataRepositories<Inventory>();
@@ -303,12 +303,12 @@ namespace PointOfSalesV2.Repository.Helpers
 
         }
 
-        public static Result<LeadDetail> UpdateProductInventory(BranchOffice branchOffice, LeadDetail detail, IDataRepositoryFactory _repositoryFactory, InvoiceLead invoice)
+        public static Result<InvoiceDetail> UpdateProductInventory(BranchOffice branchOffice, InvoiceDetail detail, IDataRepositoryFactory _repositoryFactory, Invoice invoice)
         {
-            LeadDetail newdetail = new LeadDetail(detail);
+            InvoiceDetail newdetail = new InvoiceDetail(detail);
             var productRepo = _repositoryFactory.GetDataRepositories<Product>();
             var inventoryRepo = _repositoryFactory.GetDataRepositories<Inventory>();
-            var detailRepo = _repositoryFactory.GetDataRepositories<LeadDetail>();
+            var detailRepo = _repositoryFactory.GetDataRepositories<InvoiceDetail>();
             detail.Product = detail.Product ?? productRepo.Get(x => x.AsNoTracking(), y => y.Active == true && y.Id == detail.ProductId);
             var service = GetBillProductOrServiceInstance.GetBillingInstance(detail.Product);
             var result = service.ProcessProductService(branchOffice.Id, detail, _repositoryFactory, invoice);

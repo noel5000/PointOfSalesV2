@@ -9,7 +9,7 @@ namespace PointOfSalesV2.Repository.Helpers.BillServices
 {
     public class BillComplexService : BillProductServiceBase
     {
-        protected override Result<LeadDetail> ProcessDetail(long branchOfficeId, LeadDetail detail, IDataRepositoryFactory dataRepositoryFactory, InvoiceLead lead)
+        protected override Result<InvoiceDetail> ProcessDetail(long branchOfficeId, InvoiceDetail detail, IDataRepositoryFactory dataRepositoryFactory, Invoice lead)
         {
             var detailService = dataRepositoryFactory.GetCustomDataRepositories<IInvoiceDetailRepository>();
             var productRepo = dataRepositoryFactory.GetDataRepositories<Product>();
@@ -23,7 +23,7 @@ namespace PointOfSalesV2.Repository.Helpers.BillServices
             detail.Unit = null;
             var detailResult = detailService.Add(detail);
             if (detailResult.Status < 0)
-                return new Result<LeadDetail>(-1, -1, detailResult.Message, null, detailResult.Exception);
+                return new Result<InvoiceDetail>(-1, -1, detailResult.Message, null, detailResult.Exception);
 
             productBases.ForEach(p =>
             {
@@ -34,7 +34,7 @@ namespace PointOfSalesV2.Repository.Helpers.BillServices
 
                 var instance = GetBillProductOrServiceInstance.GetBillingInstance(currentProduct);
                 // decimal nuevaQuantity = p.Quantity * detail.Quantity;
-                LeadDetail detailTemp = new LeadDetail(detail)
+                InvoiceDetail detailTemp = new InvoiceDetail(detail)
                 {
                     Quantity = p.Quantity * detail.Quantity,
                     UnitId = currentUnit != null ? currentUnit.UnitId : p.BaseProductUnitId,
@@ -52,10 +52,10 @@ namespace PointOfSalesV2.Repository.Helpers.BillServices
                 }
             });
             detail.SaveRegister = false;
-            return new Result<LeadDetail>(0, 0, "ok_msg", new List<LeadDetail>() { detail });
+            return new Result<InvoiceDetail>(0, 0, "ok_msg", new List<InvoiceDetail>() { detail });
         }
 
-        protected override Result<LeadDetail> ProcessReturnDetail(long branchOfficeId, LeadDetail detail, IDataRepositoryFactory dataRepositoryFactory, InvoiceLead lead)
+        protected override Result<InvoiceDetail> ProcessReturnDetail(long branchOfficeId, InvoiceDetail detail, IDataRepositoryFactory dataRepositoryFactory, Invoice lead)
         {
             var invoiceDetailRepo = dataRepositoryFactory.GetCustomDataRepositories<IInvoiceDetailRepository>();
             var productRepo = dataRepositoryFactory.GetDataRepositories<Product>();
@@ -71,7 +71,7 @@ namespace PointOfSalesV2.Repository.Helpers.BillServices
 
                 var instance = GetBillProductOrServiceInstance.GetBillingInstance(currentProduct);
                 // decimal nuevaQuantity = p.Quantity * detail.Quantity;
-                LeadDetail detailTemp = new LeadDetail()
+                InvoiceDetail detailTemp = new InvoiceDetail()
                 {
                     Id = p.Id,
                     Active = p.Active,
@@ -80,7 +80,7 @@ namespace PointOfSalesV2.Repository.Helpers.BillServices
                     ReturnAmount = p.Quantity * (detail.ReturnAmount / detail.Quantity),
                     ParentId = p.ParentId ?? null,
                     Defective = detail.Defective,
-                    InvoiceLeadId = p.InvoiceLeadId,
+                    InvoiceId = p.InvoiceId,
                     Product = p.Product,
                     ProductId = p.ProductId,
                     Unit = p.Unit,
@@ -93,7 +93,7 @@ namespace PointOfSalesV2.Repository.Helpers.BillServices
 
             });
 
-            return new Result<LeadDetail>(0, 0, "ok_msg", new List<LeadDetail>() { detail });
+            return new Result<InvoiceDetail>(0, 0, "ok_msg", new List<InvoiceDetail>() { detail });
         }
     }
 }

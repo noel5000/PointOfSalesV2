@@ -37,7 +37,7 @@ namespace PointOfSalesV2.Api.Controllers
                 {
                     long t_id = (long)arg;
                     var invoice = _baseRepo.GetAll<Invoice>(x => x.Where(y => y.Active == true && y.Id == t_id)).FirstOrDefault();
-                    invoice.InvoiceLeads = _repositoryFactory.GetCustomDataRepositories<IInvoiceLeadRepository>().GetAll<InvoiceLead>(x => x, y => y.Active == true && y.InvoiceId == id && y.State != (char)Enums.BillingStates.NulledLead).ToList();
+                    invoice.InvoiceDetails = _repositoryFactory.GetDataRepositories<InvoiceDetail>().GetAll<InvoiceDetail>(x => x, y => y.Active == true && y.InvoiceId == id).ToList();
                     return Ok(new { status = 0, id, data = new Invoice[] { invoice } });
                 }
 
@@ -221,22 +221,6 @@ namespace PointOfSalesV2.Api.Controllers
 
         }
 
-        [EnableCors("AllowAllOrigins")]
-        [HttpGet("GetBillingLeads/{branchOfficeId:long}/{customerId:long}/{currencyId:long}/{month:int}")]
-        [ActionAuthorize(Operations.ADD)]
-        public IActionResult GetBillingLeads(long branchOfficeId = 0, long customerId = 0, long currencyId = 0, int month = 0)
-        {
-            try
-            {
-                var repo = _repositoryFactory.GetCustomDataRepositories<IInvoiceLeadRepository>();
-                var result = repo.GetLeadsForBilling(branchOfficeId, customerId, currencyId, month);
-                return Ok(result);
-            }
-
-            catch (Exception ex)
-            {
-                return Ok(new { status = -1, message = ex.Message });
-            }
-        }
+       
     }
 }

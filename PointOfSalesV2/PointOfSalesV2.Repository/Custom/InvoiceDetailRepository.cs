@@ -7,30 +7,30 @@ using Microsoft.EntityFrameworkCore;
 
 namespace PointOfSalesV2.Repository
 {
-    public class InvoiceDetailRepository : Repository<LeadDetail>, IInvoiceDetailRepository
+    public class InvoiceDetailRepository : Repository<InvoiceDetail>, IInvoiceDetailRepository
     {
         public InvoiceDetailRepository(MainDataContext context) : base(context)
         {
         }
 
-        public IEnumerable<LeadDetail> GetByInvoiceId(long invoiceId)
+        public IEnumerable<InvoiceDetail> GetByInvoiceId(long invoiceId)
         {
-            return _Context.LeadsDetails.AsNoTracking().Include(x=>x.Product).Where(x => x.Active == true && x.InvoiceLeadId == invoiceId);
+            return _Context.InvoiceDetails.AsNoTracking().Include(x=>x.Product).Where(x => x.Active == true && x.InvoiceId == invoiceId);
         }
 
-        public IEnumerable<LeadDetail> GetByProductId(long productId)
+        public IEnumerable<InvoiceDetail> GetByProductId(long productId)
         {
-            return _Context.LeadsDetails.AsNoTracking().Where(x => x.Active == true && x.ProductId == productId);
+            return _Context.InvoiceDetails.AsNoTracking().Where(x => x.Active == true && x.ProductId == productId);
         }
 
-        public IEnumerable<LeadDetail> GetChildren(long parentId)
+        public IEnumerable<InvoiceDetail> GetChildren(long parentId)
         {
-            return _Context.LeadsDetails.AsNoTracking().Where(x => x.Active == true && x.ParentId==parentId);
+            return _Context.InvoiceDetails.AsNoTracking().Where(x => x.Active == true && x.ParentId==parentId);
         }
 
-        public IEnumerable<LeadDetail> GetInvoiceParentsDetails(long invoiceId)
+        public IEnumerable<InvoiceDetail> GetInvoiceParentsDetails(long invoiceId)
         {
-            return _Context.LeadsDetails.AsNoTracking().Where(x => x.Active == true && x.InvoiceLeadId == invoiceId && x.ParentId==null);
+            return _Context.InvoiceDetails.AsNoTracking().Where(x => x.Active == true && x.InvoiceId == invoiceId && x.ParentId==null);
         }
     }
 }

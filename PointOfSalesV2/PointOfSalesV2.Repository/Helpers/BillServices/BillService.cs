@@ -7,17 +7,17 @@ namespace PointOfSalesV2.Repository.Helpers.BillServices
 {
     public class BillService : BillProductServiceBase
     {
-        protected override Result<LeadDetail> ProcessDetail(long branchOfficeId, LeadDetail detail, IDataRepositoryFactory dataRepositoryFactory, InvoiceLead invoice)
+        protected override Result<InvoiceDetail> ProcessDetail(long branchOfficeId, InvoiceDetail detail, IDataRepositoryFactory dataRepositoryFactory, Invoice invoice)
         {
-            var newDetail = new LeadDetail(detail);
+            var newDetail = new InvoiceDetail(detail);
             newDetail.WarehouseId = null;
             newDetail.UnitId = null;
-            return new Result<LeadDetail>(0, 0, "ok_msg", new List<LeadDetail>() { detail });
+            return new Result<InvoiceDetail>(0, 0, "ok_msg", new List<InvoiceDetail>() { detail });
         }
 
-        protected override Result<LeadDetail> ProcessReturnDetail(long branchOfficeId, LeadDetail detail, IDataRepositoryFactory dataRepositoryFactory, InvoiceLead invoice)
+        protected override Result<InvoiceDetail> ProcessReturnDetail(long branchOfficeId, InvoiceDetail detail, IDataRepositoryFactory dataRepositoryFactory, Invoice invoice)
         {
-            return new Result<LeadDetail>(0, 0, "ok_msg", new List<LeadDetail>() { detail });
+            return new Result<InvoiceDetail>(0, 0, "ok_msg", new List<InvoiceDetail>() { detail });
         }
     }
 }

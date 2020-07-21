@@ -45,9 +45,9 @@ namespace PointOfSalesV2.Api.Controllers
 
             var invoiceRepo = dataRepository.GetDataRepositories<Invoice>();
             var invoice = invoiceRepo.Get(x => x.Include(i => i.Customer).Include(i => i.Seller)
-            .Include(i => i.Currency).Include(i => i.InvoiceLeads).ThenInclude(d => d.School), y => y.Active == true && y.Id == id);
+            .Include(i => i.Currency).Include(i => i.InvoiceDetails).ThenInclude(d => d.Product), y => y.Active == true && y.Id == id);
             var selectedLanguageKeys = languageKeys.Where(x => x.LanguageCode.ToLower() == language.ToLower()).ToList();
-            invoice.InvoiceLeads = invoice.InvoiceLeads.Where(x => x.Active == true && (x.State != (char)BillingStates.Nulled || x.State != (char)BillingStates.NulledLead)).ToList();
+            invoice.InvoiceDetails = invoice.InvoiceDetails.Where(x => x.Active == true ).ToList();
             ViewBag.LanguageKeys = selectedLanguageKeys;
             ViewBag.Invoice = invoice;
             ViewBag.CurrentLanguage = language;
@@ -98,18 +98,6 @@ namespace PointOfSalesV2.Api.Controllers
             return View();
         }
 
-        public ActionResult InvoiceLeadPrint(long leadId,long menuId,long schoolId,string sequence, string language = "es")
-        {
-            this.httpContextAccessor.HttpContext.Request.Headers.Add("languageid", language);
-
-            var invoiceLeadRepo = dataRepository.GetCustomDataRepositories<IInvoiceLeadRepository>();
-            InvoiceLead invoice = invoiceLeadRepo.GetLeadOrMenuInfo(leadId, menuId, schoolId, sequence).Data.FirstOrDefault();
-            var selectedLanguageKeys = languageKeys.Where(x => x.LanguageCode.ToLower() == language.ToLower()).ToList();
-            
-            ViewBag.LanguageKeys = selectedLanguageKeys;
-            ViewBag.Invoice = invoice;
-            ViewBag.CurrentLanguage = language;
-            return View();
-        }
+      
     }
 }

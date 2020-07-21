@@ -24,7 +24,8 @@ namespace PointOfSalesV2.Entities
             this.CustomerId = newInvoice.CustomerId;
             this.CreatedBy = newInvoice.CreatedBy;
             this.Details = newInvoice.Details ?? null;
-            this.InvoiceLeads = newInvoice.InvoiceLeads ?? new List<InvoiceLead>();
+            this.WarehouseId = newInvoice.WarehouseId;
+            this.InvoiceDetails = newInvoice.InvoiceDetails;
             this.State = newInvoice.State;
             this.CreatedDate = newInvoice.CreatedDate;
             this.BillingDate = newInvoice.BillingDate;
@@ -67,6 +68,7 @@ namespace PointOfSalesV2.Entities
 
         public long CustomerId { get; set; }
         public decimal ExchangeRate { get; set; }
+        public long? WarehouseId { get; set; }
 
         [MaxLength(50)]
         [Export(Order = 23)]
@@ -77,6 +79,9 @@ namespace PointOfSalesV2.Entities
         [Export(Order = 22)]
 
         public decimal SellerRate { get; set; } = 0;
+
+       
+        public bool InventoryModified { get; set; }
         public DateTime? PaidDate { get; set; }
         public long? CashRegisterId { get; set; }
 
@@ -172,8 +177,8 @@ namespace PointOfSalesV2.Entities
 
         public virtual  List<CustomerPayment> Payments { get; set; }
 
-        public virtual List<InvoiceLead> InvoiceLeads { get; set; }
         public virtual List<InvoiceTax> Taxes { get; set; }
+        public virtual List<InvoiceDetail> InvoiceDetails { get; set; }
 
 
         [NotMapped]

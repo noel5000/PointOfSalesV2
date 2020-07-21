@@ -92,7 +92,6 @@ namespace PointOfSalesV2.Api
             services.AddScoped<IWarehouseTransferRepository, WarehouseTransferRepository>();
             services.AddScoped<IMenuRepository, MenuRepository>();
             services.AddScoped<ISchoolRepository, SchoolRepository>();
-            services.AddScoped<IInvoiceLeadRepository, InvoiceLeadRepository>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IDataRepositoryFactory, DataRepositoriesFactory>();

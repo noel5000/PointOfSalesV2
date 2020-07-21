@@ -5,11 +5,11 @@ using System.Text;
 
 namespace PointOfSalesV2.Repository
 {
-    public interface IInvoiceDetailRepository: IBase<LeadDetail>
+    public interface IInvoiceDetailRepository: IBase<InvoiceDetail>
     {
-        IEnumerable<LeadDetail> GetByProductId(long productId);
-        IEnumerable<LeadDetail> GetByInvoiceId(long invoiceId);
-        IEnumerable<LeadDetail> GetChildren(long parentId);
-        IEnumerable<LeadDetail> GetInvoiceParentsDetails(long invoiceId);
+        IEnumerable<InvoiceDetail> GetByProductId(long productId);
+        IEnumerable<InvoiceDetail> GetByInvoiceId(long invoiceId);
+        IEnumerable<InvoiceDetail> GetChildren(long parentId);
+        IEnumerable<InvoiceDetail> GetInvoiceParentsDetails(long invoiceId);
     }
 }

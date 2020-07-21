@@ -54,6 +54,7 @@ public class MainDataContext : DbContext
     public virtual DbSet<Menu> Menus { get; set; }
     public virtual DbSet<MenuDetail> MenuDetails { get; set; }
     public virtual DbSet<LeadDetail> LeadsDetails { get; set; }
+    public virtual DbSet<InvoiceDetail> InvoiceDetails { get; set; }
     public virtual DbSet<InvoiceTax> InvoicesTaxes { get; set; }
     public virtual DbSet<BranchOffice> BranchOffices { get; set; }
     public virtual DbSet<MovementType> MovementTypes { get; set; }
@@ -111,7 +112,7 @@ public class MainDataContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Invoice>()
-          .HasMany(p => p.InvoiceLeads)
+          .HasMany(p => p.InvoiceDetails)
           .WithOne(d=>d.Invoice).OnDelete(DeleteBehavior.Restrict);
         modelBuilder.Entity<Invoice>()
           .HasMany(p => p.Taxes)
