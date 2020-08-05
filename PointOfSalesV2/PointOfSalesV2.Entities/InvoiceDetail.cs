@@ -47,6 +47,7 @@ namespace PointOfSalesV2.Entities
             this.Cost = newDetail.Cost;
             this.ReturnAmount = newDetail.ReturnAmount;
             this.Defective = newDetail.Defective;
+            this.BranchOfficeId = newDetail.BranchOfficeId;
         }
         [NotMapped]
         public bool Defective { get; set; }
