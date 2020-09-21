@@ -2,7 +2,7 @@
 @using System.Collections.Generic;
 @using System.Linq;
 
-@{Invoice invoice = ViewBag.Invoice;}
+@{List<CustomerPayment> payments = ViewBag.Payments;}
 @{
     Layout = null;
     List<LanguageKey> languageKeys = ViewBag.LanguageKeys;
@@ -184,32 +184,25 @@
                                                 @*<th> <img src="~/Content/images/logo.jpg" alt="header" width="230" height="60" /></th>*@
                                                 <th></th>
                                                 <th class="text-left">@languageKeys.FirstOrDefault(x => x.Key == "date_lbl").Value :</th>
-                                                <th class="text-left">@invoice.BillingDate.Value.ToString("dd-MM-yyyy")</th>
+                                                <th class="text-left">@payments.FirstOrDefault().Date.ToString("dd-MM-yyyy")</th>
                                             </tr>
 
                                             <tr>
-                                                <th>@languageKeys.FirstOrDefault(x => x.Key == "customer_lbl").Value : @invoice.Customer.NameAndCode.ToString()</th>
+                                                <th>@languageKeys.FirstOrDefault(x => x.Key == "customer_lbl").Value : @payments.FirstOrDefault().Customer.NameAndCode.ToString()</th>
                                                 <th class=" "></th>
-                                                <th class="text-left">@languageKeys.FirstOrDefault(x => x.Key == "invoiceNumber_lbl").Value :</th>
-                                                <th class="text-left">@invoice.InvoiceNumber.ToUpper()</th>
+                                                <th class="text-left">@languageKeys.FirstOrDefault(x => x.Key == "sequence_lbl").Value :</th>
+                                                <th class="text-left">@payments.FirstOrDefault().Sequence.ToUpper()</th>
                                             </tr>
+
                                             <tr>
-                                                <th>@languageKeys.FirstOrDefault(x => x.Key == "trn_lbl").Value : @invoice.TRN</th>
-                                                <th class=" "></th>
-                                                <th class="text-left">@languageKeys.FirstOrDefault(x => x.Key == "closureDate_lbl").Value :</th>
-                                                <th class="text-left">@invoice.BillingDate.Value.AddDays(invoice.Customer.InvoiceDueDays).ToString("dd-MM-yyyy")</th>
-                                            </tr>
-                                            <tr>
-                                                <th>@languageKeys.FirstOrDefault(x => x.Key == "address_lbl").Value : @invoice.Customer.Address</th>
+                                                <th>@languageKeys.FirstOrDefault(x => x.Key == "address_lbl").Value : @payments.FirstOrDefault().Customer.Address</th>
                                                 <th class=" "></th>
                                                 <th class="text-left">@languageKeys.FirstOrDefault(x => x.Key == "seller_lbl").Value :</th>
-                                                <th class="text-left">@invoice.Seller?.Name</th>
+                                                <th class="text-left">@payments.FirstOrDefault().Seller?.Name</th>
                                             </tr>
                                             <tr>
-                                                <th>@languageKeys.FirstOrDefault(x => x.Key == "phone_lbl").Value : @invoice.Customer.PhoneNumber</th>
-                                                <th></th>
-                                                <th class="text-left">@languageKeys.FirstOrDefault(x => x.Key == "trn_lbl").Value :</th>
-                                                <th class=" text-left">@invoice.TRN</th>
+                                                <th>@languageKeys.FirstOrDefault(x => x.Key == "phone_lbl").Value : @payments.FirstOrDefault().Customer.PhoneNumber</th>
+
                                             </tr>
 
                                             <tr>
@@ -223,23 +216,23 @@
                                         <thead class="table-bordered tabl">
                                             <tr>
 
-                                                <th class="text-left" style="border: 1px solid black;">@languageKeys.FirstOrDefault(x => x.Key == "sequence_lbl").Value</th>
-                                                <th class="text-left" style="border: 1px solid black;">@languageKeys.FirstOrDefault(x => x.Key == "date_lbl").Value </th>
+                                                <th class="text-left" style="border: 1px solid black;">@languageKeys.FirstOrDefault(x => x.Key == "invoiceNumber_lbl").Value</th>
+                                                <th class="text-left" style="border: 1px solid black;">@languageKeys.FirstOrDefault(x => x.Key == "billingDate_lbl").Value </th>
                                                 <th class="text-center" style="border: 1px solid black;">@languageKeys.FirstOrDefault(x => x.Key == "totalAmount_lbl").Value </th>
                                                 <th class="text-center" style="border: 1px solid black;">@languageKeys.FirstOrDefault(x => x.Key == "paidAmount_lbl").Value </th>
                                                 <th class="text-center" style="border: 1px solid black;">@languageKeys.FirstOrDefault(x => x.Key == "OutstandingAmount_lbl").Value </th>
                                             </tr>
                                         </thead>
                                         <tbody class="filas">
-                                            @for (int i = 0; i < invoice.Payments.Count; i++)
+                                            @for (int i = 0; i < payments.Count; i++)
                                             {
                                                 <tr>
 
-                                                    <td class="text-left">@invoice.Payments[i].Sequence</td>
-                                                    <td class="text-left">@invoice.Payments[i].Date.ToString("dd-MM-yyyy")</td>
-                                                    <td class="text-center"> @invoice.Payments[i].TotalAmount</td>
-                                                    <td class="text-center"> @invoice.Payments[i].PaidAmount</td>
-                                                    <td class="text-center"> @invoice.Payments[i].OutstandingAmount</td>
+                                                    <td class="text-left">@payments[i].Sequence</td>
+                                                    <td class="text-left">@payments[i].Invoice.BillingDate.Value.ToString("dd-MM-yyyy")</td>
+                                                    <td class="text-center"> @payments[i].TotalAmount</td>
+                                                    <td class="text-center"> @payments[i].PaidAmount</td>
+                                                    <td class="text-center"> @payments[i].OutstandingAmount</td>
                                                 </tr>
                                             }
 
@@ -259,14 +252,7 @@
                                                 <th></th>
                                                 <th></th>
                                                 <th class="text-left">@languageKeys.FirstOrDefault(x => x.Key == "totalAmount_lbl").Value :</th>
-                                                <th class="text-right" style="border-top: 1px solid black !important; border-bottom: 2px double black">@($"{invoice.Currency.Code} ${ invoice.TotalAmount}")</th>
-                                            </tr>
-                                            <tr>
-                                                <th></th>
-                                                <th></th>
-                                                <th></th>
-                                                <th class="text-left">@languageKeys.FirstOrDefault(x => x.Key == "paidAmount_lbl").Value :</th>
-                                                <th class="text-right" style=" border-bottom:2px double black"> @($"{invoice.Currency.Code} ${ invoice.PaidAmount}")</th>
+                                                <th class="text-right" style="border-top: 1px solid black !important; border-bottom: 2px double black">@($"{payments.FirstOrDefault().Currency.Code} ${ payments.Sum(x=>x.PaidAmount)}")</th>
                                             </tr>
 
                                             <tr>
@@ -274,7 +260,7 @@
                                                 <th></th>
                                                 <th></th>
                                                 <th class="text-left">@languageKeys.FirstOrDefault(x => x.Key == "OutstandingAmount_lbl").Value  :</th>
-                                                <th class="text-right" style=" border-bottom: 2px double black">@($"{invoice.Currency.Code} ${ invoice.OwedAmount}")</th>
+                                                <th class="text-right" style=" border-bottom: 2px double black">@($"{payments.FirstOrDefault().Currency.Code} ${ payments.Sum(x=>x.OutstandingAmount)}")</th>
                                             </tr>
 
                                         </tfoot>

@@ -47,7 +47,7 @@ namespace PointOfSalesV2.Api.Controllers
             var invoice = invoiceRepo.Get(x => x.Include(i => i.Customer).Include(i => i.Seller)
             .Include(i => i.Currency).Include(i => i.InvoiceDetails).ThenInclude(d => d.Product), y => y.Active == true && y.Id == id);
             var selectedLanguageKeys = languageKeys.Where(x => x.LanguageCode.ToLower() == language.ToLower()).ToList();
-            invoice.InvoiceDetails = invoice.InvoiceDetails.Where(x => x.Active == true ).ToList();
+            invoice.InvoiceDetails = invoice.InvoiceDetails.Where(x => x.Active == true).ToList();
             ViewBag.LanguageKeys = selectedLanguageKeys;
             ViewBag.Invoice = invoice;
             ViewBag.CurrentLanguage = language;
@@ -67,18 +67,15 @@ namespace PointOfSalesV2.Api.Controllers
             return View();
         }
 
-        public ActionResult InvoicePayment(long invoiceId, string language = "es")
+        public ActionResult InvoicePayment(string sequence, string language = "es")
         {
             this.httpContextAccessor.HttpContext.Request.Headers.Add("languageid", language);
 
-            var invoiceRepo = dataRepository.GetDataRepositories<Invoice>();
-            var invoice = invoiceRepo.Get(x => x.Include(i => i.Customer).Include(i => i.Seller)
-            .Include(i => i.Payments).ThenInclude(p => p.Seller)
-            .Include(i => i.Currency), y => y.Active == true && y.Id == invoiceId);
-            invoice.Payments = invoice.Payments.Where(p => p.Active == true).ToList();
+            var paymentsRepo = dataRepository.GetDataRepositories<CustomerPayment>();
+            var payments = paymentsRepo.GetAll(x => x.Include(p => p.Customer).Include(p => p.Currency).Include(p => p.Seller).Include(p => p.Invoice), y => y.Active == true && y.Sequence.ToLower() == sequence.ToLower() && y.State == (char)BillingStates.Paid).Data.ToList();
             var selectedLanguageKeys = languageKeys.Where(x => x.LanguageCode.ToLower() == language.ToLower()).ToList();
             ViewBag.LanguageKeys = selectedLanguageKeys;
-            ViewBag.Invoice = invoice;
+            ViewBag.Payments = payments;
             ViewBag.CurrentLanguage = language;
             return View();
         }
@@ -98,6 +95,6 @@ namespace PointOfSalesV2.Api.Controllers
             return View();
         }
 
-      
+     
     }
 }

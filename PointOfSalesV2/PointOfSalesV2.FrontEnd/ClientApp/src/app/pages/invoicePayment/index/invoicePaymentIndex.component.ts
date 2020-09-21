@@ -64,7 +64,7 @@ export class InvoicePaymentIndexComponent extends BaseComponent implements OnIni
        
         this.tableConfig=[
 {
-  visible:true,
+  visible:false,
   id:'id',
   type:'number',
   isTranslated:false,
@@ -320,7 +320,7 @@ else{
     }
     print(e:any) {
      const user = JSON.parse(localStorage.getItem("currentUser"));
-     this.router.navigate(['/externalRedirect', { externalUrl: `${endpointViewsUrl}views/InvoicePayment?invoiceId=${e.invoiceId}&language=${user.languageId}` }], {
+     this.router.navigate(['/externalRedirect', { externalUrl: `${endpointViewsUrl}views/InvoicePayment?sequence=${e.sequence}&language=${user.languageId}` }], {
         skipLocationChange: true,
     });
     }
