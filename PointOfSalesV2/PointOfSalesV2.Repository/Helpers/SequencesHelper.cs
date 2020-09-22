@@ -244,7 +244,7 @@ namespace PointOfSalesV2.Repository.Helpers
                 var repo = dataRepositoryFactory.GetDataRepositories<SequenceControl>();
                 string result = string.Empty;
                 SequenceControl lastControl = repo.Get(x => x.AsNoTracking().Where(y => y.Active == true && y.Code == (short)sequenceTypes));
-                result = String.Format("{0}{1:00000}", lastControl.Code, (lastControl.NumericControl + 1));
+                result = String.Format("{0}{1:00000}", lastControl.CodeName, (lastControl.NumericControl + 1));
                 lastControl.NumericControl += 1;
                 repo.Update(lastControl);
                 return result;

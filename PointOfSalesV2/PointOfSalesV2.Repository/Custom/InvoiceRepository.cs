@@ -91,89 +91,181 @@ namespace PointOfSalesV2.Repository
         public override Result<Invoice> Add(Invoice entity)
         {
             Result<Invoice> result = new Result<Invoice>(-1, -1, "error_msg");
-            using (var trans = _Context.Database.BeginTransaction())
+            using (var transaction = _Context.Database.BeginTransaction())
             {
                 try
                 {
-                    entity.BillingDate = DateTime.Now;
-                    var invoiceDetails = entity.InvoiceDetails;
-                    invoiceDetails.ForEach(d => {
+                    entity.Customer = entity.Customer != null && entity.Customer.Id > 0 ? entity.Customer : _Context.Customers.Find(entity.CustomerId);
+                    entity.Currency = entity.Currency != null && entity.Currency.Id > 0 ? entity.Currency : _Context.Currencies.Find(entity.CurrencyId);
+                    _Context.Entry<Customer>(entity.Customer).State = EntityState.Detached;
+                    _Context.Entry<Currency>(entity.Currency).State = EntityState.Detached;
+                    entity.TRNType = entity.Customer.TRNType;
+                    entity.TRNControlId = entity.Customer.TRNControlId;
+                    var trnResult = CreateTRN(entity);
+
+                    if (trnResult.Status < 0)
+                    {
+                        transaction.Rollback();
+                        return trnResult;
+                    }
+                    entity = trnResult.Data.FirstOrDefault();
+                    entity.Seller = entity.Seller == null && entity.SellerId.HasValue && entity.SellerId.Value > 0 ?
+                        _Context.Sellers.Find(entity.SellerId.Value) : entity.Seller;
+                    if (entity.Seller != null)
+                        _Context.Entry<Seller>(entity.Seller).State = EntityState.Detached;
+                    CreditNote appliedCreditNote = new CreditNote();
+                    if (!string.IsNullOrEmpty(entity.AppliedCreditNote))
+                        appliedCreditNote = _Context.CreditNotes.AsNoTracking().FirstOrDefault(x => x.Sequence == entity.AppliedCreditNote);
+
+                    if (entity.InvoiceDetails.Count <= 0)
+                    {
+                        transaction.Rollback();
+                        return new Result<Invoice>(-1, -1, "emptyInvoice_msg");
+                    }
+
+
+                    var details = entity.InvoiceDetails;
+                    details.ForEach(d => {
                         d.Product = d.Product == null ? _Context.Products.AsNoTracking().Include(x => x.ProductUnits).ThenInclude(x => x.Unit).Include(x => x.Taxes).ThenInclude(x => x.Tax).FirstOrDefault(x => x.Active == true && x.Id == d.ProductId) : d.Product;
                         d.Product.Taxes = d.Product.Taxes == null ? _Context.ProductTaxes.AsNoTracking().Include(x => x.Tax).Where(x => x.Active == true && x.ProductId == d.ProductId) : d.Product.Taxes;
                         d.Amount = d.UnitId.HasValue ? Convert.ToDecimal(d.Product.ProductUnits.FirstOrDefault(x => x.UnitId == d.UnitId.Value)?.SellingPrice) : d.Product.Price;
-
+                        d.Cost = d.Product.Cost * d.Quantity;
                         d.BeforeTaxesAmount = (d.Amount * d.Quantity);
                         d.DiscountAmount = d.BeforeTaxesAmount * d.DiscountRate;
                         d.TaxesAmount = (d.BeforeTaxesAmount - d.DiscountAmount) * d.Product.Taxes.Sum(t => t.Tax.Rate);
                         d.TotalAmount = d.BeforeTaxesAmount + d.TaxesAmount - d.DiscountAmount - d.CreditNoteAmount;
                     });
+
+                    if (entity.Seller != null && entity.Seller.Id > 0)
+                    {
+                        decimal comision = 0;
+                        details.ForEach(d => {
+                          
+                             comision = entity.Seller.FixedComission ? ((d.BeforeTaxesAmount) * entity.Seller.ComissionRate) : 0;
+                            if (entity.Seller.ComissionByProduct)
+                            {
+                               
+                                    d.Product = d.Product ?? _Context.Products.AsNoTracking().FirstOrDefault(x => x.Active == true && x.Id == d.ProductId);
+                                    comision += (d.Product?.SellerRate * d.BeforeTaxesAmount).Value;
+                               
+                            }
+                            d.SellerRate = comision;
+                        });
+                        entity.SellerRate = details.Sum(x => x.SellerRate);
+
+                    }
                     entity.InvoiceDetails = null;
+
                     entity.SellerId = entity.SellerId.HasValue && entity.SellerId <= 0 ? null : entity.SellerId;
                     entity.CashRegisterId = entity.CashRegisterId.HasValue && entity.CashRegisterId <= 0 ? null : entity.CashRegisterId;
                     entity.WarehouseId = entity.WarehouseId.HasValue && entity.WarehouseId == 0 ? null : entity.WarehouseId;
-                    entity.BranchOffice = null;
-                    entity.Customer = null;
-                    entity.Seller = null;
+                    
                     entity.Id = 0;
-                    entity.State = entity.InventoryModified ? (char)Enums.BillingStates.Billed : (char)Enums.BillingStates.Quoted;
-                    entity.BeforeTaxesAmount = invoiceDetails.Sum(x => x.BeforeTaxesAmount);
-                    entity.Cost = invoiceDetails.Sum(x => x.Cost);
-                    entity.DiscountAmount = invoiceDetails.Sum(x => x.DiscountAmount);
-                    entity.DiscountRate = invoiceDetails.Average(x => x.DiscountRate);
-                    entity.TaxesAmount = invoiceDetails.Sum(x => x.TaxesAmount);
-                    entity.TotalAmount = invoiceDetails.Sum(x => x.TotalAmount);
-                    entity.OwedAmount = entity.TotalAmount - entity.PaidAmount;
+                    entity.State = (char)Enums.BillingStates.Billed;
+                    entity.BeforeTaxesAmount = details.Sum(x => x.BeforeTaxesAmount);
+                    entity.Cost = details.Sum(x => x.Cost);
+                    entity.DiscountAmount = details.Sum(x => x.DiscountAmount);
+                    entity.DiscountRate = details.Average(x => x.DiscountRate);
+                    entity.TaxesAmount = details.Sum(x => x.TaxesAmount);
                     entity.ReturnedAmount = entity.ReceivedAmount - entity.TotalAmount;
-                    entity.DocumentNumber =!entity.InventoryModified? this.sequenceManagerRepository.CreateSequence(Enums.SequenceTypes.Quotes):"";
-                    entity.InvoiceNumber = entity.InventoryModified ? this.sequenceManagerRepository.CreateSequence(Enums.SequenceTypes.Invoices) : "";
 
-                    _Context.Invoices.Add(entity);
-                    _Context.SaveChanges();
-                    if (!entity.InventoryModified)
+                    entity.TotalAmount = entity.BeforeTaxesAmount + entity.TaxesAmount - entity.DiscountAmount;
+                    entity.ExchangeRate = entity.Currency.ExchangeRate;
+                    entity.OwedAmount = entity.ReturnedAmount <= 0 ? Math.Abs(entity.PaidAmount - entity.TotalAmount) : 0;
+                    entity.InvoiceNumber = SequencesHelper.CreateSequenceControl(dataRepositoryFactory, Enums.SequenceTypes.Invoices);
+                    entity.BillingDate = DateTime.Now;
+                    var tempBranchOfiice = entity.BranchOffice ?? _Context.BranchOffices.Find(entity.BranchOfficeId);
+                    _Context.Entry<BranchOffice>(tempBranchOfiice).State = EntityState.Detached;
+                    entity.State = (entity.PaidAmount == entity.TotalAmount && entity.OwedAmount == 0) ? (char)Enums.BillingStates.FullPaid : (entity.PaidAmount > 0) ? (char)Enums.BillingStates.Paid : (char)Enums.BillingStates.Billed;
+                    var creditNoteResult = InvoiceHelper.ApplyCreditNote(entity, appliedCreditNote, out appliedCreditNote);
+                    if (creditNoteResult.Status < 0)
                     {
-                        invoiceDetails.ForEach(d =>
-                        {
-                            var product = _Context.Products.Include(x => x.ProductUnits).ThenInclude(x => x.Unit).Include(x => x.Taxes).ThenInclude(y => y.Tax).AsNoTracking().FirstOrDefault(x => x.Id == d.ProductId && x.Active == true);
-                            d.Product = null;
-                            d.Unit = null;
-                            d.Id = 0;
-                            d.BranchOfficeId = entity.BranchOfficeId;
-                            d.WarehouseId = entity.WarehouseId;
-                            d.InvoiceId = entity.Id;
-                            d.WarehouseId = entity.WarehouseId;
-                            d.Active = true;
-                            d.Date = entity.BillingDate.Value;
-                            d.UnitId = d.UnitId.HasValue && d.UnitId <= 0 ? null : d.UnitId;
-                            d.ParentId = d.ParentId.HasValue && d.ParentId <= 0 ? null : d.ParentId;
-                            d.Cost = d.UnitId.HasValue ? Convert.ToDecimal(product.ProductUnits.FirstOrDefault(x => x.UnitId == d.UnitId && d.Active == true)?.CostPrice) : product.Cost;
-                            d.Amount = d.UnitId.HasValue ? Convert.ToDecimal(product.ProductUnits.FirstOrDefault(x => x.UnitId == d.UnitId && d.Active == true)?.SellingPrice) : product.Price;
-                            d.BeforeTaxesAmount = d.Amount * d.Quantity;
-                            d.TaxesAmount = d.TaxesAmount == 0 ? product.Taxes != null ? Convert.ToDecimal(product.Taxes.Where(t => t.Active == true).Sum(x => x.Tax?.Rate) * d.Quantity) : 0 : d.TaxesAmount;
-                            d.TotalAmount = d.TaxesAmount + d.BeforeTaxesAmount;
-
-                        });
-                        _Context.InvoiceDetails.AddRange(invoiceDetails);
-                        _Context.SaveChanges();
+                        transaction.Rollback();
+                        return creditNoteResult;
                     }
                     else
+                        entity = creditNoteResult.Data.FirstOrDefault();
+                    if (entity.OwedAmount > 0)
                     {
-                        _Context.Entry<Invoice>(entity).State = EntityState.Detached;
-                        entity.InvoiceDetails = invoiceDetails;
-                        var branchOffice = _Context.BranchOffices.AsNoTracking().FirstOrDefault(x => x.Id == entity.BranchOfficeId && x.Active == true);
-                        Helpers.InvoiceDetailsHelper.AddDetails(entity, branchOffice, dataRepositoryFactory, false);
+                        var balance = _Context.CustomersBalance.AsNoTracking().FirstOrDefault(x => x.CustomerId == entity.CustomerId && x.CurrencyId == entity.CurrencyId && x.Active == true) ??
+                            new CustomerBalance() { CustomerId = entity.CustomerId, CurrencyId = entity.CurrencyId, Id = 0, Active = true };
+
+                        balance.OwedAmount += entity.OwedAmount;
+                        if (balance.CurrencyId == entity.Customer.CurrencyId && entity.Customer.CreditAmountLimit > 0 && balance.OwedAmount > entity.Customer.CreditAmountLimit)
+                        {
+                            transaction.Rollback();
+                            return new Result<Invoice>(-1, -1, "creditLimitReached_msg");
+                        }
+                        if (balance.Id > 0)
+                            _Context.CustomersBalance.Update(balance);
+                        else
+                            _Context.CustomersBalance.Add(balance);
+
+                        _Context.SaveChanges();
+
+                    }
+                    entity.ReturnedAmount = entity.ReturnedAmount < 0 ? 0 : entity.ReturnedAmount;
+                    entity.Customer = null;
+                    entity.Currency = null;
+                    entity.BranchOffice = null;
+                    entity.Payments = new List<CustomerPayment>();
+                    entity.Seller = null;
+                    entity.Taxes = new List<InvoiceTax>();
+                    entity.TRNControl = null;
+                    entity.Month = entity.BillingDate.HasValue ? (Enums.Month)entity.BillingDate.Value.Month : (Enums.Month.NotSet);
+                    entity.InvoiceDetails = null;
+                    var invoice = base.Add(entity).Data.FirstOrDefault();
+                    _Context.Entry<Invoice>(invoice).State = EntityState.Detached;
+                    if (!string.IsNullOrEmpty(appliedCreditNote.Sequence))
+                    {
+                        _Context.CreditNotes.Update(appliedCreditNote);
+                        _Context.SaveChanges();
                     }
 
-                    trans.Commit();
-                    result = new Result<Invoice>(entity.Id, 0, "ok_msg");
+                    details.ForEach(d =>
+                    {
+                        d.Product = null;
+                        d.Date = entity.BillingDate.Value;
+                        d.BranchOfficeId = entity.BranchOfficeId;
+                        d.InvoiceId = entity.Id;
+                    });
+                    entity.InvoiceDetails = details;
+                    InvoiceDetailsHelper.UpdateInvoiceTaxes(entity, dataRepositoryFactory);
+                    entity.InvoiceDetails = null;
+                    invoice.BranchOffice = tempBranchOfiice;
+            
+                    entity.InvoiceDetails = details;
+                    var branchOffice = _Context.BranchOffices.AsNoTracking().FirstOrDefault(x => x.Id == entity.BranchOfficeId && x.Active == true);
+                    Helpers.InvoiceDetailsHelper.AddDetails(entity, branchOffice, dataRepositoryFactory, false);
+                    if (entity.PaidAmount > 0 && entity.Payments != null && entity.Payments.Count > 0)
+                    {
+                        string sequencePayment = SequencesHelper.CreatePaymentControl(this.dataRepositoryFactory);
+                        foreach (var payment in entity.Payments)
+                        {
+                            payment.InvoiceNumber = entity.InvoiceNumber;
+                            payment.CreatedBy = entity.CreatedBy;
+                            payment.CreatedDate = entity.CreatedDate;
+                            payment.CurrentOwedAmount = payment.OutstandingAmount;
+                            payment.Sequence = sequencePayment;
+                            InvoiceHelper.ApplyInvoicePayment(payment, this.dataRepositoryFactory.GetCustomDataRepositories<ICustomerPaymentRepository>());
+                        }
+                    }
+
+
+                    transaction.Commit();
+                    result = new Result<Invoice>(entity.Id, 0, "ok_msg", new List<Invoice>() { invoice });
+
+                    return result;
                 }
                 catch (Exception ex)
                 {
-                    trans.Rollback();
                     result = new Result<Invoice>(-1, -1, "error_msg", null, new Exception(ex.Message));
+                    transaction.Rollback();
+                    return result;
                 }
             }
 
-            return result;
+
         }
 
         private Result<Invoice> CreateTRN(Invoice obj)

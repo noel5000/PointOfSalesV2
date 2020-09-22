@@ -168,6 +168,7 @@ namespace PointOfSalesV2.Repository.Helpers
             var invoiceTaxRepo = dataRepositoryFactory.GetCustomDataRepositories<IInvoiceTaxRepository>();
             var productTaxRepository = dataRepositoryFactory.GetCustomDataRepositories<IProductTaxRepository>();
             var leadDetailsRepo = dataRepositoryFactory.GetCustomDataRepositories<IInvoiceDetailRepository>();
+            var productsRepo = dataRepositoryFactory.GetDataRepositories<Product>();
             var invoiceTaxes = invoiceTaxRepo.GetInvoiceTaxes(invoice.InvoiceNumber).ToList();
             if (invoiceTaxes != null && invoiceTaxes.Count > 0)
             {
@@ -186,7 +187,7 @@ namespace PointOfSalesV2.Repository.Helpers
             invoice.InvoiceDetails.ForEach(x =>
             {
                 x.InvoiceId = invoice.Id;
-
+                x.Product = x.Product == null ? productsRepo.Get(x => x.Include(y => y.Taxes).ThenInclude(y => y.Tax), y => y.Active == true && y.Id == x.ProductId) : x.Product;
                 var productTaxes = x.Product?.Taxes != null && x.Product?.Taxes.Count() > 0 ? x.Product.Taxes :
                 productTaxRepository.GetProductTaxes(x.ProductId);
                 foreach (var impuesto in productTaxes)
