@@ -161,7 +161,7 @@ namespace PointOfSalesV2.Repository
                     entity.WarehouseId = entity.WarehouseId.HasValue && entity.WarehouseId == 0 ? null : entity.WarehouseId;
                     
                     entity.Id = 0;
-                    entity.State = (char)Enums.BillingStates.Billed;
+                    entity.State = entity.InventoryModified ? (char)Enums.BillingStates.Billed : (char)Enums.BillingStates.Quoted;
                     entity.BeforeTaxesAmount = details.Sum(x => x.BeforeTaxesAmount);
                     entity.Cost = details.Sum(x => x.Cost);
                     entity.DiscountAmount = details.Sum(x => x.DiscountAmount);
@@ -176,7 +176,7 @@ namespace PointOfSalesV2.Repository
                     entity.BillingDate = DateTime.Now;
                     var tempBranchOfiice = entity.BranchOffice ?? _Context.BranchOffices.Find(entity.BranchOfficeId);
                     _Context.Entry<BranchOffice>(tempBranchOfiice).State = EntityState.Detached;
-                    entity.State = (entity.PaidAmount == entity.TotalAmount && entity.OwedAmount == 0) ? (char)Enums.BillingStates.FullPaid : (entity.PaidAmount > 0) ? (char)Enums.BillingStates.Paid : (char)Enums.BillingStates.Billed;
+                    entity.State = (entity.PaidAmount == entity.TotalAmount && entity.OwedAmount == 0) ? (char)Enums.BillingStates.FullPaid : (entity.PaidAmount > 0) ? (char)Enums.BillingStates.Paid : entity.State;
                     var creditNoteResult = InvoiceHelper.ApplyCreditNote(entity, appliedCreditNote, out appliedCreditNote);
                     if (creditNoteResult.Status < 0)
                     {
