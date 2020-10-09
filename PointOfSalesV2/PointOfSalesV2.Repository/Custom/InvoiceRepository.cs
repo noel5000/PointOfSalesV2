@@ -162,17 +162,21 @@ namespace PointOfSalesV2.Repository
                     
                     entity.Id = 0;
                     entity.State = entity.InventoryModified ? (char)Enums.BillingStates.Billed : (char)Enums.BillingStates.Quoted;
+                
+                   
+                  
+                    entity.Id = 0;
                     entity.BeforeTaxesAmount = details.Sum(x => x.BeforeTaxesAmount);
                     entity.Cost = details.Sum(x => x.Cost);
                     entity.DiscountAmount = details.Sum(x => x.DiscountAmount);
                     entity.DiscountRate = details.Average(x => x.DiscountRate);
                     entity.TaxesAmount = details.Sum(x => x.TaxesAmount);
                     entity.ReturnedAmount = entity.ReceivedAmount - entity.TotalAmount;
-
                     entity.TotalAmount = entity.BeforeTaxesAmount + entity.TaxesAmount - entity.DiscountAmount;
                     entity.ExchangeRate = entity.Currency.ExchangeRate;
-                    entity.OwedAmount = entity.ReturnedAmount <= 0 ? Math.Abs(entity.PaidAmount - entity.TotalAmount) : 0;
-                    entity.InvoiceNumber = SequencesHelper.CreateSequenceControl(dataRepositoryFactory, Enums.SequenceTypes.Invoices);
+                    entity.OwedAmount = entity.TotalAmount - entity.PaidAmount - entity.AppliedCreditNoteAmount;
+                    entity.ReturnedAmount = entity.ReceivedAmount - entity.TotalAmount;
+                    entity.InvoiceNumber =SequencesHelper.CreateSequenceControl(dataRepositoryFactory, Enums.SequenceTypes.Invoices);
                     entity.BillingDate = DateTime.Now;
                     var tempBranchOfiice = entity.BranchOffice ?? _Context.BranchOffices.Find(entity.BranchOfficeId);
                     _Context.Entry<BranchOffice>(tempBranchOfiice).State = EntityState.Detached;
@@ -234,8 +238,8 @@ namespace PointOfSalesV2.Repository
                     entity.InvoiceDetails = null;
                     invoice.BranchOffice = tempBranchOfiice;
             
-                    entity.InvoiceDetails = details;
                     var branchOffice = _Context.BranchOffices.AsNoTracking().FirstOrDefault(x => x.Id == entity.BranchOfficeId && x.Active == true);
+                    entity.InvoiceDetails = details;
                     Helpers.InvoiceDetailsHelper.AddDetails(entity, branchOffice, dataRepositoryFactory, false);
                     if (entity.PaidAmount > 0 && entity.Payments != null && entity.Payments.Count > 0)
                     {
