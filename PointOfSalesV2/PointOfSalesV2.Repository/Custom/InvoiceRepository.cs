@@ -128,12 +128,12 @@ namespace PointOfSalesV2.Repository
                     details.ForEach(d => {
                         d.Product = d.Product == null ? _Context.Products.AsNoTracking().Include(x => x.ProductUnits).ThenInclude(x => x.Unit).Include(x => x.Taxes).ThenInclude(x => x.Tax).FirstOrDefault(x => x.Active == true && x.Id == d.ProductId) : d.Product;
                         d.Product.Taxes = d.Product.Taxes == null ? _Context.ProductTaxes.AsNoTracking().Include(x => x.Tax).Where(x => x.Active == true && x.ProductId == d.ProductId) : d.Product.Taxes;
-                        d.Amount = d.UnitId.HasValue ? Convert.ToDecimal(d.Product.ProductUnits.FirstOrDefault(x => x.UnitId == d.UnitId.Value)?.SellingPrice) : d.Product.Price;
-                        d.Cost = d.Product.Cost * d.Quantity;
-                        d.BeforeTaxesAmount = (d.Amount * d.Quantity);
-                        d.DiscountAmount = d.BeforeTaxesAmount * d.DiscountRate;
-                        d.TaxesAmount = (d.BeforeTaxesAmount - d.DiscountAmount) * d.Product.Taxes.Sum(t => t.Tax.Rate);
-                        d.TotalAmount = d.BeforeTaxesAmount + d.TaxesAmount - d.DiscountAmount - d.CreditNoteAmount;
+                        d.Amount = d.Amount > 0 ? d.Amount : (d.UnitId.HasValue ? (d.Product.Price/ Convert.ToDecimal(d.Product.ProductUnits.FirstOrDefault(x => x.UnitId == d.UnitId.Value)?.Equivalence)) : d.Product.Price);
+                        d.Cost =d.Cost>0?d.Cost: d.Product.Cost * d.Quantity;
+                        d.BeforeTaxesAmount =d.BeforeTaxesAmount>0?d.BeforeTaxesAmount: (d.Amount * d.Quantity);
+                        d.DiscountAmount =d.DiscountAmount>0?d.DiscountAmount: d.BeforeTaxesAmount * d.DiscountRate;
+                        d.TaxesAmount = d.TaxesAmount>0?d.TaxesAmount:(d.BeforeTaxesAmount - d.DiscountAmount) * d.Product.Taxes.Sum(t => t.Tax.Rate);
+                        d.TotalAmount =d.TotalAmount>0?d.TotalAmount: d.BeforeTaxesAmount + d.TaxesAmount - d.DiscountAmount - d.CreditNoteAmount;
                     });
 
                     if (entity.Seller != null && entity.Seller.Id > 0)
@@ -303,7 +303,7 @@ namespace PointOfSalesV2.Repository
                         d.Product = d.Product == null ? _Context.Products.AsNoTracking().Include(x => x.ProductUnits).Include(x => x.Taxes).ThenInclude(x => x.Tax).FirstOrDefault(x => x.Active == true && x.Id == d.ProductId) : d.Product;
                         d.Product.ProductUnits = d.Product.ProductUnits == null ? _Context.UnitProductsEquivalences.AsNoTracking().Include(x => x.Unit).Where(x => x.ProductId == d.ProductId && x.Active == true) : d.Product.ProductUnits;
                         d.Product.Taxes = d.Product.Taxes == null ? _Context.ProductTaxes.AsNoTracking().Include(x => x.Tax).Where(x => x.Active == true && x.ProductId == d.ProductId) : d.Product.Taxes;
-                        d.Amount = d.UnitId.HasValue ? Convert.ToDecimal(d.Product.ProductUnits.FirstOrDefault(x => x.UnitId == d.UnitId.Value)?.SellingPrice) : d.Product.Price;
+                        d.Amount = d.Amount > 0 ? d.Amount : (d.UnitId.HasValue ? (d.Product.Price / Convert.ToDecimal(d.Product.ProductUnits.FirstOrDefault(x => x.UnitId == d.UnitId.Value)?.Equivalence)) : d.Product.Price);
 
                         d.BeforeTaxesAmount = (d.Amount * d.Quantity);
                         d.DiscountAmount = d.BeforeTaxesAmount * d.DiscountRate;
@@ -342,7 +342,7 @@ namespace PointOfSalesV2.Repository
                                     d.Date = entity.BillingDate.Value;
                                     d.Cost = d.UnitId.HasValue ? Convert.ToDecimal(product.ProductUnits.FirstOrDefault(x => x.UnitId == d.UnitId && d.Active == true)?.CostPrice) : product.Cost;
 
-                                    d.Amount = d.UnitId.HasValue ? Convert.ToDecimal(product.ProductUnits.FirstOrDefault(x => x.UnitId == d.UnitId.Value)?.SellingPrice) : product.Price;
+                                    d.Amount = d.Amount > 0 ? d.Amount : (d.UnitId.HasValue ?product.Price/ Convert.ToDecimal(product.ProductUnits.FirstOrDefault(x => x.UnitId == d.UnitId.Value)?.Equivalence) : product.Price); 
                                     d.BeforeTaxesAmount = (d.Amount * d.Quantity);
                                     d.DiscountAmount = d.BeforeTaxesAmount * d.DiscountRate;
                                     d.TaxesAmount = (d.BeforeTaxesAmount - d.DiscountAmount) * product.Taxes.Sum(t => t.Tax.Rate);

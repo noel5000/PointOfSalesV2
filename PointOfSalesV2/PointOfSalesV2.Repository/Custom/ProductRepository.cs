@@ -165,9 +165,7 @@ namespace PointOfSalesV2.Repository
             previousCost.ForEach(c=> {
                 if (!costs.Any(x => x.Id == c.Id)) 
                 {
-                    c.Active = false;
-                    _Context.ProductSupplierCosts.Update(c);
-                    _Context.SaveChanges();
+                    this.Remove(c.Id);
                 }
             });
            
@@ -284,7 +282,7 @@ namespace PointOfSalesV2.Repository
         {
             decimal result = 0;
             decimal[] prices = new decimal[] { product.Price, product.Price2, product.Price3 }.Where(x=>x>0).ToArray();
-            result = (prices.Sum(x => x) / prices.Length) / equivalence;
+            result = prices.Average(x=>x) / equivalence;
             return result;
         }
     }

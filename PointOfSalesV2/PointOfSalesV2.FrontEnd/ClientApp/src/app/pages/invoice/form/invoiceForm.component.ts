@@ -53,6 +53,7 @@ export class InvoiceFormComponent extends BaseComponent implements OnInit {
     customers:Customer[]=[];
     trnControls:TRNControl[]=[];
     sellers:Seller[]=[];
+    productPrices:number[]=[];
     warehouses:Warehouse[]=[];
     productUnits:any[]=[];//
     productTaxes:any[]=[];//
@@ -60,7 +61,7 @@ export class InvoiceFormComponent extends BaseComponent implements OnInit {
     defaultTaxAmountValidator:FormControl=new FormControl(0,[ Validators.required,Validators.min(0.0001)]);
     defaultUnitValidator:FormControl=new FormControl(null,[ Validators.required,Validators.min(1)]);
     currentProductCost:any={cost:0};
-    currentProductPrice:any={sellingPrice:0,costPrice:0};
+    currentProductPrice:any={sellingPrice:0,costPrice:0, equivalence:0};
     invoiceService:BaseService<any,number>= new BaseService<any,number>(this.http, `${endpointUrl}Invoice`);
     menuService:BaseService<any,number>= new BaseService<any,number>(this.http, `${endpointUrl}Menu`);
     productUnitService:BaseService<any,number>= new BaseService<any,number>(this.http, `${endpointUrl}ProductUnit`);
@@ -118,9 +119,10 @@ state:[''],
 quantity:[0,[ Validators.required,Validators.min(0.0001)]],
 productCost:[0],
 productPrice:[0],
+selectedPrice:[0],
 beforeTaxesAmount:[0],
 noTaxes:[false],
-taxAmount:[0],
+taxesAmount:[0],
 totalAmount:[0],
 free:[false]
         });
@@ -224,7 +226,7 @@ free:[false]
         } as QueryFilter
     ]
         this.productUnitService.getAllFiltered(filter).subscribe(r=>{
-            this.productUnits=[{id:0, unitId:0,unit:{id:0, name:''},sellingPrice:0, costPrice:0}];
+            this.productUnits=[{id:0, unitId:0,unit:{id:0, name:''},sellingPrice:0, costPrice:0, equivalence:0}];
             this.productUnits=this.productUnits.concat( r['value']);
         });
     }
@@ -248,18 +250,46 @@ free:[false]
         });
     }
 
+  
+    async GetDetailProductTaxes(index:number){
+        let entry = this.entries[index];
+        const filter = [{
+            property: 'ProductId',
+            value: entry.productId.toString(),
+            type: ObjectTypes.Number,
+            isTranslated:false
+        } as QueryFilter,
+        {
+            property: "Tax",
+            value: "Id,Name,Rate",
+            type: ObjectTypes.ChildObject,
+            isTranslated: false
+        } as QueryFilter
+    ]
+        this.productTaxService.getAllFiltered(filter).subscribe(r=>{
+           const taxes=r['value'];
+           entry.quantity = this.itemForm.getRawValue()[`unitQuantity_${index}`];
+           entry.beforeTaxesAmount= entry.quantity * entry.amount - (entry.amount* entry.discountRate);
+           entry.taxesAmount= taxes.length<=0?0:taxes.reduce(function(a,b){return a+(b.tax.rate*entry.beforeTaxesAmount)},0);
+           entry.totalAmount = entry.beforeTaxesAmount + entry.taxesAmount;
+           this.entries[index]=entry;
+        });
+    }
+
     CalculateProductTax():number{
         const {productPrice}= this.itemForm.getRawValue();
         return this.productTaxes.length<=0?0:this.productTaxes.reduce(function(a,b){return a+(b.tax.rate*productPrice)},0);
     }
+
+
 
     
 
     async GetProductCost(productId:number){
         const currentProduct = this.products.find(x=>x.id==productId);
         this.currentProductCost.cost=currentProduct.cost;
-        const {unitId} = this.itemForm.getRawValue();
-        this.currentProductPrice.sellingPrice= unitId && unitId>0 && this.productUnits.length>0?this.productUnits.find(x=>x.unitId==unitId).sellingPrice: currentProduct.price;
+        const {unitId,productPrice} = this.itemForm.getRawValue();
+        this.currentProductPrice.sellingPrice= unitId && unitId>0 && this.productUnits.length>0?currentProduct.price/this.productUnits.find(x=>x.unitId==unitId).equivalence: currentProduct.price;
         this.refreshAmounts();
     }
 
@@ -302,7 +332,7 @@ free:[false]
                     }
                     });
          
-            this.itemForm.get('taxAmount').valueChanges.subscribe(val => {
+            this.itemForm.get('taxesAmount').valueChanges.subscribe(val => {
                
                     this.refreshAmounts(true);
                 
@@ -324,18 +354,39 @@ free:[false]
                 this.itemForm.get('noTaxes').valueChanges.subscribe(val => {
                    
                     if(val)
-                   this.itemForm.setControl('taxAmount',new FormControl(0))
+                   this.itemForm.setControl('taxesAmount',new FormControl(0))
                    else{
-                    this.itemForm.setControl('taxAmount',this.defaultTaxAmountValidator);
+                    this.itemForm.setControl('taxesAmount',this.defaultTaxAmountValidator);
                     this.refreshAmounts(true);
+                   }
+                
+                });
+
+                this.itemForm.get('selectedPrice').valueChanges.subscribe(val => {
+                   
+                   if(val){
+                       const {productId,unitId}= this.itemForm.getRawValue();
+                       if(productId && productId>0){
+                           let price =val;
+                        if (unitId){
+                         const productUnit = this.productUnits.find(x=>x.unitId==unitId);
+                         price = val/productUnit.equivalence;
+                        }
+
+                        this.itemForm.patchValue({productPrice:price});
+
+                       }
                    }
                 
                 });
          
         this.itemForm.get('productId').valueChanges.subscribe(val => {
             if(val && val>0){
-                this.itemForm.patchValue({quantity:0});
+                
+                this.itemForm.patchValue({quantity:0, productPrice:0});
                 const product= this.products.find(x=>x.id==val);
+                this.productPrices=[product.price,product.price2,product.price3].filter(x=>x>0);
+                this.itemForm.patchValue({selectedPrice:this.productPrices[0]});
                if( product.isService){
                 this.itemForm.removeControl('unitId');
                 this.itemForm.addControl('unitId', new FormControl(null))
@@ -362,6 +413,8 @@ free:[false]
         const total= this.itemForm.get('totalAmount')?this.itemForm.get('totalAmount').value:0;
       
     }
+
+    
     save(){
         if (!this.entries || this.entries.length==0 )
             return;
@@ -399,6 +452,7 @@ free:[false]
         return;
        
       entry.product= this.products.find(x=>x.id==entry.productId);
+      entry.amount = entry.productPrice;
       entry.productId=parseInt(entry.productId.toString());
       entry.unitId=entry.product.isService || !entry.unitId?null: parseInt(entry.unitId.toString());
       entry.unit=entry.unitId?this.productUnits.find(x=>x.unitId==entry.unitId).unit:{id:0, name:''};
@@ -421,7 +475,7 @@ free:[false]
             productId:null,
             quantity:0,
             beforeTaxesAmount:0,
-            taxAmount:0,
+            taxesAmount:0,
             totalAmount:0,
             unitId:null,
             noTaxes:false,
@@ -474,22 +528,20 @@ free:[false]
     }
     refreshAmounts(fromForm:boolean=false){
     
-        let {productPrice,productCost,quantity,unitId,beforeTaxesAmount, totalAmount, taxAmount} = this.itemForm.getRawValue() as any;
+        let {productPrice,productCost,quantity,unitId,beforeTaxesAmount, totalAmount, taxesAmount} = this.itemForm.getRawValue() as any;
 
        const equivalence =unitId && unitId>0? this.productUnits.find(x=>x.unitId==unitId).equivalence:1;
             productCost=fromForm?productCost:this.currentProductCost.cost>0?(this.currentProductCost.cost/equivalence):productCost;
-            productPrice=fromForm?productPrice:this.currentProductPrice.sellingPrice>0?(this.currentProductPrice.sellingPrice/equivalence):productPrice;
             beforeTaxesAmount= quantity * productPrice;
-            taxAmount=this.CalculateProductTax() * quantity;
-            totalAmount= beforeTaxesAmount + taxAmount;
+            taxesAmount=this.CalculateProductTax() * quantity;
+            totalAmount= beforeTaxesAmount + taxesAmount;
             this.oldProductCost=productCost;
             this.oldProductPrice=productPrice;
             this.itemForm.patchValue({
                 productCost,
                 beforeTaxesAmount,
                 totalAmount,
-                productPrice,
-                taxAmount
+                taxesAmount
             })
         
             

@@ -111,7 +111,19 @@
                     </div>
                 </div>
 
-                <div class="form-group col-md-6 col-xs-12">
+                <div class="form-group col-md-2 col-xs-4">
+                    <label>{{'price_lbl' | translate}}</label>
+                    <select class="form-control"
+                    formControlName="selectedPrice"
+                    >
+                    <option *ngFor="let price of productPrices"
+                     [value]="price"
+                     >{{price | currency:""}}</option>
+                    </select>
+                   
+                </div>
+
+                <div class="form-group col-md-2 col-xs-4">
                     <label>{{'unit_lbl' | translate}}</label>
                     <select class="form-control"
                     [ngClass]="{ 'is-invalid': form.unitId.errors }"
@@ -137,7 +149,7 @@
                
                 <div class="form-group col-md-6 col-xs-12">
                     <label>{{'unitPrice_lbl' | translate}}</label>
-                    <input type="number" formControlName="productPrice"class="form-control" disabled  />
+                    <input type="number" formControlName="productPrice"class="form-control"   />
                   
                 </div>
                 <div class="form-group col-md-6 col-xs-12">
@@ -153,7 +165,7 @@
                   </div>
                 <div class="form-group col-md-6 col-xs-12">
                     <label>{{'taxAmount_lbl' | translate}}</label>
-                    <input type="number" formControlName="taxAmount"class="form-control" disabled  />
+                    <input type="number" formControlName="taxesAmount"class="form-control" disabled  />
                   
                 </div>
                 <div class="form-group col-md-6 col-xs-12">
@@ -186,12 +198,13 @@
                             <td><input type="number"
                                  [formControlName]="('unitQuantity_'+i)" 
                                  required 
+                                 (change)="GetDetailProductTaxes(i)"
                                  class="form-control"
                                   min="1"
                                    [ngClass]="{ 'is-invalid':form[('unitQuantity_'+i)] && form[('unitQuantity_'+i)].errors }" />
                                 </td>
                             <td>{{entry.beforeTaxesAmount | currency:""}}</td>
-                            <td>{{entry.taxAmount | currency:""}}</td>
+                            <td>{{entry.taxesAmount | currency:""}}</td>
                             <td>{{entry.totalAmount | currency:""}}</td>
                             <td><i class="btn btn-danger" (click)="deleteEntry(i)">{{'delete_btn' | translate}}</i></td>
                         </tr>
