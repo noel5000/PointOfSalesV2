@@ -109,7 +109,8 @@ warehouseId:[null],
 sellerId:[null],
 billingDate:[this.currentDate],
 inventoryModified:[true],
-discountRate:[0],
+discountRate:[0,[Validators.min(0),Validators.max(100)]],
+discountAmount:[0],
 currencyName:[''],
 cashRegisterId:[0],
 invoiceNumber:[''],
@@ -121,6 +122,9 @@ productCost:[0],
 productPrice:[0],
 selectedPrice:[0],
 beforeTaxesAmount:[0],
+paidAmount:[0],
+returnedAmount:[0],
+owedAmount:[0],
 noTaxes:[false],
 taxesAmount:[0],
 totalAmount:[0],
@@ -269,11 +273,23 @@ free:[false]
         this.productTaxService.getAllFiltered(filter).subscribe(r=>{
            const taxes=r['value'];
            entry.quantity = this.itemForm.getRawValue()[`unitQuantity_${index}`];
-           entry.beforeTaxesAmount= entry.quantity * entry.amount - (entry.amount* entry.discountRate);
+           entry.discountRate = this.itemForm.getRawValue()[`unitDiscountRate_${index}`];
+           entry.beforeTaxesAmount= entry.quantity * entry.amount;
+           entry.discountAmount = entry.beforeTaxesAmount /100 * entry.discountRate;
            entry.taxesAmount= taxes.length<=0?0:taxes.reduce(function(a,b){return a+(b.tax.rate*entry.beforeTaxesAmount)},0);
-           entry.totalAmount = entry.beforeTaxesAmount + entry.taxesAmount;
+           entry.totalAmount = entry.beforeTaxesAmount + entry.taxesAmount- entry.discountAmount;
            this.entries[index]=entry;
         });
+    }
+
+    async GetDetailDiscount(index:number){
+        let entry = this.entries[index];
+        entry.quantity = this.itemForm.getRawValue()[`unitQuantity_${index}`];
+           entry.discountRate = this.itemForm.getRawValue()[`unitDiscountRate_${index}`];
+           entry.beforeTaxesAmount= entry.quantity * entry.amount ;
+           entry.discountAmount = entry.beforeTaxesAmount /100 * entry.discountRate;
+           entry.totalAmount = entry.beforeTaxesAmount + entry.taxesAmount - entry.discountAmount;
+           this.entries[index]=entry;
     }
 
     CalculateProductTax():number{
@@ -319,6 +335,21 @@ free:[false]
                 this.refreshAmounts(true);
             }
             });
+
+            this.itemForm.get('discountRate').valueChanges.subscribe(val => {
+                if(val!=null && val<=100){
+                    for(let i=0; i<this.entries.length;i++){
+                        this.entries[i].discountRate=val;
+                        this.itemForm.get(`unitDiscountRate_${i}`).setValue(val);
+                        this.entries[i].discountAmount = (val/100)* this.entries[i].beforeTaxesAmount;
+                        this.entries[i].totalAmount =  this.entries[i].beforeTaxesAmount +  this.entries[i].taxesAmount -  this.entries[i].discountAmount;
+                    }
+                    this.entries.forEach(e=>{
+                      
+                    })
+                    
+                }
+                });
 
             this.itemForm.get('unitId').valueChanges.subscribe(val => {
                 if(val){
@@ -408,6 +439,15 @@ free:[false]
     
     get form() { return this.itemForm.controls; }
 
+    get formValues(){
+        let form = this.itemForm.getRawValue();
+        form.beforeTaxesAmount= this.getTotalAmount(this.entries,'beforeTaxesAmount');
+        form.taxesAmount= this.getTotalAmount(this.entries,'taxesAmount');
+        form.discountAmount = this.getTotalAmount(this.entries,'discountAmount')
+        form.totalAmount= this.getTotalAmount(this.entries,'totalAmount');
+        return form;
+    }
+
     verifyTotalAmount(){
         const calculatedAmount= this.itemForm.get('totalAmountCalc')?this.itemForm.get('totalAmountCalc').value:0;
         const total= this.itemForm.get('totalAmount')?this.itemForm.get('totalAmount').value:0;
@@ -439,6 +479,8 @@ free:[false]
         const form = this.itemForm.getRawValue();
         for(let i=0;i<this.entries.length;i++){
             this.entries[i].quantity = form[`unitQuantity_${i}`];
+            this.entries[i].discountRate = form[`unitDiscountRate_${i}`];
+            this.entries[i].discountAmount= this.entries[i].discountRate/100*this.entries[i].beforeTaxesAmount;
         }
     }
 
@@ -459,11 +501,13 @@ free:[false]
       entry.id=0;
       entry.product.taxes=this.productTaxes;
       entry.product.productUnits = this.productUnits;
+      entry.discountAmount = entry.discountRate/100 * entry.beforeTaxesAmount;
       const currentIndex =this.entries.length;
         let index = this.entries.findIndex(x=>x.productId==entry.productId && x.warehouseId==entry.warehouseId);
         
         if(index<0){
             this.setDetailFormAmount(currentIndex,entry.quantity);
+            this.setDetailFormDiscount(currentIndex,entry.discountRate);
             this.entries.push(entry);
         }
         else {
@@ -500,11 +544,14 @@ free:[false]
                 for(let i=0; i<this.entries.length;i++){
                     if(this.itemForm.contains(`unitQuantity_${i}`))
                     this.itemForm.removeControl(`unitQuantity_${i}`);
+
+                    if(this.itemForm.contains(`unitDiscountRate_${i}`))
+                    this.itemForm.removeControl(`unitDiscountRate_${i}`);
                 }
                 if(r.data[0] && r.data[0].invoiceDetails && r.data[0].invoiceDetails.length>0){
                     for(let i=0; i<r.data[0].leadDetails.length;i++){
                         this.setDetailFormAmount(i,r.data[0].leadDetails[i].quantity);
-                          
+                        this.setDetailFormDiscount(i,r.data[0].leadDetails[i].discountRate);
                       }
                 }
                 this.entries=r.data[0] && r.data[0].
@@ -525,6 +572,11 @@ free:[false]
     setDetailFormAmount(index:number,quantity:number){
         if(!this.itemForm.contains(`unitQuantity_${index}`))
         this.itemForm.addControl(`unitQuantity_${index}`,new FormControl(quantity,[ Validators.required,Validators.min(0.0001)]));
+    }
+
+     setDetailFormDiscount(index:number,discount:number){
+        if(!this.itemForm.contains(`unitDiscountRate_${index}`))
+        this.itemForm.addControl(`unitDiscountRate_${index}`,new FormControl(discount,[Validators.max(100) ,Validators.min(0)]));
     }
     refreshAmounts(fromForm:boolean=false){
     
