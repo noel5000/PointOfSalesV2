@@ -95,6 +95,12 @@ namespace PointOfSalesV2.Repository.Helpers
                 {
                     detailsRepo.Remove(d.Id);
                     var result = InventoryHelper.AddInventory(d, invoice, dataRepositoryFactory);
+
+                    var children = detailsRepo.GetAll(x=>x.AsNoTracking().Include(x => x.Product).Include(x => x.Unit),y => y.Active == true && y.ParentId == d.Id).Data.ToList();
+                    children.ForEach(d =>
+                    {
+                        InventoryHelper.AddInventory(d, invoice, dataRepositoryFactory);
+                    });
                     if (result.Status < 0)
                         throw new Exception(result.Message);
                 }
@@ -160,9 +166,14 @@ namespace PointOfSalesV2.Repository.Helpers
                     d.Unit = null;
                     detailUpdate = detailsRepo.Update(d);
                 }
+                else if (d.Product.IsCompositeProduct) 
+                {
+                
+                }
                 else
                 {
                     d.Unit = null;
+                    d.Product = null;
                     detailUpdate = detailsRepo.Update(d);
                 }
                 if (detailUpdate.Status < 0)
@@ -179,7 +190,7 @@ namespace PointOfSalesV2.Repository.Helpers
             var productTaxRepository = dataRepositoryFactory.GetCustomDataRepositories<IProductTaxRepository>();
             var leadDetailsRepo = dataRepositoryFactory.GetCustomDataRepositories<IInvoiceDetailRepository>();
             var productsRepo = dataRepositoryFactory.GetDataRepositories<Product>();
-            var invoiceTaxes = invoiceTaxRepo.GetInvoiceTaxes(invoice.InvoiceNumber).ToList();
+            var invoiceTaxes = invoiceTaxRepo.GetInvoiceTaxes(invoice.InvoiceNumber).Where(x=>x.Active==true).ToList();
             if (invoiceTaxes != null && invoiceTaxes.Count > 0)
             {
                 foreach (var tax in invoiceTaxes)

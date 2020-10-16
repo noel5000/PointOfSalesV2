@@ -177,7 +177,7 @@ namespace PointOfSalesV2.Repository
                     entity.OwedAmount = entity.TotalAmount - entity.PaidAmount - entity.AppliedCreditNoteAmount;
                     entity.ReturnedAmount = entity.ReceivedAmount - entity.TotalAmount;
                     entity.InvoiceNumber = entity.InventoryModified?SequencesHelper.CreateSequenceControl(dataRepositoryFactory, Enums.SequenceTypes.Invoices):"";
-                    entity.DocumentNumber = entity.InventoryModified && string.IsNullOrEmpty(entity.DocumentNumber) ? SequencesHelper.CreateSequenceControl(dataRepositoryFactory, Enums.SequenceTypes.Quotes) : "";
+                    entity.DocumentNumber = !entity.InventoryModified && string.IsNullOrEmpty(entity.DocumentNumber) ? SequencesHelper.CreateSequenceControl(dataRepositoryFactory, Enums.SequenceTypes.Quotes) : "";
                     entity.BillingDate = DateTime.Now;
                     if (!entity.InventoryModified)
                         entity.BillingDate = null;
@@ -308,9 +308,9 @@ namespace PointOfSalesV2.Repository
                 try
                 {
                     entity.InvoiceDetails.ForEach(d => {
-                        d.Product = d.Product == null ? _Context.Products.AsNoTracking().Include(x => x.ProductUnits).Include(x => x.Taxes).ThenInclude(x => x.Tax).FirstOrDefault(x => x.Active == true && x.Id == d.ProductId) : d.Product;
-                        d.Product.ProductUnits = d.Product.ProductUnits == null ? _Context.UnitProductsEquivalences.AsNoTracking().Include(x => x.Unit).Where(x => x.ProductId == d.ProductId && x.Active == true) : d.Product.ProductUnits;
-                        d.Product.Taxes = d.Product.Taxes == null ? _Context.ProductTaxes.AsNoTracking().Include(x => x.Tax).Where(x => x.Active == true && x.ProductId == d.ProductId) : d.Product.Taxes;
+                        d.Product = _Context.Products.AsNoTracking().Include(x => x.ProductUnits).ThenInclude(x=>x.Unit).Include(x => x.Taxes).ThenInclude(x => x.Tax).FirstOrDefault(x => x.Active == true && x.Id == d.ProductId);
+                        d.Product.ProductUnits = d.Product.ProductUnits != null ? d.Product.ProductUnits.Where(x => x.Active) : d.Product.ProductUnits;
+                        d.Product.Taxes = d.Product.Taxes != null ? d.Product.Taxes.Where(x => x.Active == true) : d.Product.Taxes;
                         d.Amount = d.Amount > 0 ? d.Amount : (d.UnitId.HasValue ? (d.Product.Price / Convert.ToDecimal(d.Product.ProductUnits.FirstOrDefault(x => x.UnitId == d.UnitId.Value)?.Equivalence)) : d.Product.Price);
 
                         d.BeforeTaxesAmount = (d.Amount * d.Quantity);
@@ -318,6 +318,7 @@ namespace PointOfSalesV2.Repository
                         d.TaxesAmount = (d.BeforeTaxesAmount - d.DiscountAmount) * d.Product.Taxes.Sum(t => t.Tax.Rate);
                         d.TotalAmount = d.BeforeTaxesAmount + d.TaxesAmount - d.DiscountAmount - d.CreditNoteAmount;
                     });
+                    var newDetails = entity.InvoiceDetails;
                     var dbEntity = _Context.Invoices.Find(entity.Id);
                     _Context.Entry<Invoice>(dbEntity).State = EntityState.Detached;
                     var oldDetails = _Context.InvoiceDetails.AsNoTracking()
@@ -420,12 +421,12 @@ namespace PointOfSalesV2.Repository
                         Helpers.InvoiceDetailsHelper.UpdateDetails(entity, branchOffice, dataRepositoryFactory);
                     }
 
-                    dbEntity.BeforeTaxesAmount = oldDetails.Sum(x => x.BeforeTaxesAmount);
-                    dbEntity.Cost = oldDetails.Sum(x => x.Cost);
-                    dbEntity.DiscountAmount = oldDetails.Sum(x => x.DiscountAmount);
-                    dbEntity.DiscountRate = oldDetails.Average(x => x.DiscountRate);
-                    dbEntity.TaxesAmount = oldDetails.Sum(x => x.TaxesAmount);
-                    dbEntity.TotalAmount = oldDetails.Sum(x => x.TotalAmount);
+                    dbEntity.BeforeTaxesAmount = newDetails.Sum(x => x.BeforeTaxesAmount);
+                    dbEntity.Cost = newDetails.Sum(x => x.Cost);
+                    dbEntity.DiscountAmount = newDetails.Sum(x => x.DiscountAmount);
+                    dbEntity.DiscountRate = newDetails.Average(x => x.DiscountRate);
+                    dbEntity.TaxesAmount = newDetails.Sum(x => x.TaxesAmount);
+                    dbEntity.TotalAmount = newDetails.Sum(x => x.TotalAmount);
                     dbEntity.OwedAmount = dbEntity.TotalAmount - entity.PaidAmount;
                     dbEntity.InventoryModified = entity.InventoryModified;
                     dbEntity.ReturnedAmount = dbEntity.ReceivedAmount - entity.TotalAmount;
@@ -440,7 +441,7 @@ namespace PointOfSalesV2.Repository
                 catch (Exception ex)
                 {
                     trans.Rollback();
-                    result = new Result<Invoice>(-1, -1, "error_msg", null, new Exception(ex.Message));
+                    result = new Result<Invoice>(-1, -1, ex.Message, null, new Exception(ex.Message));
                 }
             }
 
@@ -490,6 +491,12 @@ namespace PointOfSalesV2.Repository
                 details.ForEach(d =>
                 {
                     InventoryHelper.AddInventory(d, invoiceLead, dataRepositoryFactory);
+
+                    var children = _Context.InvoiceDetails.AsNoTracking().Include(x => x.Product).Include(x => x.Unit).Where(x => x.Active == true && x.ParentId == d.Id).ToList();
+                    children.ForEach(d =>
+                    {
+                        InventoryHelper.AddInventory(d, invoiceLead,dataRepositoryFactory);
+                    });
                 });
 
             }
@@ -502,6 +509,23 @@ namespace PointOfSalesV2.Repository
             invoiceLead.InventoryModified = false;
             _Context.Invoices.Update(invoiceLead);
             _Context.SaveChanges();
+
+            if (!string.IsNullOrEmpty(invoiceLead.DocumentNumber))
+            {
+                var parentQuote = _Context.Invoices.AsNoTracking().FirstOrDefault(x => x.Active == true && x.State == (char)BillingStates.Converted && x.DocumentNumber == invoiceLead.DocumentNumber);
+                if (parentQuote != null)
+                {
+                    parentQuote.State = (char)BillingStates.Quoted;
+                    base.Update(parentQuote);
+                }
+            }
+
+            var taxes = _Context.InvoicesTaxes.AsNoTracking().Where(x => x.Active == true && x.InvoiceNumber.ToLower() == invoiceLead.InvoiceNumber.ToLower()).ToList();
+            if (taxes != null)
+            {
+                _Context.InvoicesTaxes.RemoveRange(taxes);
+                _Context.SaveChanges();
+            }
         }
 
         public List<CompanyStateModel> GetCompanyStatus(DateTime? initialDate, DateTime? endDate)

@@ -120,6 +120,17 @@ cashRegisterId:[0],
 invoiceNumber:[''],
 documentNumber:[''],
 currencyId:[0],
+active:[true],
+exchangeRate:[0],
+sellerRate:[0],
+paidDate:[null],
+receivedAmount:[0],
+cost:[0],
+Month:[0],
+appliedCreditNoteAmount:[0],
+trn:[null],
+trnControlId:[0],
+details:[null],
 state:[''],
 quantity:[0,[ Validators.required,Validators.min(0.0001)]],
 productCost:[0],
@@ -158,6 +169,9 @@ free:[false]
         this.customerService.getAllFiltered(filter).subscribe(r=>{
             this.customers=[{id:0, name:''} as Customer];
             this.customers=this.customers.concat( r['value']);
+            const {customerId} = this.itemForm.getRawValue();
+            if(customerId && customerId>0)
+            this.getSellers(customerId);
         });
     }
 
@@ -385,7 +399,7 @@ free:[false]
                 });
 
                 this.itemForm.get('customerId').valueChanges.subscribe(val => {
-                    if(val){
+                    if(val && this.customers && this.customers.length>0){
                         this.getSellers(val);
                     }
                     });
@@ -475,6 +489,10 @@ free:[false]
         form.taxesAmount= this.getTotalAmount(this.entries,'taxesAmount');
         form.discountAmount = this.getTotalAmount(this.entries,'discountAmount')
         form.totalAmount= this.getTotalAmount(this.entries,'totalAmount');
+        form.owedAmount= form.totalAmount - form.paidAmount;
+        form.owedAmount= form.owedAmount<0?0:form.owedAmount;
+        form.returnedAmount = form.paidAmount - form.totalAmount;
+        form.returnedAmount = form.returnedAmount>0?form.returnedAmount:0;
         return form;
     }
 
@@ -566,7 +584,7 @@ free:[false]
   
 
     getCurrentInvoice(invoiceId:number){
-        this.invoiceService.getById(invoiceId)
+        this.invoiceService.getByUrlParameters(['GetForPrint',invoiceId.toString()])
         .subscribe(r=>{
             
             if(r.status>=0){

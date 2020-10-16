@@ -13,6 +13,7 @@ using static PointOfSalesV2.Common.Enums;
 using PointOfSalesV2.Common;
 using NPOI.SS.Formula.Functions;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.EntityFrameworkCore;
 
 namespace PointOfSalesV2.Api.Controllers
 {
@@ -37,7 +38,8 @@ namespace PointOfSalesV2.Api.Controllers
                 {
                     long t_id = (long)arg;
                     var invoice = _baseRepo.GetAll<Invoice>(x => x.Where(y => y.Active == true && y.Id == t_id)).FirstOrDefault();
-                    invoice.InvoiceDetails = _repositoryFactory.GetDataRepositories<InvoiceDetail>().GetAll<InvoiceDetail>(x => x, y => y.Active == true && y.InvoiceId == id).ToList();
+                    invoice.InvoiceDetails = _repositoryFactory.GetDataRepositories<InvoiceDetail>().GetAll<InvoiceDetail>(x =>
+                    x.Include(i=>i.Product).Include(i=>i.Unit), y => y.Active == true && y.InvoiceId == id).ToList();
                     return Ok(new { status = 0, id, data = new Invoice[] { invoice } });
                 }
 
