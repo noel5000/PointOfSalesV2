@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AuthModel } from '../data/authModel';
 import { LanguageService } from './../services/translateService';
 import { OnInit } from '@angular/core';
+import { User } from '../data/users';
 
 export class BaseComponent  {
    
@@ -26,6 +27,10 @@ export class BaseComponent  {
         else
             this.returnToLogin();
 
+    }
+
+    getUser():User{
+        return     (JSON.parse(localStorage.getItem('currentUser')) as AuthModel).user;
     }
 
     getTotalAmount(items:any[],selector:string):number{

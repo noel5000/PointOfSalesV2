@@ -19,12 +19,18 @@ namespace PointOfSalesV2.Repository.Helpers
             {
                 x.InvoiceId = Invoice.Id;
                 x.Date = Invoice.BillingDate.Value;
-                var result = InventoryHelper.UpdateProductInventory(branchOffice, x, dataRepositoryFactory, Invoice);
+                if (Invoice.InventoryModified)
+                {
+                    var result = InventoryHelper.UpdateProductInventory(branchOffice, x, dataRepositoryFactory, Invoice);
 
-                if (result.Status < 0)
-                    throw new Exception(result.Message);
+                    if (result.Status < 0)
+                        throw new Exception(result.Message);
+                    else
+                        x = result.Data.FirstOrDefault();
+                }
                 else
-                    x = result.Data.FirstOrDefault();
+                    x.SaveRegister = true;
+               
 
                 if (x.SaveRegister)
                 {
@@ -38,18 +44,22 @@ namespace PointOfSalesV2.Repository.Helpers
                 }
 
             });
-            var inventorySumm = InventoryHelper.InventoryToUpdate.GroupBy(x => new {x.ProductId,x.WarehouseId }).ToList();
-            inventorySumm.ForEach(i => {
-                var currentInventory = inventories.Get(x => x.AsNoTracking(), y => y.Active == true && y.WarehouseId == i.Key.WarehouseId && y.ProductId == i.Key.ProductId);
-                currentInventory.Quantity -= i.Sum(x => x.Quantity);
-                if (currentInventory.Quantity < 0)
-                    throw new Exception("outOfStock_msg");
-                inventories.Update(currentInventory,false);
+            if (Invoice.InventoryModified)
+            {
+                var inventorySumm = InventoryHelper.InventoryToUpdate.GroupBy(x => new { x.ProductId, x.WarehouseId }).ToList();
+                inventorySumm.ForEach(i => {
+                    var currentInventory = inventories.Get(x => x.AsNoTracking(), y => y.Active == true && y.WarehouseId == i.Key.WarehouseId && y.ProductId == i.Key.ProductId);
+                    currentInventory.Quantity -= i.Sum(x => x.Quantity);
+                    if (currentInventory.Quantity < 0)
+                        throw new Exception("outOfStock_msg");
+                    inventories.Update(currentInventory, false);
 
-            });
-            InventoryHelper.InventoryToUpdate = null;
-            if (updateTaxes)
-                UpdateInvoiceTaxes(Invoice, dataRepositoryFactory);
+                });
+                InventoryHelper.InventoryToUpdate = null;
+                if (updateTaxes)
+                    UpdateInvoiceTaxes(Invoice, dataRepositoryFactory);
+            }
+           
 
         }
 

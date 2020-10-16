@@ -17,6 +17,7 @@ namespace PointOfSalesV2.Api.Models
     public class WarehouseModel : BaseModel 
     {
     public List<InventoryModel> Inventory { get; set; }
+        public string Code { get; set; }
     }
 
     public class InventoryModel 
@@ -26,6 +27,7 @@ namespace PointOfSalesV2.Api.Models
     public decimal Quantity { get; set; }
     public BaseModel Product { get; set; }
     public BaseModel Unit { get; set; }
+    public BaseModel Warehouse { get; set; }
     }
 
 }

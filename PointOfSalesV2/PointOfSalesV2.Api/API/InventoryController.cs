@@ -57,12 +57,14 @@ namespace PointOfSalesV2.Api.Controllers
                         warehouses.Add(new WarehouseModel() 
                         {
                         Id= w.FirstOrDefault().Warehouse.Id,
-                        Name= w.FirstOrDefault().Warehouse.Name
+                        Name= w.FirstOrDefault().Warehouse.Name,
+                        Code= w.FirstOrDefault().Warehouse.Code
                         });
                     });
                     warehouses.ForEach(n => { 
                     n.Inventory = i.Where(e=>e.WarehouseId==n.Id).Select(x => new InventoryModel()
                     {
+                        Warehouse= new BaseModel() {Name=n.Name, Id=n.Id },
                         ProductId = x.ProductId,
                         Product = new BaseModel {Id=x.Product.Id, Name=x.Product.Name },
                         Unit =new BaseModel() {Id = x.Unit.Id, Name = x.Unit.Name },

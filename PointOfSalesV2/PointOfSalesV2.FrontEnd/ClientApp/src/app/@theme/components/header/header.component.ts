@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NbMediaBreakpointsService, NbMenuService, NbSidebarService, NbThemeService } from '@nebular/theme';
 
-import { UserData } from '../../../@core/data/users';
+import { User, UserData } from '../../../@core/data/users';
 import { map, takeUntil, filter } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
@@ -95,9 +95,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.currentTheme = this.themeService.currentTheme;
+    const data =JSON.parse(localStorage.getItem('currentUser'))as AuthModel;
+    if(!data){
+      localStorage.removeItem('currentUser');
+          this.route.navigateByUrl('auth/login');
+    }
 
-  this.user = (JSON.parse(localStorage.getItem('currentUser')) as AuthModel).user;
-
+  this.user = data?data.user:new User();
     const { xl } = this.breakpointService.getBreakpointsMap();
     this.themeService.onMediaQueryChange()
       .pipe(

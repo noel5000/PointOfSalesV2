@@ -101,21 +101,21 @@ namespace PointOfSalesV2.Repository
                     _Context.Entry<Currency>(entity.Currency).State = EntityState.Detached;
                     entity.TRNType = entity.Customer.TRNType;
                     entity.TRNControlId = entity.Customer.TRNControlId;
-                    var trnResult = CreateTRN(entity);
+                    var trnResult = entity.InventoryModified? CreateTRN(entity): new Result<Invoice>();
 
                     if (trnResult.Status < 0)
                     {
                         transaction.Rollback();
                         return trnResult;
                     }
-                    entity = trnResult.Data.FirstOrDefault();
+                    entity = entity.InventoryModified? trnResult.Data.FirstOrDefault():entity;
                     entity.Seller = entity.Seller == null && entity.SellerId.HasValue && entity.SellerId.Value > 0 ?
                         _Context.Sellers.Find(entity.SellerId.Value) : entity.Seller;
                     if (entity.Seller != null)
                         _Context.Entry<Seller>(entity.Seller).State = EntityState.Detached;
                     CreditNote appliedCreditNote = new CreditNote();
-                    if (!string.IsNullOrEmpty(entity.AppliedCreditNote))
-                        appliedCreditNote = _Context.CreditNotes.AsNoTracking().FirstOrDefault(x => x.Sequence == entity.AppliedCreditNote);
+                    if (!string.IsNullOrEmpty(entity.AppliedCreditNote) && entity.InventoryModified)
+                            appliedCreditNote = _Context.CreditNotes.AsNoTracking().FirstOrDefault(x => x.Sequence == entity.AppliedCreditNote);
 
                     if (entity.InvoiceDetails.Count <= 0)
                     {
@@ -136,7 +136,7 @@ namespace PointOfSalesV2.Repository
                         d.TotalAmount =d.TotalAmount>0?d.TotalAmount: d.BeforeTaxesAmount + d.TaxesAmount - d.DiscountAmount - d.CreditNoteAmount;
                     });
 
-                    if (entity.Seller != null && entity.Seller.Id > 0)
+                    if (entity.Seller != null && entity.Seller.Id > 0 && entity.InventoryModified)
                     {
                         decimal comision = 0;
                         details.ForEach(d => {
@@ -176,20 +176,27 @@ namespace PointOfSalesV2.Repository
                     entity.ExchangeRate = entity.Currency.ExchangeRate;
                     entity.OwedAmount = entity.TotalAmount - entity.PaidAmount - entity.AppliedCreditNoteAmount;
                     entity.ReturnedAmount = entity.ReceivedAmount - entity.TotalAmount;
-                    entity.InvoiceNumber =SequencesHelper.CreateSequenceControl(dataRepositoryFactory, Enums.SequenceTypes.Invoices);
+                    entity.InvoiceNumber = entity.InventoryModified?SequencesHelper.CreateSequenceControl(dataRepositoryFactory, Enums.SequenceTypes.Invoices):"";
+                    entity.DocumentNumber = entity.InventoryModified && string.IsNullOrEmpty(entity.DocumentNumber) ? SequencesHelper.CreateSequenceControl(dataRepositoryFactory, Enums.SequenceTypes.Quotes) : "";
                     entity.BillingDate = DateTime.Now;
+                    if (!entity.InventoryModified)
+                        entity.BillingDate = null;
                     var tempBranchOfiice = entity.BranchOffice ?? _Context.BranchOffices.Find(entity.BranchOfficeId);
                     _Context.Entry<BranchOffice>(tempBranchOfiice).State = EntityState.Detached;
                     entity.State = (entity.PaidAmount == entity.TotalAmount && entity.OwedAmount == 0) ? (char)Enums.BillingStates.FullPaid : (entity.PaidAmount > 0) ? (char)Enums.BillingStates.Paid : entity.State;
-                    var creditNoteResult = InvoiceHelper.ApplyCreditNote(entity, appliedCreditNote, out appliedCreditNote);
-                    if (creditNoteResult.Status < 0)
+                    if (entity.InventoryModified) 
                     {
-                        transaction.Rollback();
-                        return creditNoteResult;
+                        var creditNoteResult = InvoiceHelper.ApplyCreditNote(entity, appliedCreditNote, out appliedCreditNote);
+                        if (creditNoteResult.Status < 0)
+                        {
+                            transaction.Rollback();
+                            return creditNoteResult;
+                        }
+                        else
+                            entity = creditNoteResult.Data.FirstOrDefault();
                     }
-                    else
-                        entity = creditNoteResult.Data.FirstOrDefault();
-                    if (entity.OwedAmount > 0)
+                  
+                    if (entity.OwedAmount > 0 && entity.InventoryModified)
                     {
                         var balance = _Context.CustomersBalance.AsNoTracking().FirstOrDefault(x => x.CustomerId == entity.CustomerId && x.CurrencyId == entity.CurrencyId && x.Active == true) ??
                             new CustomerBalance() { CustomerId = entity.CustomerId, CurrencyId = entity.CurrencyId, Id = 0, Active = true };
@@ -229,11 +236,12 @@ namespace PointOfSalesV2.Repository
                     details.ForEach(d =>
                     {
                         d.Product = null;
-                        d.Date = entity.BillingDate.Value;
+                        d.Date = entity.BillingDate.HasValue? entity.BillingDate.Value:DateTime.Now;
                         d.BranchOfficeId = entity.BranchOfficeId;
                         d.InvoiceId = entity.Id;
                     });
                     entity.InvoiceDetails = details;
+                    if(entity.InventoryModified)
                     InvoiceDetailsHelper.UpdateInvoiceTaxes(entity, dataRepositoryFactory);
                     entity.InvoiceDetails = null;
                     invoice.BranchOffice = tempBranchOfiice;
@@ -241,7 +249,7 @@ namespace PointOfSalesV2.Repository
                     var branchOffice = _Context.BranchOffices.AsNoTracking().FirstOrDefault(x => x.Id == entity.BranchOfficeId && x.Active == true);
                     entity.InvoiceDetails = details;
                     Helpers.InvoiceDetailsHelper.AddDetails(entity, branchOffice, dataRepositoryFactory, false);
-                    if (entity.PaidAmount > 0 && entity.Payments != null && entity.Payments.Count > 0)
+                    if (entity.PaidAmount > 0 && entity.Payments != null && entity.Payments.Count > 0 && entity.InventoryModified)
                     {
                         string sequencePayment = SequencesHelper.CreatePaymentControl(this.dataRepositoryFactory);
                         foreach (var payment in entity.Payments)
@@ -339,7 +347,7 @@ namespace PointOfSalesV2.Repository
                                     d.Quantity = newDetail.Quantity;
                                     d.UnitId = newDetail.UnitId;
                                     d.Active = true;
-                                    d.Date = entity.BillingDate.Value;
+                                    d.Date =entity.BillingDate.HasValue ? entity.BillingDate.Value:entity.CreatedDate;
                                     d.Cost = d.UnitId.HasValue ? Convert.ToDecimal(product.ProductUnits.FirstOrDefault(x => x.UnitId == d.UnitId && d.Active == true)?.CostPrice) : product.Cost;
 
                                     d.Amount = d.Amount > 0 ? d.Amount : (d.UnitId.HasValue ?product.Price/ Convert.ToDecimal(product.ProductUnits.FirstOrDefault(x => x.UnitId == d.UnitId.Value)?.Equivalence) : product.Price); 
@@ -363,7 +371,7 @@ namespace PointOfSalesV2.Repository
                                 d.InvoiceId = entity.Id;
                                 d.WarehouseId = entity.WarehouseId;
                                 d.Active = true;
-                                d.Date = entity.BillingDate.Value;
+                                d.Date = entity.BillingDate.HasValue ? entity.BillingDate.Value : entity.CreatedDate;
                                 d.Cost = d.UnitId.HasValue ? Convert.ToDecimal(product.ProductUnits.FirstOrDefault(x => x.UnitId == d.UnitId && d.Active == true)?.CostPrice) : product.Cost;
                                 d.Amount = d.UnitId.HasValue ? Convert.ToDecimal(product.ProductUnits.FirstOrDefault(x => x.UnitId == d.UnitId.Value)?.SellingPrice) : product.Price;
                                 d.BeforeTaxesAmount = (d.Amount * d.Quantity);
@@ -421,7 +429,8 @@ namespace PointOfSalesV2.Repository
                     dbEntity.OwedAmount = dbEntity.TotalAmount - entity.PaidAmount;
                     dbEntity.InventoryModified = entity.InventoryModified;
                     dbEntity.ReturnedAmount = dbEntity.ReceivedAmount - entity.TotalAmount;
-                    dbEntity.DocumentNumber = string.IsNullOrEmpty(dbEntity.DocumentNumber) ? this.sequenceManagerRepository.CreateSequence(Enums.SequenceTypes.Leads) : dbEntity.DocumentNumber;
+                    dbEntity.DocumentNumber = string.IsNullOrEmpty(dbEntity.DocumentNumber) &&entity.InventoryModified ? this.sequenceManagerRepository.CreateSequence(Enums.SequenceTypes.Quotes) : dbEntity.DocumentNumber;
+                    dbEntity.InvoiceNumber = string.IsNullOrEmpty(dbEntity.InvoiceNumber) && entity.InventoryModified ? this.sequenceManagerRepository.CreateSequence(Enums.SequenceTypes.Invoices) : dbEntity.InvoiceNumber;
                     dbEntity.InvoiceDetails = null;
                     _Context.Invoices.Update(dbEntity);
                     _Context.SaveChanges();

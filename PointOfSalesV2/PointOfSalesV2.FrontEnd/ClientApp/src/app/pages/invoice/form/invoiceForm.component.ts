@@ -48,6 +48,8 @@ export class InvoiceFormComponent extends BaseComponent implements OnInit {
     branchOfficeId:number=0;
     warehouseId:number=0;
     currentDate:string='';
+    productQuantity:number=0;
+    showProductQuantity:boolean=false;
     _route:ActivatedRoute;
     products:Product[]=[];//
     customers:Customer[]=[];
@@ -57,11 +59,13 @@ export class InvoiceFormComponent extends BaseComponent implements OnInit {
     warehouses:Warehouse[]=[];
     productUnits:any[]=[];//
     productTaxes:any[]=[];//
+    inventories=[];
     entries:any[]=[];
     defaultTaxAmountValidator:FormControl=new FormControl(0,[ Validators.required,Validators.min(0.0001)]);
     defaultUnitValidator:FormControl=new FormControl(null,[ Validators.required,Validators.min(1)]);
     currentProductCost:any={cost:0};
     currentProductPrice:any={sellingPrice:0,costPrice:0, equivalence:0};
+    inventoryService:BaseService<any,number>= new BaseService<any,number>(this.http, `${endpointUrl}Inventory`);
     invoiceService:BaseService<any,number>= new BaseService<any,number>(this.http, `${endpointUrl}Invoice`);
     menuService:BaseService<any,number>= new BaseService<any,number>(this.http, `${endpointUrl}Menu`);
     productUnitService:BaseService<any,number>= new BaseService<any,number>(this.http, `${endpointUrl}ProductUnit`);
@@ -326,6 +330,21 @@ free:[false]
         });
     }
 
+    async getProductInventory(branchOfficeId:number,warehouseId:number=0,productId:number=0){
+        this.inventoryService.patchGenericByUrlParameters(['GetCompanyInventory',branchOfficeId.toString(),warehouseId.toString(),productId.toString()]).subscribe(r=>{
+            const result = r.data[0];
+            if(result.warehouses){
+                const warehouses = result.warehouses.filter(x=>x.code!='DEF');
+                this.inventories=[];
+                warehouses.forEach(w=>{
+                    const productInventory= w.inventory.filter(x=>x.productId == productId);
+                    if(productInventory.length>0)
+                    this.inventories = this.inventories.concat(productInventory);
+                });
+            }
+        })
+    }
+
   
     onChanges(): void {
       
@@ -352,8 +371,16 @@ free:[false]
                 });
 
             this.itemForm.get('unitId').valueChanges.subscribe(val => {
-                if(val){
+
+                this.inventories=[];
+                if(val && val!="0"){
                     this.refreshAmounts();
+                   const {productId,warehouseId}= this.itemForm.getRawValue();
+                   const user = this.getUser();
+                   const product = this.products.find(x=>x.id==productId);
+                   if(!product.isService){
+                    this.getProductInventory(user.branchOfficeId,warehouseId==null?0:warehouseId,productId)
+                   }
                 }
                 });
 
@@ -410,11 +437,14 @@ free:[false]
                    }
                 
                 });
-         
+
         this.itemForm.get('productId').valueChanges.subscribe(val => {
             if(val && val>0){
-                
+                this.inventories=[];
+                this.productUnits=[];
                 this.itemForm.patchValue({quantity:0, productPrice:0});
+                this.productQuantity=0;
+                this.showProductQuantity=false;
                 const product= this.products.find(x=>x.id==val);
                 this.productPrices=[product.price,product.price2,product.price3].filter(x=>x>0);
                 this.itemForm.patchValue({selectedPrice:this.productPrices[0]});
@@ -462,8 +492,7 @@ free:[false]
         let form = this.itemForm.getRawValue() as any;
            form.warehouseId=form.warehouseId==0?null:form.warehouseId;
            form.invoiceDetails=this.entries;
-           form.inventoryModified=true;
-           form.state=!form.state?(form.inventoryModified?BillingStates.Quoted:BillingStates.Billed):form.state;
+           form.state=!form.state?(form.inventoryModified?BillingStates.Billed:BillingStates.Quoted):form.state;
             const subscription =window.location.href.split('/').findIndex(x=>x.toLowerCase()=='add')>=0? this.invoiceService.post(form,"",""):this.invoiceService.put(form,"","");
             subscription.subscribe(r=>{
                if(r.status>=0){
@@ -549,9 +578,9 @@ free:[false]
                     this.itemForm.removeControl(`unitDiscountRate_${i}`);
                 }
                 if(r.data[0] && r.data[0].invoiceDetails && r.data[0].invoiceDetails.length>0){
-                    for(let i=0; i<r.data[0].leadDetails.length;i++){
-                        this.setDetailFormAmount(i,r.data[0].leadDetails[i].quantity);
-                        this.setDetailFormDiscount(i,r.data[0].leadDetails[i].discountRate);
+                    for(let i=0; i<r.data[0].invoiceDetails.length;i++){
+                        this.setDetailFormAmount(i,r.data[0].invoiceDetails[i].quantity);
+                        this.setDetailFormDiscount(i,r.data[0].invoiceDetails[i].discountRate);
                       }
                 }
                 this.entries=r.data[0] && r.data[0].

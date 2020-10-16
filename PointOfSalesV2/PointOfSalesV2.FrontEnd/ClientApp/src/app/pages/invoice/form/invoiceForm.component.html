@@ -76,7 +76,7 @@
                     <input type="text" formControlName="currencyName"  disabled class="form-control"/>
                 </div>
 
-                <div class="form-group col-md-6 col-xs-12">
+                <div class="form-group col-md-6 col-xs-12 d-none">
                     <label>{{'billInvoice_lbl' | translate}}</label>
                     <div class="switch">
                         <input type="checkbox"  formControlName="inventoryModified">
@@ -106,8 +106,11 @@
                      [value]="product.id"
                      >{{product.name}}</option>
                     </select>
-                    <div *ngIf="form.productId.errors" class="invalid-feedback">
-                        <div *ngIf="form.productId.errors.required">{{'required_lbl' | translate}}</div>
+                    <div class="invalid-feedback">
+                        <div *ngIf="form.productId.errors">{{'required_lbl' | translate}}</div>
+                    </div>
+                    <div class="my-1 " style="color:red;" *ngFor="let inventory of inventories">
+                        <div >{{inventory.warehouse.name}}: {{inventory.quantity}} {{inventory.unit.name}}</div>
                     </div>
                 </div>
 
