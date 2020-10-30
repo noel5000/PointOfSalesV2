@@ -38,4 +38,4 @@ When you get the app working, the first thing to do is set the Configurations ta
 After that, you only need to give the products input int Movements-> Inventory incomes, and you can start billing ;)
 
 # Users roles
-Users roles are predefined by default, no roles configuration is needed. Just assing roles to users to defined their scope of operations.
+Users roles are predefined by default, no roles configuration is needed. Just assing roles to users to defined their scope of operations. For now, roles names are in spanish, they need to be translated (Work in progress)
