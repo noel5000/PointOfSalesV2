@@ -8,7 +8,7 @@ Basic Web ERP application for small to medium companies using .Net core and Angu
 - nodejs 
 
 # Installation
-1 - Create a new database
+1- Create a new database /n
 2- Modify the PointOfSalesV2.Api main connectionString (appSettings.json file)
 3- Open in visual studio Package Manager Console
 4- Set default project in PMC to PointOfSalesV2.EntityFramework
