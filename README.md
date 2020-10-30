@@ -19,5 +19,23 @@ Basic Web ERP application for small to medium companies using .Net core and Angu
 - 8- After you launch the application you need to login and at least set one "Branch Office"
 - 9- Go to "Auth" tab, Edit admin user, and set the branch office for that user (otherwise you'll get an error when billing :)
 
-# First time configuration
+This project is intended to be hosted in IIS for both, API and Front End. So go to IIS manager, create both endpoints, publish each one to their respectives endpoints, validate a successful publish and start working.
 
+# First time configuration
+When you get the app working, the first thing to do is set the Configurations tab options, mostly in this order:
+- Branch Office: Physical localities of the business. If no branch office exist, just create at least one
+- Warehouses: Where physical products are stored. We need to create two, Main warehouse, and the returns (deffectives) one [with "DEF" code]
+- Currencies: At least one is need (main currency)
+- Suppliers
+- Taxes
+- Units: Measures definitions of products (it can be Units, Lb, Oz, Kg, ect
+- TRN controls: Tax receipts numeration control
+- Zones: Geographic grouping of customers and sellers
+- Sellers
+- Customers
+- Products
+
+After that, you only need to give the products input int Movements-> Inventory incomes, and you can start billing ;)
+
+# Users roles
+Users roles are predefined by default, no roles configuration is needed. Just assing roles to users to defined their scope of operations.
