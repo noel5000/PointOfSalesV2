@@ -39,3 +39,7 @@ After that, you only need to give the products input int Movements-> Inventory i
 
 # Users roles
 Users roles are predefined by default, no roles configuration is needed. Just assing roles to users to defined their scope of operations. For now, roles names are in spanish, they need to be translated (Work in progress)
+
+# Internationalization
+
+this project uses the standard i18n Angular library (ngx-translate). For entities, they save the data by the creation/edition user language, so, if you need a product with the name translated for differents languages, you need to set the language to the user, and then save/edit the product with that language (be sure to logout - login when you set the language to an user to be effectively applied). You can also edit with more that one user (diffenrent tabs) each of them with different language.
