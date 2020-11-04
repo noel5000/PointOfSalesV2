@@ -14,7 +14,7 @@ Basic Web ERP application for small to medium companies using .Net core and Angu
 - 4- Set default project in PMC to PointOfSalesV2.EntityFramework
 - 5- Apply migrations (update-database command)
 - 6- Run the PointOfSalesV2.Api project
-- 6.5- Launch the PointOfSalesV2.FrontEnd project (you can also open the ClientApp folder with VS code, open new terminal and set command "ng serve")
+- 6.5- Launch the PointOfSalesV2.FrontEnd project (you can also open the ClientApp folder with VS code, open new terminal and set commands "npm install" and  "ng serve")
 - 7- Default user is admin@admin.com with password Admin@123
 - 8- After you launch the application you need to login and at least set one "Branch Office"
 - 9- Go to "Auth" tab, Edit admin user, and set the branch office for that user (otherwise you'll get an error when billing :)
