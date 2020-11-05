@@ -271,7 +271,7 @@ namespace PointOfSalesV2.Repository
                 }
                 catch (Exception ex)
                 {
-                    result = new Result<Invoice>(-1, -1, "error_msg", null, new Exception(ex.Message));
+                    result = new Result<Invoice>(-1, -1, ex.Message, null, new Exception(ex.Message));
                     transaction.Rollback();
                     return result;
                 }
