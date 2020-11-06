@@ -131,7 +131,7 @@ namespace PointOfSalesV2.Repository
                         d.Amount = d.Amount > 0 ? d.Amount : (d.UnitId.HasValue ? (d.Product.Price/ Convert.ToDecimal(d.Product.ProductUnits.FirstOrDefault(x => x.UnitId == d.UnitId.Value)?.Equivalence)) : d.Product.Price);
                         d.Cost =d.Cost>0?d.Cost: d.Product.Cost * d.Quantity;
                         d.BeforeTaxesAmount =d.BeforeTaxesAmount>0?d.BeforeTaxesAmount: (d.Amount * d.Quantity);
-                        d.DiscountAmount =d.DiscountAmount>0?d.DiscountAmount: d.BeforeTaxesAmount * d.DiscountRate;
+                        d.DiscountAmount =d.DiscountAmount>0?d.DiscountAmount: d.BeforeTaxesAmount * (d.DiscountRate > 1 ? d.DiscountRate / 100 : d.DiscountRate);
                         d.TaxesAmount = d.TaxesAmount>0?d.TaxesAmount:(d.BeforeTaxesAmount - d.DiscountAmount) * d.Product.Taxes.Sum(t => t.Tax.Rate);
                         d.TotalAmount =d.TotalAmount>0?d.TotalAmount: d.BeforeTaxesAmount + d.TaxesAmount - d.DiscountAmount - d.CreditNoteAmount;
                     });
@@ -314,7 +314,7 @@ namespace PointOfSalesV2.Repository
                         d.Amount = d.Amount > 0 ? d.Amount : (d.UnitId.HasValue ? (d.Product.Price / Convert.ToDecimal(d.Product.ProductUnits.FirstOrDefault(x => x.UnitId == d.UnitId.Value)?.Equivalence)) : d.Product.Price);
 
                         d.BeforeTaxesAmount = (d.Amount * d.Quantity);
-                        d.DiscountAmount = d.BeforeTaxesAmount * d.DiscountRate;
+                        d.DiscountAmount = d.BeforeTaxesAmount * (d.DiscountRate>1?d.DiscountRate/100:d.DiscountRate);
                         d.TaxesAmount = (d.BeforeTaxesAmount - d.DiscountAmount) * d.Product.Taxes.Sum(t => t.Tax.Rate);
                         d.TotalAmount = d.BeforeTaxesAmount + d.TaxesAmount - d.DiscountAmount - d.CreditNoteAmount;
                     });
@@ -353,7 +353,7 @@ namespace PointOfSalesV2.Repository
 
                                     d.Amount = d.Amount > 0 ? d.Amount : (d.UnitId.HasValue ?product.Price/ Convert.ToDecimal(product.ProductUnits.FirstOrDefault(x => x.UnitId == d.UnitId.Value)?.Equivalence) : product.Price); 
                                     d.BeforeTaxesAmount = (d.Amount * d.Quantity);
-                                    d.DiscountAmount = d.BeforeTaxesAmount * d.DiscountRate;
+                                    d.DiscountAmount = d.BeforeTaxesAmount * (d.DiscountRate > 1 ? d.DiscountRate / 100 : d.DiscountRate);
                                     d.TaxesAmount = (d.BeforeTaxesAmount - d.DiscountAmount) * product.Taxes.Sum(t => t.Tax.Rate);
                                     d.TotalAmount = d.BeforeTaxesAmount + d.TaxesAmount - d.DiscountAmount - d.CreditNoteAmount;
                                     _Context.InvoiceDetails.Update(d);
@@ -376,7 +376,7 @@ namespace PointOfSalesV2.Repository
                                 d.Cost = d.UnitId.HasValue ? Convert.ToDecimal(product.ProductUnits.FirstOrDefault(x => x.UnitId == d.UnitId && d.Active == true)?.CostPrice) : product.Cost;
                                 d.Amount = d.UnitId.HasValue ? Convert.ToDecimal(product.ProductUnits.FirstOrDefault(x => x.UnitId == d.UnitId.Value)?.SellingPrice) : product.Price;
                                 d.BeforeTaxesAmount = (d.Amount * d.Quantity);
-                                d.DiscountAmount = d.BeforeTaxesAmount * d.DiscountRate;
+                                d.DiscountAmount = d.BeforeTaxesAmount * (d.DiscountRate > 1 ? d.DiscountRate / 100 : d.DiscountRate);
                                 d.TaxesAmount = (d.BeforeTaxesAmount - d.DiscountAmount) * product.Taxes.Sum(t => t.Tax.Rate);
                                 d.TotalAmount = d.BeforeTaxesAmount + d.TaxesAmount - d.DiscountAmount - d.CreditNoteAmount;
                                 _Context.InvoiceDetails.Add(d);
@@ -404,7 +404,7 @@ namespace PointOfSalesV2.Repository
                             d.Id = 0;
                             d.Amount = d.UnitId.HasValue ? Convert.ToDecimal(d.Product.ProductUnits.FirstOrDefault(x => x.UnitId == d.UnitId.Value)?.SellingPrice) : d.Product.Price;
                             d.BeforeTaxesAmount = (d.Amount * d.Quantity);
-                            d.DiscountAmount = d.BeforeTaxesAmount * d.DiscountRate;
+                            d.DiscountAmount = d.BeforeTaxesAmount * (d.DiscountRate > 1 ? d.DiscountRate / 100 : d.DiscountRate);
                             d.TaxesAmount = (d.BeforeTaxesAmount - d.DiscountAmount) * d.Product.Taxes.Sum(t => t.Tax.Rate);
                             d.TotalAmount = d.BeforeTaxesAmount + d.TaxesAmount - d.DiscountAmount - d.CreditNoteAmount;
                         });
@@ -430,7 +430,7 @@ namespace PointOfSalesV2.Repository
                     dbEntity.OwedAmount = dbEntity.TotalAmount - entity.PaidAmount;
                     dbEntity.InventoryModified = entity.InventoryModified;
                     dbEntity.ReturnedAmount = dbEntity.ReceivedAmount - entity.TotalAmount;
-                    dbEntity.DocumentNumber = string.IsNullOrEmpty(dbEntity.DocumentNumber) &&entity.InventoryModified ? this.sequenceManagerRepository.CreateSequence(Enums.SequenceTypes.Quotes) : dbEntity.DocumentNumber;
+                    dbEntity.DocumentNumber = string.IsNullOrEmpty(dbEntity.DocumentNumber) &&!entity.InventoryModified ? this.sequenceManagerRepository.CreateSequence(Enums.SequenceTypes.Quotes) : dbEntity.DocumentNumber;
                     dbEntity.InvoiceNumber = string.IsNullOrEmpty(dbEntity.InvoiceNumber) && entity.InventoryModified ? this.sequenceManagerRepository.CreateSequence(Enums.SequenceTypes.Invoices) : dbEntity.InvoiceNumber;
                     dbEntity.InvoiceDetails = null;
                     _Context.Invoices.Update(dbEntity);

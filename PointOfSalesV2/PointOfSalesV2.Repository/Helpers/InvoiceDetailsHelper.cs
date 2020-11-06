@@ -76,7 +76,8 @@ namespace PointOfSalesV2.Repository.Helpers
                 var detail = invoice.InvoiceDetails.FirstOrDefault(x => x.Id == od.Id);
                 if (detail != null)
                 {
-                    if (od.ProductId != detail.ProductId || od.Quantity != detail.Quantity || od.UnitId != detail.UnitId || od.BranchOfficeId != detail.BranchOfficeId || od.WarehouseId != detail.WarehouseId)
+                    if (od.ProductId != detail.ProductId || od.Quantity != detail.Quantity ||
+                    od.UnitId != detail.UnitId || od.BranchOfficeId != detail.BranchOfficeId || od.WarehouseId != detail.WarehouseId || od.TotalAmount != detail.TotalAmount)
                     {
                         modifiedDetails.Add(detail);
                     }
@@ -164,6 +165,8 @@ namespace PointOfSalesV2.Repository.Helpers
                             throw new Exception(result.Message);
                     }
                     d.Unit = null;
+                    d.Product = null;
+                    d.Invoice = null;
                     detailUpdate = detailsRepo.Update(d);
                 }
                 else if (d.Product.IsCompositeProduct) 
@@ -174,6 +177,7 @@ namespace PointOfSalesV2.Repository.Helpers
                 {
                     d.Unit = null;
                     d.Product = null;
+                    d.Invoice = null;
                     detailUpdate = detailsRepo.Update(d);
                 }
                 if (detailUpdate.Status < 0)
@@ -215,10 +219,10 @@ namespace PointOfSalesV2.Repository.Helpers
                 {
                     if (amountPerTax.Any(i => i.Key == impuesto.TaxId))
                     {
-                        amountPerTax[impuesto.TaxId] += impuesto.Tax.Rate * x.BeforeTaxesAmount;
+                        amountPerTax[impuesto.TaxId] += impuesto.Tax.Rate * (x.BeforeTaxesAmount-x.DiscountAmount);
                     }
                     else
-                        amountPerTax.Add(impuesto.TaxId, impuesto.Tax.Rate * x.BeforeTaxesAmount);
+                        amountPerTax.Add(impuesto.TaxId, impuesto.Tax.Rate * (x.BeforeTaxesAmount - x.DiscountAmount));
                 }
             });
 
