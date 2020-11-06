@@ -312,7 +312,7 @@ free:[false]
 
     CalculateProductTax():number{
         const {productPrice,discountRate}= this.itemForm.getRawValue();
-        return this.productTaxes.length<=0?0:this.productTaxes.reduce(function(a,b){return a+(b.tax.rate*productPrice-(productPrice*discountRate/100))},0);
+        return this.productTaxes.length<=0?0:this.productTaxes.reduce(function(a,b){return a+(b.tax.rate*productPrice-(b.tax.rate*productPrice*discountRate/100))},0);
     }
 
 
@@ -370,18 +370,14 @@ free:[false]
             });
 
             this.itemForm.get('discountRate').valueChanges.subscribe(val => {
-                if(val!=null && val<=100){
-                    for(let i=0; i<this.entries.length;i++){
-                        this.entries[i].discountRate=val;
-                        this.itemForm.get(`unitDiscountRate_${i}`).setValue(val);
-                        this.entries[i].discountAmount = (val/100)* this.entries[i].beforeTaxesAmount;
-                        this.entries[i].totalAmount =  this.entries[i].beforeTaxesAmount +  this.entries[i].taxesAmount -  this.entries[i].discountAmount;
-                    }
-                    this.entries.forEach(e=>{
-                      
-                    })
-                    
-                }
+                // if(val!=null && val<=100){
+                //     for(let i=0; i<this.entries.length;i++){
+                //         this.entries[i].discountRate=val;
+                //         this.itemForm.get(`unitDiscountRate_${i}`).setValue(val);
+                //         this.entries[i].discountAmount =this.entries[i].discountRate>1?( (val/100)* this.entries[i].beforeTaxesAmount):((val)* this.entries[i].beforeTaxesAmount);
+                //         this.entries[i].totalAmount =  this.entries[i].beforeTaxesAmount +  this.entries[i].taxesAmount -  this.entries[i].discountAmount;
+                //     }
+                //    }
                 });
 
             this.itemForm.get('unitId').valueChanges.subscribe(val => {
@@ -547,8 +543,9 @@ free:[false]
       entry.unit=entry.unitId?this.productUnits.find(x=>x.unitId==entry.unitId).unit:{id:0, name:''};
       entry.id=0;
       entry.product.taxes=this.productTaxes;
+      entry.taxesAmount= entry.product.taxes.length<=0?0:entry.product.taxes.reduce(function(a,b){return a+(b.tax.rate*(entry.beforeTaxesAmount -entry.discountAmount))},0);
       entry.product.productUnits = this.productUnits;
-      entry.discountAmount = entry.discountRate/100 * entry.beforeTaxesAmount;
+      entry.discountAmount = entry.discountRate>1?( entry.discountRate/100 * entry.beforeTaxesAmount):(entry.discountRate* entry.beforeTaxesAmount);
       const currentIndex =this.entries.length;
         let index = this.entries.findIndex(x=>x.productId==entry.productId && x.warehouseId==entry.warehouseId);
         
@@ -627,20 +624,23 @@ free:[false]
     }
     refreshAmounts(fromForm:boolean=false){
     
-        let {productPrice,productCost,quantity,unitId,beforeTaxesAmount, totalAmount, taxesAmount,discountAmount} = this.itemForm.getRawValue() as any;
+        let {productPrice,productCost,quantity,unitId,beforeTaxesAmount, totalAmount, taxesAmount,discountAmount, discountRate} = this.itemForm.getRawValue() as any;
 
        const equivalence =unitId && unitId>0? this.productUnits.find(x=>x.unitId==unitId).equivalence:1;
             productCost=fromForm?productCost:this.currentProductCost.cost>0?(this.currentProductCost.cost/equivalence):productCost;
-            beforeTaxesAmount= quantity * productPrice - discountAmount;
-            taxesAmount=this.CalculateProductTax() * quantity;
-            totalAmount= beforeTaxesAmount + taxesAmount;
+            beforeTaxesAmount= quantity * productPrice;
+            discountAmount= beforeTaxesAmount* (discountRate>1?discountRate/100:discountRate);
+            taxesAmount=(this.CalculateProductTax() * quantity);
+            taxesAmount= taxesAmount - (discountRate>1?taxesAmount*discountRate/100:taxesAmount*discountRate);
+            totalAmount= beforeTaxesAmount + taxesAmount - discountAmount;
             this.oldProductCost=productCost;
             this.oldProductPrice=productPrice;
             this.itemForm.patchValue({
                 productCost,
                 beforeTaxesAmount,
                 totalAmount,
-                taxesAmount
+                taxesAmount,
+                discountAmount
             })
         
             
