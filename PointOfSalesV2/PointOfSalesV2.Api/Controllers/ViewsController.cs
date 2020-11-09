@@ -45,7 +45,7 @@ namespace PointOfSalesV2.Api.Controllers
 
             var invoiceRepo = dataRepository.GetDataRepositories<Invoice>();
             var invoice = invoiceRepo.Get(x => x.Include(i => i.Customer).Include(i => i.Seller)
-            .Include(i => i.Currency).Include(i => i.InvoiceDetails).ThenInclude(d => d.Product), y => y.Active == true && y.Id == id);
+            .Include(i => i.Currency).Include(i => i.InvoiceDetails).ThenInclude(d => d.Product).Include(i=>i.InvoiceDetails).ThenInclude(x=>x.Unit), y => y.Active == true && y.Id == id);
             var selectedLanguageKeys = languageKeys.Where(x => x.LanguageCode.ToLower() == language.ToLower()).ToList();
             invoice.InvoiceDetails = invoice.InvoiceDetails.Where(x => x.Active == true).ToList();
             ViewBag.LanguageKeys = selectedLanguageKeys;
