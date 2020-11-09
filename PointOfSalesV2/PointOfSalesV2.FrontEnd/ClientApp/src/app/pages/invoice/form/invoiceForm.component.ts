@@ -51,11 +51,12 @@ export class InvoiceFormComponent extends BaseComponent implements OnInit {
     productQuantity:number=0;
     showProductQuantity:boolean=false;
     _route:ActivatedRoute;
+    localCurrency:Currency=null;
     products:Product[]=[];//
     customers:Customer[]=[];
     trnControls:TRNControl[]=[];
     sellers:Seller[]=[];
-    productPrices:number[]=[];
+    productPrices:any[]=[];
     warehouses:Warehouse[]=[];
     productUnits:any[]=[];//
     productTaxes:any[]=[];//
@@ -68,10 +69,12 @@ export class InvoiceFormComponent extends BaseComponent implements OnInit {
     inventoryService:BaseService<any,number>= new BaseService<any,number>(this.http, `${endpointUrl}Inventory`);
     invoiceService:BaseService<any,number>= new BaseService<any,number>(this.http, `${endpointUrl}Invoice`);
     menuService:BaseService<any,number>= new BaseService<any,number>(this.http, `${endpointUrl}Menu`);
+    currencyService:BaseService<any,number>= new BaseService<any,number>(this.http, `${endpointUrl}Currency`);
     productUnitService:BaseService<any,number>= new BaseService<any,number>(this.http, `${endpointUrl}ProductUnit`);
     productTaxService:BaseService<any,number>= new BaseService<any,number>(this.http, `${endpointUrl}ProductTax`);
     oldProductCost:number=0;
     oldProductPrice:number=0;
+    selectedProductCurrency:Currency=null;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -154,14 +157,14 @@ free:[false]
         this.getCustomers();
         this.getTrnControls();
         this.getWarehouses();
-       
+       this.getLocalCurrency();
     }
 
     async getCustomers(){
         const filter = [
         {
             property: "Currency",
-            value: "Id,Name,Code,ExchangeRate",
+            value: "Id,Name,Code,ExchangeRate,IsLocalCurrency",
             type: ObjectTypes.ChildObject,
             isTranslated: false
         } as QueryFilter
@@ -300,6 +303,19 @@ free:[false]
         });
     }
 
+    async getLocalCurrency(){
+        const filter = [{
+            property: 'IsLocalCurrency',
+            value: 'true',
+            type: ObjectTypes.Boolean,
+            isTranslated:false
+        } as QueryFilter
+    ]
+        this.currencyService.getAllFiltered(filter).subscribe(r=>{
+          this.localCurrency=r['value'][0]
+        });
+    }
+
     async GetDetailDiscount(index:number){
         let entry = this.entries[index];
         entry.quantity = this.itemForm.getRawValue()[`unitQuantity_${index}`];
@@ -395,6 +411,7 @@ free:[false]
                 });
 
                 this.itemForm.get('customerId').valueChanges.subscribe(val => {
+                    this.resetForm();
                     if(val && this.customers && this.customers.length>0){
                         this.getSellers(val);
                     }
@@ -424,7 +441,7 @@ free:[false]
                     if(val)
                    this.itemForm.setControl('taxesAmount',new FormControl(0))
                    else{
-                    this.itemForm.setControl('taxesAmount',this.defaultTaxAmountValidator);
+                    this.itemForm.setControl('taxesAmount',new FormControl(0));
                     this.refreshAmounts(true);
                    }
                 
@@ -452,12 +469,15 @@ free:[false]
             if(val && val>0){
                 this.inventories=[];
                 this.productUnits=[];
+                this.productPrices=[];
+                this.selectedProductCurrency=null;
                 this.itemForm.patchValue({quantity:0, productPrice:0});
                 this.productQuantity=0;
                 this.showProductQuantity=false;
                 const product= this.products.find(x=>x.id==val);
-                this.productPrices=[product.price,product.price2,product.price3].filter(x=>x>0);
-                this.itemForm.patchValue({selectedPrice:this.productPrices[0]});
+                this.selectedProductCurrency=product.currency;
+                this.productPrices=[{ id:1,price:product.price, currency:product.currency.code},{id:2, price:product.price2, currency:product.currency.code},{id:3,price:product.price3, currency:product.currency.code}].filter(x=>x.price>0);
+                this.itemForm.patchValue({selectedPrice:this.productPrices[0].price});
                if( product.isService){
                 this.itemForm.removeControl('unitId');
                 this.itemForm.addControl('unitId', new FormControl(null))
@@ -476,7 +496,43 @@ free:[false]
         });
       
       }
-    
+    resetForm(){
+        
+        this.itemForm.patchValue({
+            trnType:null,
+            nrc:null,
+            productId:null,
+            unitId:null,
+            warehouseId:null,
+            sellerId:null,
+            discountRate:0,
+            discountAmount:0,
+            currencyName:'',
+            currencyId:0,
+            exchangeRate:0,
+            sellerRate:0,
+            paidDate:null,
+            receivedAmount:0,
+            cost:0,
+            appliedCreditNoteAmount:0,
+            trn:null,
+            trnControlId:null,
+            details:null,
+            quantity:0,
+            productCost:0,
+            productPrice:0,
+            selectedPrice:0,
+            beforeTaxesAmount:0,
+            paidAmount:0,
+            returnedAmount:0,
+            owedAmount:0,
+            noTaxes:false,
+            taxesAmount:0,
+            totalAmount:0,
+            free:false
+        });
+        this.entries=[];
+    }
     get form() { return this.itemForm.controls; }
 
     get formValues(){
@@ -624,14 +680,17 @@ free:[false]
     }
     refreshAmounts(fromForm:boolean=false){
     
-        let {productPrice,productCost,quantity,unitId,beforeTaxesAmount, totalAmount, taxesAmount,discountAmount, discountRate} = this.itemForm.getRawValue() as any;
-
+        let {productPrice,productCost,quantity,unitId,beforeTaxesAmount, totalAmount, taxesAmount,discountAmount, discountRate,customerId} = this.itemForm.getRawValue() as any;
+        
        const equivalence =unitId && unitId>0? this.productUnits.find(x=>x.unitId==unitId).equivalence:1;
-            productCost=fromForm?productCost:this.currentProductCost.cost>0?(this.currentProductCost.cost/equivalence):productCost;
+            const customerCurrency =customerId && customerId>0? this.customers.find(x=>x.id==customerId).currency:null;
+            const rate =!customerCurrency?0:  customerCurrency.isLocalCurrency? this.selectedProductCurrency.exchangeRate:(this.selectedProductCurrency.exchangeRate/customerCurrency.exchangeRate);
+            productPrice=productPrice*rate;
+            productCost=(fromForm?productCost:this.currentProductCost.cost>0?(this.currentProductCost.cost/equivalence):productCost)*rate;
             beforeTaxesAmount= quantity * productPrice;
             discountAmount= beforeTaxesAmount* (discountRate>1?discountRate/100:discountRate);
-            taxesAmount=(this.CalculateProductTax() * quantity);
-            taxesAmount= taxesAmount - (discountRate>1?taxesAmount*discountRate/100:taxesAmount*discountRate);
+            taxesAmount=(this.CalculateProductTax() * quantity)*rate;
+            taxesAmount= (taxesAmount - (discountRate>1?taxesAmount*discountRate/100:taxesAmount*discountRate));
             totalAmount= beforeTaxesAmount + taxesAmount - discountAmount;
             this.oldProductCost=productCost;
             this.oldProductPrice=productPrice;
