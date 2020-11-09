@@ -401,9 +401,12 @@ free:[false]
                 this.inventories=[];
                 if(val && val!="0"){
                     this.refreshAmounts();
-                   const {productId,warehouseId}= this.itemForm.getRawValue();
+                    const currentUnit = this.productUnits.find(x=>x.unitId==val);
+                   const {productId,warehouseId,selectedPrice}= this.itemForm.getRawValue();
+                   this.updateSelectedPrice(selectedPrice);
                    const user = this.getUser();
                    const product = this.products.find(x=>x.id==productId);
+                  
                    if(!product.isService){
                     this.getProductInventory(user.branchOfficeId,warehouseId==null?0:warehouseId,productId)
                    }
@@ -414,6 +417,11 @@ free:[false]
                     this.resetForm();
                     if(val && this.customers && this.customers.length>0){
                         this.getSellers(val);
+                        const customer = this.customers.find(x=>x.id==val);
+                        if(customer)
+                        this.itemForm.patchValue({
+                            trnControlId:   customer.trnControlId
+                        })
                     }
                     });
          
@@ -450,17 +458,7 @@ free:[false]
                 this.itemForm.get('selectedPrice').valueChanges.subscribe(val => {
                    
                    if(val){
-                       const {productId,unitId}= this.itemForm.getRawValue();
-                       if(productId && productId>0){
-                           let price =val;
-                        if (unitId){
-                         const productUnit = this.productUnits.find(x=>x.unitId==unitId);
-                         price = val/productUnit.equivalence;
-                        }
-
-                        this.itemForm.patchValue({productPrice:price});
-
-                       }
+                     this.updateSelectedPrice(val);
                    }
                 
                 });
@@ -495,6 +493,20 @@ free:[false]
             }
         });
       
+      }
+
+      updateSelectedPrice(val){
+        const {productId,unitId}= this.itemForm.getRawValue();
+        if(productId && productId>0){
+            let price =val;
+         if (unitId){
+          const productUnit = this.productUnits.find(x=>x.unitId==unitId);
+          price = val/productUnit.equivalence;
+         }
+
+         this.itemForm.patchValue({productPrice:price});
+
+        }
       }
     resetForm(){
         
@@ -591,9 +603,10 @@ free:[false]
        let entry = this.itemForm.getRawValue() as any;
         if(this.itemForm.invalid)
         return;
-       
+        const customerCurrency =entry.customerId && entry.customerId>0? this.customers.find(x=>x.id==entry.customerId).currency:null;
+        const rate =!customerCurrency?0:  customerCurrency.isLocalCurrency? this.selectedProductCurrency.exchangeRate:(this.selectedProductCurrency.exchangeRate/customerCurrency.exchangeRate);
       entry.product= this.products.find(x=>x.id==entry.productId);
-      entry.amount = entry.productPrice;
+      entry.amount = entry.productPrice * rate;
       entry.productId=parseInt(entry.productId.toString());
       entry.unitId=entry.product.isService || !entry.unitId?null: parseInt(entry.unitId.toString());
       entry.unit=entry.unitId?this.productUnits.find(x=>x.unitId==entry.unitId).unit:{id:0, name:''};
