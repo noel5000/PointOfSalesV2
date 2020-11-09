@@ -111,7 +111,7 @@
                         <tbody>
                             <tr *ngFor="let invoice of invoices; let i=index">
                                 <td>{{invoice.invoiceNumber}}</td>
-                                <td>{{invoice.billingDate | date : ""}}</td>
+                                <td>{{invoice.billingDate | date : "yyyy-MM-dd"}}</td>
                                 <td>{{invoice.totalAmount | currency : ""}}</td>
                                 <td>{{invoice.owedAmount | currency : ""}}</td>
                                 <td><i class="form-control">{{invoice.currentPaidAmount}}</i></td>

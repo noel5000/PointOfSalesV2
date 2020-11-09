@@ -414,7 +414,7 @@ free:[false]
                 });
 
                 this.itemForm.get('customerId').valueChanges.subscribe(val => {
-                    this.resetForm();
+                    this.resetForm(this.id>0?false:true);
                     if(val && this.customers && this.customers.length>0){
                         this.getSellers(val);
                         const customer = this.customers.find(x=>x.id==val);
@@ -508,7 +508,7 @@ free:[false]
 
         }
       }
-    resetForm(){
+    resetForm(deleteEntries:boolean=false){
         
         this.itemForm.patchValue({
             trnType:null,
@@ -543,6 +543,7 @@ free:[false]
             totalAmount:0,
             free:false
         });
+        if(deleteEntries)
         this.entries=[];
     }
     get form() { return this.itemForm.controls; }
@@ -696,7 +697,7 @@ free:[false]
         let {productPrice,productCost,quantity,unitId,beforeTaxesAmount, totalAmount, taxesAmount,discountAmount, discountRate,customerId} = this.itemForm.getRawValue() as any;
         
        const equivalence =unitId && unitId>0? this.productUnits.find(x=>x.unitId==unitId).equivalence:1;
-            const customerCurrency =customerId && customerId>0? this.customers.find(x=>x.id==customerId).currency:null;
+            const customerCurrency =customerId && customerId>0 && this.customers.length>0? this.customers.find(x=>x.id==customerId).currency:null;
             const rate =!customerCurrency?0:  customerCurrency.isLocalCurrency? this.selectedProductCurrency.exchangeRate:(this.selectedProductCurrency.exchangeRate/customerCurrency.exchangeRate);
             productPrice=productPrice*rate;
             productCost=(fromForm?productCost:this.currentProductCost.cost>0?(this.currentProductCost.cost/equivalence):productCost)*rate;

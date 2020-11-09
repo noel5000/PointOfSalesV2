@@ -8,6 +8,7 @@
                     <select class="form-control"
                     [ngClass]="{ 'is-invalid': form.customerId.errors }"
                     formControlName="customerId"
+                    [attr.disabled]="id>0"
                     required
                     >
                     <option *ngFor="let customer of customers"
@@ -21,6 +22,7 @@
                 <div class="form-group col-md-6 col-xs-12">
                     <label>{{'trnControl_lbl' | translate}}</label>
                     <select class="form-control"
+                    [attr.disabled]="id>0"
                     [ngClass]="{ 'is-invalid': form.trnType.errors }"
                     formControlName="trnType"
                     required
@@ -35,11 +37,12 @@
                 </div>
                 <div class="form-group col-md-6 col-xs-12">
                     <label>{{'rnc_lbl' | translate}}</label>
-                    <input type="text" formControlName="nrc" required class="form-control"/>
+                    <input type="text" formControlName="nrc" [attr.disabled]="id>0" required class="form-control"/>
                 </div>
                 <div class="form-group col-md-6 col-xs-12">
                     <label>{{'seller_lbl' | translate}}</label>
                     <select class="form-control"
+                    [attr.disabled]="id>0"
                     [ngClass]="{ 'is-invalid': form.sellerId.errors }"
                     formControlName="sellerId"
                     
@@ -56,6 +59,7 @@
                 <div class="form-group col-md-6 col-xs-12">
                     <label>{{'warehouse_lbl' | translate}}</label>
                     <select class="form-control"
+                    [attr.disabled]="id>0"
                     [ngClass]="{ 'is-invalid': form.warehouseId.errors }"
                     formControlName="warehouseId"
                     
