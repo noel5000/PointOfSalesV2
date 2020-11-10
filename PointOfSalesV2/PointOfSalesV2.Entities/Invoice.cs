@@ -64,6 +64,8 @@ namespace PointOfSalesV2.Entities
             this.Month = newInvoice.Month;
             this.ExchangeRate = newInvoice.ExchangeRate;
             this.PaidDate = newInvoice.PaidDate;
+            this.InventoryModified = newInvoice.InventoryModified;
+            this.CurrentPaidAmount = newInvoice.CurrentPaidAmount;
         }
 
         public long CustomerId { get; set; }

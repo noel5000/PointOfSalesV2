@@ -176,9 +176,6 @@ export enum AppSections {
     InventoryIncomes = 47,
     CompanyPayments=48,
     Menu=49,
-    School=50,
-    SchoolMenu=51,
-    InvoiceLeads=52
 
 }
 export enum MovementTypes {

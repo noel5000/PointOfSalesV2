@@ -18,7 +18,7 @@ namespace PointOfSalesV2.Repository.Helpers
             Invoice.InvoiceDetails.ForEach(x =>
             {
                 x.InvoiceId = Invoice.Id;
-                x.Date = Invoice.BillingDate.Value;
+                x.Date =Invoice.BillingDate.HasValue? Invoice.BillingDate.Value:DateTime.Now;
                 if (Invoice.InventoryModified)
                 {
                     var result = InventoryHelper.UpdateProductInventory(branchOffice, x, dataRepositoryFactory, Invoice);

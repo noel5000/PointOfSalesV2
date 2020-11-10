@@ -48,13 +48,6 @@ import { PriceListIndexComponent } from './priceListReport/index/priceListReport
 import { CustomerListIndexComponent } from './customerListReport/index/customerListReportIndex.component';
 import { InventoryReportIndexComponent } from './inventoryReport/index/inventoryReportIndex.component';
 import { WarehouseMovementReportIndexComponent } from './warehouseMovementReport/index/warehouseMovementReportIndex.component';
-import { InvoiceLeadsIndexComponent } from './invoiceLeads/index/invoiceLeadsIndex.component';
-import { MenuEntryIndexComponent } from './menuEntry/index/menuEntryIndex.component';
-import { MenuEntryFormComponent } from './menuEntry/form/menuEntryForm.component';
-import { SchoolIndexComponent } from './school/index/schoolIndex.component';
-import { SchoolFormComponent } from './school/form/schoolForm.component';
-import { InvoiceLeadFormComponent } from './invoiceLeads/form/invoiceLeadForm.component';
-import { InvoiceLeadPrintComponent } from './invoiceLeads/print/invoiceLeadsPrint.component';
 import { InvoiceIndexComponent } from './invoice/index/invoiceIndex.component';
 import { InvoiceFormComponent } from './invoice/form/invoiceForm.component';
 import { InvoicePrintComponent } from './invoice/print/invoicePrint.component';
@@ -69,6 +62,8 @@ import { AccountStateIndexComponent } from './accountState/index/accountStateInd
 import { CompanyStateIndexComponent } from './companyState/index/companyStateIndex.component';
 import { TaxReportIndexComponent } from './taxesReport/index/taxesReportIndex.component';
 import { ComissionsReportIndexComponent } from './comissionsReport/index/comissionsReportIndex.component';
+import { QuotesIndexComponent } from './quotes/index/quotesIndex.component';
+import { QuotesFormComponent } from './quotes/form/quotesForm.component';
 
 const routes: Routes = [{
   path: '',
@@ -349,42 +344,6 @@ const routes: Routes = [{
       component: WarehouseMovementReportIndexComponent
     },
     {
-      path: 'invoiceleads',
-      component: InvoiceLeadsIndexComponent
-    },
-    {
-      path: 'invoiceleads/add/:menuid/:leadid/:schoolid/:branchofficeid/:warehouseid/:date',
-      component: InvoiceLeadFormComponent
-    },
-    {
-      path: 'invoiceleads/edit/:menuid/:leadid/:schoolid/:branchofficeid/:warehouseid/:date',
-      component: InvoiceLeadFormComponent
-    },
-    {
-        path: "invoiceleads/print/:leadid/:menuid/:schoolid/:date/:sequence",
-        component: InvoiceLeadPrintComponent
-    },
-    {
-      path: 'menuentry',
-      component: MenuEntryIndexComponent
-    },
-    {
-      path: 'menuentry/add/:id/:id1',
-      component: MenuEntryFormComponent
-    },
-    {
-      path: 'school',
-      component: SchoolIndexComponent
-    },
-    {
-      path: 'school/add',
-      component: SchoolFormComponent
-    },
-    {
-      path: 'school/edit/:id',
-      component: SchoolFormComponent
-    },
-    {
        path: 'invoice',
       component: InvoiceIndexComponent
      },
@@ -396,6 +355,18 @@ const routes: Routes = [{
       path: 'invoice/add',
       component: InvoiceFormComponent
     },
+    {
+      path: 'quotes',
+     component: QuotesIndexComponent
+    },
+   {
+     path: 'quotes/edit/:id',
+     component: QuotesFormComponent
+   },
+   {
+     path: 'quotes/add',
+     component: QuotesFormComponent
+   },
     {
       path: 'invoice/print/:id',
       component: InvoicePrintComponent

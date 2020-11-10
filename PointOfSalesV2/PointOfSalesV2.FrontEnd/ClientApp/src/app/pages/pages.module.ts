@@ -36,10 +36,7 @@ import { PriceListModule } from './priceListReport/priceListReport.module';
 import { CustomerListModule } from './customerListReport/customerListReport.module';
 import { InventoryReportModule } from './inventoryReport/inventoryReport.module';
 import { WarehouseMovementReportModule } from './warehouseMovementReport/warehouseMovementReport.module';
-import { InvoiceLeadsModule } from './invoiceLeads/invoiceLeads.module';
 import{MatMenuModule} from '@angular/material/menu'
-import { MenuEntryModule } from './menuEntry/menuEntry.module';
-import { SchoolModule } from './school/school.module';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material';
 import { InvoiceModule } from './invoice/invoice.module';
@@ -52,6 +49,7 @@ import { AccountStateModule } from './accountState/accountState.module';
 import { CompanyStateModule } from './companyState/companyState.module';
 import { TaxReportModule } from './taxesReport/taxesReport.module';
 import { ComissionsReportModule } from './comissionsReport/comissionsReport.module';
+import { quotesModule } from './quotes/quote.module';
 
 @NgModule({
   imports: [
@@ -86,10 +84,8 @@ import { ComissionsReportModule } from './comissionsReport/comissionsReport.modu
     CustomerListModule,
     InventoryReportModule,
     WarehouseMovementReportModule,
-    InvoiceLeadsModule,
-    MenuEntryModule,
-    SchoolModule,
     InvoiceModule,
+    quotesModule,
     InvoicePaymentModule,
     AccountsReceivableModule,
     SalesReportModule,

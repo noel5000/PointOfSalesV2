@@ -116,16 +116,6 @@ export class PagesComponent {
             link: 'product',
             hidden: !this.securityService.isUserValidInMenu(AppSections.Products)
           },
-          {
-            title: this.lang.getValueByKey('schools_menu'),
-            link: 'school',
-            hidden: !this.securityService.isUserValidInMenu(AppSections.School)
-          },
-          {
-            title: this.lang.getValueByKey('menu_lbl'),
-            link: 'menuentry',
-            hidden: !this.securityService.isUserValidInMenu(AppSections.SchoolMenu)
-          },
         ],
       },
       {
@@ -151,9 +141,9 @@ export class PagesComponent {
         hidden: !this.securityService.validateMenuChildren(menuChildren.billing),
         children: [
           {
-            title: this.lang.getValueByKey('invoiceLeads_lbl'),
-            link: 'invoiceleads',
-            hidden: !this.securityService.isUserValidInMenu(AppSections.InvoiceLeads)
+            title: this.lang.getValueByKey('quotes_menu'),
+            link: 'quotes',
+            hidden: !this.securityService.isUserValidInMenu(AppSections.Quotes)
           },
           {
             title: this.lang.getValueByKey('invoices_menu'),

@@ -59,6 +59,7 @@ namespace PointOfSalesV2.Repository.Helpers
                     currentInventory.ProductShort = null;
                     detail.WarehouseId = currentInventory.WarehouseId;
                     warehouseId = currentInventory.WarehouseId;
+                    InventoryHelper.InventoryToUpdate = InventoryHelper.InventoryToUpdate == null ? new List<Inventory>() : InventoryHelper.InventoryToUpdate;
                     InventoryHelper.InventoryToUpdate.Add(new Inventory() 
                     {
                     ProductId= currentInventory.ProductId,

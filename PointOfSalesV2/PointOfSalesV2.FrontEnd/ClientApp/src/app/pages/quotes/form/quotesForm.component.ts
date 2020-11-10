@@ -37,11 +37,11 @@ import { WarehouseService } from '../../../@core/services/WarehouseService';
 
 declare const $: any;
 @Component({
-    selector: "invoice-form",
-    templateUrl: "./invoiceForm.component.html",
-    styleUrls: ["../invoiceStyles.component.scss"]
+    selector: "quotes-form",
+    templateUrl: "./quotesForm.component.html",
+    styleUrls: ["../quotesStyles.component.scss"]
 })
-export class InvoiceFormComponent extends BaseComponent implements OnInit {
+export class QuotesFormComponent extends BaseComponent implements OnInit {
     itemForm: FormGroup;
     item: any;
     id:number=0;
@@ -61,6 +61,7 @@ export class InvoiceFormComponent extends BaseComponent implements OnInit {
     productUnits:any[]=[];//
     productTaxes:any[]=[];//
     inventories=[];
+    isEditing:boolean=false;
     entries:any[]=[];
     defaultTaxAmountValidator:FormControl=new FormControl(0,[ Validators.required,Validators.min(0.0001)]);
     defaultUnitValidator:FormControl=new FormControl(null,[ Validators.required,Validators.min(1)]);
@@ -75,7 +76,6 @@ export class InvoiceFormComponent extends BaseComponent implements OnInit {
     oldProductCost:number=0;
     oldProductPrice:number=0;
     selectedProductCurrency:Currency=null;
-    isEditing:boolean=false;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -108,17 +108,17 @@ export class InvoiceFormComponent extends BaseComponent implements OnInit {
             
         this.itemForm = this.formBuilder.group({
 id: [0],
-customerId:[{value:null, disabled:this.isEditing},[ Validators.required,Validators.min(1)]],
-trnType:[{value:null, disabled:this.isEditing},[ Validators.required]],
+customerId:[null,[ Validators.required,Validators.min(1)]],
+trnType:[null,[ Validators.required]],
 nrc:[null,[ Validators.required]],
 productId:[null,[ Validators.required,Validators.min(1)]],
 unitId:this.defaultUnitValidator,
 branchOfficeId:[this.branchOfficeId],
-warehouseId:[{value:null, disabled:this.isEditing}],
-sellerId:[{value:null, disabled:this.isEditing}],
+warehouseId:[null],
+sellerId:[null],
 billingDate:[this.currentDate],
-inventoryModified:[true],
-discountRate:[{value:0, disabled:this.isEditing},[Validators.min(0),Validators.max(100)]],
+inventoryModified:[false],
+discountRate:[0,[Validators.min(0),Validators.max(100)]],
 discountAmount:[0],
 currencyName:[''],
 cashRegisterId:[0],
@@ -582,7 +582,7 @@ free:[false]
             subscription.subscribe(r=>{
                if(r.status>=0){
                 this.modalService.showSuccess(this.lang.getValueByKey('success_msg'));
-                this.router.navigateByUrl('pages/invoice');
+                this.router.navigateByUrl('pages/quotes');
                }
                else
                this.modalService.showError(r.message);
@@ -599,7 +599,7 @@ free:[false]
     }
 
     cancel(){
-    this.router.navigateByUrl('pages/invoice');
+    this.router.navigateByUrl('pages/quotes');
     }
 
     addEntry(){

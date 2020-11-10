@@ -15,40 +15,41 @@ import { UnitService } from '../../@core/services/UnitService';
 import { SupplierService } from '../../@core/services/supplierService';
 import { HttpClient } from '@angular/common/http';
 import { BranchOfficeService } from '../../@core/services/branchOfficeService';
-import { ProductService } from '../../@core/services/ProductService';
-import { WarehouseService } from '../../@core/services/WarehouseService';
-import { MenuEntryIndexComponent } from './index/menuEntryIndex.component';
-import { MenuEntryFormComponent } from './form/menuEntryForm.component';
-import{MatMenuModule} from '@angular/material/menu'
-import { MatButtonModule } from '@angular/material/button';
-import { MatButtonToggleModule } from '@angular/material';
-
+import { CustomerService } from '../../@core/services/CustomerService';
+import { SchoolService } from '../../@core/services/SchoolService';
+import { QuotesIndexComponent } from './index/quotesIndex.component';
+import { QuotesFormComponent } from './form/quotesForm.component';
 
 
 const routes: Routes = [
     {
         path: "",
-        component: MenuEntryIndexComponent,
+        component: QuotesIndexComponent,
         pathMatch: "full"
     },
 
     {
         path: "add",
-        component: MenuEntryFormComponent
-    }
+        component: QuotesFormComponent
+    },
+    {
+        path: "edit/:id",
+        component: QuotesFormComponent
+    },
 ];
 
 @NgModule({
 
-    declarations: [MenuEntryFormComponent, MenuEntryIndexComponent],
+    declarations: [QuotesFormComponent, QuotesIndexComponent],
     bootstrap: [],
     providers: [
         LanguageService,
         SecurityService,
-        ProductService,
         ModalService,
         CurrencyService,
-        TaxService,
+        CustomerService,
+        BranchOfficeService,
+        SchoolService
     ],
     imports: [
         NbCardModule,
@@ -62,13 +63,10 @@ const routes: Routes = [
         ReactiveFormsModule,
         FormsModule,
         TranslateModule,
-        MatMenuModule,
-        MatButtonModule,
-        MatButtonToggleModule,
     ],
 })
 
 
-export class MenuEntryModule {
+export class quotesModule {
 
 }

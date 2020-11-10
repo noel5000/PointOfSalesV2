@@ -1,7 +1,7 @@
 <nb-card>
   <nb-card-header>
     <div class="row">
-      <div class="col-md-6">{{'schools_menu' | translate}}</div>
+      <div class="col-md-6">{{'quotes_menu' | translate}}</div>
       <div class="col-md-6">
         <button type="button" class="btn btn-primary" (click)="addNew()">{{'add_btn' | translate}}</button>
     </div>
@@ -16,7 +16,7 @@
 [pageNumber]="pageNumber"
 [pageSize]="pageSize"
 [maxCount]="maxCount"
-[data]="Schools"
+[data]="Invoices"
 (getPagedDataEvent)="getPagedData($event)"
 (addFilterEvent)="addFilter($event)"
 (onSortEvent)="onSort($event)"

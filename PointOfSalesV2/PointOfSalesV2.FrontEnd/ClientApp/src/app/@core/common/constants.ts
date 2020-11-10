@@ -47,8 +47,7 @@ export const menuChildren = {
     billing: [
         AppSections.Quotes,
         AppSections.Invoices,
-        AppSections.CustomerPayments,
-        AppSections.InvoiceLeads
+        AppSections.CustomerPayments
     ],
     expenses: [
         AppSections.Expenses,
