@@ -27,13 +27,13 @@ namespace PointOfSalesV2.Repository
                 .Include(x => x.Payments).ThenInclude(d => d.Currency)
                 .Include(x => x.Payments).ThenInclude(d => d.Seller)
                 .Include(x => x.Seller)
-                .AsNoTracking().Where(x => x.Active == true && (x.State == (char)BillingStates.Billed || x.State == (char)BillingStates.Paid || x.State == (char)BillingStates.FullPaid)).ToList();
+                .AsNoTracking().Where(x => x.Active == true && (x.State == (char)BillingStates.Billed || x.State == (char)BillingStates.Paid || x.State == (char)BillingStates.FullPaid) && x.CustomerId==customerId).ToList();
             customerInvoices.ForEach(x =>
             {
                 report.Data.Add(new CustomerStateModel()
                 {
-                    DocumentNumber = x.InvoiceNumber,
-                    Date = x.BillingDate.Value,
+                    DocumentNumber = string.IsNullOrEmpty( x.InvoiceNumber)?x.DocumentNumber:x.InvoiceNumber,
+                    Date = x.BillingDate.HasValue?x.BillingDate.Value:x.CreatedDate,
                     CurrencyId = x.CurrencyId,
                     CurrencyName = x.Currency.Code,
                     SellerName = x.Seller?.NameAndCode ?? "N/A",
@@ -41,7 +41,7 @@ namespace PointOfSalesV2.Repository
                     Credit = 0,
                     Debit = x.TotalAmount,
                     Balance = x.OwedAmount,
-                    CustomerName=report.Customer.NameAndCode
+                    CustomerName=report.Customer?.NameAndCode??""
                 });
                 x.Payments = x.Payments == null ? new List<CustomerPayment>() : x.Payments.Where(x=>x.Active==true && x.State==(char)BillingStates.Paid).ToList();
                 x.Payments.ForEach(p => {

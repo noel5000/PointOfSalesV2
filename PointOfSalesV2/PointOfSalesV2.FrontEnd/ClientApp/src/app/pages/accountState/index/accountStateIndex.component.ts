@@ -69,8 +69,8 @@ onChanges(){
         const filter = this.itemForm.getRawValue();
         if(filter.customerId && filter.customerId>0)
         this.service.getByUrlParameters(['AccountState',filter.customerId.toString()]).subscribe(r => {
-            this.result=r['data'];
-            this.states=this.result.data;
+            this.result=r['data']?r['data']:{data:[]};
+            this.states=this.result?this.result.data:[];
         },
             error => {
             this.modalService.showError(`${this.lang.getValueByKey('error_msg')}: ${error.message}`);
