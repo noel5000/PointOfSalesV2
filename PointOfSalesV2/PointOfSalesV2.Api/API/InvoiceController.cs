@@ -55,6 +55,30 @@ namespace PointOfSalesV2.Api.Controllers
         }
 
         [EnableCors("AllowAllOrigins")]
+        [HttpPost("BillQuote/{id:long}")]
+        [ActionAuthorize(Operations.UPDATE)]
+        public virtual Task<IActionResult> BillQuote(long id)
+        {
+            var t_result = Task.Factory.StartNew<IActionResult>((arg) => {
+                try
+                {
+                    long t_id = (long)arg;
+                  var result=  _customRepo.BillQuote(t_id);
+                    return  Ok(result);
+                }
+
+                catch (Exception ex)
+                {
+                    return Ok(new { status = -1, message = ex.Message });
+                }
+
+            }, id);
+
+            return t_result;
+
+        }
+
+        [EnableCors("AllowAllOrigins")]
         [HttpGet("GetInvoicesToPay/{branchOfficeId:long}/{customerId:long}/{currencyId:long}")]
         [ActionAuthorize(Operations.READALL)]
         public virtual Task<IActionResult> GetInvoicesToPay(long branchOfficeId=0,long customerId=0, long currencyId = 0)

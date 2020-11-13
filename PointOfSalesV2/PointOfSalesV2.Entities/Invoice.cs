@@ -68,6 +68,15 @@ namespace PointOfSalesV2.Entities
             this.CurrentPaidAmount = newInvoice.CurrentPaidAmount;
         }
 
+        public DateTime InitialDate 
+        {
+            get 
+            {
+                return this.CreatedDate;
+            }
+        }
+
+        public override DateTime CreatedDate { get; set; }
         public long CustomerId { get; set; }
         public decimal ExchangeRate { get; set; }
         public long? WarehouseId { get; set; }

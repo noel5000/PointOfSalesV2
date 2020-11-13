@@ -122,7 +122,7 @@ export class QuotesIndexComponent extends BaseComponent implements OnInit {
     },
     {
         visible:true,
-        id:'billingDate',
+        id:'createdDate',
         type:'dateTime',
         isTranslated:false,
         name:this.lang.getValueByKey('date_lbl'),
@@ -162,7 +162,7 @@ this.actions=[
         icon:'',
         id:'edit',
         visible:(item)=>{
-            return item.state != BillingStates.Nulled && item.state != BillingStates.Paid && item.state != BillingStates.FullPaid  ;
+            return item.state != BillingStates.Nulled && item.state != BillingStates.Paid && item.state != BillingStates.FullPaid && item.state!=BillingStates.Converted  ;
         }
     },
     {
@@ -171,7 +171,7 @@ this.actions=[
         icon:'',
         id:'delete',
         visible:(item)=>{
-           return item.state != BillingStates.Nulled && item.state != BillingStates.Paid && item.state != BillingStates.FullPaid  ;
+           return item.state != BillingStates.Nulled && item.state != BillingStates.Paid && item.state != BillingStates.FullPaid && item.state!=BillingStates.Converted  ;
         }
     },
     
@@ -180,6 +180,16 @@ this.actions=[
         class:'btn btn-info m-1',
         icon:'',
         id:'print',
+    },
+    {
+        title:scope.lang.getValueByKey('bill_btn'),
+        class:'btn btn-info m-1',
+        icon:'',
+        id:'bill',
+        visible:(item)=>{
+            return item.state == BillingStates.Quoted ;
+         }
+        
     }
 ];
        
@@ -197,6 +207,9 @@ this.actions=[
                 case 'print':
                         this.print(e.item);
                         break;
+                case 'bill':
+                        this.onBillConfirm(e.item);
+                        break;
             }
         }
     }
@@ -207,6 +220,24 @@ this.actions=[
             this.maxCount = r['@odata.count']?r['@odata.count']:0;
             this.Invoices=r['value'];
           
+        },
+            error => {
+               
+                
+                this.modalService.showError(`${this.lang.getValueByKey('error_msg')}: ${error.message}`);
+            }
+        )
+    }
+
+    billQuote(quote:any) {
+        this.service.post({},null,`BillQuote/${quote.id}`).subscribe(r => {
+
+          if(r.status<0)
+          this.modalService.showError(`${this.lang.getValueByKey('error_msg')}: ${r.message}`);
+          else
+          this.modalService.showSuccess(this.lang.getValueByKey('success_msg'))
+
+          this.getPagedData(this.pageNumber);
         },
             error => {
                
@@ -360,6 +391,25 @@ else{
       result.subscribe(r=>{
           if(r)
           this.delete(event.id);
+      })
+        }
+        else
+        this.modalService.showError('alreadyNull_msg');
+
+   
+    }
+
+    onBillConfirm(event:any): void {
+        if(event.state == BillingStates.Quoted){
+            var result =       this.modalService.confirmationModal({
+                titleText:this.lang.getValueByKey('billConfirm_lbl'),
+                bodyText:this.lang.getValueByKey('areYouSure_lbl'),
+                cancelButtonText:this.lang.getValueByKey('cancel_btn'),
+                okText:this.lang.getValueByKey('ok_btn'),
+            });
+      result.subscribe(r=>{
+          if(r)
+          this.billQuote(event);
       })
         }
         else

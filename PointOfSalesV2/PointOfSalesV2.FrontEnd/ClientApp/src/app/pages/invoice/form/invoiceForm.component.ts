@@ -647,7 +647,8 @@ free:[false]
       
     }
     deleteEntry(index:number){
-      
+        this.itemForm.removeControl(`unitQuantity_${index}`);
+        this.itemForm.removeControl(`unitDiscountRate_${index}`);
         this.entries.splice(index,1);
     }
   
