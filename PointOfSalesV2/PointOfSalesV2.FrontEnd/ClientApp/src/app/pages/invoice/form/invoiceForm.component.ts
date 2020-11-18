@@ -577,6 +577,7 @@ free:[false]
         let form = this.itemForm.getRawValue() as any;
            form.warehouseId=form.warehouseId==0?null:form.warehouseId;
            form.invoiceDetails=this.entries;
+           form.discountAmount=0;
            form.state=!form.state?(form.inventoryModified?BillingStates.Billed:BillingStates.Quoted):form.state;
             const subscription =window.location.href.split('/').findIndex(x=>x.toLowerCase()=='add')>=0? this.invoiceService.post(form,"",""):this.invoiceService.put(form,"","");
             subscription.subscribe(r=>{

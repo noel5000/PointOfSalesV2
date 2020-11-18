@@ -65,7 +65,7 @@ namespace PointOfSalesV2.Repository
                         {
                             inventories.Add(new Inventory()
                             {
-                                Quantity = convertionResult.Status >= 0 ? -1*(decimal)convertionResult.Data.FirstOrDefault() : 0,
+                                Quantity = convertionResult.Status >= 0 ? -1 * (decimal)convertionResult.Data.FirstOrDefault() : 0,
                                 BranchOfficeId = e.OriginBranchOfficeId,
                                 ProductId = e.ProductId,
                                 UnitId = e.Product.ProductUnits.FirstOrDefault(x => x.IsPrimary == true).UnitId,
@@ -74,7 +74,7 @@ namespace PointOfSalesV2.Repository
                         }
                         else
                         {
-                            inventories[originIndex].Quantity += convertionResult.Status >= 0 ?-1* (decimal)convertionResult.Data.FirstOrDefault() : 0;
+                            inventories[originIndex].Quantity += convertionResult.Status >= 0 ? -1 * (decimal)convertionResult.Data.FirstOrDefault() : 0;
                         }
                         e.OriginBranchOffice = null;
                         e.Product = null;
@@ -89,7 +89,8 @@ namespace PointOfSalesV2.Repository
 
                     inventories.ForEach(inventory =>
                     {
-                        if (inventory.Quantity != 0) {
+                        if (inventory.Quantity != 0)
+                        {
                             var currentInventory = _Context.Inventory.AsNoTracking().FirstOrDefault(x => x.ProductId == inventory.ProductId && x.WarehouseId == inventory.WarehouseId && x.UnitId == inventory.UnitId && x.Active == true);
                             if (currentInventory != null)
                             {
@@ -101,7 +102,7 @@ namespace PointOfSalesV2.Repository
                             _Context.SaveChanges();
                             var movement = new WarehouseMovement()
                             {
-                                CurrentBalance =currentInventory!=null? currentInventory.Quantity:inventory.Quantity,
+                                CurrentBalance = currentInventory != null ? currentInventory.Quantity : inventory.Quantity,
                                 BranchOfficeId = inventory.BranchOfficeId,
                                 MovementType = inventory.Quantity > 0 ? Enums.MovementTypes.IN.ToString() : Enums.MovementTypes.OUT.ToString(),
                                 ProductId = inventory.ProductId,
@@ -111,9 +112,9 @@ namespace PointOfSalesV2.Repository
                                 WarehouseId = inventory.WarehouseId
                             };
                             warehouseMovements.Add(movement);
-                            
+
                         }
-                       
+
                     });
                     tran.Commit();
                     return new Result<object>(0, 0, "ok_msg");
@@ -147,10 +148,10 @@ productUnits
 );
                         var DestinyInventory = _Context.Inventory.AsNoTracking().FirstOrDefault(x => x.Active == true && x.ProductId == e.ProductId && x.WarehouseId == e.DestinyId);
                         var originInventory = _Context.Inventory.AsNoTracking().FirstOrDefault(x => x.Active == true && x.ProductId == e.ProductId && x.WarehouseId == e.OriginId);
-                       
+
                         DestinyInventory.Quantity -= (decimal)convertionResult.Data.FirstOrDefault();
                         originInventory.Quantity += (decimal)convertionResult.Data.FirstOrDefault();
-                        var movements =new List<WarehouseMovement>(){ new WarehouseMovement()
+                        var movements = new List<WarehouseMovement>(){ new WarehouseMovement()
                         {
                             CurrentBalance =  originInventory.Quantity,
                             BranchOfficeId = originInventory.BranchOfficeId,
@@ -173,7 +174,7 @@ productUnits
                             WarehouseId = DestinyInventory.WarehouseId
                         }
                         };
-                        _Context.Inventory.UpdateRange(new List<Inventory>() 
+                        _Context.Inventory.UpdateRange(new List<Inventory>()
                         {
                         DestinyInventory,
                         originInventory
@@ -201,7 +202,7 @@ productUnits
             throw new NotImplementedException();
         }
 
-        public override Result<WarehouseTransfer> Update(WarehouseTransfer entity, bool fromDb=true)
+        public override Result<WarehouseTransfer> Update(WarehouseTransfer entity, bool fromDb = true)
         {
             throw new NotImplementedException();
         }
