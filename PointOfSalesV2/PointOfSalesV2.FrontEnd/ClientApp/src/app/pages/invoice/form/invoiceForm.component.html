@@ -92,7 +92,7 @@
 
        
             </div>
-            <hr><hr>
+            <hr><br>
 
             <div class="form-row">
                 <div class="form-group col-md-6 col-xs-12">
@@ -182,7 +182,21 @@
                     <i class="btn btn-primary mr-1  my-4" (click)="addEntry()">{{'add_btn' | translate}}</i>
                 </div>
             </div>
-           
+
+            <hr><br>
+
+            <div class="form-row">
+                <div class="form-group col-md-6 col-xs-12">
+                    <label>{{'creditNote_lbl' | translate}}</label>
+                    <input type="text" formControlName="appliedCreditNote" maxlength="50" class="form-control"/>
+                </div>
+
+                <div class="form-group col-md-6 col-xs-12">
+                    <label>{{'creditNoteAmount_lbl' | translate}}</label>
+                    <input type="number" formControlName="appliedCreditNoteAmount" class="form-control"/>
+                </div>
+            </div>
+            <hr><br>
             <div class="scrollTableMobile">
                 <table class="table">
                     <thead>
@@ -237,6 +251,7 @@
                         <th>{{'beforeTaxesAmount_lbl' | translate}}</th>
                         <th>{{'discountAmount_lbl' | translate}}</th>
                         <th>{{'taxAmount_lbl' | translate}}</th>
+                        <th>{{'creditNoteAmount_lbl' | translate}}</th>
                         <th>{{'totalAmount_lbl' | translate}}</th>
                         <th>{{'totalPaid_lbl' | translate}}</th>
                         <th>{{'totalOwed_lbl' | translate}}</th>
@@ -248,6 +263,7 @@
                         <td>{{formValues.beforeTaxesAmount | currency:""}}</td>
                         <td>{{formValues.discountAmount | currency:""}}</td>
                         <td>{{formValues.taxesAmount | currency:""}}</td>
+                        <td>{{formValues.appliedCreditNoteAmount | currency:""}}</td>
                         <td>{{formValues.totalAmount | currency:""}}</td>
                         <td>{{formValues.paidAmount | currency:""}}</td>
                         <td>{{formValues.owedAmount | currency:""}}</td>

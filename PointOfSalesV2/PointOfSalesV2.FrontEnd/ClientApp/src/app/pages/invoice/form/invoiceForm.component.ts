@@ -67,6 +67,7 @@ export class InvoiceFormComponent extends BaseComponent implements OnInit {
     currentProductCost:any={cost:0};
     currentProductPrice:any={sellingPrice:0,costPrice:0, equivalence:0};
     inventoryService:BaseService<any,number>= new BaseService<any,number>(this.http, `${endpointUrl}Inventory`);
+    creditNoteService:BaseService<any,number>= new BaseService<any,number>(this.http, `${endpointUrl}CreditNote`);
     invoiceService:BaseService<any,number>= new BaseService<any,number>(this.http, `${endpointUrl}Invoice`);
     menuService:BaseService<any,number>= new BaseService<any,number>(this.http, `${endpointUrl}Menu`);
     currencyService:BaseService<any,number>= new BaseService<any,number>(this.http, `${endpointUrl}Currency`);
@@ -130,9 +131,10 @@ exchangeRate:[0],
 sellerRate:[0],
 paidDate:[null],
 receivedAmount:[0],
+appliedCreditNote:[''],
 cost:[0],
 Month:[0],
-appliedCreditNoteAmount:[0],
+appliedCreditNoteAmount:[{value:0, disabled:true}],
 trn:[null],
 trnControlId:[0],
 details:[null],
@@ -362,6 +364,49 @@ free:[false]
         });
     }
 
+    async getCreditNote(){
+        const formVal= this.itemForm.getRawValue();
+        const filter = [
+        {
+            property: "Sequence",
+            value: formVal.appliedCreditNote,
+            type: ObjectTypes.String,
+            comparer:ODataComparers.equals,
+            isTranslated: false
+        } as QueryFilter,
+        {
+            property: "CustomerId",
+            value: formVal.customerId,
+            type: ObjectTypes.Number,
+            comparer:ODataComparers.equals,
+            isTranslated: false
+        } as QueryFilter,
+        {
+            property: "Applied",
+            value: "false",
+            type: ObjectTypes.Boolean,
+            comparer:ODataComparers.equals,
+            isTranslated: false
+        } as QueryFilter,
+        
+        {
+            property: "CurrencyId",
+            value: formVal.currencyId,
+            type: ObjectTypes.Number,
+            comparer:ODataComparers.equals,
+            isTranslated: false
+        } as QueryFilter
+    ]
+        this.creditNoteService.getAllFiltered(filter).subscribe(r=>{
+            const result = r['value'][0];
+            if(result)
+            this.itemForm.patchValue({
+                appliedCreditNoteAmount:result.amount
+            });
+           
+        });
+    }
+
     async getProductInventory(branchOfficeId:number,warehouseId:number=0,productId:number=0){
         this.inventoryService.patchGenericByUrlParameters(['GetCompanyInventory',branchOfficeId.toString(),warehouseId.toString(),productId.toString()]).subscribe(r=>{
             const result = r.data[0];
@@ -386,6 +431,14 @@ free:[false]
                 this.refreshAmounts(true);
             }
             });
+
+            this.itemForm.get('appliedCreditNote').valueChanges.subscribe(val => {
+                if(val){
+                    this.getCreditNote();
+                }
+                else
+                this.itemForm.patchValue({appliedCreditNoteAmount:0});
+                });
 
             this.itemForm.get('discountRate').valueChanges.subscribe(val => {
                 // if(val!=null && val<=100){
@@ -524,6 +577,7 @@ free:[false]
             currencyName:'',
             currencyId:0,
             exchangeRate:0,
+            appliedCreditNote:'',
             sellerRate:0,
             paidDate:null,
             receivedAmount:0,
@@ -556,7 +610,8 @@ free:[false]
         form.taxesAmount= this.getTotalAmount(this.entries,'taxesAmount');
         form.discountAmount = this.getTotalAmount(this.entries,'discountAmount')
         form.totalAmount= this.getTotalAmount(this.entries,'totalAmount');
-        form.owedAmount= form.totalAmount - form.paidAmount;
+        form.owedAmount= form.totalAmount - form.paidAmount - form.appliedCreditNoteAmount;
+        form.owedAmount = form.owedAmount <0?0:form.owedAmount;
         form.owedAmount= form.owedAmount<0?0:form.owedAmount;
         form.returnedAmount = form.paidAmount - form.totalAmount;
         form.returnedAmount = form.returnedAmount>0?form.returnedAmount:0;

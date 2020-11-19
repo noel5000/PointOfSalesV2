@@ -35,7 +35,7 @@ namespace PointOfSalesV2.Repository.Helpers
                 invoice.AppliedCreditNote = creditNoteToApply.Sequence;
                 invoice.AppliedCreditNoteAmount = creditNoteToApply.Amount;
                 invoice.PaidAmount += creditNoteToApply.Amount;
-                invoice.OwedAmount -= creditNoteToApply.Amount;
+              //  invoice.OwedAmount -= creditNoteToApply.Amount;
                 invoice.OwedAmount = invoice.OwedAmount < 0 ? 0 : invoice.OwedAmount;
                 // Invoice.MontoAdeudado -= creditNoteToApply.Monto;
                 //invoice.InvoiceLeads.ForEach(d =>
