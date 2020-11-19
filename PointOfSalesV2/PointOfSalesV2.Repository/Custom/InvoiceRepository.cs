@@ -61,7 +61,7 @@ namespace PointOfSalesV2.Repository
         public Invoice GetByInvoiceNumber(string invoiceNumber)
         {
             var invoice= _Context.Invoices.Include(x=>x.Currency).Include(x=>x.BranchOffice).Include(x=>x.Seller).Include(x=>x.InvoiceDetails).Include(x=>x.TRNControl)
-                .AsNoTracking().FirstOrDefault(x => x.Active == true && x.InvoiceNumber.ToLower() == invoiceNumber.ToLower());
+                .Include(x=>x.Customer).AsNoTracking().FirstOrDefault(x => x.Active == true && x.InvoiceNumber.ToLower() == invoiceNumber.ToLower());
             invoice.InvoiceDetails = invoice.InvoiceDetails.Where(x => x.Active == true).ToList();
             return invoice;
         }

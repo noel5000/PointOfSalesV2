@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using PointOfSalesV2.Common;
 using PointOfSalesV2.Entities;
 using PointOfSalesV2.Repository.Helpers.BillServices;
 using System;
@@ -240,7 +241,7 @@ namespace PointOfSalesV2.Repository.Helpers
         }
 
 
-        public static Result<object> ReInsertInventoryToWarehouse(InvoiceDetail detail, IDataRepositoryFactory _repositoryFactory, Warehouse currentWarehouse)
+        public static Result<object> ReInsertInventoryToWarehouse(InvoiceDetail detail, IDataRepositoryFactory _repositoryFactory, Warehouse currentWarehouse, string reference="")
         {
             var productUnitsRepo = _repositoryFactory.GetDataRepositories<UnitProductEquivalence>();
             var inventoryRepo = _repositoryFactory.GetDataRepositories<Inventory>();
@@ -295,11 +296,25 @@ namespace PointOfSalesV2.Repository.Helpers
                     ProductId = detail.ProductId,
                     UnitId = detail.Product.ProductUnits.Where(u => u.IsPrimary).FirstOrDefault().Id
                 });
+              
                 if (inventoryResult.Status < 0)
                     return new Result<object>(-1, -1, inventoryResult.Message, null, inventoryResult.Exception);
             }
 
-
+            _repositoryFactory.GetDataRepositories<WarehouseMovement>().Add(new WarehouseMovement()
+            {
+                Active = true,
+                BranchOfficeId = currentWarehouse.BranchOfficeId,
+                CurrentBalance = currentInventory.Quantity,
+                UnitId = currentInventory.UnitId,
+                LocationName = "",
+                MovementType = Enums.MovementTypes.IN.ToString(),
+                ProductId = currentInventory.ProductId,
+                Quantity = detail.Quantity,
+                Reference = reference,
+                WarehouseId = currentWarehouse.Id,
+                WarehouseName = currentWarehouse.Name
+            });
             return new Result<object>(0, 0, "ok_msg");
 
         }

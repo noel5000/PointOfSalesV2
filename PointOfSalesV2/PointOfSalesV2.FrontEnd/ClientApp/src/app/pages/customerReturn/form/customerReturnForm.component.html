@@ -1,0 +1,105 @@
+
+  
+        <form [formGroup]="itemForm" (ngSubmit)="save()">
+         
+            <div class="form-row">
+                <div class="form-group col-md-4 col-xs-9">
+                    <label>{{'invoice_lbl' | translate}}</label>
+                    <input type="text" formControlName="invoiceNumber"  required  class="form-control"/>
+                </div>
+                <div class="form-group col-md-2 col-xs-3">
+                    <i class="btn btn-primary mr-1">{{'search_btn' | translate}}</i>
+                </div>
+            </div>
+          <hr>
+
+          <div class="form-row">
+            <div class="form-group col-md-6 col-xs-12">
+                <label>{{'customer_lbl' | translate}}</label>
+                <input type="text" formControlName="customerName"  disabled  class="form-control"/>
+            </div>
+
+            <div class="form-group col-md-6 col-xs-12">
+                <label>{{'totalAmount_lbl' | translate}}</label>
+                <input type="number" formControlName="totalAmount"  disabled  class="form-control"/>
+            </div>
+
+            <div class="form-group col-md-6 col-xs-12">
+                <label>{{'currency_lbl' | translate}}</label>
+                <input type="text" formControlName="currencyName"  disabled  class="form-control"/>
+            </div>
+
+            <div class="form-group col-md-6 col-xs-12">
+                <label>{{'date_lbl' | translate}}</label>
+                <input type="date" formControlName="billingDate"  disabled  class="form-control"/>
+            </div>
+          </div>
+           
+            <div class="scrollTableMobile">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>{{'product_lbl' | translate}}</th>
+                            <th>{{'unit_lbl' | translate}}</th>
+                            <th>{{'quantity_lbl' | translate}}</th>
+                            <th>{{'discountRate_lbl' | translate}}</th>
+                            <th>{{'price_lbl' | translate}}</th>
+                            <th>{{'beforeTaxesAmount_lbl' | translate}}</th>
+                            <th>{{'discountAmount_lbl' | translate}}</th>
+                            <th>{{'taxAmount_lbl' | translate}}</th>
+                            <th>{{'totalAmount_lbl' | translate}}</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let entry of entries;let i=index">
+                            <td>{{entry.product.name}}</td>
+                            <td>{{entry.unit?entry.unit.name:''}}</td>
+                            <td><input type="number"
+                                 [formControlName]="('unitQuantity_'+i)" 
+                                 required 
+                                 [disabled]="isEditing"
+                                 (change)="GetDetailProductTaxes(i)"
+                                 class="form-control"
+                                  min="1"
+                                   [ngClass]="{ 'is-invalid':form[('unitQuantity_'+i)] && form[('unitQuantity_'+i)].errors }" />
+                            </td>
+                            <td><input type="number"
+                                    [formControlName]="('unitDiscountRate_'+i)" 
+                                    required 
+                                    (change)="GetDetailProductTaxes(i)"
+                                    class="form-control"
+                                     min="1"
+                                     max="100"
+                                      [ngClass]="{ 'is-invalid':form[('unitDiscountRate_'+i)] && form[('unitDiscountRate_'+i)].errors }" />
+                            </td>
+                            <td>{{entry.amount | currency:""}}</td>
+                            <td>{{entry.beforeTaxesAmount | currency:""}}</td>
+                            <td>{{entry.discountAmount | currency:""}}</td>
+                            <td>{{entry.taxesAmount | currency:""}}</td>
+                            <td>{{entry.totalAmount | currency:""}}</td>
+                            <td><i class="btn btn-danger" (click)="deleteEntry(i)">{{'delete_btn' | translate}}</i></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br><br>
+                <table *ngIf="entries && entries.length>0" class="table table-bordered text-center">
+                    <thead>
+                      <tr >
+                        <th>{{'totalAmount_lbl' | translate}}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>{{formValues.totalAmount | currency:""}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+            </div>
+
+            <div class="text-center">
+                <button class="btn btn-primary mr-1">{{'save_btn' | translate}}</button>
+                <button class="btn btn-secondary" type="reset" (click)="cancel()">{{'cancel_btn' | translate}}</button>
+            </div>
+        </form>
+

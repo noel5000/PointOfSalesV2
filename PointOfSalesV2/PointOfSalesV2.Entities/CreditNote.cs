@@ -26,6 +26,7 @@ namespace PointOfSalesV2.Entities
         public decimal Amount { get; set; }
 
         public long CurrencyId { get; set; }
+        public long CustomerId { get; set; }
 
         [Export(Order = 6)]
         public bool Applied { get; set; }
