@@ -4,11 +4,11 @@
          
             <div class="form-row">
                 <div class="form-group col-md-4 col-xs-9">
-                    <label>{{'invoice_lbl' | translate}}</label>
+                    <label>{{'invoiceNumber _lbl' | translate}}</label>
                     <input type="text" formControlName="invoiceNumber"  required  class="form-control"/>
                 </div>
-                <div class="form-group col-md-2 col-xs-3">
-                    <i class="btn btn-primary mr-1">{{'search_btn' | translate}}</i>
+                <div class="form-group col-md-2 col-xs-3 my-4">
+                    <i class="btn btn-primary mr-1 my-1 " (click)="searchInvoice()">{{'search_btn' | translate}}</i>
                 </div>
             </div>
           <hr>
@@ -31,7 +31,7 @@
 
             <div class="form-group col-md-6 col-xs-12">
                 <label>{{'date_lbl' | translate}}</label>
-                <input type="date" formControlName="billingDate"  disabled  class="form-control"/>
+                <input type="text" formControlName="billingDate" placeholder="DD/MM/YYYY"  disabled  class="form-control"/>
             </div>
           </div>
            
@@ -42,17 +42,17 @@
                             <th>{{'product_lbl' | translate}}</th>
                             <th>{{'unit_lbl' | translate}}</th>
                             <th>{{'quantity_lbl' | translate}}</th>
-                            <th>{{'discountRate_lbl' | translate}}</th>
+                            <th>{{'quantity_lbl' | translate}}</th>
                             <th>{{'price_lbl' | translate}}</th>
                             <th>{{'beforeTaxesAmount_lbl' | translate}}</th>
                             <th>{{'discountAmount_lbl' | translate}}</th>
                             <th>{{'taxAmount_lbl' | translate}}</th>
                             <th>{{'totalAmount_lbl' | translate}}</th>
-                            <th></th>
+                            <th>{{'defective_lbl' | translate}}</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let entry of entries;let i=index">
+                        <tr *ngFor="let entry of details;let i=index">
                             <td>{{entry.product.name}}</td>
                             <td>{{entry.unit?entry.unit.name:''}}</td>
                             <td><input type="number"
@@ -64,21 +64,18 @@
                                   min="1"
                                    [ngClass]="{ 'is-invalid':form[('unitQuantity_'+i)] && form[('unitQuantity_'+i)].errors }" />
                             </td>
-                            <td><input type="number"
-                                    [formControlName]="('unitDiscountRate_'+i)" 
-                                    required 
-                                    (change)="GetDetailProductTaxes(i)"
-                                    class="form-control"
-                                     min="1"
-                                     max="100"
-                                      [ngClass]="{ 'is-invalid':form[('unitDiscountRate_'+i)] && form[('unitDiscountRate_'+i)].errors }" />
-                            </td>
+                            <td>{{entry.quantity}}</td>
                             <td>{{entry.amount | currency:""}}</td>
                             <td>{{entry.beforeTaxesAmount | currency:""}}</td>
                             <td>{{entry.discountAmount | currency:""}}</td>
                             <td>{{entry.taxesAmount | currency:""}}</td>
                             <td>{{entry.totalAmount | currency:""}}</td>
-                            <td><i class="btn btn-danger" (click)="deleteEntry(i)">{{'delete_btn' | translate}}</i></td>
+                            <td>
+                                <input type="checkbox"
+                                 [formControlName]="('defectiveDetail_'+i)" 
+                                 required 
+                                 class="form-control" />
+                            </td>
                         </tr>
                     </tbody>
                 </table>

@@ -73,6 +73,7 @@ namespace PointOfSalesV2.Api
             services.AddScoped<ICompositeProductRepository, CompositeProductRepository>();
             services.AddScoped<ICreditNoteRepository, CreditNoteRepository>();
             services.AddScoped<ICustomerBalanceRepository, CustomerBalanceRepository>();
+            services.AddScoped<ICustomerReturnRepository, CustomerReturnRepository>();
             services.AddScoped<ICustomerPaymentRepository, CustomerPaymentRepository>();
             services.AddScoped<IExpenseRepository, ExpenseRepository>();
             services.AddScoped<IExpensesPaymentRepository, ExpensesPaymentRepository>();

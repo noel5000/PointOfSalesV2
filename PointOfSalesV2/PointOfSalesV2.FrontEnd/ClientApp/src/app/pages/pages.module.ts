@@ -50,6 +50,7 @@ import { CompanyStateModule } from './companyState/companyState.module';
 import { TaxReportModule } from './taxesReport/taxesReport.module';
 import { ComissionsReportModule } from './comissionsReport/comissionsReport.module';
 import { quotesModule } from './quotes/quote.module';
+import { CustomerReturnModule } from './customerReturn/customerReturn.module';
 
 @NgModule({
   imports: [
@@ -94,6 +95,7 @@ import { quotesModule } from './quotes/quote.module';
     AccountStateModule,
     CompanyStateModule,
     TaxReportModule,
+    CustomerReturnModule,
     ComissionsReportModule
   ],
   declarations: [

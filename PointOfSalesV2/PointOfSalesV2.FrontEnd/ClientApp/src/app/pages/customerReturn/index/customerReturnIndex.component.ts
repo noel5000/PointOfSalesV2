@@ -314,6 +314,10 @@ else{
         skipLocationChange: true,
     });
     }
+
+    addNew() {
+        this.router.navigateByUrl(`pages/customerreturn/add`);
+    }
     source:any={};
 
 

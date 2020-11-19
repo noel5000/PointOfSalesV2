@@ -17,7 +17,7 @@ namespace PointOfSalesV2.Api.Controllers
     [ApiController]
     public class CustomerReturnController : BaseController<CustomerReturn>
     {
-        public CustomerReturnController(IOptions<AppSettings> appSettings, IDataRepositoryFactory repositoryFactory, IMemoryCache cache) : base(appSettings, repositoryFactory,cache)
+        public CustomerReturnController(IOptions<AppSettings> appSettings, IDataRepositoryFactory repositoryFactory, IMemoryCache cache) : base(appSettings, repositoryFactory,cache, repositoryFactory.GetCustomDataRepositories<ICustomerReturnRepository>())
         {
         }
     }

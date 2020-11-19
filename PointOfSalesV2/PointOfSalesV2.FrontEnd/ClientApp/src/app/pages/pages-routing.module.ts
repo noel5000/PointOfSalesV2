@@ -64,6 +64,8 @@ import { TaxReportIndexComponent } from './taxesReport/index/taxesReportIndex.co
 import { ComissionsReportIndexComponent } from './comissionsReport/index/comissionsReportIndex.component';
 import { QuotesIndexComponent } from './quotes/index/quotesIndex.component';
 import { QuotesFormComponent } from './quotes/form/quotesForm.component';
+import { CustomerReturnIndexComponent } from './customerReturn/index/customerReturnIndex.component';
+import { CustomerReturnFormComponent } from './customerReturn/form/customerReturnForm.component';
 
 const routes: Routes = [{
   path: '',
@@ -117,6 +119,14 @@ const routes: Routes = [{
     {
       path: 'tax/edit/:id',
       component: TaxFormComponent
+    },
+    {
+      path: 'customerreturn',
+      component: CustomerReturnIndexComponent
+    },
+    {
+      path: 'customerreturn/add',
+      component: CustomerReturnFormComponent
     },
 
 

@@ -258,7 +258,7 @@ export class PagesComponent {
           },
           {
             title: this.lang.getValueByKey('customersReturns_menu'),
-            link: '',
+            link: 'customerreturn',
             hidden: !this.securityService.isUserValidInMenu(AppSections.CustomersReturns)
           },
           {
