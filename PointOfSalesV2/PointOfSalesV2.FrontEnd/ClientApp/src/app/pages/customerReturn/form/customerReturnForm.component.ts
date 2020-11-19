@@ -78,6 +78,7 @@ export class CustomerReturnFormComponent extends BaseComponent implements OnInit
         this.itemForm = this.formBuilder.group({
             invoiceNumber: [null,[Validators.required]],
             customerName:[''],
+            selectedAmount:[0],
             totalAmount:[0,[Validators.required,Validators.min(1)]],
             currencyName:[''],
             billingDate:['']
@@ -90,8 +91,8 @@ export class CustomerReturnFormComponent extends BaseComponent implements OnInit
             if(r && r.status>=0 && r.data.length>0){
                 this.invoice=r.data[0];
                 for(let i=0; i<this.details.length;i++){
-                    if(this.itemForm.contains(`unitQuantity_${i}`))
-                    this.itemForm.removeControl(`unitQuantity_${i}`);
+                    if(this.itemForm.contains(`returnQuantity_${i}`))
+                    this.itemForm.removeControl(`returnQuantity_${i}`);
 
                     if(this.itemForm.contains(`defectiveDetail_${i}`))
                     this.itemForm.removeControl(`defectiveDetail_${i}`);
@@ -100,7 +101,7 @@ export class CustomerReturnFormComponent extends BaseComponent implements OnInit
                 if( this.invoice &&  this.invoice.invoiceDetails &&  this.invoice.invoiceDetails.length>0){
                     for(let i=0; i< this.invoice.invoiceDetails.length;i++){
                         this.setDetailFormDefective(i, null);
-                        this.setDetailFormAmount(i, 0);
+                        this.setDetailFormAmount(i, null,this.invoice.invoiceDetails[i].quantity);
                       }
                 }
                 this.details= this.invoice &&  this.invoice.
@@ -116,6 +117,7 @@ export class CustomerReturnFormComponent extends BaseComponent implements OnInit
                
             }
             else{
+                this.invoice=null;
                 this.modalService.showError(r.message);
             }
         },e=>{
@@ -136,9 +138,6 @@ export class CustomerReturnFormComponent extends BaseComponent implements OnInit
     onChanges(): void {
       
 
-           this.itemForm.get('id').valueChanges.subscribe(val => {
-            
-            });
 
       }
 
@@ -153,10 +152,16 @@ export class CustomerReturnFormComponent extends BaseComponent implements OnInit
 
     get formValues(){
         let form = this.itemForm.getRawValue();
-        form.beforeTaxesAmount= this.getTotalAmount(this.details,'beforeTaxesAmount');
-        form.taxesAmount= this.getTotalAmount(this.details,'taxesAmount');
-        form.discountAmount = this.getTotalAmount(this.details,'discountAmount')
-        form.totalAmount= this.getTotalAmount(this.details,'totalAmount');
+       
+      let result=0;
+      for(let i=0;i<this.details.length;i++){
+          const selectedQuantity = this.itemForm.getRawValue()[`returnQuantity_${i}`] as number;
+          if(selectedQuantity && selectedQuantity>0){
+              const {totalAmount,quantity} = this.details[i];
+              result+=selectedQuantity* (totalAmount/quantity);
+          }
+      }
+      form.totalAmount=result;
       
         return form;
     }
@@ -169,30 +174,57 @@ export class CustomerReturnFormComponent extends BaseComponent implements OnInit
 
     
     save(){
-        if (!this.details || this.details.length==0 )
+        if (!this.details || this.details.length==0 || this.itemForm.invalid && !this.invoice)
             return;
             this.updatedetailsValues();
         let form = this.itemForm.getRawValue() as any;
-           form.warehouseId=form.warehouseId==0?null:form.warehouseId;
-           form.invoiceDetails=this.details;
-           form.discountAmount=0;
-           form.state=!form.state?(form.inventoryModified?BillingStates.Billed:BillingStates.Quoted):form.state;
-            const subscription =window.location.href.split('/').findIndex(x=>x.toLowerCase()=='add')>=0? this.invoiceService.post(form,"",""):this.invoiceService.put(form,"","");
+          let toSave ={
+              invoiceNumber:this.invoice.invoiceNumber,
+              customerId:this.invoice.customerId,
+              branchOfficeId:this.invoice.branchOfficeId,
+              invoiceId:this.invoice.id,
+              beforeTaxesAmount:this.formValues.totalAmount,
+              taxesAmount:0,
+              totalAmount:this.formValues.totalAmount,
+              currencyId:this.invoice.currencyId,
+              returnDetails:this.setReturnDetails()
+          };
+
+            const subscription =this.service.post(toSave,"","");
             subscription.subscribe(r=>{
                if(r.status>=0){
                 this.modalService.showSuccess(this.lang.getValueByKey('success_msg'));
-                this.router.navigateByUrl('pages/invoice');
+                this.router.navigateByUrl('pages/customerreturn');
                }
                else
                this.modalService.showError(r.message);
            })
     }
+    setReturnDetails():any[]{
+        let details=[];
+        for(let i=0;i<this.details.length;i++){
+            const selectedQuantity= this.itemForm.getRawValue()[`returnQuantity_${i}`] as number;
+            if(selectedQuantity && selectedQuantity>0){
+                let selectedDetail=this.details[i];
+                selectedDetail.quantity=selectedQuantity;
+                selectedDetail.invoiceNumber=this.invoice.invoiceNumber;
+                selectedDetail.taxesAmount=0;
+                selectedDetail.id=0;
+                selectedDetail.beforeTaxesAmount=selectedQuantity* this.details[i].totalAmount/this.details[i].quantity;
+                selectedDetail.totalAmount=selectedDetail.beforeTaxesAmount;
+                selectedDetail.customerId=this.invoice.customerId;
+                selectedDetail.defective = this.itemForm.getRawValue()[`defectiveDetail_${i}`] as boolean;
+                selectedDetail.defective = selectedDetail.defective==null?false:selectedDetail.defective;
+                details.push(selectedDetail);
+            }
+        }
+        return details;
+    }
 
     updatedetailsValues(){
         const form = this.itemForm.getRawValue();
         for(let i=0;i<this.details.length;i++){
-            this.details[i].quantity = form[`unitQuantity_${i}`];
-            this.details[i].discountRate = form[`unitDiscountRate_${i}`];
+            this.details[i].returnQuantity = form[`returnQuantity_${i}`].value;
             this.details[i].discountAmount= this.details[i].discountRate/100*this.details[i].beforeTaxesAmount;
         }
     }
@@ -202,9 +234,9 @@ export class CustomerReturnFormComponent extends BaseComponent implements OnInit
     }
 
 
-    setDetailFormAmount(index:number,quantity:number, isNewEntry:boolean=false){
-        if(!this.itemForm.contains(`unitQuantity_${index}`))
-        this.itemForm.addControl(`unitQuantity_${index}`,new FormControl({value:quantity},[ Validators.required,Validators.min(0.0001)]));
+    setDetailFormAmount(index:number,quantity:number, maxNumber:number){
+        if(!this.itemForm.contains(`returnQuantity_${index}`))
+        this.itemForm.addControl(`returnQuantity_${index}`,new FormControl(quantity,[ Validators.required,Validators.min(0.0001),Validators.max(maxNumber)]));
     }
 
      setDetailFormDefective(index:number,selected:boolean, isNewEntry:boolean=false){

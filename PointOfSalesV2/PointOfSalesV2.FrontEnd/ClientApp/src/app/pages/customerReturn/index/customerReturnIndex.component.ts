@@ -129,7 +129,19 @@ export class CustomerReturnIndexComponent extends BaseComponent implements OnIni
     id:'invoiceNumber',
     type:'text',
     isTranslated:false,
-    name:scope.lang.getValueByKey('sequence_lbl'),
+    name:scope.lang.getValueByKey('invoiceNumber_lbl'),
+    sorting:'desc',
+    toSort:true,
+    objectType:ObjectTypes.String,
+    filterIsActive:true
+  },
+
+  {
+    visible:true,
+    id:'creditNoteNumber',
+    type:'text',
+    isTranslated:false,
+    name:scope.lang.getValueByKey('creditNote_lbl'),
     sorting:'desc',
     toSort:true,
     objectType:ObjectTypes.String,

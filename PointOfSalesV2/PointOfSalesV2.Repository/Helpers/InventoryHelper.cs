@@ -251,6 +251,7 @@ namespace PointOfSalesV2.Repository.Helpers
             Inventory currentInventory = inventoryRepo.Get(x => x.AsNoTracking().Where(y => y.ProductId == detail.ProductId && y.WarehouseId == currentWarehouse.Id && y.Active == true));
             if (currentInventory != null)
             {
+                detail.Product = detail.Product == null ? _repositoryFactory.GetDataRepositories<Product>().Get(x => x.AsNoTracking(), y => y.Active == true && y.Id == detail.ProductId) : detail.Product;
                 detail.Product.ProductUnits = detail.Product.ProductUnits ?? productUnitsRepo.GetAll(x => x.AsNoTracking().Where(y => y.Active && y.ProductId == detail.ProductId)).Data.ToList();
 
                 var convertionResult = ProductsHelper.ConvertToProductPrincipalUnit(

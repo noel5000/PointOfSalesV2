@@ -13,7 +13,7 @@ namespace PointOfSalesV2.Entities
     {
 
 
-        public long ProductoId { get; set; }
+        public long ProductId { get; set; }
 
         [Export(Order = 3)]
         public decimal Quantity { get; set; }
@@ -45,7 +45,7 @@ namespace PointOfSalesV2.Entities
         [ForeignKey("CustomerId")]
         [Export(Order =1, ChildProperty ="NameAndCode" )]
         public Customer Customer { get; set; }
-        [ForeignKey("ProductoId")]
+        [ForeignKey("ProductId")]
         [Export(Order = 2, ChildProperty ="Name")]
         public Product Product { get; set; }
         [ForeignKey("WarehouseId")]

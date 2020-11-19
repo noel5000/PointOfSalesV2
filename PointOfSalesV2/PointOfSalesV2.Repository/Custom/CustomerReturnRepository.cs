@@ -39,6 +39,11 @@ namespace PointOfSalesV2.Repository
                         transaction.Rollback();
                         return new Result<CustomerReturn>(-1, -1, "invoiceNumberRequired_error");
                     }
+                    if (repositoryFactory.GetDataRepositories<CustomerReturn>().Get(x => x, y => y.Active == true && y.InvoiceNumber.ToUpper() == entity.InvoiceNumber.ToUpper()) != null) 
+                    {
+                        transaction.Rollback();
+                        return new Result<CustomerReturn>(-1, -1, "returnAlreadyApplied_error");
+                    }
                     if (entity.ReturnDetails == null || entity.ReturnDetails.Count == 0 || !entity.ReturnDetails.Any(x => x.Quantity > 0))
                     {
                         transaction.Rollback();
@@ -49,11 +54,11 @@ namespace PointOfSalesV2.Repository
                         transaction.Rollback();
                         return new Result<CustomerReturn>(-1, -1, "invoiceDoesNotExist_error");
                     }
-
-                    if (invoice.State != (char)Enums.BillingStates.Billed)
+                    var validStates = new char[] { (char)Enums.BillingStates.Paid, (char)Enums.BillingStates.FullPaid };
+                    if (!validStates.Contains(invoice.State))
                     {
                         transaction.Rollback();
-                        return new Result<CustomerReturn>(-1, -1, "invalidInvoiceState_error");
+                        return new Result<CustomerReturn>(-1, -1, "invalidInvoiceStateReturn_error");
                     }
                     entity.CurrencyId = invoice.CurrencyId;
                     entity.CustomerId = invoice.CustomerId;
@@ -61,6 +66,10 @@ namespace PointOfSalesV2.Repository
                     entity.BranchOfficeId = invoice.BranchOfficeId;
                     entity.Date = DateTime.Now;
                     entity.Active = true;
+                    entity.BranchOffice = null;
+                    entity.Currency = null;
+                    entity.Customer = null;
+                    entity.Invoice = null;
                     entity.BeforeTaxesAmount = entity.ReturnDetails.Sum(x => x.BeforeTaxesAmount);
                     entity.TaxesAmount = entity.ReturnDetails.Sum(x => x.TaxesAmount);
                     entity.TotalAmount = entity.BeforeTaxesAmount + entity.TaxesAmount;
@@ -107,7 +116,7 @@ namespace PointOfSalesV2.Repository
                             Date=d.Date,
                             Defective=d.Defective,
                             InvoiceId=entity.InvoiceId,
-                            ProductId=d.ProductoId,
+                            ProductId=d.ProductId,
                             UnitId=d.UnitId,
                             WarehouseId=d.WarehouseId,
                             Quantity=d.Quantity
@@ -120,8 +129,13 @@ namespace PointOfSalesV2.Repository
                             }
                         }
                     }
-                      
-                    
+
+                    entity.ReturnDetails.ForEach(d => {
+                        d.Product = null;
+                        d.Customer = null;
+                        d.Warehouse = null;
+                    });
+
                     result = base.Add(entity);
                     transaction.Commit();
                 }

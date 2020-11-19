@@ -4,7 +4,7 @@
          
             <div class="form-row">
                 <div class="form-group col-md-4 col-xs-9">
-                    <label>{{'invoiceNumber _lbl' | translate}}</label>
+                    <label>{{'invoiceNumber_lbl' | translate}}</label>
                     <input type="text" formControlName="invoiceNumber"  required  class="form-control"/>
                 </div>
                 <div class="form-group col-md-2 col-xs-3 my-4">
@@ -56,13 +56,12 @@
                             <td>{{entry.product.name}}</td>
                             <td>{{entry.unit?entry.unit.name:''}}</td>
                             <td><input type="number"
-                                 [formControlName]="('unitQuantity_'+i)" 
+                                 [formControlName]="('returnQuantity_'+i)" 
                                  required 
                                  [disabled]="isEditing"
-                                 (change)="GetDetailProductTaxes(i)"
                                  class="form-control"
                                   min="1"
-                                   [ngClass]="{ 'is-invalid':form[('unitQuantity_'+i)] && form[('unitQuantity_'+i)].errors }" />
+                                   [ngClass]="{ 'is-invalid':form[('returnQuantity_'+i)] && form[('returnQuantity_'+i)].errors }" />
                             </td>
                             <td>{{entry.quantity}}</td>
                             <td>{{entry.amount | currency:""}}</td>
@@ -73,14 +72,13 @@
                             <td>
                                 <input type="checkbox"
                                  [formControlName]="('defectiveDetail_'+i)" 
-                                 required 
                                  class="form-control" />
                             </td>
                         </tr>
                     </tbody>
                 </table>
                 <br><br>
-                <table *ngIf="entries && entries.length>0" class="table table-bordered text-center">
+                <table *ngIf="details && details.length>0" class="table table-bordered text-center">
                     <thead>
                       <tr >
                         <th>{{'totalAmount_lbl' | translate}}</th>
