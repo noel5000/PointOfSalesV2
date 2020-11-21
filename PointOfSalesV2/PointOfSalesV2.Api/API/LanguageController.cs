@@ -44,7 +44,7 @@ namespace PointOfSalesV2.Api.Controllers
         }
 
         [HttpGet("GenerateJsonFile/{serverType:int}")]
-        [ActionAuthorize(Common.Enums.Operations.GENERATEDICTIONARY)]
+       [ActionAuthorize(Common.Enums.Operations.GENERATEDICTIONARY)]
         [EnableCors("AllowAllOrigins")]
         public IActionResult GenerateJsonFile(int serverType=0) 
         {
