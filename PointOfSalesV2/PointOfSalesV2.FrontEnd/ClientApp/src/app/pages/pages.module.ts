@@ -51,6 +51,7 @@ import { TaxReportModule } from './taxesReport/taxesReport.module';
 import { ComissionsReportModule } from './comissionsReport/comissionsReport.module';
 import { quotesModule } from './quotes/quote.module';
 import { CustomerReturnModule } from './customerReturn/customerReturn.module';
+import { httpInterceptorProviders } from '../@core/services/baseService';
 
 @NgModule({
   imports: [
@@ -103,7 +104,7 @@ import { CustomerReturnModule } from './customerReturn/customerReturn.module';
   ],
   providers: [
     LanguageService,
-    SecurityService
+    SecurityService,
   ],
   entryComponents:[NgbdModalConfirmAutofocus],
   exports:[MatMenuModule,

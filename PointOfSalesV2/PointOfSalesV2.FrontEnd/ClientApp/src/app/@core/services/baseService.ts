@@ -1,13 +1,14 @@
 
 import { isNullOrUndefined } from 'util';
 import { of, Observable, from } from "rxjs";
-import { map, filter } from "rxjs/operators";
+import { map, filter, finalize, tap } from "rxjs/operators";
 import { Injectable } from "@angular/core";
-import { HttpHeaders, HttpClient, HttpParams } from "@angular/common/http";
+import { HttpHeaders, HttpClient, HttpParams, HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpResponse } from "@angular/common/http";
 import { IPagedList } from '../data/pagedList';
 import { BaseResultModel } from '../data/baseResultModel';
 import { AuthModel } from './../data/authModel';
 import { QueryFilter, ObjectTypes } from '../common/enums';
+import { ModalService } from './modal.service';
 
 
 
@@ -40,9 +41,11 @@ export class BaseService<TEntity, TKey> implements IService<TEntity, TKey> {
     tempHttpOptions = {};
 
     constructor(protected _httpClient: HttpClient,
-        
         private _baseUrl: string) {
         this.setHttpOptions();
+        this._httpClient.request.bind(x=>{
+            
+        });
     }
 
     setHttpOptions(responseType:string="") {
@@ -68,26 +71,34 @@ export class BaseService<TEntity, TKey> implements IService<TEntity, TKey> {
         };
     }
 
+
+ 
+
     get(languageId: string = ""): Observable<BaseResultModel<TEntity>> {
         this.setHttpOptions();
+       
         this.setLanguageInHeaders(languageId);
-        return this._httpClient.get<any>(
+        let promise =  this._httpClient.get<any>(
             this.baseUrl,
             !languageId ? this.httpOptions : this.tempHttpOptions
         );
+        return promise;
     }
 
     getGeneral(languageId: string = ""): Observable<any> {
         this.setHttpOptions();
+       
         this.setLanguageInHeaders(languageId);
-        return this._httpClient.get<any>(
+        let data =this._httpClient.get<any>(
             this.baseUrl,
             !languageId ? this.httpOptions : this.tempHttpOptions
         );
+        return data;
     }
 
     getAll(languageId: string = ""): Observable<TEntity[]> {
         this.setHttpOptions();
+       
         this.setLanguageInHeaders(languageId);
         let data = this._httpClient.get<TEntity[]>(
             this.baseUrl,
@@ -102,6 +113,7 @@ export class BaseService<TEntity, TKey> implements IService<TEntity, TKey> {
         languageId: string = ""
     ): Observable<BaseResultModel<TEntity>> {
         this.setHttpOptions();
+       
         this.setLanguageInHeaders(languageId);
         let data = this._httpClient.get<BaseResultModel<TEntity>>(
             `${this.baseUrl}/${page}/${max}`,
@@ -118,13 +130,13 @@ export class BaseService<TEntity, TKey> implements IService<TEntity, TKey> {
         direction: string = 'desc',
         languageId: string = ""
     ): Observable<any> {
+       
         this.setHttpOptions();
         this.setLanguageInHeaders(languageId);
         let data = this._httpClient.get<any>(
             `${this.baseUrl.replace('/api/','/odata/')}?${this.getODataQuery(filters, page, max, orderBy, direction)}`,
             !languageId ? this.httpOptions : this.tempHttpOptions
         );
-       
         return data;
     }
 
@@ -142,13 +154,13 @@ anchor.click();
         filters: QueryFilter[] = [],
         languageId: string = ""
     ): Observable<any> {
+       
         this.setHttpOptions();
         this.setLanguageInHeaders(languageId);
         let data = this._httpClient.get<any>(
             `${this.baseUrl.replace('/api/','/odata/')}?${this.getODataQueryAll(filters)}`,
             !languageId ? this.httpOptions : this.tempHttpOptions
         );
-       
         return data;
     }
 
@@ -156,15 +168,18 @@ anchor.click();
         filters: QueryFilter[] = [],
         languageId: string = ""
     ): Observable<Blob> {
+       
         const currentUser = JSON.parse(localStorage.getItem("currentUser")) as AuthModel;
-        return this._httpClient.post(`${this.baseUrl}/exporttoexcel`,
+        let data=this._httpClient.post(`${this.baseUrl}/exporttoexcel`,
         {filters}
         ,{responseType:'blob',
         headers:new HttpHeaders({
             "UserId": currentUser ? currentUser.user.userId : '',
             "LanguageId": currentUser ? currentUser.languageId : 'en',
             "Authorization": currentUser ? `Bearer ${currentUser.token}` : ''
-        })})
+        })});
+        return data;
+        
     }
 
     exportToExcel(
@@ -172,20 +187,24 @@ anchor.click();
         url:string="",
         languageId: string = "",
     ): Observable<Blob> {
+       
         const currentUser = JSON.parse(localStorage.getItem("currentUser")) as AuthModel;
-        return this._httpClient.post(`${this.baseUrl}${url?'/'+url:''}`,
+
+
+        let promise=this._httpClient.post(`${this.baseUrl}${url?'/'+url:''}`,
         data
         ,{responseType:'blob',
         headers:new HttpHeaders({
             "UserId": currentUser ? currentUser.user.userId : '',
             "LanguageId": currentUser ? currentUser.languageId : 'en',
             "Authorization": currentUser ? `Bearer ${currentUser.token}` : ''
-        })})
+        })});
+
+        return promise;
     }
 
     getODataQuery(filters: QueryFilter[], page: number, max: number, orderBy: string, direction: string): string {
         let result = '';
-
         const expandFilters = filters.filter(x=>x.type== ObjectTypes.ChildObject);
         if(expandFilters && expandFilters.length>0){
             let expandResult='$expand=';
@@ -278,11 +297,16 @@ anchor.click();
 
     getById(id: TKey, languageId: string = ""): Observable<BaseResultModel<TEntity>> {
         this.setHttpOptions();
+       
         this.setLanguageInHeaders(languageId);
-        return this._httpClient.get<BaseResultModel<TEntity>>(
+
+
+        let promise=this._httpClient.get<BaseResultModel<TEntity>>(
             this.baseUrl + "/" + id,
             !languageId ? this.httpOptions : this.tempHttpOptions
         );
+
+        return promise;
     }
     public setLanguageInHeaders(languageId: string) {
         if (languageId) {
@@ -299,28 +323,41 @@ anchor.click();
     post(entity: TEntity, languageId: string = "", optionalUrl=""): Observable<BaseResultModel<TEntity>> {
         this.setHttpOptions();
         this.setLanguageInHeaders(languageId);
-        return this._httpClient.post<BaseResultModel<TEntity>>(
-          optionalUrl?`${this.baseUrl}/${optionalUrl}`:  this.baseUrl,
-            entity,
-            !languageId ? this.httpOptions : this.tempHttpOptions
-        );
+       
+
+        let promise=this._httpClient.post<BaseResultModel<TEntity>>(
+            optionalUrl?`${this.baseUrl}/${optionalUrl}`:  this.baseUrl,
+              entity,
+              !languageId ? this.httpOptions : this.tempHttpOptions
+          );
+
+        return promise;
     }
     postList(entity: TEntity[], languageId: string = "", optionalUrl:string=''): Observable<BaseResultModel<TEntity>> {
         this.setHttpOptions();
         this.setLanguageInHeaders(languageId);
-        return this._httpClient.put<BaseResultModel<TEntity>>(
+       
+
+
+        
+        let promise=this._httpClient.put<BaseResultModel<TEntity>>(
             optionalUrl?`${this.baseUrl}/${optionalUrl}`:  this.baseUrl,
             entity,
             !languageId ? this.httpOptions : this.tempHttpOptions
         );
+
+        return promise;
     }
     putList(entity: TEntity[], languageId: string = "", optionalUrl:string=""): Observable<BaseResultModel<TEntity>> {
-        this.setHttpOptions();
-        return this._httpClient.put<BaseResultModel<TEntity>>(
+    
+        
+        let promise=this._httpClient.put<BaseResultModel<TEntity>>(
             optionalUrl?`${this.baseUrl}/${optionalUrl}`:  this.baseUrl,
             entity,
             !languageId ? this.httpOptions : this.tempHttpOptions
         );
+
+        return promise;
     }
     patch(
         entity: TEntity,
@@ -328,28 +365,38 @@ anchor.click();
         languageId: string = ""
     ): Observable<BaseResultModel<TEntity>> {
         this.setHttpOptions();
+       
         this.setLanguageInHeaders(languageId);
-        return this._httpClient.patch<BaseResultModel<TEntity>>(this.baseUrl + "/" + id, entity);
+        let data=this._httpClient.patch<BaseResultModel<TEntity>>(this.baseUrl + "/" + id, entity);
+        return data;
     }
 
     put(entity: TEntity, languageId: string = "",optionalUrl:string=""): Observable<BaseResultModel<TEntity>> {
         this.setHttpOptions();
         this.setLanguageInHeaders(languageId);
+       
+
         entity=this.SetTranslationData(entity);
-        return this._httpClient.put<BaseResultModel<TEntity>>(
+        
+        let promise=this._httpClient.put<BaseResultModel<TEntity>>(
             optionalUrl?`${this.baseUrl}/${optionalUrl}`:  this.baseUrl,
             entity,
             !languageId ? this.httpOptions : this.tempHttpOptions
-        );
+        );        
+      
+        return promise;
     }
 
     delete(id: TKey, languageId: string = ""): Observable<BaseResultModel<TEntity>> {
         this.setHttpOptions();
         this.setLanguageInHeaders(languageId);
-        return this._httpClient.delete<BaseResultModel<TEntity>>(
+        
+       
+        let promise=this._httpClient.delete<BaseResultModel<TEntity>>(
             this.baseUrl + "/" + id,
             !languageId ? this.httpOptions : this.tempHttpOptions
         );
+        return promise;
     }
 
     deleteGeneric(id: string, languageId: string = "", optionalUrl:string=""): Observable<BaseResultModel<TEntity>> {
@@ -368,10 +415,13 @@ anchor.click();
         let urlParams = params.join("/");
         this.setHttpOptions();
         this.setLanguageInHeaders(languageId);
-        return this._httpClient.get<BaseResultModel<TEntity>>(
+
+       
+        let promise=this._httpClient.get<BaseResultModel<TEntity>>(
             `${this.baseUrl}/${urlParams}`,
             !languageId ? this.httpOptions : this.tempHttpOptions
         );
+        return promise;
     }
 
     SetTranslationData(data:TEntity):TEntity{
@@ -387,10 +437,13 @@ anchor.click();
         let urlParams = params.join("/");
         this.setHttpOptions();
         this.setLanguageInHeaders(languageId);
-        return this._httpClient.get<BaseResultModel<TEntity>>(
+
+       
+        let promise=this._httpClient.get<BaseResultModel<TEntity>>(
             `${this.baseUrl}/${urlParams}`,
             !languageId ? this.httpOptions : this.tempHttpOptions
         );
+        return promise;
     }
 
     getGenericByUrlParameters(
@@ -400,10 +453,12 @@ anchor.click();
         let urlParams = params.join("/");
         this.setHttpOptions();
         this.setLanguageInHeaders(languageId);
-        return this._httpClient.get<any>(
+       
+        let promise=this._httpClient.get<any>(
             `${this.baseUrl}/${urlParams}`,
             !languageId ? this.httpOptions : this.tempHttpOptions
         );
+        return promise;
     }
 
     patchGenericByUrlParameters(
@@ -414,41 +469,62 @@ anchor.click();
         let urlParams = params.join("/");
         this.setHttpOptions();
         this.setLanguageInHeaders(languageId);
-        return this._httpClient.patch<any>(
+       
+        let promise=this._httpClient.patch<any>(
             `${this.baseUrl}/${urlParams}`,
             data,
             !languageId ? this.httpOptions : this.tempHttpOptions
         );
+        return promise;
     }
-
-    // requestResolver(request: any): Observable<TEntity[]> {
-    //   const entity = from<TEntity[]>(request.pipe(map(d => d["data"])));
-
-    //   if (!isNullOrUndefined(entity)) {
-    //     return entity;
-    //   }
-
-    //   return request;
-    // }
-
-    // requestResolverPaged(request: any): Observable<IPagedList<TEntity>> {
-    //   let entity = from<IPagedList<TEntity>>(request.pipe(map(d => d["data"])));
-
-    //   if (!isNullOrUndefined(entity)) {
-    //     return entity;
-    //   }
-
-    //   return request;
-    // }
-
-
-    // genericRequestResolver<T>(request: any): Observable<T[]> {
-    //   const entity = from<T[]>(request.pipe(map(d => d["data"])));
-
-    //   if (!isNullOrUndefined(entity)) {
-    //     return entity;
-    //   }
-
-    //   return request;
-    // }
 }
+@Injectable()
+export class NoopInterceptor implements HttpInterceptor {
+
+  intercept(req: HttpRequest<any>, next: HttpHandler):
+    Observable<HttpEvent<any>> {
+        const started = Date.now();
+        let ok: string;
+      this.showSpinner();
+    return next.handle(req).pipe(
+        tap(
+          // Succeeds when there is a response; ignore other events
+          event =>{ 
+              if(event.type>0)
+              this.hideSpinner();
+              ok = event instanceof HttpResponse ? 'succeeded' : '';
+            },
+          // Operation failed; error is an HttpErrorResponse
+          error => {
+              ok = 'failed';
+              this.hideSpinner();
+            }
+        ),
+        // Log when response observable either completes or errors
+        finalize(() => {
+          const elapsed = Date.now() - started;
+          const msg = `${req.method} "${req.urlWithParams}"
+             ${ok} in ${elapsed} ms.`;
+          console.log(msg);
+        })
+      );;
+  }
+
+  showSpinner(){
+    let spinnerObj = document.getElementById("nb-global-spinner");
+    spinnerObj.style.display="block"; 
+ }
+
+ hideSpinner(){
+     let spinnerObj = document.getElementById("nb-global-spinner");
+     spinnerObj.style.display="none"; 
+  }
+}
+
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+
+
+/** Http interceptor providers in outside-in order */
+export const httpInterceptorProviders = [
+  { provide: HTTP_INTERCEPTORS, useClass: NoopInterceptor, multi: true },
+];
