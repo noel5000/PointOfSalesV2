@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using PointOfSalesV2.Entities;
 using PointOfSalesV2.Repository;
 using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Globalization;
 using System.Linq;
@@ -16,12 +17,7 @@ namespace PointOfSalesV2.Console
     {
         static void Main(string[] args)
         {
-            var algo = DateTime.Now;
-            var today = algo.DayOfWeek;
-            var startOfMonth = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
-            var endOfMonth = new DateTime(DateTime.Now.Year, DateTime.Now.Month + 1, 1).AddDays(-1);
-            
-            var daysCount = CountDays(DayOfWeek.Monday, startOfMonth, endOfMonth);
+            GetLanguageKeysJsonFile();
         }
 
         static int CountDays(DayOfWeek day, DateTime start, DateTime end)
@@ -64,44 +60,32 @@ namespace PointOfSalesV2.Console
         public static void GetLanguageKeysJsonFile()
         {
             var provider = StartDI();
+            var toAdd = new List<LanguageKey>();
             var context = provider.GetService<MainDataContext>();
-            var fileLines = System.IO.File.ReadAllLines("C:\\Users\\noelj\\OneDrive\\traducciones.csv").ToList();
+            var fileLines = System.IO.File.ReadAllLines("C:\\Users\\noelj\\Documents\\PointOfSalesV2\\PointOfSalesV2\\PointOfSalesV2.Common\\languagekeys.csv").Skip(1).ToList();
             var langKeysRepo = provider.GetService<IDataRepositoryFactory>().GetDataRepositories<LanguageKey>();
             var currentKeys = langKeysRepo.GetAll(x => x, y => y.Active == true);
             fileLines.ForEach(l =>
             {
                 var keyValues = l.Split(",");
-                if (keyValues[0] != "Key")
+
+                LanguageKey languageKey = new LanguageKey()
                 {
-                    LanguageKey spanishKey = new LanguageKey()
-                    {
-                        CreatedBy = new System.Guid(),
-                        CreatedDate = new DateTime(2000, 1, 1),
-                        Active = true,
-                        CreatedByName = "admin",
-                        Key = keyValues[0],
-                        LanguageCode = "ES",
-                        LanguageId = 2,
-                        Value = keyValues[1]
-                    };
-                    LanguageKey englishKey = new LanguageKey()
-                    {
-                        CreatedBy = new System.Guid(),
-                        CreatedDate = new DateTime(2000, 1, 1),
-                        Active = true,
-                        CreatedByName = "admin",
-                        Key = keyValues[0],
-                        LanguageCode = "EN",
-                        LanguageId = 1,
-                        Value = keyValues[2]
-                    };
-                    if (!currentKeys.Data.Any(x =>  x.Key == spanishKey.Key))
-                    {
-                        context.LanguageKeys.AddRange(spanishKey, englishKey);
-                        context.SaveChanges();
-                    }
-                   
+                    Active = true,
+                    CreatedBy = new Guid(),
+                    CreatedByName = "System",
+                    CreatedDate = DateTime.Now,
+                    Key = keyValues[1],
+                    LanguageCode = keyValues[0],
+                    LanguageId = Convert.ToInt32(keyValues[9]),
+                    Value = keyValues[10]
+                };
+                if (!context.LanguageKeys.Any(x => x.LanguageCode.ToLower() == languageKey.LanguageCode.ToLower() && x.Key.ToLower() == languageKey.Key.ToLower())) 
+                {
+                    context.LanguageKeys.Add(languageKey);
+                    context.SaveChanges();
                 }
+                
 
             });
 
@@ -110,7 +94,7 @@ namespace PointOfSalesV2.Console
 
         public static ServiceProvider StartDI()
         {
-            string connectionString = "Server=localhost;Database=ComedoresEconomicos;Trusted_Connection=True;";
+            string connectionString = "Server=localhost;Database=pointOfSale;Trusted_Connection=True;";
             ServiceProvider serviceProvider = new ServiceCollection()
                   .AddDbContext<MainDataContext>(options =>
                   {
