@@ -24,7 +24,8 @@ namespace PointOfSalesV2.Api.Controllers
     public class CustomerController : BaseController<Customer>
     {
         readonly ISequenceManagerRepository sequence;
-        public CustomerController(IOptions<AppSettings> appSettings, IDataRepositoryFactory repositoryFactory, IMemoryCache cache) : base(appSettings, repositoryFactory, cache)
+        public CustomerController(IOptions<AppSettings> appSettings, IDataRepositoryFactory repositoryFactory, IMemoryCache cache) 
+            : base(appSettings, repositoryFactory, cache, repositoryFactory.GetCustomDataRepositories<ICustomerRepository>())
         {
             this.sequence = this._repositoryFactory.GetCustomDataRepositories<ISequenceManagerRepository>();
         }

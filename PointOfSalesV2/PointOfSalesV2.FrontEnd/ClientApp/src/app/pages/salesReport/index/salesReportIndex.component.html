@@ -41,6 +41,18 @@
 </div>
 
 <div class="form-group col-md-6 col-xs-12">
+  <label>{{'currency_lbl' | translate}}</label>
+  <select class="form-control"
+  formControlName="currencyId"
+  
+  >
+  <option *ngFor="let currency of currencies"
+   [value]="currency.id"
+   >{{currency.code}}</option>
+  </select>
+</div>
+
+<div class="form-group col-md-6 col-xs-12">
   <label>{{'startDate_lbl' | translate}}</label>
   <input type="date" formControlName="startDate" class="form-control" />
 </div>
@@ -59,6 +71,7 @@
         <th>{{'invoiceNumber_lbl' | translate}}</th>
         <th>{{'date_lbl' | translate}}</th>
         <th>{{'trn_lbl' | translate}}</th>
+        <th>{{'currency_lbl' | translate}}</th>
         <th>{{'beforeTaxesAmount_lbl' | translate}}</th>
         <th>{{'taxesAmount_lbl' | translate}}</th>
         <th>{{'discountAmount_lbl' | translate}}</th>
@@ -75,6 +88,7 @@
         <td>{{invoice.invoiceNumber}}</td>
         <td>{{invoice.billingDate | date:"shortDate"}}</td>
         <td>{{invoice.trn}}</td>
+        <td>{{invoice.currency.code}}</td>
         <td>{{invoice.beforeTaxesAmount | currency:""}}</td>
         <td>{{invoice.taxesAmount | currency:"" }}</td>
         <td>{{invoice.discountAmount | currency:"" }}</td>

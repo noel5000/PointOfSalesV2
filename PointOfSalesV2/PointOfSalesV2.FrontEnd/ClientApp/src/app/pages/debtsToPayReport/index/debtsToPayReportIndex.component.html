@@ -71,6 +71,7 @@
         <th>{{'sequence_lbl' | translate}}</th>
         <th>{{'date_lbl' | translate}}</th>
         <th>{{'trn_lbl' | translate}}</th>
+        <th>{{'currency_lbl' | translate}}</th>
         <th>{{'beforeTaxesAmount_lbl' | translate}}</th>
         <th>{{'taxesAmount_lbl' | translate}}</th>
         <th>{{'totalAmount_lbl' | translate}}</th>
@@ -85,6 +86,7 @@
         <td>{{expense.sequence}}</td>
         <td>{{expense.date | date:"shortDate"}}</td>
         <td>{{expense.trn}}</td>
+        <td>{{expense.currency.code}}</td>
         <td>{{expense.beforeTaxesAmount | currency:""}}</td>
         <td>{{expense.taxesAmount | currency:"" }}</td>
         <td>{{expense.totalAmount | currency:"" }}</td>

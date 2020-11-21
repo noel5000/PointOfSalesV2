@@ -29,7 +29,14 @@ export class CustomerIndexComponent extends BaseComponent implements OnInit {
     pageNumber:number=1;
     pageSize:number=10;
     maxCount:number=0;
-    filters: QueryFilter[] = [];
+  filters: QueryFilter[] = [
+        {
+            property: "Zone",
+            value: "Name",
+            type: ObjectTypes.ChildObject,
+            isTranslated:false
+        },
+    ];
     orderBy: string = 'Id';
     orderDirection: string = 'desc';
     Customers:Customer[]=[];
@@ -101,6 +108,18 @@ export class CustomerIndexComponent extends BaseComponent implements OnInit {
           objectType:ObjectTypes.String,
           filterIsActive:true
         },
+        {
+            visible:true,
+            id:'zoneId',
+            type:'text',
+            fieldToShow:'zone.name',
+            isTranslated:false,
+            name:this.lang.getValueByKey('zone_lbl'),
+            sorting:'desc',
+            toSort:true,
+            objectType:ObjectTypes.String,
+            filterIsActive:false
+          },
         ];
 this.actions=[
     {
@@ -161,10 +180,30 @@ else{
 
 }
     getPagedData(page:number) {
-        this.pageNumber = page?page:1;
-        this.orderBy=this.tableConfig.find(x=>x.toSort).id;
-        this.orderDirection=this.tableConfig.find(x=>x.toSort).sorting;
-        this.getData();
+        const expandFilters =[
+            {
+                property: "Zone",
+                value: "Name",
+                type: ObjectTypes.ChildObject,
+                isTranslated:false
+            }
+        ];
+        expandFilters.forEach(expandFilter=>{
+            const expandIndex = this.filters.findIndex(x => x.property == expandFilter.property);
+            if (expandIndex >= 0) {
+                this.filters.splice(expandIndex, 1);
+                this.filters.push(expandFilter);
+            }
+            else {
+                this.filters.push(expandFilter);
+            }
+        });
+            
+    
+            this.pageNumber = page?page:1;
+            this.orderBy=this.tableConfig.find(x=>x.toSort).id;
+            this.orderDirection=this.tableConfig.find(x=>x.toSort).sorting;
+            this.getData();
     }
 
     onSort(e){

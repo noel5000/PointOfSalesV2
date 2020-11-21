@@ -32,9 +32,13 @@ import { CommonModule } from '@angular/common';
  
 import { ToastrModule } from 'ngx-toastr';
 import { NotFoundComponent } from './not-found.component';
+import { httpInterceptorProviders } from './@core/services/baseService';
 
 
 @NgModule({
+  providers:[
+    httpInterceptorProviders
+  ],
   declarations: [AppComponent, NotFoundComponent],
   imports: [
     BrowserModule,

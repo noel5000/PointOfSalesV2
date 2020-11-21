@@ -481,6 +481,11 @@ anchor.click();
 @Injectable()
 export class NoopInterceptor implements HttpInterceptor {
 
+    constructor(
+        private route: Router
+        ){
+
+    }
   intercept(req: HttpRequest<any>, next: HttpHandler):
     Observable<HttpEvent<any>> {
         const started = Date.now();
@@ -497,6 +502,9 @@ export class NoopInterceptor implements HttpInterceptor {
           // Operation failed; error is an HttpErrorResponse
           error => {
               ok = 'failed';
+              if(error.status && error.status==403){
+                this.logout();
+              }
               this.hideSpinner();
             }
         ),
@@ -519,9 +527,19 @@ export class NoopInterceptor implements HttpInterceptor {
      let spinnerObj = document.getElementById("nb-global-spinner");
      spinnerObj.style.display="none"; 
   }
+
+  logout() {
+    var auth = JSON.parse(localStorage.getItem(`currentUser`)) as AuthModel;
+    if(auth){
+      localStorage.setItem(`language-${auth.languageId}`, null);
+    }
+    localStorage.removeItem('currentUser');
+    this.route.navigateByUrl('auth/login');
+  }
 }
 
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 
 /** Http interceptor providers in outside-in order */

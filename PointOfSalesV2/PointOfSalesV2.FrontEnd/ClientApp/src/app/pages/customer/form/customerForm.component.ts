@@ -15,6 +15,8 @@ import { TRNControl } from '../../../@core/data/trnControlModel';
 import { TRNControlService } from '../../../@core/services/TRNControlService';
 import { CurrencyService } from '../../../@core/services/CurrencyService';
 import { Currency } from '../../../@core/data/currencyModel';
+import { ZoneService } from '../../../@core/services/zoneService';
+import { Zone } from '../../../@core/data/zoneModel';
 
 
 declare const $: any;
@@ -27,6 +29,7 @@ export class CustomerFormComponent extends BaseComponent implements OnInit {
     itemForm: FormGroup;
     item: Customer;
     id:number=0;
+    zones:Zone[]=[];
     _route:ActivatedRoute;
     trnControls:TRNControl[]=[];
     currencies:Currency[]=[];
@@ -38,6 +41,7 @@ export class CustomerFormComponent extends BaseComponent implements OnInit {
         langService: LanguageService,
         private service: CustomerService,
         private modals:NgbModal,
+        private zoneService:ZoneService,
         private trnService:TRNControlService,
         private currencyService:CurrencyService,
         private modalService:ModalService
@@ -51,6 +55,7 @@ export class CustomerFormComponent extends BaseComponent implements OnInit {
             cardId: ['',[ Validators.required,Validators.minLength(3), Validators.maxLength(20)]],
             address: ['',[ Validators.required,Validators.minLength(3), Validators.maxLength(200)]],
             code: [''],
+            zoneId:[null],
             currencyId: [0,[ Validators.required]],
             trnControlId: [0,[ Validators.required]],
             invoiceDueDays: [0],
@@ -66,6 +71,7 @@ export class CustomerFormComponent extends BaseComponent implements OnInit {
         this.getItem(urlId);
      }
         this.verifyUser();
+        this.getZones();
         this.getTrnControls();
         this.getCurrencies();
     }
@@ -100,6 +106,14 @@ export class CustomerFormComponent extends BaseComponent implements OnInit {
             this.currencies=r;
             if(this.currencies.length==1)
             this.itemForm.patchValue({currencyId:this.currencies[0].id});
+        });
+    }
+
+    getZones(){
+        this.zoneService.getAll().subscribe(r=>{
+            this.zones=r;
+            if(this.zones.length==1)
+            this.itemForm.patchValue({zoneId:this.zones[0].id});
         });
     }
     get form() { return this.itemForm.controls; }
