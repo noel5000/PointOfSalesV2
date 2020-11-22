@@ -105,7 +105,7 @@ namespace PointOfSalesV2.Repository
             if (!entity.InventoryModified)
                 entity.BillingDate = null;
             entity.InvoiceNumber = entity.InventoryModified ? SequencesHelper.CreateSequenceControl(dataRepositoryFactory, Enums.SequenceTypes.Invoices) : "";
-            entity.DocumentNumber = !entity.InventoryModified && string.IsNullOrEmpty(entity.DocumentNumber) ? SequencesHelper.CreateSequenceControl(dataRepositoryFactory, Enums.SequenceTypes.Quotes) : "";
+            entity.DocumentNumber = !entity.InventoryModified && string.IsNullOrEmpty(entity.DocumentNumber) ? SequencesHelper.CreateSequenceControl(dataRepositoryFactory, Enums.SequenceTypes.Quotes) : entity.DocumentNumber;
             entity.SellerId = entity.SellerId.HasValue && entity.SellerId <= 0 ? null : entity.SellerId;
             entity.CashRegisterId = entity.CashRegisterId.HasValue && entity.CashRegisterId <= 0 ? null : entity.CashRegisterId;
             entity.WarehouseId = entity.WarehouseId.HasValue && entity.WarehouseId == 0 ? null : entity.WarehouseId;
@@ -826,16 +826,23 @@ namespace PointOfSalesV2.Repository
                         var addResult = this.AddWithoutTransaction(quoteInvoice);
                         if (addResult.Status >= 0)
                         {
+                            quote.InvoiceDetails = null;
+                            quote.Customer = null;
+                            quote.BranchOffice = null;
+                            quote.Currency = null;
+                            quote.Seller = null;
+                            quote.TRNControl = null;
                             quote.State = (char)BillingStates.Converted;
-                            this.UpdateWithoutTransaction(quote, true);
-                            transaction.Commit();
+                            _Context.Invoices.Update(quote);
+                            _Context.SaveChanges();
+                           
                         }
                         else
                         {
                             transaction.Rollback();
                             return addResult;
                         }
-
+                        transaction.Commit();
                     }
                     catch (Exception ex)
                     {

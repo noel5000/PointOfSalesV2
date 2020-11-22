@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAh1M/yPpRRESxu0u4/lgnaAAAAAACAAAAAAAQZgAAAAEAACAAAADIOJYNSpD3+6ZslOpFcP2UiLk3t9CcN81ZELnmWq2lzAAAAAAOgAAAAAIAACAAAAB7/j3MmuzvFyYmaT2pizhn/TD68HvzstyWw86v9P/ggyAAAAAzi0N/Ja2I5jzP3X0JHDiW5XeauzqAQH7rPnEp0rik/UAAAABCAQjLN3YK3QAcjqQI9pFn1P+qJwtsWUF0beiHyE+B1labVqzViCmkXC8IiVlvAgZgheGcekL5mWeRa+c+px2E</EncryptedPassword>
+    <_PublishTargetUrl>ftp://ftp.site4now.net/lenytest-back</_PublishTargetUrl>
+  </PropertyGroup>
+</Project>
