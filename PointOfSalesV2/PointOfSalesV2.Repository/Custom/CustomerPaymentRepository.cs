@@ -214,6 +214,8 @@ namespace PointOfSalesV2.Repository
                         i.BranchOffice = null;
                         i.Customer = null;
                         i.Currency = null;
+                        i.Seller = null;
+                        i.Currency = null;
                         i.TRNControl = null;
                     var paymentResult=   this.AddWithoutTransaction(payment,i);
                         if (paymentResult.Status < 0) 
