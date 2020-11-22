@@ -41,6 +41,7 @@ namespace PointOfSalesV2.Api.Controllers
                 var data = _baseRepo.GetAll<Customer>(x => x
                 .Include(x => x.Currency)
                 .Include(x => x.TRNControl)
+                .Include(x=>x.Zone)
                 .Where(y => y.Active == true));
                 return Ok(data);
             }

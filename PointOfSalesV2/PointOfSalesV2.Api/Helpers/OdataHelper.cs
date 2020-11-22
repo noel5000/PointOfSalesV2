@@ -28,6 +28,9 @@ namespace PointOfSalesV2.Api.Helpers
             builder.EntitySet<CreditNote>("CreditNote");
             builder.EntitySet<Currency>("Currency");
             builder.EntitySet<Customer>("Customer");
+            builder.EntitySet<Customer>("Customer").HasOptionalBinding(x=>x.Zone,"Zone");
+            builder.EntitySet<Customer>("Customer").HasOptionalBinding(x => x.Currency, "Currency");
+            builder.EntitySet<Customer>("Customer").HasOptionalBinding(x => x.TRNControl, "TRNControl");
             builder.EntitySet<School>("School");
             builder.EntitySet<CustomerBalance>("CustomerBalance");
             builder.EntitySet<CustomerReturn>("CustomerReturn");
