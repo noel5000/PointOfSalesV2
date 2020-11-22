@@ -146,6 +146,9 @@ export class PaginationCompoment{
           break;
 
       }
+      if(prop.customText!=null){
+        result = prop.customText(item);
+      }
       return result;
     }
 

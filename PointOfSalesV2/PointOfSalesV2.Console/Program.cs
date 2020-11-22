@@ -94,7 +94,7 @@ namespace PointOfSalesV2.Console
 
         public static ServiceProvider StartDI()
         {
-            string connectionString = "Server=localhost;Database=pointOfSale;Trusted_Connection=True;";
+            string connectionString = "Server=SQL5097.site4now.net; Database=DB_A63AA6_lenytest;Persist Security Info=False;User ID=DB_A63AA6_lenytest_admin;Password=Marle@0712;Trusted_Connection=False;";
             ServiceProvider serviceProvider = new ServiceCollection()
                   .AddDbContext<MainDataContext>(options =>
                   {

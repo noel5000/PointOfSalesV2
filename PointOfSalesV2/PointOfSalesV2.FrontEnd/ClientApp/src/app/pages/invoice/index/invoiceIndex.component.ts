@@ -75,22 +75,23 @@ export class InvoiceIndexComponent extends BaseComponent implements OnInit {
        
         this.tableConfig=[
 {
-  visible:true,
-  id:'id',
-  type:'number',
-  isTranslated:false,
-  name:scope.lang.getValueByKey('id_lbl'),
-  sorting:'desc',
-  toSort:true,
-  objectType:ObjectTypes.Number,
-  filterIsActive:true
-},
-{
     visible:true,
     id:'invoiceNumber',
     type:'text',
     isTranslated:false,
     name:scope.lang.getValueByKey('sequence_lbl'),
+    sorting:'desc',
+    toSort:true,
+    objectType:ObjectTypes.String,
+    filterIsActive:true
+  },
+  
+{
+    visible:true,
+    id:'documentNumber',
+    type:'text',
+    isTranslated:false,
+    name:scope.lang.getValueByKey('documentNumber_lbl'),
     sorting:'desc',
     toSort:true,
     objectType:ObjectTypes.String,
@@ -176,6 +177,21 @@ export class InvoiceIndexComponent extends BaseComponent implements OnInit {
     objectType:ObjectTypes.Number,
     filterIsActive:false
   },
+  {
+      visible:true,
+      id:'state',
+      type:'text',
+      isTranslated:false,
+      name:scope.lang.getValueByKey('state_lbl'),
+      sorting:'desc',
+      toSort:true,
+      objectType:ObjectTypes.String,
+      filterIsActive:true,
+      customText:(item)=>{
+          return this.lang.getValueByKey(`billingState${item.state}_lbl`);
+      }
+    }
+  
         ];
 this.actions=[
     {
@@ -184,7 +200,7 @@ this.actions=[
         icon:'',
         id:'edit',
         visible:(item)=>{
-            return item.state != BillingStates.Nulled && item.state != BillingStates.Paid && item.state != BillingStates.FullPaid  ;
+            return item.state == BillingStates.Billed ;
         }
     },
     {
@@ -203,7 +219,7 @@ this.actions=[
         icon:'',
         id:'delete',
         visible:(item)=>{
-           return item.state != BillingStates.Nulled && item.state != BillingStates.Paid && item.state != BillingStates.FullPaid  ;
+           return item.state == BillingStates.Billed ;
         }
     },
     
