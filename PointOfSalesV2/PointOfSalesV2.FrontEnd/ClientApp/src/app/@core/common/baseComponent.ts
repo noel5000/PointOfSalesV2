@@ -46,7 +46,7 @@ export class BaseComponent  {
                 localStorage.setItem(`${scope.getUser().userId} - ${scope.section.toString()}`,JSON.stringify(toSave));
             }
          
-        },120000);
+        },90000);
         else
         this.clearBackupData();
     }

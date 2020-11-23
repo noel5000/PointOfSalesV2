@@ -128,7 +128,7 @@ export class CashRegisterOpeningFormComponent extends BaseComponent implements O
            
             super(route, langService, AppSections.CashRegisterOpenings,modalService);
             this._route=router;
-            this.dataToBackup="details";
+            this.dataToBackup="details,cashRegisters,branchOffices,users";
         this.itemForm = this.formBuilder.group({
             branchOfficeId: [0,[Validators.required,Validators.min(1)]],
             userId: ['',[Validators.required]],

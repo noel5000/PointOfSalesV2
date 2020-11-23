@@ -60,8 +60,8 @@ export class UserFormComponent extends BaseComponent implements OnInit {
        modalService:ModalService,
         private cashRegisterService:CashRegisterService
         ){
-           
             super(route, langService, AppSections.Users,modalService);
+            this.dataToBackup="warehouses,cashRegisters";
             this._route=router;
         this.itemForm = this.formBuilder.group({
             name: ['',[ Validators.required,Validators.minLength(3), Validators.maxLength(30)]],

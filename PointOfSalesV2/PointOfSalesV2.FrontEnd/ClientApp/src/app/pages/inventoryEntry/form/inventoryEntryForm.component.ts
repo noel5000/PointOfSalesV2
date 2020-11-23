@@ -66,7 +66,7 @@ export class InventoryEntryFormComponent extends BaseComponent implements OnInit
            
             super(route, langService, AppSections.InventoryIncomes,modalService);
             this._route=router;
-            this.dataToBackup="entries";
+            this.dataToBackup="entries,warehouses,productUnits,currentProductCost,oldProductCost";
         this.itemForm = this.formBuilder.group({
 id: [0],
 branchOfficeId:[null,[ Validators.required,Validators.min(1)]],

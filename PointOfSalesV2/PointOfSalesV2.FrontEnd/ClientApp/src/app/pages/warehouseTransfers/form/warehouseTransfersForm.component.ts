@@ -65,7 +65,7 @@ export class WarehouseTransferFormComponent extends BaseComponent implements OnI
         ){
            
             super(route, langService, AppSections.InventoryIncomes,modalService);
-            this.dataToBackup="entries";
+            this.dataToBackup="entries,productUnits,originBranchOffice,destinyBranchOffice,originWarehouses,destinyWarehouses,originInventory,destinyInventory";
             this._route=router;
         this.itemForm = this.formBuilder.group({
 id: [0],

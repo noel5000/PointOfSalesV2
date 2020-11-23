@@ -70,7 +70,7 @@ export class ProductFormComponent extends BaseComponent implements OnInit {
            
             super(route, langService, AppSections.Products,modalService);
             this._route=router;
-            this.dataToBackup="productUnits,productSupplierCosts,productTaxes,baseProducts";
+            this.dataToBackup="productUnits,productSupplierCosts,productTaxes,baseProducts,selectedBaseProduct";
         this.itemForm = this.formBuilder.group({
             id: [0],
             name: ['',[ Validators.required,Validators.minLength(3), Validators.maxLength(100)]],

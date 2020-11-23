@@ -93,7 +93,7 @@ export class QuotesFormComponent extends BaseComponent implements OnInit {
            
             super(route, langService, AppSections.Invoices,modalService);
             this.verifyUser();
-            this.dataToBackup="entries";
+            this.dataToBackup="entries,sellers,productUnits,productTaxes,inventories,warehouses,productPrices,currentProductCost,currentProductPrice,oldProductCost,oldProductPrice,selectedProductCurrency,isEditing";
             this._route=router;
             this.id=parseInt( this._route.snapshot.paramMap.get('id'))>0?parseInt( this._route.snapshot.paramMap.get('id')):0;
             this.isEditing=this.id && this.id>0;

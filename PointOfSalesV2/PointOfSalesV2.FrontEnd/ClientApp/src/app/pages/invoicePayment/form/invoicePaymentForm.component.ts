@@ -62,7 +62,7 @@ export class InvoicePaymentFormComponent extends BaseComponent implements OnInit
            
             super(route, langService, AppSections.CustomerPayments,modalService);
             this._route=router;
-            this.dataToBackup="invoices";
+            this.dataToBackup="invoices,canPay,paymentWithReference";
         this.itemForm = this.formBuilder.group({
 id: [0],
 branchOfficeId:[null,[ Validators.required,Validators.min(1)]],
