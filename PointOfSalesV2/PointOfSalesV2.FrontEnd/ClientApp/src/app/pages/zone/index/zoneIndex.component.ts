@@ -40,9 +40,9 @@ export class ZoneIndexComponent extends BaseComponent implements OnInit {
         langService: LanguageService,
         private service: ZoneService,
         private modals:NgbModal,
-        private modalService:ModalService
+       modalService:ModalService
     ) {
-        super(route, langService, AppSections.Zones);
+        super(route, langService, AppSections.Zones,modalService);
         this.section=AppSections.Zones;
         let scope = this;
        

@@ -40,9 +40,9 @@ export class ProductIndexComponent extends BaseComponent implements OnInit {
         langService: LanguageService,
         private service: ProductService,
         private modals:NgbModal,
-        private modalService:ModalService
+       modalService:ModalService
     ) {
-        super(route, langService, AppSections.Products);
+        super(route, langService, AppSections.Products,modalService);
         let scope = this;
        
         this.tableConfig=[

@@ -30,13 +30,12 @@ declare const $: any;
     styleUrls: ["../cashRegisterOpeningStyles.component.scss"]
 })
 export class CashRegisterOpeningFormComponent extends BaseComponent implements OnInit {
-    itemForm: FormGroup;
-    item: CashRegisterOpening;
+
+
     details:OpeningType[]=[];
     user:User;
-    currentCurrency:Currency;
+    currentCurrency:Currency=null;
     isClosing:boolean =false;
-    id:number=0;
     service:BaseService<CashRegisterOpening,number>=new BaseService<CashRegisterOpening,number>(this.http, `${endpointUrl}CashRegisterOpening`);
     closureService:BaseService<CashRegisterOpening,number>=new BaseService<CashRegisterOpening,number>(this.http, `${endpointUrl}CashRegisterOpening/CloseCashRegister`);
     detailsService:BaseService<any,number>=new BaseService<any,number>(this.http, `${endpointUrl}CashRegisterOpeningDetail`);
@@ -124,11 +123,12 @@ export class CashRegisterOpeningFormComponent extends BaseComponent implements O
         private userService:UserService,
         private modals:NgbModal,
         private branchOfficeService: BranchOfficeService,
-        private modalService:ModalService
+       modalService:ModalService
         ){
            
-            super(route, langService, AppSections.CashRegisterOpenings);
+            super(route, langService, AppSections.CashRegisterOpenings,modalService);
             this._route=router;
+            this.dataToBackup="details";
         this.itemForm = this.formBuilder.group({
             branchOfficeId: [0,[Validators.required,Validators.min(1)]],
             userId: ['',[Validators.required]],
@@ -192,6 +192,8 @@ export class CashRegisterOpeningFormComponent extends BaseComponent implements O
             this.getDetails(this.item.id);
             this.currentCurrency= this.currencies.length>0? this.currencies.find(x=>x.id==this.item.currencyId):this.currentCurrency;
         }
+        
+        this.validateFormData();
     })
     }
 
@@ -333,6 +335,7 @@ export class CashRegisterOpeningFormComponent extends BaseComponent implements O
             subscription.subscribe(r=>{
                if(r.status>=0){
                 this.modalService.showSuccess(this.lang.getValueByKey('success_msg'));
+                this.clearBackupData();
                 this.router.navigateByUrl('pages/cashregisteropening');
                }
                else
@@ -341,6 +344,7 @@ export class CashRegisterOpeningFormComponent extends BaseComponent implements O
     }
 
     cancel(){
+    this.clearBackupData();
     this.router.navigateByUrl('pages/cashregisteropening');
     }
 }

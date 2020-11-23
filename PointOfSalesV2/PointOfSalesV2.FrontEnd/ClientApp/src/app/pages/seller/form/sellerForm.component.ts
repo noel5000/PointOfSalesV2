@@ -21,9 +21,7 @@ declare const $: any;
     styleUrls: ["../sellerStyles.component.scss"]
 })
 export class SellerFormComponent extends BaseComponent implements OnInit {
-    itemForm: FormGroup;
-    item: Seller;
-    id:number=0;
+ 
     _route:ActivatedRoute;
     zones:Zone[]=[];
     constructor(
@@ -34,10 +32,10 @@ export class SellerFormComponent extends BaseComponent implements OnInit {
         private zoneService:ZoneService,
         private service: SellerService,
         private modals:NgbModal,
-        private modalService:ModalService
+       modalService:ModalService
         ){
            
-            super(route, langService, AppSections.Sellers);
+            super(route, langService, AppSections.Sellers,modalService);
             this._route=router;
         this.itemForm = this.formBuilder.group({
             name: ['',[ Validators.required,Validators.minLength(3), Validators.maxLength(50)]],
@@ -58,6 +56,9 @@ export class SellerFormComponent extends BaseComponent implements OnInit {
         this.id=urlId;
         this.getItem(urlId);
      }
+     else
+     this.validateFormData();
+     
         this.verifyUser();
         this.getZones();
     }
@@ -80,6 +81,7 @@ export class SellerFormComponent extends BaseComponent implements OnInit {
             });
 
         }
+        this.validateFormData();
     })
     }
 
@@ -101,6 +103,7 @@ export class SellerFormComponent extends BaseComponent implements OnInit {
             subscription.subscribe(r=>{
                if(r.status>=0){
                 this.modalService.showSuccess(this.lang.getValueByKey('success_msg'));
+                this.clearBackupData();
                 this.router.navigateByUrl('pages/seller');
                }
                else
@@ -109,6 +112,7 @@ export class SellerFormComponent extends BaseComponent implements OnInit {
     }
 
     cancel(){
+        this.clearBackupData();
     this.router.navigateByUrl('pages/seller');
     }
 }

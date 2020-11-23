@@ -34,9 +34,7 @@ declare const $: any;
     styleUrls: ["../expensePaymentStyles.component.scss"]
 })
 export class ExpensePaymentFormComponent extends BaseComponent implements OnInit {
-    itemForm: FormGroup;
-    item: ExpensePayment;
-    id:number=0;
+
     canPay:boolean=false;
     paymentTypes:any[]=[]; 
     expenses:Expense[]=[];
@@ -58,12 +56,13 @@ export class ExpensePaymentFormComponent extends BaseComponent implements OnInit
         private modals:NgbModal,
         private currencyService:CurrencyService,
         private supplierService:SupplierService,
-        private modalService:ModalService,
+       modalService:ModalService,
       private  http: HttpClient
         ){
            
-            super(route, langService, AppSections.ExpensesPayments);
+            super(route, langService, AppSections.ExpensesPayments,modalService);
             this._route=router;
+            this.dataToBackup="expenses";
         this.itemForm = this.formBuilder.group({
 id: [0],
 paymentDestinationId:[null,[ Validators.required,Validators.min(1)]],
@@ -85,6 +84,7 @@ paidAmount:[0]
         this.getCurrencies();
         this.getSuppliers();
         this.getPaymentTypes();
+        this.validateFormData();
     }
 
     async getExpenses(){
@@ -189,6 +189,7 @@ async getSuppliers(){
             subscription.subscribe(r=>{
                if(r.status>=0){
                 this.modalService.showSuccess(this.lang.getValueByKey('success_msg'));
+                this.clearBackupData();
                 this.router.navigateByUrl('pages/expensepayment');
                }
                else
@@ -197,6 +198,7 @@ async getSuppliers(){
     }
 
     cancel(){
+        this.clearBackupData();
     this.router.navigateByUrl('pages/expensepayment');
     }
 

@@ -4,19 +4,51 @@ import { AuthModel } from '../data/authModel';
 import { LanguageService } from './../services/translateService';
 import { OnInit } from '@angular/core';
 import { User } from '../data/users';
+import { FormGroup } from '@angular/forms';
+import { ModalService } from '../services/modal.service';
 
 export class BaseComponent  {
    
-    constructor(route: Router, langService: LanguageService, section:AppSections) {
+    constructor(route: Router, langService: LanguageService, section:AppSections, modaService:ModalService) {
        
         this.lang = langService;
         this.router = route;
         this.section=section;
-
+        this.modalService=modaService;
+        this.backupData();
     }
-
+ 
+    modalService:ModalService;
+    itemForm: FormGroup;
+    item: any;
+    id:number=0;
+    enableBackup:boolean=false;
+    dataToBackup="";
     getLanguageValue(value){
         return this.lang.getValueByKey(value);
+    }
+
+    backupData(){
+        let scope=this;
+        const controllerUrl =window.location.href;
+        if(controllerUrl.includes("/add") || controllerUrl.includes("/edit"))
+        setInterval(function(){
+            if(scope.itemForm!=null){
+                let toSave={
+                    form:scope.itemForm.getRawValue(),
+                }
+                if(scope.dataToBackup && scope.dataToBackup.split(",").length>0){
+                  
+                    scope.dataToBackup.split(',').forEach(data=>{
+                        toSave[data]=scope[data];
+                    });
+                }
+                localStorage.setItem(`${scope.getUser().userId} - ${scope.section.toString()}`,JSON.stringify(toSave));
+            }
+         
+        },120000);
+        else
+        this.clearBackupData();
     }
 
     verifyUser(){
@@ -27,6 +59,38 @@ export class BaseComponent  {
         else
             this.returnToLogin();
 
+    }
+    validateFormData(){
+    const stringForm=   localStorage.getItem(`${this.getUser().userId} - ${this.section.toString()}`);
+    if(stringForm && JSON.parse(stringForm)!=null){
+        const savedForm = JSON.parse(stringForm);
+      var result =       this.modalService.confirmationModal({
+            titleText:this.lang.getValueByKey('savedFormData_lbl'),
+            bodyText:this.lang.getValueByKey('areYouSure_lbl'),
+            cancelButtonText:this.lang.getValueByKey('cancel_btn'),
+            okText:this.lang.getValueByKey('ok_btn'),
+        });
+  result.subscribe(r=>{
+      if(r){
+        if(savedForm.form && this.itemForm!=null){
+            this.itemForm.patchValue(savedForm.form);
+            if(this.dataToBackup && this.dataToBackup.split(',').length>0){
+                this.dataToBackup.split(',').forEach(val=>{
+                    this[val]=savedForm[val];
+                });
+            }
+            }
+      }
+      else
+      this.clearBackupData();
+     
+    
+  })
+       
+    }
+    }
+    clearBackupData(){
+        localStorage.removeItem(`${this.getUser().userId} - ${this.section.toString()}`);
     }
 
     getUser():User{

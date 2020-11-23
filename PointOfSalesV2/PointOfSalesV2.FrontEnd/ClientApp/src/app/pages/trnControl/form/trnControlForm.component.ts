@@ -19,9 +19,7 @@ declare const $: any;
     styleUrls: ["../trnControlStyles.component.scss"]
 })
 export class TRNControlFormComponent extends BaseComponent implements OnInit {
-    itemForm: FormGroup;
-    item: TRNControl;
-    id:number=0;
+
     _route:ActivatedRoute;
 
     constructor(
@@ -31,10 +29,10 @@ export class TRNControlFormComponent extends BaseComponent implements OnInit {
         langService: LanguageService,
         private service: TRNControlService,
         private modals:NgbModal,
-        private modalService:ModalService
+       modalService:ModalService
         ){
            
-            super(route, langService, AppSections.TRNControl);
+            super(route, langService, AppSections.TRNControl,modalService);
             this._route=router;
         this.itemForm = this.formBuilder.group({
             name: ['',[ Validators.required,Validators.minLength(3), Validators.maxLength(50)]],
@@ -52,6 +50,9 @@ export class TRNControlFormComponent extends BaseComponent implements OnInit {
         this.id=urlId;
         this.getItem(urlId);
      }
+     else
+     this.validateFormData();
+     
         this.verifyUser();
     }
 
@@ -70,6 +71,7 @@ export class TRNControlFormComponent extends BaseComponent implements OnInit {
             });
 
         }
+        this.validateFormData();
     })
     }
     get form() { return this.itemForm.controls; }
@@ -86,6 +88,7 @@ export class TRNControlFormComponent extends BaseComponent implements OnInit {
             subscription.subscribe(r=>{
                if(r.status>=0){
                 this.modalService.showSuccess(this.lang.getValueByKey('success_msg'));
+                this.clearBackupData();
                 this.router.navigateByUrl('pages/trncontrol');
                }
                else
@@ -94,6 +97,7 @@ export class TRNControlFormComponent extends BaseComponent implements OnInit {
     }
 
     cancel(){
+        this.clearBackupData();
     this.router.navigateByUrl('pages/trncontrol');
     }
 

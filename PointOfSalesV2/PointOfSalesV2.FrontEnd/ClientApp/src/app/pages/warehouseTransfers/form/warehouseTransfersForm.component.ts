@@ -34,9 +34,7 @@ declare const $: any;
     styleUrls: ["../warehouseTransfersStyles.component.scss"]
 })
 export class WarehouseTransferFormComponent extends BaseComponent implements OnInit {
-    itemForm: FormGroup;
-    item: any;
-    id:number=0;
+
     originBranchOffices:BranchOffice[];
     destinyBranchOffices:BranchOffice[];
     originWarehouses:Warehouse[]=[];
@@ -62,11 +60,12 @@ export class WarehouseTransferFormComponent extends BaseComponent implements OnI
         private productService:ProductService,
         private branchOfficeService:BranchOfficeService,
         private warehouseService:WarehouseService,
-        private modalService:ModalService,
+       modalService:ModalService,
       private  http: HttpClient
         ){
            
-            super(route, langService, AppSections.InventoryIncomes);
+            super(route, langService, AppSections.InventoryIncomes,modalService);
+            this.dataToBackup="entries";
             this._route=router;
         this.itemForm = this.formBuilder.group({
 id: [0],
@@ -87,6 +86,7 @@ quantity:[0,[ Validators.required,Validators.min(0.0001)]],
         this.verifyUser();
         this.getProducts();
         this.getBranchOffices();
+        this.validateFormData();
        
     }
 
@@ -285,6 +285,7 @@ async getBranchOffices(){
             subscription.subscribe(r=>{
                if(r.status>=0){
                 this.modalService.showSuccess(this.lang.getValueByKey('success_msg'));
+                this.clearBackupData();
                 this.router.navigateByUrl('pages/warehousetransfer');
                }
                else
@@ -293,6 +294,7 @@ async getBranchOffices(){
     }
 
     cancel(){
+        this.clearBackupData();
     this.router.navigateByUrl('pages/warehousetransfer');
     }
 

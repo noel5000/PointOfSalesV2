@@ -53,11 +53,11 @@ export class InvoicePaymentPrintComponent extends BaseComponent implements OnIni
         route: Router,
         langService: LanguageService,
         private modals:NgbModal,
-        private modalService:ModalService,
+       modalService:ModalService,
       private  http: HttpClient
         ){
            
-            super(route, langService, AppSections.CustomerPayments);
+            super(route, langService, AppSections.CustomerPayments,modalService);
             this._route=router;
             this.sequence= this._route.snapshot.paramMap.get('sequence');
             this.getCurrent();

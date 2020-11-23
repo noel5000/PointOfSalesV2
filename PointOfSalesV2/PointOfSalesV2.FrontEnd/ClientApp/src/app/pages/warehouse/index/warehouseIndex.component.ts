@@ -47,9 +47,9 @@ export class WarehouseIndexComponent extends BaseComponent implements OnInit {
         langService: LanguageService,
         private service: WarehouseService,
         private modals:NgbModal,
-        private modalService:ModalService
+       modalService:ModalService
     ) {
-        super(route, langService, AppSections.Warehouses);
+        super(route, langService, AppSections.Warehouses,modalService);
         let scope = this;
        
         this.tableConfig=[

@@ -20,9 +20,7 @@ declare const $: any;
     styleUrls: ["../zoneStyles.component.scss"]
 })
 export class ZoneFormComponent extends BaseComponent implements OnInit {
-    itemForm: FormGroup;
-    item: Zone;
-    id:number=0;
+
     _route:ActivatedRoute;
     tempSector:string='';
     sectors:string[]=[];
@@ -34,11 +32,12 @@ export class ZoneFormComponent extends BaseComponent implements OnInit {
         langService: LanguageService,
         private service: ZoneService,
         private modals:NgbModal,
-        private modalService:ModalService
+       modalService:ModalService
         ){
            
-            super(route, langService, AppSections.Zones);
+            super(route, langService, AppSections.Zones,modalService);
             this._route=router;
+            this.dataToBackup="sectors,tempSectors";
         this.itemForm = this.formBuilder.group({
             name: ['',[ Validators.required,Validators.minLength(3), Validators.maxLength(100)]],
             id: [0],
@@ -51,6 +50,9 @@ export class ZoneFormComponent extends BaseComponent implements OnInit {
         this.id=urlId;
         this.getItem(urlId);
      }
+     else
+     this.validateFormData();
+
         this.verifyUser();
     }
 
@@ -88,6 +90,7 @@ export class ZoneFormComponent extends BaseComponent implements OnInit {
             });
             this.sectors=this.item.details?JSON.parse(this.item.details):[];
         }
+        this.validateFormData();
     })
     }
     get form() { return this.itemForm.controls; }
@@ -105,6 +108,7 @@ export class ZoneFormComponent extends BaseComponent implements OnInit {
             subscription.subscribe(r=>{
                if(r.status>=0){
                 this.modalService.showSuccess(this.lang.getValueByKey('success_msg'));
+                this.clearBackupData();
                 this.router.navigateByUrl('pages/zone');
                }
                else
@@ -113,6 +117,7 @@ export class ZoneFormComponent extends BaseComponent implements OnInit {
     }
 
     cancel(){
+        this.clearBackupData();
     this.router.navigateByUrl('pages/zone');
     }
 }

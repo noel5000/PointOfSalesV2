@@ -40,9 +40,9 @@ export class BranchOfficeIndexComponent extends BaseComponent implements OnInit 
         langService: LanguageService,
         private service: BranchOfficeService,
         private modals:NgbModal,
-        private modalService:ModalService
+       modalService:ModalService
     ) {
-        super(route, langService, AppSections.BranchOffices);
+        super(route, langService, AppSections.BranchOffices,modalService);
         let scope = this;
        
         this.tableConfig=[

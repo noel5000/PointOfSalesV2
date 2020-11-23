@@ -40,9 +40,9 @@ export class UnitIndexComponent extends BaseComponent implements OnInit {
         langService: LanguageService,
         private service: UnitService,
         private modals:NgbModal,
-        private modalService:ModalService
+       modalService:ModalService
     ) {
-        super(route, langService, AppSections.Units);
+        super(route, langService, AppSections.Units,modalService);
         this.section=AppSections.Units;
         let scope = this;
        

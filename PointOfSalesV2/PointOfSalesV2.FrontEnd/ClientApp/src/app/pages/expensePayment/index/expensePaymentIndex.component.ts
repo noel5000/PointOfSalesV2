@@ -56,9 +56,9 @@ export class ExpensePaymentIndexComponent extends BaseComponent implements OnIni
         langService: LanguageService,
         private service: ExpensePaymentService,
         private modals:NgbModal,
-        private modalService:ModalService
+       modalService:ModalService
     ) {
-        super(route, langService, AppSections.ExpensesPayments);
+        super(route, langService, AppSections.ExpensesPayments,modalService);
         let scope = this;
        
         this.tableConfig=[

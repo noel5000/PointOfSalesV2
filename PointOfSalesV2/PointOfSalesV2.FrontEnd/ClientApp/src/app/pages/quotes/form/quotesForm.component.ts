@@ -42,9 +42,8 @@ declare const $: any;
     styleUrls: ["../quotesStyles.component.scss"]
 })
 export class QuotesFormComponent extends BaseComponent implements OnInit {
-    itemForm: FormGroup;
-    item: any;
-    id:number=0;
+   
+  
     branchOfficeId:number=0;
     warehouseId:number=0;
     currentDate:string='';
@@ -84,7 +83,7 @@ export class QuotesFormComponent extends BaseComponent implements OnInit {
         langService: LanguageService,
         private modals:NgbModal,
         private productService:ProductService,
-        private modalService:ModalService,
+       modalService:ModalService,
       private  http: HttpClient,
       private customerService:CustomerService,
       private trnControlService:TRNControlService,
@@ -92,8 +91,9 @@ export class QuotesFormComponent extends BaseComponent implements OnInit {
       private warehouseService:WarehouseService
         ){
            
-            super(route, langService, AppSections.Invoices);
+            super(route, langService, AppSections.Invoices,modalService);
             this.verifyUser();
+            this.dataToBackup="entries";
             this._route=router;
             this.id=parseInt( this._route.snapshot.paramMap.get('id'))>0?parseInt( this._route.snapshot.paramMap.get('id')):0;
             this.isEditing=this.id && this.id>0;
@@ -102,6 +102,8 @@ export class QuotesFormComponent extends BaseComponent implements OnInit {
                 this.getCurrentInvoice(this.id);
                 
             }
+            else
+            this.validateFormData();
             
            this.branchOfficeId=this.authModel.user.branchOfficeId;
            this.warehouseId=this.authModel.user.warehouseId;
@@ -582,6 +584,7 @@ free:[false]
             subscription.subscribe(r=>{
                if(r.status>=0){
                 this.modalService.showSuccess(this.lang.getValueByKey('success_msg'));
+                this.clearBackupData();
                 this.router.navigateByUrl('pages/quotes');
                }
                else
@@ -599,6 +602,7 @@ free:[false]
     }
 
     cancel(){
+        this.clearBackupData();
     this.router.navigateByUrl('pages/quotes');
     }
 
@@ -680,6 +684,8 @@ free:[false]
             }
             else
             this.modalService.showError(r.message);
+            
+        this.validateFormData();
            
         })
     }

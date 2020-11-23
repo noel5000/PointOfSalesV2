@@ -47,7 +47,6 @@ export class ComissionsReportIndexComponent extends BaseComponent implements OnI
         {id:0, name:this.lang.getValueByKey('salesComission_lbl')},
         {id:1, name:this.lang.getValueByKey('paymentsComission_lbl')}
     ];
-    itemForm: FormGroup;
 
 
     constructor(
@@ -56,12 +55,12 @@ export class ComissionsReportIndexComponent extends BaseComponent implements OnI
         langService: LanguageService,
         private modals:NgbModal,
         private http:HttpClient,
-        private modalService:ModalService,
+       modalService:ModalService,
         private sellerService:SellerService,
         private currencyService:CurrencyService,
         private customerService:CustomerService
     ) {
-        super(route, langService, AppSections.TaxesReport);
+        super(route, langService, AppSections.TaxesReport,modalService);
         this.itemForm = this.formBuilder.group({
        startDate:[''],
        endDate:[''],

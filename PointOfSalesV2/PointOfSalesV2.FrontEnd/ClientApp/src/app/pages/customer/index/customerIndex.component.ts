@@ -47,9 +47,9 @@ export class CustomerIndexComponent extends BaseComponent implements OnInit {
         langService: LanguageService,
         private service: CustomerService,
         private modals:NgbModal,
-        private modalService:ModalService
+       modalService:ModalService
     ) {
-        super(route, langService, AppSections.Customers);
+        super(route, langService, AppSections.Customers,modalService);
         let scope = this;
        
         this.tableConfig=[

@@ -19,9 +19,7 @@ declare const $: any;
     styleUrls: ["../unitStyles.component.scss"]
 })
 export class UnitFormComponent extends BaseComponent implements OnInit {
-    itemForm: FormGroup;
-    item: Unit;
-    id:number=0;
+
     _route:ActivatedRoute;
 
     constructor(
@@ -31,10 +29,10 @@ export class UnitFormComponent extends BaseComponent implements OnInit {
         langService: LanguageService,
         private service: UnitService,
         private modals:NgbModal,
-        private modalService:ModalService
+       modalService:ModalService
         ){
            
-            super(route, langService, AppSections.Units);
+            super(route, langService, AppSections.Units,modalService);
             this._route=router;
             this.section=AppSections.Units;
         this.itemForm = this.formBuilder.group({
@@ -48,6 +46,9 @@ export class UnitFormComponent extends BaseComponent implements OnInit {
         this.id=urlId;
         this.getItem(urlId);
      }
+     else
+     this.validateFormData();
+     
         this.verifyUser();
     }
 
@@ -61,6 +62,7 @@ export class UnitFormComponent extends BaseComponent implements OnInit {
             });
 
         }
+        this.validateFormData();
     })
     }
     get form() { return this.itemForm.controls; }
@@ -78,6 +80,7 @@ export class UnitFormComponent extends BaseComponent implements OnInit {
             subscription.subscribe(r=>{
                if(r.status>=0){
                 this.modalService.showSuccess(this.lang.getValueByKey('success_msg'));
+                this.clearBackupData();
                 this.router.navigateByUrl('pages/unit');
                }
                else
@@ -86,6 +89,7 @@ export class UnitFormComponent extends BaseComponent implements OnInit {
     }
 
     cancel(){
+        this.clearBackupData();
     this.router.navigateByUrl('pages/unit');
     }
 }

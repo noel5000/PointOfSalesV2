@@ -80,9 +80,9 @@ export class WarehouseTransferIndexComponent extends BaseComponent implements On
         private  http: HttpClient,
         langService: LanguageService,
         private modals:NgbModal,
-        private modalService:ModalService
+       modalService:ModalService
     ) {
-        super(route, langService, AppSections.InventoryIncomes);
+        super(route, langService, AppSections.InventoryIncomes,modalService);
         let scope = this;
        
         this.tableConfig=[

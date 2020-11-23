@@ -30,9 +30,7 @@ declare const $: any;
     styleUrls: ["../productStyles.component.scss"]
 })
 export class ProductFormComponent extends BaseComponent implements OnInit {
-    itemForm: FormGroup;
-    item: Product;
-    id:number=0;
+
     isServiceFlag:boolean=false;
     isCompositeFlag:boolean=false;
 
@@ -66,12 +64,13 @@ export class ProductFormComponent extends BaseComponent implements OnInit {
         private unitService:UnitService,
         private supplierService:SupplierService,
         private taxesService:TaxService,
-        private modalService:ModalService,
+       modalService:ModalService,
       private  http: HttpClient
         ){
            
-            super(route, langService, AppSections.Products);
+            super(route, langService, AppSections.Products,modalService);
             this._route=router;
+            this.dataToBackup="productUnits,productSupplierCosts,productTaxes,baseProducts";
         this.itemForm = this.formBuilder.group({
             id: [0],
             name: ['',[ Validators.required,Validators.minLength(3), Validators.maxLength(100)]],
@@ -102,6 +101,9 @@ taxId:0
         this.id=urlId;
         this.getItem(urlId);
      }
+     else
+     this.validateFormData();
+
      this.onChanges();
         this.verifyUser();
         this.getTaxes();
@@ -285,6 +287,8 @@ async getSuppliers(){
            
            
         }
+        
+        this.validateFormData();
     })
     }
     onChanges(): void {
@@ -315,6 +319,7 @@ async getSuppliers(){
             subscription.subscribe(r=>{
                if(r.status>=0){
                 this.modalService.showSuccess(this.lang.getValueByKey('success_msg'));
+                this.clearBackupData();
                 this.router.navigateByUrl('pages/product');
                }
                else
@@ -329,6 +334,7 @@ setProductChildren(){
   
 }
     cancel(){
+        this.clearBackupData();
     this.router.navigateByUrl('pages/product');
     }
 

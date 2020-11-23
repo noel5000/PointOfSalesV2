@@ -29,9 +29,7 @@ declare const $: any;
     styleUrls: ["../roleStyles.component.scss"]
 })
 export class RoleFormComponent extends BaseComponent implements OnInit {
-    itemForm: FormGroup;
-    item: Role;
-    id:number=0;
+
     isServiceFlag:boolean=false;
     isCompositeFlag:boolean=false;
 
@@ -52,11 +50,11 @@ export class RoleFormComponent extends BaseComponent implements OnInit {
         route: Router,
         langService: LanguageService,
         private modals:NgbModal,
-        private modalService:ModalService,
+       modalService:ModalService,
       private  http: HttpClient
         ){
            
-            super(route, langService, AppSections.Roles);
+            super(route, langService, AppSections.Roles,modalService);
             this._route=router;
         this.itemForm = this.formBuilder.group({
             id: [0],
@@ -71,6 +69,9 @@ export class RoleFormComponent extends BaseComponent implements OnInit {
         this.id=urlId;
         this.getItem(urlId);
      }
+     else
+     this.validateFormData();
+
      this.onChanges();
         this.verifyUser();
         this.getAllSections();
@@ -142,6 +143,8 @@ async getSectionOperations(id:number){
             });
             this.getRoleSectionOperations(this.item.id);
         }
+        
+        this.validateFormData();
     })
     }
     onChanges(): void {

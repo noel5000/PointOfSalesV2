@@ -32,9 +32,7 @@ declare const $: any;
     styleUrls: ["../expenseStyles.component.scss"]
 })
 export class ExpenseFormComponent extends BaseComponent implements OnInit {
-    itemForm: FormGroup;
-    item: Expense;
-    id:number=0;
+
     isPaid:boolean=false;
     amountsNotEquals:boolean=false;
     branchOffices:BranchOffice[];
@@ -60,12 +58,13 @@ export class ExpenseFormComponent extends BaseComponent implements OnInit {
         private supplierService:SupplierService,
         private branchOfficeService:BranchOfficeService,
         private taxesService:TaxService,
-        private modalService:ModalService,
+       modalService:ModalService,
       private  http: HttpClient
         ){
            
-            super(route, langService, AppSections.Expenses);
+            super(route, langService, AppSections.Expenses,modalService);
             this._route=router;
+            this.dataToBackup="expenseTaxes";
         this.itemForm = this.formBuilder.group({
 id: [0],
 branchOfficeId:[0,[ Validators.required,Validators.min(1)]],
@@ -90,6 +89,9 @@ returnedAmount:[0]
         this.id=urlId;
         this.getItem(urlId);
      }
+     else
+     this.validateFormData();
+
      this.onChanges();
         this.verifyUser();
         this.getTaxes();
@@ -159,6 +161,8 @@ async getSuppliers(){
            
            
         }
+        
+        this.validateFormData();
     })
     }
     onChanges(): void {
@@ -211,6 +215,7 @@ async getSuppliers(){
             subscription.subscribe(r=>{
                if(r.status>=0){
                 this.modalService.showSuccess(this.lang.getValueByKey('success_msg'));
+                this.clearBackupData();
                 this.router.navigateByUrl('pages/expense');
                }
                else
@@ -219,6 +224,7 @@ async getSuppliers(){
     }
 
     cancel(){
+        this.clearBackupData();
     this.router.navigateByUrl('pages/expense');
     }
 

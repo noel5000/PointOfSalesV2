@@ -40,9 +40,9 @@ export class TaxIndexComponent extends BaseComponent implements OnInit {
         langService: LanguageService,
         private service: TaxService,
         private modals:NgbModal,
-        private modalService:ModalService
+       modalService:ModalService
     ) {
-        super(route, langService, AppSections.Taxes);
+        super(route, langService, AppSections.Taxes,modalService);
         let scope = this;
        
         this.tableConfig=[

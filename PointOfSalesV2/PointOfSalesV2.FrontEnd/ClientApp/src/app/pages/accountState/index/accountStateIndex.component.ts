@@ -40,7 +40,6 @@ export class AccountStateIndexComponent extends BaseComponent implements OnInit 
     states:any[]=[];
     result:any={};
     customers:Customer[]=[];
-    itemForm: FormGroup;
 
 
     constructor(
@@ -49,10 +48,10 @@ export class AccountStateIndexComponent extends BaseComponent implements OnInit 
         langService: LanguageService,
         private modals:NgbModal,
         private http:HttpClient,
-        private modalService:ModalService,
+       modalService:ModalService,
         private customersService:CustomerService,
     ) {
-        super(route, langService, AppSections.AccountState);
+        super(route, langService, AppSections.AccountState,modalService);
         this.itemForm = this.formBuilder.group({
        customerId:[0,[ Validators.required,Validators.min(1)]],
         });

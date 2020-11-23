@@ -40,9 +40,9 @@ export class UserIndexComponent extends BaseComponent implements OnInit {
         langService: LanguageService,
         private service: UserService,
         private modals:NgbModal,
-        private modalService:ModalService
+       modalService:ModalService
     ) {
-        super(route, langService, AppSections.Users);
+        super(route, langService, AppSections.Users,modalService);
         let scope = this;
        
         this.tableConfig=[

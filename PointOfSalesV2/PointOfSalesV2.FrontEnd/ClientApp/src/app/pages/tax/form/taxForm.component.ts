@@ -19,9 +19,7 @@ declare const $: any;
     styleUrls: ["../taxStyles.component.scss"]
 })
 export class TaxFormComponent extends BaseComponent implements OnInit {
-    itemForm: FormGroup;
-    item: Tax;
-    id:number=0;
+
     _route:ActivatedRoute;
 
     constructor(
@@ -31,10 +29,10 @@ export class TaxFormComponent extends BaseComponent implements OnInit {
         langService: LanguageService,
         private service: TaxService,
         private modals:NgbModal,
-        private modalService:ModalService
+       modalService:ModalService
         ){
            
-            super(route, langService, AppSections.Taxes);
+            super(route, langService, AppSections.Taxes,modalService);
             this._route=router;
         this.itemForm = this.formBuilder.group({
             name: ['',[ Validators.required,Validators.minLength(3), Validators.maxLength(50)]],
@@ -48,6 +46,9 @@ export class TaxFormComponent extends BaseComponent implements OnInit {
         this.id=urlId;
         this.getItem(urlId);
      }
+     else
+     this.validateFormData();
+     
         this.verifyUser();
     }
 
@@ -62,6 +63,7 @@ export class TaxFormComponent extends BaseComponent implements OnInit {
             });
 
         }
+        this.validateFormData();
     })
     }
     get form() { return this.itemForm.controls; }
@@ -78,6 +80,7 @@ export class TaxFormComponent extends BaseComponent implements OnInit {
             subscription.subscribe(r=>{
                if(r.status>=0){
                 this.modalService.showSuccess(this.lang.getValueByKey('success_msg'));
+                this.clearBackupData();
                 this.router.navigateByUrl('pages/tax');
                }
                else
@@ -86,6 +89,7 @@ export class TaxFormComponent extends BaseComponent implements OnInit {
     }
 
     cancel(){
+        this.clearBackupData();
     this.router.navigateByUrl('pages/tax');
     }
 }

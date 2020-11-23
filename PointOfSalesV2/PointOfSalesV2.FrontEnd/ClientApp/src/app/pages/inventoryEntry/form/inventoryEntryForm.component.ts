@@ -34,9 +34,7 @@ declare const $: any;
     styleUrls: ["../inventoryEntryStyles.component.scss"]
 })
 export class InventoryEntryFormComponent extends BaseComponent implements OnInit {
-    itemForm: FormGroup;
-    item: any;
-    id:number=0;
+
     branchOffices:BranchOffice[];
     warehouses:Warehouse[]=[];
     _route:ActivatedRoute;
@@ -62,12 +60,13 @@ export class InventoryEntryFormComponent extends BaseComponent implements OnInit
         private supplierService:SupplierService,
         private branchOfficeService:BranchOfficeService,
         private warehouseService:WarehouseService,
-        private modalService:ModalService,
+       modalService:ModalService,
       private  http: HttpClient
         ){
            
-            super(route, langService, AppSections.InventoryIncomes);
+            super(route, langService, AppSections.InventoryIncomes,modalService);
             this._route=router;
+            this.dataToBackup="entries";
         this.itemForm = this.formBuilder.group({
 id: [0],
 branchOfficeId:[null,[ Validators.required,Validators.min(1)]],
@@ -93,6 +92,7 @@ totalAmount:[0,[ Validators.required,Validators.min(0.0001)]],
         this.getProducts();
         this.getSuppliers();
         this.getBranchOffices();
+        this.validateFormData();
        
     }
     async pepe(id:number){
@@ -294,6 +294,7 @@ async getSuppliers(){
             subscription.subscribe(r=>{
                if(r.status>=0){
                 this.modalService.showSuccess(this.lang.getValueByKey('success_msg'));
+                this.clearBackupData();
                 this.router.navigateByUrl('pages/inventoryentry');
                }
                else
@@ -302,6 +303,7 @@ async getSuppliers(){
     }
 
     cancel(){
+        this.clearBackupData();
     this.router.navigateByUrl('pages/inventoryentry');
     }
 

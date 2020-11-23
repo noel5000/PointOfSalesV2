@@ -60,9 +60,9 @@ export class ExpenseIndexComponent extends BaseComponent implements OnInit {
         langService: LanguageService,
         private service: ExpenseService,
         private modals:NgbModal,
-        private modalService:ModalService
+       modalService:ModalService
     ) {
-        super(route, langService, AppSections.Expenses);
+        super(route, langService, AppSections.Expenses,modalService);
         let scope = this;
        
         this.tableConfig=[

@@ -62,9 +62,9 @@ export class CashRegisterOpeningIndexComponent extends BaseComponent implements 
         langService: LanguageService,
         private modals:NgbModal,
         private  http: HttpClient,
-        private modalService:ModalService
+       modalService:ModalService
     ) {
-        super(route, langService, AppSections.CashRegisterOpenings);
+        super(route, langService, AppSections.CashRegisterOpenings,modalService);
         let scope = this;
        
         this.tableConfig=[

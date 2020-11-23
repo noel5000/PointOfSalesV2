@@ -70,9 +70,9 @@ export class CustomerReturnIndexComponent extends BaseComponent implements OnIni
         private http: HttpClient,
         langService: LanguageService,
         private modals:NgbModal,
-        private modalService:ModalService
+       modalService:ModalService
     ) {
-        super(route, langService, AppSections.CustomersReturns);
+        super(route, langService, AppSections.CustomersReturns,modalService);
         let scope = this;
        
         this.tableConfig=[

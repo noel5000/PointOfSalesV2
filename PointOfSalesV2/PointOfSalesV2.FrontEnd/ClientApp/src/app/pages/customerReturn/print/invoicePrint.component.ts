@@ -105,11 +105,11 @@ export class InvoicePrintComponent extends BaseComponent implements OnInit {
         route: Router,
         langService: LanguageService,
         private modals:NgbModal,
-        private modalService:ModalService,
+       modalService:ModalService,
       private  http: HttpClient
         ){
            
-            super(route, langService, AppSections.Invoices);
+            super(route, langService, AppSections.Invoices,modalService);
             this._route=router;
             this.Id=parseInt( this._route.snapshot.paramMap.get('id'))>0?parseInt( this._route.snapshot.paramMap.get('id')):0;
             this.getCurrent();

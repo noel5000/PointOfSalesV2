@@ -37,7 +37,6 @@ export class WarehouseMovementReportIndexComponent extends BaseComponent impleme
     branchOffices:BranchOffice[]=[];
     warehouses:Warehouse[]=[];
     products:Product[]=[];
-    itemForm: FormGroup;
 
 
     constructor(
@@ -46,12 +45,12 @@ export class WarehouseMovementReportIndexComponent extends BaseComponent impleme
         langService: LanguageService,
         private modals:NgbModal,
         private http:HttpClient,
-        private modalService:ModalService,
+       modalService:ModalService,
         private productsService:ProductService,
         private warehouseServie:WarehouseService,
         private branchOfficeService: BranchOfficeService
     ) {
-        super(route, langService, AppSections.Inventories);
+        super(route, langService, AppSections.Inventories,modalService);
         this.itemForm = this.formBuilder.group({
        branchOfficeId:[0],
        warehouseId:[0],

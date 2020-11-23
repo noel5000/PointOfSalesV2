@@ -42,9 +42,9 @@ export class RoleIndexComponent extends BaseComponent implements OnInit {
         langService: LanguageService,
         private  http: HttpClient,
         private modals:NgbModal,
-        private modalService:ModalService
+       modalService:ModalService
     ) {
-        super(route, langService, AppSections.Roles);
+        super(route, langService, AppSections.Roles,modalService);
         let scope = this;
        
         this.tableConfig=[

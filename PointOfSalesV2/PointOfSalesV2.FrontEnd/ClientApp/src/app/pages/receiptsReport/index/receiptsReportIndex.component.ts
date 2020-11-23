@@ -44,7 +44,6 @@ export class ReceiptsReportIndexComponent extends BaseComponent implements OnIni
     currencies:Currency[]=[];
     paymentTypes:any[]=[];
     customers:Customer[]=[];
-    itemForm: FormGroup;
     paymentTypeService:BaseService<any,number>=new BaseService<any,number>(this.http, `${endpointUrl}paymentType`);
 
     constructor(
@@ -53,14 +52,14 @@ export class ReceiptsReportIndexComponent extends BaseComponent implements OnIni
         langService: LanguageService,
         private modals:NgbModal,
         private http:HttpClient,
-        private modalService:ModalService,
+       modalService:ModalService,
         private customersService:CustomerService,
         
         private currencyService:CurrencyService,
 
         private branchOfficeService: BranchOfficeService
     ) {
-        super(route, langService, AppSections.AccountsReceivable);
+        super(route, langService, AppSections.AccountsReceivable,modalService);
         this.itemForm = this.formBuilder.group({
        branchOfficeId:[0],
        paymentTypeId:[0],

@@ -42,9 +42,9 @@ declare const $: any;
     styleUrls: ["../customerReturnStyles.component.scss"]
 })
 export class CustomerReturnFormComponent extends BaseComponent implements OnInit {
-    itemForm: FormGroup;
+
     invoice: any={};
-    id:number=0;
+
     details:any[]=[];
     defaultTaxAmountValidator:FormControl=new FormControl(0,[ Validators.required,Validators.min(0.0001)]);
     defaultUnitValidator:FormControl=new FormControl(null,[ Validators.required,Validators.min(1)]);
@@ -63,7 +63,7 @@ export class CustomerReturnFormComponent extends BaseComponent implements OnInit
         langService: LanguageService,
         private modals:NgbModal,
         private productService:ProductService,
-        private modalService:ModalService,
+       modalService:ModalService,
       private  http: HttpClient,
       private customerService:CustomerService,
       private trnControlService:TRNControlService,
@@ -71,8 +71,9 @@ export class CustomerReturnFormComponent extends BaseComponent implements OnInit
       private warehouseService:WarehouseService
         ){
            
-            super(route, langService, AppSections.CustomersReturns);
+            super(route, langService, AppSections.CustomersReturns,modalService);
             this.verifyUser();
+            this.dataToBackup="invoice,details";
             this.isEditing=this.id && this.id>0;
            
         this.itemForm = this.formBuilder.group({
@@ -128,6 +129,7 @@ export class CustomerReturnFormComponent extends BaseComponent implements OnInit
    
      this.onChanges();
         this.verifyUser();
+        this.validateFormData();
     }
 
 
@@ -194,6 +196,7 @@ export class CustomerReturnFormComponent extends BaseComponent implements OnInit
             subscription.subscribe(r=>{
                if(r.status>=0){
                 this.modalService.showSuccess(this.lang.getValueByKey('success_msg'));
+                this.clearBackupData();
                 this.router.navigateByUrl('pages/customerreturn');
                }
                else
@@ -230,6 +233,7 @@ export class CustomerReturnFormComponent extends BaseComponent implements OnInit
     }
 
     cancel(){
+        this.clearBackupData();
     this.router.navigateByUrl('pages/customerreturn');
     }
 

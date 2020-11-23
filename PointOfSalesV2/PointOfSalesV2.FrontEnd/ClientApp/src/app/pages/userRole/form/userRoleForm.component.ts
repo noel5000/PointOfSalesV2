@@ -22,8 +22,7 @@ declare const $: any;
     styleUrls: ["../userRoleStyles.component.scss"]
 })
 export class UserRoleFormComponent extends BaseComponent implements OnInit {
-    itemForm: FormGroup;
-    item: UserRole;
+
     userId:string='';
     user:User;
     isServiceFlag:boolean=false;
@@ -44,11 +43,11 @@ export class UserRoleFormComponent extends BaseComponent implements OnInit {
         route: Router,
         langService: LanguageService,
         private modals:NgbModal,
-        private modalService:ModalService,
+       modalService:ModalService,
       private  http: HttpClient
         ){
            
-            super(route, langService, AppSections.UserRoles);
+            super(route, langService, AppSections.UserRoles,modalService);
             this._route=router;
         this.itemForm = this.formBuilder.group({
             userName: [''],
@@ -63,6 +62,9 @@ export class UserRoleFormComponent extends BaseComponent implements OnInit {
         this.userId=urlId;
         this.getItem(urlId);
      }
+     else
+     this.validateFormData();
+     
         this.verifyUser();
         this.getAllRoles();
        
@@ -104,6 +106,7 @@ async getuserRoles(id:string){
             });
             this.getuserRoles(this.user.userId);
         }
+        this.validateFormData();
     })
     }
 

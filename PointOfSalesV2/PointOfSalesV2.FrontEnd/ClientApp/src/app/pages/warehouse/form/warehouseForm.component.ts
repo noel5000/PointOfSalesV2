@@ -21,9 +21,7 @@ declare const $: any;
     styleUrls: ["../warehouseStyles.component.scss"]
 })
 export class WarehouseFormComponent extends BaseComponent implements OnInit {
-    itemForm: FormGroup;
-    item: Warehouse;
-    id:number=0;
+
     _route:ActivatedRoute;
     branchOffices:BranchOffice[]=[];
 
@@ -35,10 +33,10 @@ export class WarehouseFormComponent extends BaseComponent implements OnInit {
         private service: WarehouseService,
         private modals:NgbModal,
         private branchOfficeService: BranchOfficeService,
-        private modalService:ModalService
+       modalService:ModalService
         ){
            
-            super(route, langService, AppSections.Warehouses);
+            super(route, langService, AppSections.Warehouses,modalService);
             this._route=router;
         this.itemForm = this.formBuilder.group({
             name: ['',[ Validators.required,Validators.minLength(3), Validators.maxLength(100)]],
@@ -53,6 +51,9 @@ export class WarehouseFormComponent extends BaseComponent implements OnInit {
         this.id=urlId;
         this.getItem(urlId);
      }
+     else
+     this.validateFormData();
+
         this.verifyUser();
         this.getBranchOffices();
     }
@@ -69,6 +70,7 @@ export class WarehouseFormComponent extends BaseComponent implements OnInit {
             });
 
         }
+        this.validateFormData();
     })
     }
     setBranchOffice(branchOffice: BranchOffice){
@@ -97,6 +99,7 @@ export class WarehouseFormComponent extends BaseComponent implements OnInit {
             subscription.subscribe(r=>{
                if(r.status>=0){
                 this.modalService.showSuccess(this.lang.getValueByKey('success_msg'));
+                this.clearBackupData();
                 this.router.navigateByUrl('pages/warehouse');
                }
                else
@@ -105,6 +108,7 @@ export class WarehouseFormComponent extends BaseComponent implements OnInit {
     }
 
     cancel(){
+        this.clearBackupData();
     this.router.navigateByUrl('pages/warehouse');
     }
 }

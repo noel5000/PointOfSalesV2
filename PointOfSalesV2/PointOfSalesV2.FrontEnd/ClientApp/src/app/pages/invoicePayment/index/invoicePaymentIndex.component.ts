@@ -57,9 +57,9 @@ export class InvoicePaymentIndexComponent extends BaseComponent implements OnIni
         langService: LanguageService,
         private modals:NgbModal,
         private http:HttpClient,
-        private modalService:ModalService
+       modalService:ModalService
     ) {
-        super(route, langService, AppSections.CustomerPayments);
+        super(route, langService, AppSections.CustomerPayments,modalService);
         let scope = this;
        
         this.tableConfig=[

@@ -47,9 +47,9 @@ export class SellerIndexComponent extends BaseComponent implements OnInit {
         langService: LanguageService,
         private service: SellerService,
         private modals:NgbModal,
-        private modalService:ModalService
+       modalService:ModalService
     ) {
-        super(route, langService, AppSections.Sellers);
+        super(route, langService, AppSections.Sellers,modalService);
         let scope = this;
        
         this.tableConfig=[

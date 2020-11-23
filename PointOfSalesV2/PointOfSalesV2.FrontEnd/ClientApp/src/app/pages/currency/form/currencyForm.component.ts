@@ -19,9 +19,7 @@ declare const $: any;
     styleUrls: ["../currencyStyles.component.scss"]
 })
 export class CurrencyFormComponent extends BaseComponent implements OnInit {
-    itemForm: FormGroup;
-    item: Currency;
-    id:number=0;
+
     _route:ActivatedRoute;
 
     constructor(
@@ -31,10 +29,10 @@ export class CurrencyFormComponent extends BaseComponent implements OnInit {
         langService: LanguageService,
         private service: CurrencyService,
         private modals:NgbModal,
-        private modalService:ModalService
+       modalService:ModalService
         ){
            
-            super(route, langService, AppSections.Currencies);
+            super(route, langService, AppSections.Currencies,modalService);
             this._route=router;
         this.itemForm = this.formBuilder.group({
             name: ['',[ Validators.required,Validators.minLength(3), Validators.maxLength(50)]],
@@ -50,7 +48,10 @@ export class CurrencyFormComponent extends BaseComponent implements OnInit {
         this.id=urlId;
         this.getItem(urlId);
      }
-        this.verifyUser();
+     else
+     this.validateFormData();
+    
+     this.verifyUser();
     }
 
    async getItem(id:number){
@@ -66,6 +67,7 @@ export class CurrencyFormComponent extends BaseComponent implements OnInit {
             });
 
         }
+        this.validateFormData();
     })
     }
     get form() { return this.itemForm.controls; }
@@ -84,6 +86,7 @@ export class CurrencyFormComponent extends BaseComponent implements OnInit {
             subscription.subscribe(r=>{
                if(r.status>=0){
                 this.modalService.showSuccess(this.lang.getValueByKey('success_msg'));
+                this.clearBackupData();
                 this.router.navigateByUrl('pages/currency');
                }
                else
@@ -92,6 +95,7 @@ export class CurrencyFormComponent extends BaseComponent implements OnInit {
     }
 
     cancel(){
+        this.clearBackupData();
     this.router.navigateByUrl('pages/currency');
     }
 }

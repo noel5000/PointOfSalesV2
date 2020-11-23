@@ -33,7 +33,6 @@ export class TaxReportIndexComponent extends BaseComponent implements OnInit {
     modalRef:NgbModalRef=null;
   service: BaseService<any,number>= new BaseService<any,number>(this.http,`${endpointUrl}InvoiceTax`);
     result:any[]=[];
-    itemForm: FormGroup;
 
 
     constructor(
@@ -42,9 +41,9 @@ export class TaxReportIndexComponent extends BaseComponent implements OnInit {
         langService: LanguageService,
         private modals:NgbModal,
         private http:HttpClient,
-        private modalService:ModalService,
+       modalService:ModalService,
     ) {
-        super(route, langService, AppSections.TaxesReport);
+        super(route, langService, AppSections.TaxesReport,modalService);
         this.itemForm = this.formBuilder.group({
        startDate:[''],
        endDate:['']

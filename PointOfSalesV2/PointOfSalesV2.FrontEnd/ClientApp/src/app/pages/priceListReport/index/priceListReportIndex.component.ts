@@ -49,9 +49,9 @@ export class PriceListIndexComponent extends BaseComponent implements OnInit {
         langService: LanguageService,
         private service: ProductService,
         private modals:NgbModal,
-        private modalService:ModalService
+       modalService:ModalService
     ) {
-        super(route, langService, AppSections.PriceList);
+        super(route, langService, AppSections.PriceList,modalService);
         let scope = this;
        
         this.tableConfig=[

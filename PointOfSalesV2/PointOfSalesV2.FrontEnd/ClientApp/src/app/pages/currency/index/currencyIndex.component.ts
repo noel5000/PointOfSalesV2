@@ -40,9 +40,9 @@ export class CurrencyIndexComponent extends BaseComponent implements OnInit {
         langService: LanguageService,
         private service: CurrencyService,
         private modals:NgbModal,
-        private modalService:ModalService
+       modalService:ModalService
     ) {
-        super(route, langService, AppSections.Currencies);
+        super(route, langService, AppSections.Currencies,modalService);
         this.section=AppSections.Currencies;
         let scope = this;
        

@@ -68,9 +68,9 @@ export class InvoiceIndexComponent extends BaseComponent implements OnInit {
         private http: HttpClient,
         langService: LanguageService,
         private modals:NgbModal,
-        private modalService:ModalService
+       modalService:ModalService
     ) {
-        super(route, langService, AppSections.Invoices);
+        super(route, langService, AppSections.Invoices,modalService);
         let scope = this;
        
         this.tableConfig=[

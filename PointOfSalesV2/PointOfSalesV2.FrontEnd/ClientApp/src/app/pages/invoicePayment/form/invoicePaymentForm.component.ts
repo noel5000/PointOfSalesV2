@@ -32,9 +32,7 @@ declare const $: any;
     styleUrls: ["../invoicePaymentStyles.component.scss"]
 })
 export class InvoicePaymentFormComponent extends BaseComponent implements OnInit {
-    itemForm: FormGroup;
-    item: any={};
-    id:number=0;
+
     canPay:boolean=false;
     paymentTypes:any[]=[]; 
     invoices:any[]=[];
@@ -57,13 +55,14 @@ export class InvoicePaymentFormComponent extends BaseComponent implements OnInit
         private modals:NgbModal,
         private currencyService:CurrencyService,
         private customerService:CustomerService,
-        private modalService:ModalService,
+       modalService:ModalService,
         private brancOfficeService:BranchOfficeService,
       private  http: HttpClient
         ){
            
-            super(route, langService, AppSections.CustomerPayments);
+            super(route, langService, AppSections.CustomerPayments,modalService);
             this._route=router;
+            this.dataToBackup="invoices";
         this.itemForm = this.formBuilder.group({
 id: [0],
 branchOfficeId:[null,[ Validators.required,Validators.min(1)]],
@@ -87,6 +86,7 @@ paidAmount:[0]
         this.getCurrencies();
         this.getCustomers();
         this.getPaymentTypes();
+        this.validateFormData();
     }
 
     async getinvoices(){
@@ -218,6 +218,7 @@ async getCustomers(){
             const subscription =this.paymentService.post(toPost,null,'PayInvoices');
             subscription.subscribe(r=>{
                if(r.status>=0){
+                this.clearBackupData();
                 this.modalService.showSuccess(this.lang.getValueByKey('success_msg'));
                 this.router.navigateByUrl('pages/invoicepayment');
                }
@@ -227,6 +228,7 @@ async getCustomers(){
     }
 
     cancel(){
+        this.clearBackupData();
     this.router.navigateByUrl('pages/invoicepayment');
     }
 

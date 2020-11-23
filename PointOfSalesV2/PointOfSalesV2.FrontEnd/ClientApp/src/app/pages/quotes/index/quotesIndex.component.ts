@@ -68,9 +68,9 @@ export class QuotesIndexComponent extends BaseComponent implements OnInit {
         private http: HttpClient,
         langService: LanguageService,
         private modals:NgbModal,
-        private modalService:ModalService
+       modalService:ModalService
     ) {
-        super(route, langService, AppSections.Quotes);
+        super(route, langService, AppSections.Quotes,modalService);
         let scope = this;
        
         this.tableConfig=[

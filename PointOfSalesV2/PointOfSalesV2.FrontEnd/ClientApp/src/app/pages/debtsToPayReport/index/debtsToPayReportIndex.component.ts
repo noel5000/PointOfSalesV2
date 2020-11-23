@@ -44,7 +44,6 @@ export class DebtsToPayReportIndexComponent extends BaseComponent implements OnI
     branchOffices:BranchOffice[]=[];
     suppliers:Supplier[]=[];
     currencies:Currency[]=[];
-    itemForm: FormGroup;
 
 
     constructor(
@@ -53,12 +52,12 @@ export class DebtsToPayReportIndexComponent extends BaseComponent implements OnI
         langService: LanguageService,
         private modals:NgbModal,
         private http:HttpClient,
-        private modalService:ModalService,
+       modalService:ModalService,
         private suppliersService:SupplierService,
         private currenciesService:CurrencyService,
         private branchOfficeService: BranchOfficeService
     ) {
-        super(route, langService, AppSections.DebstToPay);
+        super(route, langService, AppSections.DebstToPay,modalService);
         this.itemForm = this.formBuilder.group({
        branchOfficeId:[0],
        supplierId:[0],

@@ -19,9 +19,7 @@ declare const $: any;
     styleUrls: ["../supplierStyles.component.scss"]
 })
 export class SupplierFormComponent extends BaseComponent implements OnInit {
-    itemForm: FormGroup;
-    item: Supplier;
-    id:number=0;
+
     _route:ActivatedRoute;
 
     constructor(
@@ -31,10 +29,10 @@ export class SupplierFormComponent extends BaseComponent implements OnInit {
         langService: LanguageService,
         private service: SupplierService,
         private modals:NgbModal,
-        private modalService:ModalService
+       modalService:ModalService
         ){
            
-            super(route, langService, AppSections.Suppliers);
+            super(route, langService, AppSections.Suppliers,modalService);
             this._route=router;
         this.itemForm = this.formBuilder.group({
             name: ['',[ Validators.required,Validators.minLength(3), Validators.maxLength(50)]],
@@ -50,6 +48,9 @@ export class SupplierFormComponent extends BaseComponent implements OnInit {
         this.id=urlId;
         this.getItem(urlId);
      }
+     else
+     this.validateFormData();
+     
         this.verifyUser();
     }
 
@@ -66,6 +67,7 @@ export class SupplierFormComponent extends BaseComponent implements OnInit {
             });
 
         }
+        this.validateFormData();
     })
     }
     get form() { return this.itemForm.controls; }
@@ -82,6 +84,7 @@ export class SupplierFormComponent extends BaseComponent implements OnInit {
             subscription.subscribe(r=>{
                if(r.status>=0){
                 this.modalService.showSuccess(this.lang.getValueByKey('success_msg'));
+                this.clearBackupData();
                 this.router.navigateByUrl('pages/supplier');
                }
                else
@@ -90,6 +93,7 @@ export class SupplierFormComponent extends BaseComponent implements OnInit {
     }
 
     cancel(){
+        this.clearBackupData();
     this.router.navigateByUrl('pages/supplier');
     }
 }

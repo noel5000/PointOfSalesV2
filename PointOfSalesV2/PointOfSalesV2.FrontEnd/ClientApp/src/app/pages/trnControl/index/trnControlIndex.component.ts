@@ -40,9 +40,9 @@ export class TRNControlIndexComponent extends BaseComponent implements OnInit {
         langService: LanguageService,
         private service: TRNControlService,
         private modals:NgbModal,
-        private modalService:ModalService
+       modalService:ModalService
     ) {
-        super(route, langService, AppSections.TRNControl);
+        super(route, langService, AppSections.TRNControl,modalService);
         let scope = this;
        
         this.tableConfig=[

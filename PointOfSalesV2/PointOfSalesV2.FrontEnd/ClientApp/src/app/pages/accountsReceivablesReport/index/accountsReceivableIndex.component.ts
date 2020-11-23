@@ -38,7 +38,6 @@ export class AccountsReceivableIndexComponent extends BaseComponent implements O
     invoices:any[]=[];
     branchOffices:BranchOffice[]=[];
     customers:Customer[]=[];
-    itemForm: FormGroup;
 
 
     constructor(
@@ -47,11 +46,11 @@ export class AccountsReceivableIndexComponent extends BaseComponent implements O
         langService: LanguageService,
         private modals:NgbModal,
         private http:HttpClient,
-        private modalService:ModalService,
+       modalService:ModalService,
         private customersService:CustomerService,
         private branchOfficeService: BranchOfficeService
     ) {
-        super(route, langService, AppSections.AccountsReceivable);
+        super(route, langService, AppSections.AccountsReceivable,modalService);
         this.itemForm = this.formBuilder.group({
        branchOfficeId:[0],
        customerId:[0],

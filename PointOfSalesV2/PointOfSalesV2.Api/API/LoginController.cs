@@ -16,6 +16,7 @@ using PointOfSalesV2.Entities.Model;
 using PointOfSalesV2.Repository;
 using PointOfSalesV2.Repository.Helpers;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PointOfSalesV2.Api.Controllers
 {
@@ -80,6 +81,33 @@ namespace PointOfSalesV2.Api.Controllers
                     user = user,
                     languageId=user.LanguageCode
                 });
+            }
+            catch (Exception ex)
+            {
+                return Ok(new { status = -1, message = ex.Message });
+            }
+        }
+
+        [HttpGet("VerifySession")]
+        [EnableCors("AllowAllOrigins")]
+        public IActionResult VerifySession()
+        {
+            try
+            {
+                var currentToken = HttpContext.Request.Headers.FirstOrDefault(x => x.Key == "Authorization").Value.ToString();
+                if (string.IsNullOrEmpty(currentToken) ||  !currentToken.Contains("Bearer"))
+                    return Ok(new { status = -1, message = "error_msg" });
+                else
+                {
+                        string token = currentToken.Split(" ").LastOrDefault();
+                    User user = _cache.Get<User>(token);
+                    if (user == null)
+                        return Ok(new { status = -1, message = "error_msg" });
+                    else
+                        return Ok(new { status = 0, message = "ok_msg" });
+                }
+
+               
             }
             catch (Exception ex)
             {

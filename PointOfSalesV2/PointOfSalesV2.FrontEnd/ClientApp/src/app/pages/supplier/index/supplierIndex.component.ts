@@ -40,9 +40,9 @@ export class SupplierIndexComponent extends BaseComponent implements OnInit {
         langService: LanguageService,
         private service: SupplierService,
         private modals:NgbModal,
-        private modalService:ModalService
+       modalService:ModalService
     ) {
-        super(route, langService, AppSections.Suppliers);
+        super(route, langService, AppSections.Suppliers,modalService);
         let scope = this;
        
         this.tableConfig=[

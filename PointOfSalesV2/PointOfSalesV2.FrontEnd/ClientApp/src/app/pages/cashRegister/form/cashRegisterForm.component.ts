@@ -21,9 +21,6 @@ declare const $: any;
     styleUrls: ["../cashRegisterStyles.component.scss"]
 })
 export class CashRegisterFormComponent extends BaseComponent implements OnInit {
-    itemForm: FormGroup;
-    item: CashRegister;
-    id:number=0;
     _route:ActivatedRoute;
     branchOffices:BranchOffice[]=[];
 
@@ -35,10 +32,10 @@ export class CashRegisterFormComponent extends BaseComponent implements OnInit {
         private service: CashRegisterService,
         private modals:NgbModal,
         private branchOfficeService: BranchOfficeService,
-        private modalService:ModalService
+       modalService:ModalService
         ){
            
-            super(route, langService, AppSections.CashRegisters);
+            super(route, langService, AppSections.CashRegisters,modalService);
             this._route=router;
         this.itemForm = this.formBuilder.group({
             name: ['',[ Validators.required,Validators.minLength(3), Validators.maxLength(100)]],
@@ -53,6 +50,9 @@ export class CashRegisterFormComponent extends BaseComponent implements OnInit {
         this.id=urlId;
         this.getItem(urlId);
      }
+     else
+     this.validateFormData();
+
         this.verifyUser();
         this.getBranchOffices();
     }
@@ -67,8 +67,8 @@ export class CashRegisterFormComponent extends BaseComponent implements OnInit {
                 code:this.item.code,
                 branchOfficeId:this.item.branchOfficeId
             });
-
         }
+        this.validateFormData();
     })
     }
     setBranchOffice(branchOffice: BranchOffice){
@@ -95,6 +95,7 @@ export class CashRegisterFormComponent extends BaseComponent implements OnInit {
             subscription.subscribe(r=>{
                if(r.status>=0){
                 this.modalService.showSuccess(this.lang.getValueByKey('success_msg'));
+                this.clearBackupData();
                 this.router.navigateByUrl('pages/cashregister');
                }
                else
@@ -103,6 +104,7 @@ export class CashRegisterFormComponent extends BaseComponent implements OnInit {
     }
 
     cancel(){
+        this.clearBackupData();
     this.router.navigateByUrl('pages/cashregister');
     }
 }

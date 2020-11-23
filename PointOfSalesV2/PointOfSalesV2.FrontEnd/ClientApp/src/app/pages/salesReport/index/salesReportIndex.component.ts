@@ -42,7 +42,6 @@ export class SalesReportIndexComponent extends BaseComponent implements OnInit {
     branchOffices:BranchOffice[]=[];
     customers:Customer[]=[];
     currencies:Currency[]=[];
-    itemForm: FormGroup;
 
 
     constructor(
@@ -52,11 +51,11 @@ export class SalesReportIndexComponent extends BaseComponent implements OnInit {
         private modals:NgbModal,
         private currencyService:CurrencyService,
         private http:HttpClient,
-        private modalService:ModalService,
+       modalService:ModalService,
         private customersService:CustomerService,
         private branchOfficeService: BranchOfficeService
     ) {
-        super(route, langService, AppSections.AccountsReceivable);
+        super(route, langService, AppSections.AccountsReceivable,modalService);
         this.itemForm = this.formBuilder.group({
        branchOfficeId:[0],
        customerId:[0],

@@ -26,9 +26,7 @@ declare const $: any;
     styleUrls: ["../customerStyles.component.scss"]
 })
 export class CustomerFormComponent extends BaseComponent implements OnInit {
-    itemForm: FormGroup;
-    item: Customer;
-    id:number=0;
+
     zones:Zone[]=[];
     _route:ActivatedRoute;
     trnControls:TRNControl[]=[];
@@ -44,10 +42,10 @@ export class CustomerFormComponent extends BaseComponent implements OnInit {
         private zoneService:ZoneService,
         private trnService:TRNControlService,
         private currencyService:CurrencyService,
-        private modalService:ModalService
+       modalService:ModalService
         ){
            
-            super(route, langService, AppSections.Customers);
+            super(route, langService, AppSections.Customers,modalService);
             this._route=router;
         this.itemForm = this.formBuilder.group({
             name: ['',[ Validators.required,Validators.minLength(3), Validators.maxLength(50)]],
@@ -70,6 +68,9 @@ export class CustomerFormComponent extends BaseComponent implements OnInit {
         this.id=urlId;
         this.getItem(urlId);
      }
+     else
+     this.validateFormData();
+     
         this.verifyUser();
         this.getZones();
         this.getTrnControls();
@@ -95,6 +96,7 @@ export class CustomerFormComponent extends BaseComponent implements OnInit {
             });
 
         }
+        this.validateFormData();
     })
     }
     getTrnControls(){
@@ -133,6 +135,7 @@ export class CustomerFormComponent extends BaseComponent implements OnInit {
             subscription.subscribe(r=>{
                if(r.status>=0){
                 this.modalService.showSuccess(this.lang.getValueByKey('success_msg'));
+                this.clearBackupData();
                 this.router.navigateByUrl('pages/customer');
                }
                else
@@ -141,6 +144,7 @@ export class CustomerFormComponent extends BaseComponent implements OnInit {
     }
 
     cancel(){
+        this.clearBackupData();
     this.router.navigateByUrl('pages/customer');
     }
 }

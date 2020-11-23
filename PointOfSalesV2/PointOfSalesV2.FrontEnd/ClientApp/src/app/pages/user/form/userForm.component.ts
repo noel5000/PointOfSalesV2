@@ -28,8 +28,7 @@ declare const $: any;
     styleUrls: ["../userStyles.component.scss"]
 })
 export class UserFormComponent extends BaseComponent implements OnInit {
-    itemForm: FormGroup;
-    item: User;
+
     userId:string='';
     _route:ActivatedRoute;
     branchOffices:BranchOffice[]=[];
@@ -58,11 +57,11 @@ export class UserFormComponent extends BaseComponent implements OnInit {
         private warehouseService:WarehouseService,
         private http:HttpClient,
         private branchOfficeService: BranchOfficeService,
-        private modalService:ModalService,
+       modalService:ModalService,
         private cashRegisterService:CashRegisterService
         ){
            
-            super(route, langService, AppSections.Users);
+            super(route, langService, AppSections.Users,modalService);
             this._route=router;
         this.itemForm = this.formBuilder.group({
             name: ['',[ Validators.required,Validators.minLength(3), Validators.maxLength(30)]],
@@ -91,6 +90,9 @@ export class UserFormComponent extends BaseComponent implements OnInit {
         this.userId=urlId;
         this.getItem(urlId);
      }
+     else
+     this.validateFormData();
+     
         this.verifyUser();
         this.getBranchOffices();
         this.getLanguages();
@@ -116,6 +118,7 @@ export class UserFormComponent extends BaseComponent implements OnInit {
             this.itemForm.patchValue(this.item);
 
         }
+        this.validateFormData();
     })
     }
     getBranchOfficeWarehouses(branchOfficeId: number){
@@ -194,6 +197,7 @@ export class UserFormComponent extends BaseComponent implements OnInit {
             subscription.subscribe(r=>{
                if(r.status>=0){
                 this.modalService.showSuccess(this.lang.getValueByKey('success_msg'));
+                this.clearBackupData();
                 this.router.navigateByUrl('pages/user');
                }
                else
@@ -202,6 +206,7 @@ export class UserFormComponent extends BaseComponent implements OnInit {
     }
 
     cancel(){
+        this.clearBackupData();
     this.router.navigateByUrl('pages/user');
     }
 }
