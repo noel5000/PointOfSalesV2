@@ -28,10 +28,20 @@ modalRef:any;
     }
 
     showSuccess(message:string='') {
-        this.toastr.success(!message?this.lang.getValueByKey('success_msg'):this.lang.getValueByKey(message), this.lang.getValueByKey('success_msg'));
+      let result='';
+      if(message && message.indexOf('|')>=0)
+      message.split('|').forEach(m=>{
+        result+=`${this.lang.getValueByKey(m.trim())} `;
+      })      
+        this.toastr.success(!message?this.lang.getValueByKey('success_msg'):result, this.lang.getValueByKey('success_msg'));
       }
 
       showError(message:string='') {
-        this.toastr.error(!message?this.lang.getValueByKey('error_msg'):this.lang.getValueByKey(message), this.lang.getValueByKey('error_msg'));
+        let result='';
+        if(message && message.indexOf('|')>=0)
+        message.split('|').forEach(m=>{
+          result+=`${this.lang.getValueByKey(m.trim())} `;
+        })
+        this.toastr.error(!message?this.lang.getValueByKey('error_msg'):result, this.lang.getValueByKey('error_msg'));
       }
 }

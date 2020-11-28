@@ -73,12 +73,14 @@ export class BaseComponent  {
   result.subscribe(r=>{
       if(r){
         if(savedForm.form && this.itemForm!=null){
-            this.itemForm.patchValue(savedForm.form);
             if(this.dataToBackup && this.dataToBackup.split(',').length>0){
                 this.dataToBackup.split(',').forEach(val=>{
                     this[val]=savedForm[val];
                 });
             }
+            this.setAdditionalBackupData();
+            this.itemForm.patchValue(savedForm.form);
+         
             }
       }
       else
@@ -89,12 +91,16 @@ export class BaseComponent  {
        
     }
     }
+   setAdditionalBackupData(){
+
+     }
     clearBackupData(){
         localStorage.removeItem(`${this.getUser().userId} - ${this.section.toString()}`);
     }
 
     getUser():User{
-        return     (JSON.parse(localStorage.getItem('currentUser')) as AuthModel).user;
+        const user=    (JSON.parse(localStorage.getItem('currentUser')) as AuthModel);
+        return user?user.user:{} as User;
     }
 
     getTotalAmount(items:any[],selector:string):number{

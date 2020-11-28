@@ -181,6 +181,12 @@ free:[false]
             this.getSellers(customerId);
         });
     }
+    setAdditionalBackupData(){
+        for(let i=0; i<this.entries.length;i++){
+            this.setDetailFormAmount(i,this.entries[i].quantity);
+            this.setDetailFormDiscount(i,this.entries[i].discountRate);
+          }
+    }
 
     async getTrnControls(){
       
@@ -418,7 +424,7 @@ free:[false]
                 });
 
                 this.itemForm.get('customerId').valueChanges.subscribe(val => {
-                    this.resetForm(this.id>0?false:true);
+                  //  this.resetForm(this.id>0?false:true);
                     if(val && this.customers && this.customers.length>0){
                         this.getSellers(val);
                         const customer = this.customers.find(x=>x.id==val);
@@ -596,8 +602,11 @@ free:[false]
         const form = this.itemForm.getRawValue();
         for(let i=0;i<this.entries.length;i++){
             this.entries[i].quantity = form[`unitQuantity_${i}`];
+            this.entries[i].quantity = !this.entries[i].quantity?0:this.entries[i].quantity;
             this.entries[i].discountRate = form[`unitDiscountRate_${i}`];
+            this.entries[i].discountRate = !this.entries[i].discountRate?0:this.entries[i].discountRate;
             this.entries[i].discountAmount= this.entries[i].discountRate/100*this.entries[i].beforeTaxesAmount;
+            this.entries[i].discountAmount = !this.entries[i].discountAmount?0:this.entries[i].discountAmount;
         }
     }
 
