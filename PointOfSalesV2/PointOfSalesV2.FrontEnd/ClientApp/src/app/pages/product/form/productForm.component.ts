@@ -90,7 +90,7 @@ isPrimary:[false],
 supplierId:[0],
 supplierCost:[0],
 baseProductId:[0],
-baseUnitId:[0],
+baseUnitId:[null],
 quantity:[0],
 taxId:0
         });
@@ -423,6 +423,12 @@ setProductChildren(){
             this.baseProducts.splice(index,1);
             this.baseProducts.push(currentBaseProduct);
         }
+        this.itemForm.patchValue({
+            baseProductId:0,
+            baseUnitId:null,
+            quantity:0,
+            
+        })
     }
     deleteBaseProduct(index:number){
         this.baseProducts.splice(index,1);
