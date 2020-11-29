@@ -686,3 +686,5 @@ ES,billConfirm_lbl,00000000-0000-0000-0000-000000000000,NULL,NULL,NULL,0001-01-0
 EN,billConfirm_lbl,00000000-0000-0000-0000-000000000000,NULL,NULL,NULL,0001-01-01 00:00:00.0000000,NULL,1,1,Are you sure to convert this quote?
 ES,savedFormData_lbl,00000000-0000-0000-0000-000000000000,NULL,NULL,NULL,0001-01-01 00:00:00.0000000,NULL,1,1,Existe información guardada en este formulario. Desea recuperarla?
 EN,savedFormData_lbl,00000000-0000-0000-0000-000000000000,NULL,NULL,NULL,0001-01-01 00:00:00.0000000,NULL,1,1,There is previous information saved for this form. Do you want to recover?
+ES,sessionTimeOut_error,00000000-0000-0000-0000-000000000000,NULL,NULL,NULL,0001-01-01 00:00:00.0000000,NULL,1,1,Session expired. Please login again.
+EN,sessionTimeOut_error,00000000-0000-0000-0000-000000000000,NULL,NULL,NULL,0001-01-01 00:00:00.0000000,NULL,1,1,La sesión ha expirado. Favor iniciar sesión nuevamente.

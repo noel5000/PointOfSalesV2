@@ -239,7 +239,7 @@ this.actions=[
             error => {
                
                 
-                this.modalService.showError(`${this.lang.getValueByKey('error_msg')}: ${error.message}`);
+                 this.modalService.showError(`${this.lang.getValueByKey(error.message)}`);
             }
         )
     }
@@ -248,7 +248,7 @@ this.actions=[
         this.service.post({},null,`BillQuote/${quote.id}`).subscribe(r => {
 
           if(r.status<0)
-          this.modalService.showError(`${this.lang.getValueByKey('error_msg')}: ${r.message}`);
+          this.modalService.showError(`${r.message}`);
           else
           this.modalService.showSuccess(this.lang.getValueByKey('success_msg'))
 
@@ -257,7 +257,7 @@ this.actions=[
             error => {
                
                 
-                this.modalService.showError(`${this.lang.getValueByKey('error_msg')}: ${error.message}`);
+                 this.modalService.showError(`${this.lang.getValueByKey(error.message)}`);
             }
         )
     }

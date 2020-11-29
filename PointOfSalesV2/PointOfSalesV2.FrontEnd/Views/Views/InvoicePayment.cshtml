@@ -184,7 +184,7 @@
                                                 @*<th> <img src="~/Content/images/logo.jpg" alt="header" width="230" height="60" /></th>*@
                                                 <th></th>
                                                 <th class="text-left">@languageKeys.FirstOrDefault(x => x.Key == "date_lbl").Value :</th>
-                                                <th class="text-left">@invoice.BillingDate.Value.ToString("dd-MM-yyyy")</th>
+                                                <th class="text-left">@(invoice.BillingDate.HasValue?invoice.BillingDate.Value.ToString("dd-MM-yyyy"):invoice.CreatedDate.ToString("dd-MM-yyyy"))</th>
                                             </tr>
 
                                             <tr>
@@ -197,7 +197,7 @@
                                                 <th>@languageKeys.FirstOrDefault(x => x.Key == "trn_lbl").Value : @invoice.TRN</th>
                                                 <th class=" "></th>
                                                 <th class="text-left">@languageKeys.FirstOrDefault(x => x.Key == "closureDate_lbl").Value :</th>
-                                                <th class="text-left">@invoice.BillingDate.Value.AddDays(invoice.Customer.InvoiceDueDays).ToString("dd-MM-yyyy")</th>
+                                                <th class="text-left">@(invoice.BillingDate.HasValue?invoice.BillingDate.Value.AddDays(invoice.Customer.InvoiceDueDays).ToString("dd-MM-yyyy"): invoice.CreatedDate.AddDays(invoice.Customer.InvoiceDueDays).ToString("dd-MM-yyyy"))</th>
                                             </tr>
                                             <tr>
                                                 <th>@languageKeys.FirstOrDefault(x => x.Key == "address_lbl").Value : @invoice.Customer.Address</th>

@@ -62,7 +62,7 @@ namespace PointOfSalesV2.Console
             var provider = StartDI();
             var toAdd = new List<LanguageKey>();
             var context = provider.GetService<MainDataContext>();
-            var fileLines = System.IO.File.ReadAllLines("C:\\Users\\noelj\\Documents\\PointOfSalesV2\\PointOfSalesV2\\PointOfSalesV2.Common\\languagekeys.csv").Skip(1).ToList();
+            var fileLines = System.IO.File.ReadAllLines("D:\\backup\\2020-11-28\\PointOfSalesV2\\PointOfSalesV2\\PointOfSalesV2.Common\\languagekeys.csv").Skip(1).ToList();
             var langKeysRepo = provider.GetService<IDataRepositoryFactory>().GetDataRepositories<LanguageKey>();
             var currentKeys = langKeysRepo.GetAll(x => x, y => y.Active == true);
             fileLines.ForEach(l =>

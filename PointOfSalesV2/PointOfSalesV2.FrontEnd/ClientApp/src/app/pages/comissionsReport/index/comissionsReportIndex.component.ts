@@ -99,7 +99,7 @@ async  getData() {
             this.result=r['data'];
         },
             error => {
-            this.modalService.showError(`${this.lang.getValueByKey('error_msg')}: ${error.message}`);
+                 this.modalService.showError(`${this.lang.getValueByKey(error.message)}`);
             }
         )
     }
@@ -110,7 +110,7 @@ async  getData() {
             this.sellers=r;
         },
             error => {
-            this.modalService.showError(`${this.lang.getValueByKey('error_msg')}: ${error.message}`);
+                 this.modalService.showError(`${this.lang.getValueByKey(error.message)}`);
             }
         )
     }
@@ -121,7 +121,7 @@ async  getData() {
             this.currencies=r;
         },
             error => {
-            this.modalService.showError(`${this.lang.getValueByKey('error_msg')}: ${error.message}`);
+                 this.modalService.showError(`${this.lang.getValueByKey(error.message)}`);
             }
         )
     }
@@ -132,7 +132,7 @@ async  getData() {
             this.customers=r;
         },
             error => {
-            this.modalService.showError(`${this.lang.getValueByKey('error_msg')}: ${error.message}`);
+                 this.modalService.showError(`${this.lang.getValueByKey(error.message)}`);
             }
         )
     }
@@ -150,7 +150,7 @@ async  getData() {
           
         },
             error => {
-                this.modalService.showError(`${this.lang.getValueByKey('error_msg')}: ${error.message}`);
+                 this.modalService.showError(`${this.lang.getValueByKey(error.message)}`);
             }
         )
     }

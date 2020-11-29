@@ -84,10 +84,11 @@ namespace PointOfSalesV2.Repository
 
         public IEnumerable<Invoice> GetInvoicesToPay(long branchOfficeId = 0, long currencyId = 0, long customerId = 0)
         {
+            var invoiceStates = new char[] { (char)Enums.BillingStates.Billed, (char)Enums.BillingStates.Paid };
             Func<Invoice, bool> func = invoice => invoice.Active == true &&
           (customerId > 0 ? invoice.CustomerId == customerId : invoice.CustomerId > 0) &&
          (currencyId > 0 ? invoice.CurrencyId == currencyId : invoice.CurrencyId > 0) && (branchOfficeId > 0 ? invoice.BranchOfficeId == branchOfficeId : invoice.BranchOfficeId > 0)
-         && (invoice.State != (char)Enums.BillingStates.Nulled) && (invoice.OwedAmount > 0) && (invoice.PaidAmount < invoice.TotalAmount);
+         && (invoiceStates.Any(x=>x==invoice.State)) && (invoice.OwedAmount > 0) && (invoice.PaidAmount < invoice.TotalAmount);
             return _Context.Invoices.AsNoTracking().Include(x => x.Customer).Include(x => x.BranchOffice)
                 .Include(x => x.Seller).Include(x => x.Currency).Include(x => x.Currency).Where(func);
         }

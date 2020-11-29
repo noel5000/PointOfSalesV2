@@ -140,10 +140,7 @@ this.actions=[
             this.Currencys=r['value'];
           
         },
-            error => {
-               
-                
-                this.modalService.showError(`${this.lang.getValueByKey('error_msg')}: ${error.message}`);
+            error => {  this.modalService.showError(`${this.lang.getValueByKey(error.message)}`);
             }
         )
     }

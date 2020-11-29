@@ -81,7 +81,7 @@ onChanges(){
             this.invoices=r['data'];
         },
             error => {
-            this.modalService.showError(`${this.lang.getValueByKey('error_msg')}: ${error.message}`);
+                 this.modalService.showError(`${this.lang.getValueByKey(error.message)}`);
             }
         )
     }
@@ -111,9 +111,7 @@ onChanges(){
           
         },
             error => {
-               
-                
-                this.modalService.showError(`${this.lang.getValueByKey('error_msg')}: ${error.message}`);
+                 this.modalService.showError(`${this.lang.getValueByKey(error.message)}`);
             }
         )
     }

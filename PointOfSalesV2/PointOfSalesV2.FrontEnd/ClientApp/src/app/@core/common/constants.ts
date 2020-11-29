@@ -1,11 +1,10 @@
 import { AppSections } from './enums';
 
-//export const endpointUrl = 'https://localhost:44386/api/';
-export const endpointUrl = 'http://noeltest400-001-site6.ctempurl.com/api/';
-//http://noeltest400-001-site6.ctempurl.com/
-//https://localhost:44386/
-//export const endpointViewsUrl = 'https://localhost:44386/';
-export const endpointViewsUrl = 'http://noeltest400-001-site6.ctempurl.com/';
+export const endpointUrl = 'https://localhost:44386/api/';
+//export const endpointUrl = 'http://noeltest400-001-site6.ctempurl.com/api/';
+
+export const endpointViewsUrl = 'https://localhost:44386/';
+//export const endpointViewsUrl = 'http://noeltest400-001-site6.ctempurl.com/';
 
 export const endpointControllers = {
     login: 'Login',

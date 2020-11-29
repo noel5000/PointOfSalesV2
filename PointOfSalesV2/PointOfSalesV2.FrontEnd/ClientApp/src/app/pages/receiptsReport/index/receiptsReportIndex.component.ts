@@ -98,8 +98,7 @@ onChanges(){
         filter.startDate? filter.startDate.toString():'0',filter.endDate?filter.endDate.toString():'0',]).subscribe(r => {
             this.invoices=r['data'];
         },
-            error => {
-            this.modalService.showError(`${this.lang.getValueByKey('error_msg')}: ${error.message}`);
+            error => {  this.modalService.showError(`${this.lang.getValueByKey(error.message)}`);
             }
         )
     }
@@ -143,9 +142,7 @@ onChanges(){
           
         },
             error => {
-               
-                
-                this.modalService.showError(`${this.lang.getValueByKey('error_msg')}: ${error.message}`);
+                 this.modalService.showError(`${this.lang.getValueByKey(error.message)}`);
             }
         )
     }

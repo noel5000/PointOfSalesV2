@@ -71,8 +71,8 @@ onChanges(){
             this.result=r['data']?r['data']:{data:[]};
             this.states=this.result?this.result.data:[];
         },
-            error => {
-            this.modalService.showError(`${this.lang.getValueByKey('error_msg')}: ${error.message}`);
+            error => { 
+                 this.modalService.showError(`${this.lang.getValueByKey(error.message)}`);
             }
         )
     }
@@ -97,9 +97,7 @@ onChanges(){
           
         },
             error => {
-               
-                
-                this.modalService.showError(`${this.lang.getValueByKey('error_msg')}: ${error.message}`);
+                 this.modalService.showError(`${this.lang.getValueByKey(error.message)}`);
             }
         )
     }

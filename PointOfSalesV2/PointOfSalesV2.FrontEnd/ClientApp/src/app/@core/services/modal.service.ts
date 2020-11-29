@@ -42,6 +42,9 @@ modalRef:any;
         message.split('|').forEach(m=>{
           result+=`${this.lang.getValueByKey(m.trim())} `;
         })
+        else
+        result=this.lang.getValueByKey(message);
+        
         this.toastr.error(!message?this.lang.getValueByKey('error_msg'):result, this.lang.getValueByKey('error_msg'));
       }
 }

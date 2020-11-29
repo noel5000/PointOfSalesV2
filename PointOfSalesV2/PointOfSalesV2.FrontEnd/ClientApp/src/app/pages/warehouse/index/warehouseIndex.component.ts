@@ -138,9 +138,7 @@ this.actions=[
           
         },
             error => {
-               
-                
-                this.modalService.showError(`${this.lang.getValueByKey('error_msg')}: ${error.message}`);
+                 this.modalService.showError(`${this.lang.getValueByKey(error.message)}`);
             }
         )
     }
