@@ -339,7 +339,7 @@ setProductChildren(){
     }
 
     saveUnit(){
-        const currentUnit= {
+        let currentUnit= {
             id:0,
             productId:parseInt(this.form.id.value.toString()),
             unitId:parseInt( this.form.unitId.value.toString()),
@@ -363,6 +363,7 @@ setProductChildren(){
         if(index<0)
         this.productUnits.push(currentUnit);
         else {
+            currentUnit.id=this.productUnits[index].id;
             this.productUnits.splice(index,1);
             this.productUnits.push(currentUnit);
         }
@@ -372,7 +373,7 @@ setProductChildren(){
     }
 
     saveSupplierCost(){
-        const currentCost= {
+        let currentCost= {
             id:0,
             productId:parseInt(this.form.id.value.toString()),
             supplierId:parseInt(this.form.supplierId.value.toString()),
@@ -388,6 +389,7 @@ setProductChildren(){
         if(index<0)
         this.productSupplierCosts.push(currentCost);
         else {
+           currentCost.id=this.productSupplierCosts[index].id;
             this.productSupplierCosts.splice(index,1);
             this.productSupplierCosts.push(currentCost);
         }
@@ -398,7 +400,7 @@ setProductChildren(){
 
 
     saveBaseProduct(){
-        const currentBaseProduct= {
+        let currentBaseProduct= {
             id:0,
             productId:parseInt(this.form.id.value.toString()),
             baseProductId:parseInt(this.form.baseProductId.value.toString()),
@@ -417,6 +419,7 @@ setProductChildren(){
         if(index<0)
         this.baseProducts.push(currentBaseProduct);
         else {
+            currentBaseProduct.id=this.baseProducts[index].id;
             this.baseProducts.splice(index,1);
             this.baseProducts.push(currentBaseProduct);
         }
@@ -426,7 +429,7 @@ setProductChildren(){
     }
 
     saveTax(){
-        const currentTax= {
+        let currentTax= {
             id:0,
             productId:parseInt(this.form.id.value.toString()),
             taxId:parseInt(this.form.taxId.value.toString()),
@@ -441,6 +444,7 @@ setProductChildren(){
         if(index<0)
         this.productTaxes.push(currentTax);
         else {
+            currentTax.id=this.productTaxes[index].id;
             this.productTaxes.splice(index,1);
             this.productTaxes.push(currentTax);
         }

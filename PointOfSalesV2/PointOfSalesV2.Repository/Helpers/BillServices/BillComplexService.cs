@@ -21,6 +21,7 @@ namespace PointOfSalesV2.Repository.Helpers.BillServices
             detail.UnitId = null;
             detail.Product = null;
             detail.Unit = null;
+            detail.Id = 0;
             var detailResult = detailService.Add(detail);
             if (detailResult.Status < 0)
                 return new Result<InvoiceDetail>(-1, -1, detailResult.Message, null, detailResult.Exception);

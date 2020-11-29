@@ -49,7 +49,7 @@ namespace PointOfSalesV2.Api.Controllers
                     BranchOffice = new BaseModel() { Id = x.BranchOffice.Id, Name = x.BranchOffice.Name },
                     Warehouse = new BaseModel() { Id = x.Warehouse.Id, Name = x.Warehouse.Name },
                     Product = new BaseModel() { Id = x.Product.Id, Name = x.Product.Name },
-                    Unit = new BaseModel() { Id = x.Product.Id, Name = x.Product.Name },
+                    Unit = new BaseModel() { Id = x.Unit.Id, Name = x.Unit.Name },
                     UnitId=x.UnitId,
                     CurrentBalance=x.CurrentBalance,
                     BranchOfficeId=x.BranchOfficeId,
